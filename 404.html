@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <title>404 - Page Not Found | EngrAssist</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="favicon.ico" alt="EA Logo" class="favicon">
+                <span class="brand-name">EngrAssist</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+            </ul>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                ☰
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Error Content -->
+    <main>
+        <div class="error-container">
+            <div class="error-icon">🔧</div>
+            <div class="error-code">404</div>
+            <h1 class="error-title">Houston, We Have a Problem!</h1>
+            <p class="error-message">
+                Looks like this page experienced a catastrophic system failure. Our engineers are investigating, 
+                but it seems the page you're looking for has exceeded its design parameters.
+            </p>
+
+            <div class="error-blueprint">
+                <div class="blueprint-grid">
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem;">📐 Engineering Diagnostics Report</h3>
+                    <p style="color: #7f8c8d;">
+                        <strong>Error Code:</strong> HTTP 404 - Resource Not Found<br>
+                        <strong>System Status:</strong> The requested URL has failed structural integrity tests<br>
+                        <strong>Calculated Load Factor:</strong> 0.00 (Page does not exist)<br>
+                        <strong>Recommended Action:</strong> Return to safe operating zone
+                    </p>
+                </div>
+            </div>
+
+            <div class="engineering-joke">
+                💡 <strong>Engineering Wisdom:</strong> "Like a poorly designed HVAC duct, this link leads nowhere. 
+                The pressure drop is infinite, and the flow rate is zero!"
+            </div>
+
+            <div class="troubleshooting">
+                <h3>🔍 Troubleshooting Steps:</h3>
+                <ul>
+                    <li>Check if you typed the URL correctly (Measure twice, click once!)</li>
+                    <li>The page might have been removed during routine maintenance</li>
+                    <li>Try navigating from the home page using the menu above</li>
+                    <li>If you believe this is an error, please contact our engineering team</li>
+                </ul>
+            </div>
+
+            <div class="button-group">
+                <a href="index.html" class="btn">🏠 Return to Home Base</a>
+                <a href="mechanical_page.html" class="btn-secondary">🔧 View Tools</a>
+                <a href="contact.html" class="btn-secondary">📧 Report Issue</a>
+            </div>
+
+            <p style="margin-top: 3rem; color: #95a5a6; font-size: 0.9rem;">
+                <em>"Remember: In engineering, there are no mistakes, only unexpected test results!"</em>
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- Left: Page Counter -->
+            <div class="footer-left">
+            </div>
+            
+            <!-- Center: Main Footer Content -->
+            <div class="footer-center">
+                <p>&copy; 2025 EngrAssist.com - Professional Design Tools | Built by Engineers, for Engineers</p>
+                <p>
+                    <a href="privacy.html" style="color: #f39c12;">Privacy Policy</a> | 
+                    <a href="terms.html" style="color: #f39c12;">Terms of Service</a> | 
+                    <a href="contact.html" style="color: #f39c12;">Contact Us</a> | 
+                </p>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">
+                    Tools for educational purposes only. Users responsible for verification.
+                </p>
+		<p>
+                    <a href="https://ko-fi.com/engrassist" target="_blank" class="coffee-button"><span class="coffee-icon">☕</span>Support Us</a>
+		</p>
+            </div>
+            
+            <!-- Right: Empty spacer for layout balance -->
+            <div class="footer-right">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
