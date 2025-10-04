@@ -1,0 +1,1371 @@
+// ====================================
+// EMAILJS CONFIGURATION
+// ====================================
+// REPLACE THESE WITH YOUR ACTUAL VALUES FROM EMAILJS:
+const EMAILJS_PUBLIC_KEY = 'ins0bXDTBg7rdNofU';  // From Account > General
+const EMAILJS_SERVICE_ID = 'service_engrassist';  // From Email Services
+const EMAILJS_TEMPLATE_ID = 'template_EngrAssist'; // From Email Templates
+
+// Initialize EmailJS when page loads
+(function() {
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+})();
+
+// Desktop Site Toggle Function
+function toggleDesktopSite() {
+    const viewportMeta = document.getElementById('viewport-meta');
+    const toggleButton = document.getElementById('desktopToggle');
+    const isDesktop = localStorage.getItem('desktopMode') === 'true';
+    
+    if (isDesktop) {
+        viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        localStorage.setItem('desktopMode', 'false');
+        toggleButton.innerHTML = '💻 Desktop View';
+        toggleButton.title = 'Switch to desktop version';
+    } else {
+        viewportMeta.setAttribute('content', 'width=1200');
+        localStorage.setItem('desktopMode', 'true');
+        toggleButton.innerHTML = '📱 Mobile View';
+        toggleButton.title = 'Switch to mobile version';
+    }
+}
+
+// Initialize desktop mode on page load
+function initializeDesktopMode() {
+    const viewportMeta = document.getElementById('viewport-meta');
+    const toggleButton = document.getElementById('desktopToggle');
+    if (!viewportMeta || !toggleButton) return;
+    
+    const isDesktop = localStorage.getItem('desktopMode') === 'true';
+    
+    if (isDesktop) {
+        viewportMeta.setAttribute('content', 'width=1200');
+        toggleButton.innerHTML = '📱 Mobile View';
+        toggleButton.title = 'Switch to mobile version';
+    } else {
+        toggleButton.innerHTML = '💻 Desktop View';
+        toggleButton.title = 'Switch to desktop version';
+    }
+}
+
+// Mobile menu toggle function
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('show');
+    }
+}
+
+// Smooth scroll for internal links
+function initializeSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Animate numbers function
+function animateNumber(element, target, suffix = '') {
+    const duration = 2000;
+    const start = 0;
+    const increment = Math.ceil(target / 50);
+    
+    let current = start;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = current + suffix;
+    }, duration / 50);
+}
+
+// Initialize stats animation on scroll
+function initializeStatsAnimation() {
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const statNumbers = entry.target.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const finalValue = stat.textContent;
+                    if (finalValue !== '∞' && finalValue !== '∞') {
+                        const finalNumber = parseInt(finalValue);
+                        animateNumber(stat, finalNumber, finalValue.includes('+') ? '+' : '');
+                    }
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const statsSection = document.querySelector('.stats-grid');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+}
+
+// Close mobile menu when clicking outside
+function initializeMobileMenuClose() {
+    document.addEventListener('click', function(event) {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        
+        if (mobileMenu && menuBtn && !mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+            mobileMenu.classList.remove('show');
+        }
+    });
+    
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.remove('show');
+            }
+        });
+    });
+}
+
+// ====================================
+// CONTACT FORM WITH EMAILJS
+// ====================================
+function initializeContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Hide any previous messages
+        if (successMessage) successMessage.style.display = 'none';
+        if (errorMessage) errorMessage.style.display = 'none';
+        
+        // Show loading state
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+        this.classList.add('loading');
+
+        // Send email using EmailJS
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                
+                // Show success message
+                if (successMessage) {
+                    successMessage.style.display = 'block';
+                    successMessage.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                contactForm.classList.remove('loading');
+                
+            }, function(error) {
+                console.error('FAILED...', error);
+                
+                // Show error message
+                if (errorMessage) {
+                    errorMessage.style.display = 'block';
+                    errorMessage.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+                
+                // Reset button
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                contactForm.classList.remove('loading');
+            });
+    });
+}
+
+// FAQ toggle functionality
+function toggleFAQ(button) {
+    const answer = button.nextElementSibling;
+    const icon = button.querySelector('span');
+    
+    // Close all other FAQ items
+    document.querySelectorAll('.faq-answer').forEach(item => {
+        if (item !== answer) {
+            item.classList.remove('active');
+            const otherIcon = item.previousElementSibling.querySelector('span');
+            if (otherIcon) otherIcon.textContent = '+';
+        }
+    });
+    
+    // Toggle current item
+    answer.classList.toggle('active');
+    if (icon) {
+        icon.textContent = answer.classList.contains('active') ? '-' : '+';
+    }
+}
+
+// Fill quote form function (for contact page)
+function fillQuoteForm() {
+    const subjectField = document.getElementById('subject');
+    const messageField = document.getElementById('message');
+    
+    if (subjectField && messageField) {
+        subjectField.value = 'Business Inquiry';
+        messageField.value = 'I\'m interested in a custom HVAC design tool. Please contact me with more information about your custom development services.';
+        messageField.focus();
+    }
+}
+
+// Form validation enhancements
+function initializeFormValidation() {
+    document.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+        field.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                this.style.borderColor = '#e74c3c';
+            } else {
+                this.style.borderColor = '#27ae60';
+            }
+        });
+    });
+
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        emailField.addEventListener('blur', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value && !emailRegex.test(this.value)) {
+                this.style.borderColor = '#e74c3c';
+            } else if (this.value) {
+                this.style.borderColor = '#27ae60';
+            }
+        });
+    }
+}
+
+// Console messages for different pages
+function initializeConsoleMessages() {
+    const currentPage = window.location.pathname;
+    
+    if (currentPage.includes('about')) {
+        console.log("%c🗏️ EngrAssist About Page - Built with Professional Standards", "color: #f39c12; font-size: 16px; font-weight: bold;");
+        console.log("%cFun fact: Commercial HVAC systems can move over 100,000 CFM of air!", "color: #3498db; font-size: 12px;");
+    } else if (currentPage.includes('privacy')) {
+        console.log("%c🔒 EngrAssist Privacy Policy - Your Privacy is Protected", "color: #27ae60; font-size: 16px; font-weight: bold;");
+    } else if (currentPage.includes('terms')) {
+        console.log("%c⚖️ EngrAssist Terms of Service - Legal Protection Active", "color: #dc3545; font-size: 16px; font-weight: bold;");
+        console.log("%cAll tools for educational purposes only. Professional verification required.", "color: #856404; font-size: 12px;");
+    }
+}
+
+// Page Counter Functionality
+function initializePageCounter() {
+    const counterElement = document.getElementById('pageCounter');
+    if (!counterElement) return;
+    
+    let visitorCount = localStorage.getItem('engrAssistVisitors');
+    
+    if (!visitorCount) {
+        visitorCount = 1;
+    } else {
+        visitorCount = parseInt(visitorCount) + 1;
+    }
+    
+    localStorage.setItem('engrAssistVisitors', visitorCount);
+    animateCounter(counterElement, visitorCount);
+}
+
+function animateCounter(element, target) {
+    const duration = 1000;
+    const start = Math.max(0, target - 50);
+    const increment = Math.ceil((target - start) / 30);
+    
+    let current = start;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = current.toLocaleString();
+    }, duration / 30);
+}
+
+// ========================================
+// CONVERSION CALCULATOR FUNCTIONALITY
+// ========================================
+
+const conversionData = {
+    distance: {
+        name: "Distance/Length",
+        units: {
+            "mm": { name: "Millimeters", toBase: 0.001 },
+            "cm": { name: "Centimeters", toBase: 0.01 },
+            "m": { name: "Meters", toBase: 1 },
+            "km": { name: "Kilometers", toBase: 1000 },
+            "in": { name: "Inches", toBase: 0.0254 },
+            "ft": { name: "Feet", toBase: 0.3048 },
+            "yd": { name: "Yards", toBase: 0.9144 },
+            "mi": { name: "Miles", toBase: 1609.344 }
+        }
+    },
+    area: {
+        name: "Area",
+        units: {
+            "mm2": { name: "Square Millimeters", toBase: 0.000001 },
+            "cm2": { name: "Square Centimeters", toBase: 0.0001 },
+            "m2": { name: "Square Meters", toBase: 1 },
+            "km2": { name: "Square Kilometers", toBase: 1000000 },
+            "in2": { name: "Square Inches", toBase: 0.00064516 },
+            "ft2": { name: "Square Feet", toBase: 0.092903 },
+            "yd2": { name: "Square Yards", toBase: 0.836127 },
+            "acre": { name: "Acres", toBase: 4046.86 }
+        }
+    },
+    volume: {
+        name: "Volume",
+        units: {
+            "mm3": { name: "Cubic Millimeters", toBase: 0.000000001 },
+            "cm3": { name: "Cubic Centimeters", toBase: 0.000001 },
+            "m3": { name: "Cubic Meters", toBase: 1 },
+            "L": { name: "Liters", toBase: 0.001 },
+            "in3": { name: "Cubic Inches", toBase: 0.000016387 },
+            "ft3": { name: "Cubic Feet", toBase: 0.028317 },
+            "gal": { name: "Gallons (US)", toBase: 0.003785 },
+            "qt": { name: "Quarts", toBase: 0.000946 }
+        }
+    },
+    mass: {
+        name: "Mass",
+        units: {
+            "mg": { name: "Milligrams", toBase: 0.000001 },
+            "g": { name: "Grams", toBase: 0.001 },
+            "kg": { name: "Kilograms", toBase: 1 },
+            "ton": { name: "Metric Tons", toBase: 1000 },
+            "oz": { name: "Ounces", toBase: 0.02835 },
+            "lb": { name: "Pounds", toBase: 0.4536 },
+            "ton_us": { name: "US Tons", toBase: 907.185 }
+        }
+    },
+    force: {
+        name: "Force",
+        units: {
+            "N": { name: "Newtons", toBase: 1 },
+            "kN": { name: "Kilonewtons", toBase: 1000 },
+            "lbf": { name: "Pounds Force", toBase: 4.448 },
+            "kip": { name: "Kips", toBase: 4448 },
+            "dyne": { name: "Dynes", toBase: 0.00001 }
+        }
+    },
+    pressure: {
+        name: "Pressure",
+        units: {
+            "Pa": { name: "Pascals", toBase: 1 },
+            "kPa": { name: "Kilopascals", toBase: 1000 },
+            "MPa": { name: "Megapascals", toBase: 1000000 },
+            "psi": { name: "PSI", toBase: 6895 },
+            "bar": { name: "Bar", toBase: 100000 },
+            "atm": { name: "Atmospheres", toBase: 101325 },
+            "mmHg": { name: "mmHg", toBase: 133.322 },
+            "inHg": { name: "inHg", toBase: 3386.39 }
+        }
+    },
+    temperature: {
+        name: "Temperature",
+        special: true
+    },
+    power: {
+        name: "Power",
+        units: {
+            "W": { name: "Watts", toBase: 1 },
+            "kW": { name: "Kilowatts", toBase: 1000 },
+            "MW": { name: "Megawatts", toBase: 1000000 },
+            "hp": { name: "Horsepower", toBase: 745.7 },
+            "Btu/hr": { name: "BTU/hr", toBase: 0.2931 },
+            "ft-lbf/s": { name: "ft-lbf/sec", toBase: 1.356 }
+        }
+    },
+    energy: {
+        name: "Energy",
+        units: {
+            "J": { name: "Joules", toBase: 1 },
+            "kJ": { name: "Kilojoules", toBase: 1000 },
+            "MJ": { name: "Megajoules", toBase: 1000000 },
+            "Btu": { name: "BTU", toBase: 1055 },
+            "kWh": { name: "Kilowatt-hours", toBase: 3600000 },
+            "cal": { name: "Calories", toBase: 4.184 },
+            "ft-lbf": { name: "ft-lbf", toBase: 1.356 }
+        }
+    },
+    flow: {
+        name: "Flow Rate",
+        units: {
+            "m3/s": { name: "m³/s", toBase: 1 },
+            "L/s": { name: "L/s", toBase: 0.001 },
+            "L/min": { name: "L/min", toBase: 0.0000167 },
+            "ft3/s": { name: "ft³/s", toBase: 0.02832 },
+            "ft3/min": { name: "CFM", toBase: 0.000472 },
+            "gal/min": { name: "GPM", toBase: 0.0000631 },
+            "gal/hr": { name: "GPH", toBase: 0.00000105 }
+        }
+    },
+    speed: {
+        name: "Speed/Velocity",
+        units: {
+            "m/s": { name: "m/s", toBase: 1 },
+            "km/h": { name: "km/h", toBase: 0.2778 },
+            "ft/s": { name: "ft/s", toBase: 0.3048 },
+            "ft/min": { name: "ft/min", toBase: 0.00508 },
+            "mph": { name: "mph", toBase: 0.4470 },
+            "knot": { name: "Knots", toBase: 0.5144 }
+        }
+    },
+    time: {
+        name: "Time",
+        units: {
+            "s": { name: "Seconds", toBase: 1 },
+            "min": { name: "Minutes", toBase: 60 },
+            "hr": { name: "Hours", toBase: 3600 },
+            "day": { name: "Days", toBase: 86400 },
+            "week": { name: "Weeks", toBase: 604800 },
+            "year": { name: "Years", toBase: 31536000 }
+        }
+    }
+};
+
+function initializeCalculator() {
+    const categorySelect = document.getElementById('categorySelect');
+    const inputUnit = document.getElementById('inputUnit');
+    const outputUnit = document.getElementById('outputUnit');
+    const inputValue = document.getElementById('inputValue');
+    const outputValue = document.getElementById('outputValue');
+    const convertBtn = document.getElementById('convertBtn');
+    const swapBtn = document.getElementById('swapBtn');
+    
+    if (!categorySelect || !inputUnit || !outputUnit || !inputValue || !outputValue) {
+        return;
+    }
+    
+    updateUnits();
+    categorySelect.addEventListener('change', updateUnits);
+    convertBtn.addEventListener('click', convert);
+    swapBtn.addEventListener('click', swapUnits);
+    inputValue.addEventListener('input', convert);
+    inputUnit.addEventListener('change', convert);
+    outputUnit.addEventListener('change', convert);
+}
+
+function updateUnits() {
+    const categorySelect = document.getElementById('categorySelect');
+    const inputUnit = document.getElementById('inputUnit');
+    const outputUnit = document.getElementById('outputUnit');
+    const inputValue = document.getElementById('inputValue');
+    const outputValue = document.getElementById('outputValue');
+    
+    const category = categorySelect.value;
+    const data = conversionData[category];
+    
+    inputUnit.innerHTML = '';
+    outputUnit.innerHTML = '';
+    
+    if (category === 'temperature') {
+        const tempUnits = [
+            { value: 'C', name: 'Celsius (°C)' },
+            { value: 'F', name: 'Fahrenheit (°F)' },
+            { value: 'K', name: 'Kelvin (K)' },
+            { value: 'R', name: 'Rankine (°R)' }
+        ];
+        
+        tempUnits.forEach(unit => {
+            inputUnit.appendChild(new Option(unit.name, unit.value));
+            outputUnit.appendChild(new Option(unit.name, unit.value));
+        });
+        
+        inputUnit.value = 'F';
+        outputUnit.value = 'C';
+    } else {
+        const units = Object.keys(data.units);
+        units.forEach(unitKey => {
+            const unit = data.units[unitKey];
+            inputUnit.appendChild(new Option(unit.name, unitKey));
+            outputUnit.appendChild(new Option(unit.name, unitKey));
+        });
+        
+        if (units.length > 1) {
+            inputUnit.value = units[0];
+            outputUnit.value = units[1];
+        }
+    }
+    
+    inputValue.value = '';
+    outputValue.value = '';
+}
+
+function convert() {
+    const categorySelect = document.getElementById('categorySelect');
+    const inputUnit = document.getElementById('inputUnit');
+    const outputUnit = document.getElementById('outputUnit');
+    const inputValue = document.getElementById('inputValue');
+    const outputValue = document.getElementById('outputValue');
+    
+    const inputVal = parseFloat(inputValue.value);
+    if (isNaN(inputVal)) {
+        outputValue.value = '';
+        return;
+    }
+
+    const category = categorySelect.value;
+    const fromUnit = inputUnit.value;
+    const toUnit = outputUnit.value;
+
+    let result;
+
+    if (category === 'temperature') {
+        result = convertTemperature(inputVal, fromUnit, toUnit);
+    } else {
+        const data = conversionData[category];
+        const fromFactor = data.units[fromUnit].toBase;
+        const toFactor = data.units[toUnit].toBase;
+        result = (inputVal * fromFactor) / toFactor;
+    }
+
+    if (Math.abs(result) >= 1000000 || (Math.abs(result) < 0.001 && result !== 0)) {
+        outputValue.value = result.toExponential(6);
+    } else {
+        outputValue.value = parseFloat(result.toFixed(10)).toString();
+    }
+}
+
+function convertTemperature(value, from, to) {
+    if (from === to) return value;
+
+    let celsius;
+    switch (from) {
+        case 'C': celsius = value; break;
+        case 'F': celsius = (value - 32) * 5/9; break;
+        case 'K': celsius = value - 273.15; break;
+        case 'R': celsius = (value - 491.67) * 5/9; break;
+    }
+
+    switch (to) {
+        case 'C': return celsius;
+        case 'F': return celsius * 9/5 + 32;
+        case 'K': return celsius + 273.15;
+        case 'R': return celsius * 9/5 + 491.67;
+    }
+}
+
+function swapUnits() {
+    const inputUnit = document.getElementById('inputUnit');
+    const outputUnit = document.getElementById('outputUnit');
+    const inputValue = document.getElementById('inputValue');
+    const outputValue = document.getElementById('outputValue');
+    
+    const tempUnit = inputUnit.value;
+    const tempValue = inputValue.value;
+    
+    inputUnit.value = outputUnit.value;
+    outputUnit.value = tempUnit;
+    inputValue.value = outputValue.value;
+    
+    convert();
+}
+
+// ========================================
+// BOILER CALCULATOR FUNCTIONS
+// ========================================
+
+let boilerSystemData = {};
+
+function toggleCustomBTU() {
+    const option = document.getElementById('climateOption');
+    const customInput = document.getElementById('customBTUInput');
+    if (option && customInput) {
+        if (option.value === 'custom') {
+            customInput.style.display = 'block';
+        } else {
+            customInput.style.display = 'none';
+        }
+    }
+}
+
+function toggleGlycolMix() {
+    const fluidType = document.getElementById('fluidType');
+    const glycolInput = document.getElementById('glycolMixInput');
+    if (fluidType && glycolInput) {
+        if (fluidType.value === 'propylene' || fluidType.value === 'ethylene') {
+            glycolInput.style.display = 'block';
+        } else {
+            glycolInput.style.display = 'none';
+        }
+    }
+}
+
+function calculateBoilerSystem() {
+    const sqft = parseFloat(document.getElementById('sqft').value);
+    const climateOption = document.getElementById('climateOption').value;
+    const safetyFactorPercent = parseFloat(document.getElementById('safetyFactor').value);
+
+    let btuPerSqFt;
+    if (climateOption === 'custom') {
+        btuPerSqFt = parseFloat(document.getElementById('customBTU').value);
+        if (!btuPerSqFt || btuPerSqFt <= 0) {
+            alert('Please enter a valid custom BTU/sq ft value');
+            return;
+        }
+    } else {
+        btuPerSqFt = parseFloat(climateOption);
+    }
+
+    if (!sqft || sqft <= 0) {
+        alert('Please enter a valid square footage');
+        return;
+    }
+
+    const fluidType = document.getElementById('fluidType').value;
+    const enterTemp = parseFloat(document.getElementById('enterTemp').value);
+    const leaveTemp = parseFloat(document.getElementById('leaveTemp').value);
+    const glycolPercent = parseFloat(document.getElementById('glycolPercent').value) || 0;
+
+    if (!enterTemp || !leaveTemp) {
+        alert('Please enter valid entering and leaving temperatures');
+        return;
+    }
+
+    const deltaT = Math.abs(leaveTemp - enterTemp);
+    if (deltaT === 0) {
+        alert('Temperature difference cannot be zero');
+        return;
+    }
+
+    // Calculate heat load (removed building factor)
+    const baseHeatLoss = sqft * btuPerSqFt;
+    const safetyFactor = 1 + (safetyFactorPercent / 100);
+    const requiredBTU = baseHeatLoss * safetyFactor;
+
+    let specificHeat, density;
+    
+    if (fluidType === 'water') {
+        specificHeat = 1.0;
+        density = 8.34;
+    } else if (fluidType === 'propylene') {
+        specificHeat = 1.0 - (0.003 * glycolPercent);
+        density = 8.34 + (0.01 * glycolPercent);
+    } else {
+        specificHeat = 1.0 - (0.0035 * glycolPercent);
+        density = 8.34 + (0.012 * glycolPercent);
+    }
+
+    const specificGravity = density / 8.34;
+
+    boilerSystemData = {
+        requiredBTU: requiredBTU,
+        baseHeatLoss: baseHeatLoss,
+        deltaT: deltaT,
+        specificHeat: specificHeat,
+        density: density,
+        specificGravity: specificGravity
+    };
+
+    document.getElementById('heatLoss').textContent = formatNumber(baseHeatLoss) + ' BTU/hr';
+    document.getElementById('requiredBTU').textContent = formatNumber(requiredBTU) + ' BTU/hr';
+    document.getElementById('deltaT').textContent = deltaT.toFixed(1) + ' °F';
+    document.getElementById('specificHeat').textContent = specificHeat.toFixed(3) + ' BTU/(lb·°F)';
+    document.getElementById('density').textContent = density.toFixed(2) + ' lb/gal';
+}
+
+function calculateBoilerSelectedSystem() {
+    if (!boilerSystemData.requiredBTU) {
+        alert('Please calculate System Requirements first');
+        return;
+    }
+
+    const boilerQuantity = parseInt(document.getElementById('boilerQuantity').value);
+    const boilerInputBTU = parseFloat(document.getElementById('boilerInputBTU').value);
+    const boilerEfficiency = parseFloat(document.getElementById('boilerEfficiency').value) / 100;
+
+    if (!boilerQuantity || boilerQuantity <= 0) {
+        alert('Please enter a valid number of boilers');
+        return;
+    }
+
+    if (!boilerInputBTU || boilerInputBTU <= 0) {
+        alert('Please enter a valid boiler input BTU');
+        return;
+    }
+
+    if (!boilerEfficiency || boilerEfficiency <= 0) {
+        alert('Please enter a valid boiler efficiency');
+        return;
+    }
+
+    const outputBTUPerBoiler = boilerInputBTU * boilerEfficiency;
+    const totalOutputBTU = outputBTUPerBoiler * boilerQuantity;
+    const actualSafetyPercent = ((totalOutputBTU - boilerSystemData.baseHeatLoss) / boilerSystemData.baseHeatLoss) * 100;
+    const flowPerBoiler = outputBTUPerBoiler / (500 * boilerSystemData.deltaT * boilerSystemData.specificGravity * boilerSystemData.specificHeat);
+    const totalFlow = flowPerBoiler * boilerQuantity;
+
+    document.getElementById('outputBTUPerBoiler').textContent = formatNumber(outputBTUPerBoiler) + ' BTU/hr';
+    document.getElementById('totalOutputBTU').textContent = formatNumber(totalOutputBTU) + ' BTU/hr';
+    document.getElementById('actualSafety').textContent = actualSafetyPercent.toFixed(1) + '%';
+    document.getElementById('flowPerBoiler').textContent = flowPerBoiler.toFixed(1) + ' GPM';
+    document.getElementById('totalFlow').textContent = totalFlow.toFixed(1) + ' GPM';
+}
+
+function formatNumber(num) {
+    return Math.round(num).toLocaleString();
+}
+
+// ========================================
+// DUCTULATOR CALCULATOR FUNCTIONS
+// ========================================
+
+let currentUnitSystem = 'imperial';
+
+function initializeDuctulator() {
+    const calcTypeSelect = document.getElementById('calculation-type');
+    if (!calcTypeSelect) return; // Exit if not on ductulator page
+    
+    updateRoughness();
+    updateInputFields();
+}
+
+function updateRoughness() {
+    const materialSelect = document.getElementById('duct-material');
+    const roughnessInput = document.getElementById('duct-roughness');
+    if (materialSelect && roughnessInput) {
+        roughnessInput.value = materialSelect.value;
+    }
+}
+
+function toggleAdvancedConditions() {
+    const advancedDiv = document.getElementById('advanced-conditions');
+    const isStandardConditions = document.getElementById('std-yes').checked;
+    if (advancedDiv) {
+        advancedDiv.style.display = isStandardConditions ? 'none' : 'block';
+    }
+    
+    if (isStandardConditions) {
+        // Reset to standard conditions
+        const tempInput = document.getElementById('temp');
+        const humidityInput = document.getElementById('humidity');
+        const elevationInput = document.getElementById('elevation');
+        const densityInput = document.getElementById('density');
+        
+        if (tempInput) tempInput.value = 70;
+        if (humidityInput) humidityInput.value = 0;
+        if (elevationInput) elevationInput.value = 0;
+        if (densityInput) densityInput.value = 0.075;
+    }
+}
+
+function updateInputFields() {
+    const calcType = document.getElementById('calculation-type');
+    const dynamicInputs = document.getElementById('dynamic-inputs');
+    if (!calcType || !dynamicInputs) return;
+    
+    const calcValue = calcType.value;
+    let html = '';
+    
+    switch(calcValue) {
+        case 'friction-loss':
+            html = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
+                        <input type="number" id="airflow" min="0" step="1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="width">Width <span class="unit-display">(in)</span></label>
+                        <input type="number" id="width" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="height">Height <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height" min="0" step="0.1" required>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'airflow-rate':
+            html = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="width">Width <span class="unit-display">(in)</span></label>
+                        <input type="number" id="width" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="height">Height <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(in wg/100ft)</span></label>
+                        <input type="number" id="friction-rate" min="0" step="0.001" value="0.100" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
+                    </div>
+                </div>
+            `;
+            break;
+        case 'size-velocity':
+            html = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
+                        <input type="number" id="airflow" min="0" step="1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="velocity">Velocity <span class="unit-display">(fpm)</span></label>
+                        <input type="number" id="velocity" min="0" step="1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
+                    </div>
+                </div>
+            `;
+            break;
+        case 'size-friction':
+            html = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
+                        <input type="number" id="airflow" min="0" step="1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(in wg/100ft)</span></label>
+                        <input type="number" id="friction-rate" min="0" step="0.001" value="0.100" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
+                    </div>
+                </div>
+            `;
+            break;
+        case 'convert-shape':
+            html = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="width">Width <span class="unit-display">(in)</span></label>
+                        <input type="number" id="width" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="height">Height <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="airflow">Airflow - Optional <span class="unit-display">(CFM)</span></label>
+                        <input type="number" id="airflow" min="0" step="1">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
+                    </div>
+                </div>
+            `;
+            break;
+        case 'size-velocity-friction':
+            html = `
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
+                        <input type="number" id="airflow" min="0" step="1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="velocity">Velocity <span class="unit-display">(fpm)</span></label>
+                        <input type="number" id="velocity" min="0" step="1" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(in wg/100ft)</span></label>
+                        <input type="number" id="friction-rate" min="0" step="0.001" value="0.100" required>
+                    </div>
+                </div>
+            `;
+            break;
+    }
+    
+    dynamicInputs.innerHTML = html;
+}
+
+function updateShapeFields() {
+    const shape = document.getElementById('original-shape');
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    
+    if (!shape) return;
+    
+    if (shape.value === 'round') {
+        if (widthInput && widthInput.previousElementSibling) {
+            widthInput.previousElementSibling.innerHTML = 'Diameter <span class="unit-display">(in)</span>';
+        }
+        if (heightInput) {
+            heightInput.style.display = 'none';
+            if (heightInput.parentElement) {
+                heightInput.parentElement.style.display = 'none';
+            }
+        }
+    } else {
+        if (widthInput && widthInput.previousElementSibling) {
+            widthInput.previousElementSibling.innerHTML = 'Width <span class="unit-display">(in)</span>';
+        }
+        if (heightInput) {
+            heightInput.style.display = 'block';
+            if (heightInput.parentElement) {
+                heightInput.parentElement.style.display = 'block';
+            }
+        }
+    }
+}
+
+function updateUnitSystem() {
+    const metricRadio = document.getElementById('metric');
+    if (metricRadio && metricRadio.checked) {
+        currentUnitSystem = 'metric';
+    } else {
+        currentUnitSystem = 'imperial';
+    }
+}
+
+function calculateResults() {
+    const calcType = document.getElementById('calculation-type');
+    const resultsContainer = document.getElementById('results-container');
+    
+    if (!calcType || !resultsContainer) return;
+    
+    try {
+        validateInputs(calcType.value);
+        
+        let results = {};
+        
+        switch(calcType.value) {
+            case 'friction-loss':
+                results = calculateFrictionLoss();
+                break;
+            case 'airflow-rate':
+                results = calculateAirflowRate();
+                break;
+            case 'size-velocity-friction':
+                results = calculateSizeVelocityFriction();
+                break;
+            case 'size-velocity':
+                results = calculateSizeVelocity();
+                break;
+            case 'size-friction':
+                results = calculateSizeFriction();
+                break;
+            case 'convert-shape':
+                results = convertDuctShape();
+                break;
+        }
+        
+        displayResults(results);
+        
+    } catch (error) {
+        resultsContainer.innerHTML = `
+            <div class="error-box">
+                <strong>Calculation Error:</strong> ${error.message}
+            </div>
+        `;
+    }
+}
+
+function validateInputs(calcType) {
+    const isMetric = currentUnitSystem === 'metric';
+    
+    const airflowInput = document.getElementById('airflow');
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    const velocityInput = document.getElementById('velocity');
+    
+    if (airflowInput && airflowInput.value) {
+        const airflow = parseFloat(airflowInput.value);
+        const minAirflow = isMetric ? 10 : 20;
+        const maxAirflow = isMetric ? 5000 : 10000;
+        
+        if (airflow < minAirflow || airflow > maxAirflow) {
+            throw new Error(`Airflow should be between ${minAirflow} and ${maxAirflow} ${isMetric ? 'L/s' : 'CFM'}`);
+        }
+    }
+    
+    if (velocityInput && velocityInput.value) {
+        const velocity = parseFloat(velocityInput.value);
+        const minVel = isMetric ? 2 : 400;
+        const maxVel = isMetric ? 15 : 3000;
+        
+        if (velocity < minVel || velocity > maxVel) {
+            throw new Error(`Velocity should be between ${minVel} and ${maxVel} ${isMetric ? 'm/s' : 'fpm'}`);
+        }
+    }
+    
+    if (widthInput && heightInput && widthInput.value && heightInput.value) {
+        const width = parseFloat(widthInput.value);
+        const height = parseFloat(heightInput.value);
+        const aspectRatio = Math.max(width, height) / Math.min(width, height);
+        
+        if (aspectRatio > 4) {
+            throw new Error(`Aspect ratio (${aspectRatio.toFixed(1)}:1) exceeds recommended maximum of 4:1`);
+        }
+    }
+}
+
+function calculateFrictionLoss() {
+    const airflow = parseFloat(document.getElementById('airflow').value);
+    const width = parseFloat(document.getElementById('width').value);
+    const height = parseFloat(document.getElementById('height').value);
+    const roughness = parseFloat(document.getElementById('duct-roughness').value);
+    const shape = document.getElementById('original-shape').value;
+    const density = parseFloat(document.getElementById('density').value);
+    
+    if (!airflow || !width || (shape !== 'round' && !height)) {
+        throw new Error('Please fill in all required fields');
+    }
+    
+    let hydraulicDiameter, area, velocity, reynoldsNumber, frictionFactor, frictionLoss;
+    
+    if (shape === 'round') {
+        const diameter = width;
+        area = Math.PI * Math.pow(diameter / 12, 2) / 4;
+        hydraulicDiameter = diameter / 12;
+        velocity = airflow / area; // Corrected: CFM / ft² = fpm
+    } else {
+        area = (width * height) / 144;
+        const perimeter = 2 * (width + height) / 12;
+        hydraulicDiameter = 4 * area / perimeter;
+        velocity = airflow / area; // Corrected: CFM / ft² = fpm
+    }
+    
+    const dynamicViscosity = 0.00073;
+    const velocityFPS = velocity / 60; // Convert fpm to fps for Reynolds calculation
+    reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / dynamicViscosity;
+    
+    const relativeRoughness = roughness / hydraulicDiameter;
+    frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
+    
+    // Corrected velocity pressure formula using 4005 constant for fpm
+    const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+    frictionLoss = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+    
+    return {
+        hydraulicDiameter: (hydraulicDiameter * 12).toFixed(2),
+        area: area.toFixed(3),
+        velocity: velocity.toFixed(0),
+        reynoldsNumber: reynoldsNumber.toFixed(0),
+        frictionFactor: frictionFactor.toFixed(4),
+        frictionLoss: frictionLoss.toFixed(4),
+        velocityPressure: velocityPressure.toFixed(4)
+    };
+}
+
+function calculateAirflowRate() {
+    const width = parseFloat(document.getElementById('width').value);
+    const height = parseFloat(document.getElementById('height').value);
+    const frictionRate = parseFloat(document.getElementById('friction-rate').value);
+    const roughness = parseFloat(document.getElementById('duct-roughness').value);
+    const shape = document.getElementById('original-shape').value;
+    const density = parseFloat(document.getElementById('density').value);
+    
+    if (!width || (shape !== 'round' && !height) || !frictionRate) {
+        throw new Error('Please fill in all required fields');
+    }
+    
+    let hydraulicDiameter, area;
+    
+    if (shape === 'round') {
+        const diameter = width;
+        area = Math.PI * Math.pow(diameter / 12, 2) / 4;
+        hydraulicDiameter = diameter / 12;
+    } else {
+        area = (width * height) / 144;
+        const perimeter = 2 * (width + height) / 12;
+        hydraulicDiameter = 4 * area / perimeter;
+    }
+    
+    let airflow = 1000;
+    let iterations = 0;
+    const maxIterations = 50;
+    
+    while (iterations < maxIterations) {
+        const velocity = airflow / area; // Corrected: CFM / ft² = fpm
+        const velocityFPS = velocity / 60; // Convert to fps for Reynolds
+        const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+        const relativeRoughness = roughness / hydraulicDiameter;
+        const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
+        const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+        const calculatedFriction = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+        
+        const error = calculatedFriction - frictionRate;
+        if (Math.abs(error) < 0.001) break;
+        
+        airflow = airflow - error * 1000;
+        iterations++;
+    }
+    
+    const velocity = airflow / area; // Final velocity in fpm
+    
+    return {
+        airflow: airflow.toFixed(0),
+        velocity: velocity.toFixed(0),
+        hydraulicDiameter: (hydraulicDiameter * 12).toFixed(2),
+        area: area.toFixed(3),
+        iterations: iterations
+    };
+}
+
+function calculateSizeVelocityFriction() {
+    return calculateSizeVelocity();
+}
+
+function calculateSizeVelocity() {
+    const airflow = parseFloat(document.getElementById('airflow').value);
+    const velocity = parseFloat(document.getElementById('velocity').value);
+    const heightRestriction = parseFloat(document.getElementById('height-restriction')?.value);
+    const shape = document.getElementById('original-shape').value;
+    
+    if (!airflow || !velocity) {
+        throw new Error('Please fill in all required fields');
+    }
+    
+    // Corrected: Area = CFM / fpm = ft²
+    const requiredArea = airflow / velocity;
+    
+    let width, height, diameter;
+    
+    if (shape === 'round') {
+        diameter = Math.sqrt(4 * requiredArea / Math.PI) * 12;
+        return {
+            diameter: diameter.toFixed(1),
+            area: requiredArea.toFixed(3),
+            velocity: velocity,
+            shape: 'Round'
+        };
+    } else {
+        if (heightRestriction) {
+            height = heightRestriction;
+            width = (requiredArea * 144) / height;
+        } else {
+            const side = Math.sqrt(requiredArea * 144);
+            width = side;
+            height = side;
+        }
+        
+        return {
+            width: width.toFixed(1),
+            height: height.toFixed(1),
+            area: requiredArea.toFixed(3),
+            velocity: velocity,
+            aspectRatio: (width / height).toFixed(2),
+            shape: 'Rectangular'
+        };
+    }
+}
+
+function calculateSizeFriction() {
+    const airflow = parseFloat(document.getElementById('airflow').value);
+    const frictionRate = parseFloat(document.getElementById('friction-rate').value);
+    
+    if (!airflow || !frictionRate) {
+        throw new Error('Please fill in all required fields');
+    }
+    
+    const typicalVelocity = currentUnitSystem === 'metric' ? 4 : 800;
+    
+    const tempVelocityInput = document.createElement('input');
+    tempVelocityInput.id = 'velocity';
+    tempVelocityInput.value = typicalVelocity;
+    document.body.appendChild(tempVelocityInput);
+    
+    try {
+        const results = calculateSizeVelocity();
+        results.designVelocity = typicalVelocity;
+        document.body.removeChild(tempVelocityInput);
+        return results;
+    } catch (error) {
+        document.body.removeChild(tempVelocityInput);
+        throw error;
+    }
+}
+
+function convertDuctShape() {
+    const width = parseFloat(document.getElementById('width').value);
+    const height = parseFloat(document.getElementById('height').value);
+    const originalShape = document.getElementById('original-shape').value;
+    
+    if (!width || (originalShape !== 'round' && !height)) {
+        throw new Error('Please fill in all required fields');
+    }
+    
+    let originalArea, equivalentDiameter, equivalentWidth, equivalentHeight;
+    
+    if (originalShape === 'round') {
+        const diameter = width;
+        if (currentUnitSystem === 'metric') {
+            originalArea = Math.PI * Math.pow(diameter / 1000, 2) / 4;
+            const side = Math.sqrt(originalArea) * 1000;
+            equivalentWidth = side;
+            equivalentHeight = side;
+        } else {
+            originalArea = Math.PI * Math.pow(diameter, 2) / 4;
+            const side = Math.sqrt(originalArea);
+            equivalentWidth = side;
+            equivalentHeight = side;
+        }
+        
+        return {
+            originalDiameter: diameter.toFixed(1),
+            originalArea: originalArea.toFixed(4),
+            equivalentWidth: equivalentWidth.toFixed(1),
+            equivalentHeight: equivalentHeight.toFixed(1),
+            equivalentArea: originalArea.toFixed(4),
+            conversion: 'Round to Rectangular'
+        };
+    } else {
+        if (currentUnitSystem === 'metric') {
+            originalArea = (width * height) / 1000000;
+            equivalentDiameter = Math.sqrt(4 * originalArea / Math.PI) * 1000;
+        } else {
+            originalArea = width * height;
+            equivalentDiameter = Math.sqrt(4 * originalArea / Math.PI);
+        }
+        
+        return {
+            originalWidth: width.toFixed(1),
+            originalHeight: height.toFixed(1),
+            originalArea: originalArea.toFixed(4),
+            equivalentDiameter: equivalentDiameter.toFixed(1),
+            equivalentArea: originalArea.toFixed(4),
+            conversion: 'Rectangular to Round'
+        };
+    }
+}
+
+function displayResults(results) {
+    const resultsContainer = document.getElementById('results-container');
+    if (!resultsContainer) return;
+    
+    let html = '<div class="results-container">';
+    
+    for (const [key, value] of Object.entries(results)) {
+        const label = formatLabel(key);
+        html += `
+            <div class="result-item">
+                <span class="result-label">${label}</span>
+                <span class="result-value">${value}</span>
+            </div>
+        `;
+    }
+    
+    html += '</div>';
+    resultsContainer.innerHTML = html;
+}
+
+function formatLabel(key) {
+    const isMetric = currentUnitSystem === 'metric';
+    const labels = {
+        hydraulicDiameter: isMetric ? 'Hydraulic Diameter (mm)' : 'Hydraulic Diameter (in)',
+        area: isMetric ? 'Cross-sectional Area (m²)' : 'Cross-sectional Area (ft²)',
+        velocity: isMetric ? 'Velocity (m/s)' : 'Velocity (fpm)',
+        reynoldsNumber: 'Reynolds Number',
+        frictionFactor: 'Friction Factor',
+        frictionLoss: isMetric ? 'Friction Loss (Pa/m)' : 'Friction Loss (in wg/100ft)',
+        velocityPressure: isMetric ? 'Velocity Pressure (Pa)' : 'Velocity Pressure (in wg)',
+        airflow: isMetric ? 'Airflow (L/s)' : 'Airflow (CFM)',
+        diameter: isMetric ? 'Diameter (mm)' : 'Diameter (in)',
+        width: isMetric ? 'Width (mm)' : 'Width (in)',
+        height: isMetric ? 'Height (mm)' : 'Height (in)',
+        aspectRatio: 'Aspect Ratio',
+        shape: 'Duct Shape',
+        iterations: 'Iterations',
+        conversion: 'Conversion Type',
+        originalDiameter: isMetric ? 'Original Diameter (mm)' : 'Original Diameter (in)',
+        originalWidth: isMetric ? 'Original Width (mm)' : 'Original Width (in)',
+        originalHeight: isMetric ? 'Original Height (mm)' : 'Original Height (in)',
+        originalArea: isMetric ? 'Original Area (m²)' : 'Original Area (ft²)',
+        equivalentDiameter: isMetric ? 'Equivalent Diameter (mm)' : 'Equivalent Diameter (in)',
+        equivalentWidth: isMetric ? 'Equivalent Width (mm)' : 'Equivalent Width (in)',
+        equivalentHeight: isMetric ? 'Equivalent Height (mm)' : 'Equivalent Height (in)',
+        equivalentArea: isMetric ? 'Equivalent Area (m²)' : 'Equivalent Area (ft²)',
+        designVelocity: isMetric ? 'Design Velocity (m/s)' : 'Design Velocity (fpm)'
+    };
+    return labels[key] || key;
+}
+
+function clearInputs() {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+        if (!input.readOnly) {
+            input.value = '';
+        }
+    });
+    
+    const calcTypeSelect = document.getElementById('calculation-type');
+    const stdYesRadio = document.getElementById('std-yes');
+    const imperialRadio = document.getElementById('imperial');
+    const ductMaterialSelect = document.getElementById('duct-material');
+    const originalShapeSelect = document.getElementById('original-shape');
+    const feetRadio = document.getElementById('feet');
+    
+    if (calcTypeSelect) calcTypeSelect.value = 'friction-loss';
+    if (stdYesRadio) stdYesRadio.checked = true;
+    if (imperialRadio) imperialRadio.checked = true;
+    currentUnitSystem = 'imperial';
+    if (ductMaterialSelect) ductMaterialSelect.selectedIndex = 5;
+    if (originalShapeSelect) originalShapeSelect.value = 'rectangular';
+    if (feetRadio) feetRadio.checked = true;
+    
+    updateRoughness();
+    updateInputFields();
+    toggleAdvancedConditions();
+    
+    const resultsContainer = document.getElementById('results-container');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = `
+            <div class="info-box">
+                <h4>Ready to Calculate</h4>
+                <p>Enter your duct parameters and click "Calculate Results" to see the HVAC calculations.</p>
+            </div>
+        `;
+    }
+}
+
+// Initialize all functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeDesktopMode();
+    initializeSmoothScroll();
+    initializeStatsAnimation();
+    initializeMobileMenuClose();
+    initializeContactForm();
+    initializeFormValidation();
+    initializeConsoleMessages();
+    initializeCalculator();
+    initializePageCounter();
+    initializeDuctulator();
+});

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <title>Unit Conversions - EngrAssist</title>
+    <link rel="icon" type="image/x-icon" href="https://www.engrassist.com/favicon.ico">
+
+    <!-- Favicon links -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- External JS -->
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="favicon.ico" alt="EA Logo" class="favicon">
+                <span class="brand-name"><a href="index.html">EngrAssist</a></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                ☰
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Unit Conversions</h1>
+                <p class="hero-subtitle">Professional engineering unit conversion tools for all common engineering units. Fast, accurate conversions for mechanical, civil, electrical, and general engineering applications.</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="conversion-calculator">
+                    <h2 class="section-title">Unit Converter</h2>
+                    
+                    <div class="calculator-interface">
+                        <div class="calculator-controls">
+                            <div class="control-group">
+                                <label for="categorySelect">Category:</label>
+                                <select id="categorySelect">
+                                    <option value="distance">Distance</option>
+                                    <option value="area">Area</option>
+                                    <option value="volume">Volume</option>
+                                    <option value="mass">Mass</option>
+                                    <option value="force">Force</option>
+                                    <option value="pressure">Pressure</option>
+                                    <option value="temperature">Temperature</option>
+                                    <option value="power">Power</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="flow">Flow</option>
+                                    <option value="speed">Speed</option>
+                                    <option value="time">Time</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="conversion-interface-grid">
+                            <div class="input-section">
+                                <h3>Input</h3>
+                                <div class="unit-group">
+                                    <select id="inputUnit">
+                                        <option value="ft">Feet</option>
+                                    </select>
+                                    <input type="number" id="inputValue" placeholder="Enter value" step="any">
+                                </div>
+                            </div>
+
+                            <div class="conversion-arrow">→</div>
+
+                            <div class="output-section">
+                                <h3>Output</h3>
+                                <div class="unit-group">
+                                    <select id="outputUnit">
+                                        <option value="m">Meters</option>
+                                    </select>
+                                    <input type="number" id="outputValue" placeholder="Result" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="converter-buttons">
+                            <button id="convertBtn" class="btn">Convert</button>
+                            <button id="swapBtn" class="btn-secondary">Swap Units</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Reference Tables -->
+                <div class="reference-tables">
+                    <h2 class="section-title">Quick Reference Tables</h2>
+                    
+                    <div class="tables-grid">
+                        <!-- Distance Table -->
+                        <div class="reference-table">
+                            <h3>Distance/Length</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Multiply by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Inches</td><td>Feet</td><td>0.08333</td></tr>
+                                    <tr><td>Feet</td><td>Inches</td><td>12</td></tr>
+                                    <tr><td>Feet</td><td>Meters</td><td>0.3048</td></tr>
+                                    <tr><td>Meters</td><td>Feet</td><td>3.281</td></tr>
+                                    <tr><td>Miles</td><td>Kilometers</td><td>1.609</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Area Table -->
+                        <div class="reference-table">
+                            <h3>Area</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Multiply by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>ft²</td><td>m²</td><td>0.09290</td></tr>
+                                    <tr><td>m²</td><td>ft²</td><td>10.764</td></tr>
+                                    <tr><td>Acres</td><td>ft²</td><td>43,560</td></tr>
+                                    <tr><td>in²</td><td>cm²</td><td>6.452</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Volume Table -->
+                        <div class="reference-table">
+                            <h3>Volume</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Multiply by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>ft³</td><td>m³</td><td>0.02832</td></tr>
+                                    <tr><td>Gallons</td><td>Liters</td><td>3.785</td></tr>
+                                    <tr><td>ft³</td><td>Gallons</td><td>7.481</td></tr>
+                                    <tr><td>in³</td><td>cm³</td><td>16.387</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Mass Table -->
+                        <div class="reference-table">
+                            <h3>Mass</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Multiply by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Pounds</td><td>Kilograms</td><td>0.4536</td></tr>
+                                    <tr><td>Kilograms</td><td>Pounds</td><td>2.205</td></tr>
+                                    <tr><td>Tons</td><td>Pounds</td><td>2000</td></tr>
+                                    <tr><td>kg</td><td>g</td><td>1000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pressure Table -->
+                        <div class="reference-table">
+                            <h3>Pressure</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Multiply by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>PSI</td><td>kPa</td><td>6.895</td></tr>
+                                    <tr><td>kPa</td><td>PSI</td><td>0.1450</td></tr>
+                                    <tr><td>atm</td><td>PSI</td><td>14.696</td></tr>
+                                    <tr><td>Bar</td><td>PSI</td><td>14.504</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Temperature Table -->
+                        <div class="reference-table">
+                            <h3>Temperature</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Conversion</th>
+                                        <th>Formula</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>°F to °C</td><td>(°F - 32) × 5/9</td></tr>
+                                    <tr><td>°C to °F</td><td>(°C × 9/5) + 32</td></tr>
+                                    <tr><td>°C to K</td><td>°C + 273.15</td></tr>
+                                    <tr><td>K to °C</td><td>K - 273.15</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Engineering Constants -->
+                <div class="constants-section">
+                    <h2 class="section-title">Engineering Constants</h2>
+                    <div class="constants-grid">
+                        <div class="constant-card">
+                            <h4>Gravitational Acceleration</h4>
+                            <p>g = 9.81 m/s² = 32.174 ft/s²</p>
+                        </div>
+                        <div class="constant-card">
+                            <h4>Standard Atmospheric Pressure</h4>
+                            <p>1 atm = 14.696 psi = 101.325 kPa</p>
+                        </div>
+                        <div class="constant-card">
+                            <h4>Water Density (at 20°C)</h4>
+                            <p>ρ = 1000 kg/m³ = 62.4 lb/ft³</p>
+                        </div>
+                        <div class="constant-card">
+                            <h4>Standard Temperature & Pressure</h4>
+                            <p>STP: 0°C, 1 atm = 273.15 K, 101.325 kPa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        These conversion tools are provided for educational and preliminary design purposes only. 
+                        All calculations should be verified by a licensed professional engineer. 
+                        Users are responsible for ensuring accuracy for their specific applications.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- Left: Page Counter -->
+            <div class="footer-left">
+            </div>
+            
+            <!-- Center: Main Footer Content -->
+            <div class="footer-center">
+                <p>&copy; 2025 EngrAssist.com - Professional Design Tools | Built by Engineers, for Engineers</p>
+                <p>
+                    <a href="privacy.html" style="color: #f39c12;">Privacy Policy</a> | 
+                    <a href="terms.html" style="color: #f39c12;">Terms of Service</a> | 
+                    <a href="contact.html" style="color: #f39c12;">Contact Us</a>
+                </p>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">
+                    Tools for educational purposes only. Users responsible for verification.
+                </p>
+                <p>
+                    <a href="https://ko-fi.com/engrassist" target="_blank" class="coffee-button"><span class="coffee-icon">☕</span>Support Us</a>
+                </p>
+            </div>
+            
+            <!-- Right: Empty spacer for layout balance -->
+            <div class="footer-right">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
