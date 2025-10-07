@@ -4,53 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
     <meta name="google-adsense-account" content="ca-pub-2370605571916318">
-    <title>About Us</title>
+    <title>About Us - EngrAssist</title>
     <meta name="description" content="Learn about EngrAssist - professional design tools and resources created by engineers for commercial building design.">
-
-
-<!-- Favicon links -->
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-<!-- External JS -->
-    <script src="scripts.js"></script>
-
-<!-- External CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo-container">
-                <img src="favicon.ico" alt="EA Logo" class="favicon">
-                <span class="brand-name">EngrAssist</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-	    <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-                ☰
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-        </div>
-    </header>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
 
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
     <main>
         <section class="hero-section">
             <div class="container">
@@ -87,134 +71,4 @@
                                 <h3 class="feature-title">Engineering Precision</h3>
                                 <p>All calculations are based on industry-standard formulas and codes (ASHRAE, SMACNA, ACCA) with transparent methodology.</p>
                             </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">🏗️</div>
-                                <h3 class="feature-title">Commercial Focus</h3>
-                                <p>Tools designed specifically for commercial building applications.</p>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">📚</div>
-                                <h3 class="feature-title">Educational Approach</h3>
-                                <p>Each tool shows calculation steps and provides learning resources to help users understand the engineering principles.</p>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">🆓</div>
-                                <h3 class="feature-title">Accessible Tools</h3>
-                                <p>Core tools are free to support engineering education. Premium features fund continued development.</p>
-                            </div>
-                        </div>
-
-                        <h2 class="section-title">Professional Standards</h2>
-                        <p class="content-text">
-                            As licensed professional engineers, we understand the importance of accuracy and reliability in engineering calculations. Our tools undergo rigorous testing and validation against established industry standards and codes.
-                        </p>
-
-                        <p class="content-text">
-                            We follow ASHRAE guidelines, SMACNA standards, and other recognized industry practices to ensure our calculations meet professional engineering requirements. However, we also recognize that every project is unique, and professional judgment is always required.
-                        </p>
-
-                        <div class="disclaimer">
-                            <div class="disclaimer-title">⚠️ Professional Use Disclaimer</div>
-                            <div class="disclaimer-text">
-                                <strong>EDUCATIONAL PURPOSE:</strong> All tools provided on EngrAssist.com are intended for educational and preliminary design purposes only. While we strive for accuracy, these tools may contain errors or limitations.<br><br>
-                                
-                                <strong>PROFESSIONAL RESPONSIBILITY:</strong> Users are responsible for verifying all calculations and results independently. These tools do not replace professional engineering judgment, detailed analysis, or compliance with local codes and regulations.<br><br>
-                                
-                                <strong>NO LIABILITY:</strong> EngrAssist.com and its creators assume no responsibility or liability for any errors, omissions, or damages resulting from the use of these tools. Users assume all risks associated with their use.<br><br>
-                                
-                                <strong>REPORT ERRORS:</strong> If you discover errors or inconsistencies in our tools, please report them to <a href="mailto:engrassist@gmail.com" style="color: #856404;">engrassist@gmail.com</a> so we can investigate and improve our tools for the engineering community.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sidebar">
-                        <div class="info-card">
-                            <div class="info-icon">🎓</div>
-                            <h3 class="info-title">Professional Engineer</h3>
-                            <p class="info-text">Licensed mechanical engineer with extensive experience in commercial HVAC system design and analysis.</p>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="info-icon">🏢</div>
-                            <h3 class="info-title">Commercial Focus</h3>
-                            <p class="info-text">Specialized expertise in large-scale commercial building HVAC systems, energy efficiency, and code compliance.</p>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="info-icon">📧</div>
-                            <h3 class="info-title">Get in Touch</h3>
-                            <p class="info-text">Questions about our tools or need custom solutions? Contact us at <strong>engrassist@gmail.com</strong></p>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="info-icon">🔧</div>
-                            <h3 class="info-title">Continuous Improvement</h3>
-                            <p class="info-text">We regularly update and expand our tools based on user feedback and industry developments.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-<!--
-        <section class="mission-section">
-            <div class="mission-content">
-                <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Our Mission</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
-                    To democratize access to professional-grade HVAC design tools and engineering education, empowering the next generation of mechanical engineers while supporting practicing professionals with reliable, accessible calculation tools.
-                </p>
-
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">10+</div>
-                        <div class="stat-label">Years Engineering Experience</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100+</div>
-                        <div class="stat-label">Projects Designed</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">5</div>
-                        <div class="stat-label">Tool Categories</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Learning Opportunities</div>
-                    </div>
-                </div>
-            </div>
-        </section>
--->
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <!-- Left: Page Counter -->
-            <div class="footer-left">
-            </div>
-            
-            <!-- Center: Main Footer Content -->
-            <div class="footer-center">
-                <p>&copy; 2025 EngrAssist.com - Professional Design Tools | Built by Engineers, for Engineers</p>
-                <p>
-                    <a href="privacy.html" style="color: #f39c12;">Privacy Policy</a> | 
-                    <a href="terms.html" style="color: #f39c12;">Terms of Service</a> | 
-                    <a href="contact.html" style="color: #f39c12;">Contact Us</a> | 
-                </p>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">
-                    Tools for educational purposes only. Users responsible for verification.
-                </p>
-		<p>
-                    <a href="https://ko-fi.com/engrassist" target="_blank" class="coffee-button"><span class="coffee-icon">☕</span>Support Us</a>
-		</p>
-            </div>
-            
-            <!-- Right: Empty spacer for layout balance -->
-            <div class="footer-right">
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+                            <div class="feature-it
