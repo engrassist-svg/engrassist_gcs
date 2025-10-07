@@ -1,19 +1,105 @@
 // ====================================
+// TEMPLATE LOADING SYSTEM - OPTIMIZED
+// ====================================
+
+// Load templates efficiently with Promise-based approach
+function loadTemplate(elementId, templateFile) {
+    return fetch(templateFile)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${templateFile}: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.innerHTML = html;
+            }
+            return true;
+        })
+        .catch(error => {
+            console.error('Template loading error:', error);
+            // Fallback: show page anyway to prevent blank screen
+            return false;
+        });
+}
+
+// Initialize templates and page
+function initializeTemplates() {
+    // Load both templates in parallel for speed
+    Promise.all([
+        loadTemplate('header-placeholder', 'header.html'),
+        loadTemplate('footer-placeholder', 'footer.html')
+    ]).then(() => {
+        // Templates loaded - show page with fade-in
+        document.body.classList.add('templates-loaded');
+        
+        // Hide loading spinner if present
+        const loader = document.querySelector('.page-loading');
+        if (loader) {
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 300);
+            }, 100);
+        }
+        
+        // Highlight current page in navigation
+        highlightCurrentPage();
+        
+        // Initialize all other functionality
+        initializeAllFeatures();
+    });
+}
+
+// Highlight the current page in navigation
+function highlightCurrentPage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-menu a, .mobile-menu a');
+    
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href');
+        if (linkPage === currentPage || 
+            (currentPage === '' && linkPage === 'index.html')) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+// Initialize all page features
+function initializeAllFeatures() {
+    initializeSmoothScroll();
+    initializeStatsAnimation();
+    initializeMobileMenuClose();
+    initializeContactForm();
+    initializeFormValidation();
+    initializeConsoleMessages();
+    initializeCalculator();
+    initializePageCounter();
+    initializeDuctulator();
+    initializeDesktopMode();
+}
+
+// ====================================
 // EMAILJS CONFIGURATION
 // ====================================
-// REPLACE THESE WITH YOUR ACTUAL VALUES FROM EMAILJS:
-const EMAILJS_PUBLIC_KEY = 'ins0bXDTBg7rdNofU';  // From Account > General
-const EMAILJS_SERVICE_ID = 'service_engrassist';  // From Email Services
-const EMAILJS_TEMPLATE_ID = 'template_EngrAssist'; // From Email Templates
+const EMAILJS_PUBLIC_KEY = 'ins0bXDTBg7rdNofU';
+const EMAILJS_SERVICE_ID = 'service_engrassist';
+const EMAILJS_TEMPLATE_ID = 'template_EngrAssist';
 
-// Initialize EmailJS when page loads
+// Initialize EmailJS when available
 (function() {
     if (typeof emailjs !== 'undefined') {
         emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 })();
 
-// Desktop Site Toggle Function
+// ====================================
+// UTILITY FUNCTIONS
+// ====================================
+
 function toggleDesktopSite() {
     const viewportMeta = document.getElementById('viewport-meta');
     const toggleButton = document.getElementById('desktopToggle');
@@ -32,7 +118,6 @@ function toggleDesktopSite() {
     }
 }
 
-// Initialize desktop mode on page load
 function initializeDesktopMode() {
     const viewportMeta = document.getElementById('viewport-meta');
     const toggleButton = document.getElementById('desktopToggle');
@@ -50,7 +135,6 @@ function initializeDesktopMode() {
     }
 }
 
-// Mobile menu toggle function
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
     if (mobileMenu) {
@@ -58,7 +142,6 @@ function toggleMobileMenu() {
     }
 }
 
-// Smooth scroll for internal links
 function initializeSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -74,7 +157,6 @@ function initializeSmoothScroll() {
     });
 }
 
-// Animate numbers function
 function animateNumber(element, target, suffix = '') {
     const duration = 2000;
     const start = 0;
@@ -91,7 +173,6 @@ function animateNumber(element, target, suffix = '') {
     }, duration / 50);
 }
 
-// Initialize stats animation on scroll
 function initializeStatsAnimation() {
     const observerOptions = {
         threshold: 0.3,
@@ -104,7 +185,7 @@ function initializeStatsAnimation() {
                 const statNumbers = entry.target.querySelectorAll('.stat-number');
                 statNumbers.forEach(stat => {
                     const finalValue = stat.textContent;
-                    if (finalValue !== '∞' && finalValue !== '∞') {
+                    if (finalValue !== '∞') {
                         const finalNumber = parseInt(finalValue);
                         animateNumber(stat, finalNumber, finalValue.includes('+') ? '+' : '');
                     }
@@ -120,7 +201,6 @@ function initializeStatsAnimation() {
     }
 }
 
-// Close mobile menu when clicking outside
 function initializeMobileMenuClose() {
     document.addEventListener('click', function(event) {
         const mobileMenu = document.getElementById('mobileMenu');
@@ -157,21 +237,17 @@ function initializeContactForm() {
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
         
-        // Hide any previous messages
         if (successMessage) successMessage.style.display = 'none';
         if (errorMessage) errorMessage.style.display = 'none';
         
-        // Show loading state
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
         this.classList.add('loading');
 
-        // Send email using EmailJS
         emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this)
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
                 
-                // Show success message
                 if (successMessage) {
                     successMessage.style.display = 'block';
                     successMessage.scrollIntoView({
@@ -180,10 +256,7 @@ function initializeContactForm() {
                     });
                 }
                 
-                // Reset form
                 contactForm.reset();
-                
-                // Reset button
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
                 contactForm.classList.remove('loading');
@@ -191,7 +264,6 @@ function initializeContactForm() {
             }, function(error) {
                 console.error('FAILED...', error);
                 
-                // Show error message
                 if (errorMessage) {
                     errorMessage.style.display = 'block';
                     errorMessage.scrollIntoView({
@@ -200,7 +272,6 @@ function initializeContactForm() {
                     });
                 }
                 
-                // Reset button
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
                 contactForm.classList.remove('loading');
@@ -208,12 +279,10 @@ function initializeContactForm() {
     });
 }
 
-// FAQ toggle functionality
 function toggleFAQ(button) {
     const answer = button.nextElementSibling;
     const icon = button.querySelector('span');
     
-    // Close all other FAQ items
     document.querySelectorAll('.faq-answer').forEach(item => {
         if (item !== answer) {
             item.classList.remove('active');
@@ -222,14 +291,12 @@ function toggleFAQ(button) {
         }
     });
     
-    // Toggle current item
     answer.classList.toggle('active');
     if (icon) {
         icon.textContent = answer.classList.contains('active') ? '-' : '+';
     }
 }
 
-// Fill quote form function (for contact page)
 function fillQuoteForm() {
     const subjectField = document.getElementById('subject');
     const messageField = document.getElementById('message');
@@ -241,7 +308,6 @@ function fillQuoteForm() {
     }
 }
 
-// Form validation enhancements
 function initializeFormValidation() {
     document.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
         field.addEventListener('blur', function() {
@@ -266,12 +332,11 @@ function initializeFormValidation() {
     }
 }
 
-// Console messages for different pages
 function initializeConsoleMessages() {
     const currentPage = window.location.pathname;
     
     if (currentPage.includes('about')) {
-        console.log("%c🗏️ EngrAssist About Page - Built with Professional Standards", "color: #f39c12; font-size: 16px; font-weight: bold;");
+        console.log("%c🔧 EngrAssist About Page - Built with Professional Standards", "color: #f39c12; font-size: 16px; font-weight: bold;");
         console.log("%cFun fact: Commercial HVAC systems can move over 100,000 CFM of air!", "color: #3498db; font-size: 12px;");
     } else if (currentPage.includes('privacy')) {
         console.log("%c🔒 EngrAssist Privacy Policy - Your Privacy is Protected", "color: #27ae60; font-size: 16px; font-weight: bold;");
@@ -281,7 +346,6 @@ function initializeConsoleMessages() {
     }
 }
 
-// Page Counter Functionality
 function initializePageCounter() {
     const counterElement = document.getElementById('pageCounter');
     if (!counterElement) return;
@@ -585,8 +649,6 @@ function swapUnits() {
     const outputValue = document.getElementById('outputValue');
     
     const tempUnit = inputUnit.value;
-    const tempValue = inputValue.value;
-    
     inputUnit.value = outputUnit.value;
     outputUnit.value = tempUnit;
     inputValue.value = outputValue.value;
@@ -661,7 +723,6 @@ function calculateBoilerSystem() {
         return;
     }
 
-    // Calculate heat load (removed building factor)
     const baseHeatLoss = sqft * btuPerSqFt;
     const safetyFactor = 1 + (safetyFactorPercent / 100);
     const requiredBTU = baseHeatLoss * safetyFactor;
@@ -747,7 +808,7 @@ let currentUnitSystem = 'imperial';
 
 function initializeDuctulator() {
     const calcTypeSelect = document.getElementById('calculation-type');
-    if (!calcTypeSelect) return; // Exit if not on ductulator page
+    if (!calcTypeSelect) return;
     
     updateRoughness();
     updateInputFields();
@@ -769,7 +830,6 @@ function toggleAdvancedConditions() {
     }
     
     if (isStandardConditions) {
-        // Reset to standard conditions
         const tempInput = document.getElementById('temp');
         const humidityInput = document.getElementById('humidity');
         const elevationInput = document.getElementById('elevation');
@@ -1055,22 +1115,21 @@ function calculateFrictionLoss() {
         const diameter = width;
         area = Math.PI * Math.pow(diameter / 12, 2) / 4;
         hydraulicDiameter = diameter / 12;
-        velocity = airflow / area; // Corrected: CFM / ft² = fpm
+        velocity = airflow / area;
     } else {
         area = (width * height) / 144;
         const perimeter = 2 * (width + height) / 12;
         hydraulicDiameter = 4 * area / perimeter;
-        velocity = airflow / area; // Corrected: CFM / ft² = fpm
+        velocity = airflow / area;
     }
     
     const dynamicViscosity = 0.00073;
-    const velocityFPS = velocity / 60; // Convert fpm to fps for Reynolds calculation
+    const velocityFPS = velocity / 60;
     reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / dynamicViscosity;
     
     const relativeRoughness = roughness / hydraulicDiameter;
     frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
     
-    // Corrected velocity pressure formula using 4005 constant for fpm
     const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
     frictionLoss = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
     
@@ -1114,8 +1173,8 @@ function calculateAirflowRate() {
     const maxIterations = 50;
     
     while (iterations < maxIterations) {
-        const velocity = airflow / area; // Corrected: CFM / ft² = fpm
-        const velocityFPS = velocity / 60; // Convert to fps for Reynolds
+        const velocity = airflow / area;
+        const velocityFPS = velocity / 60;
         const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
         const relativeRoughness = roughness / hydraulicDiameter;
         const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
@@ -1129,7 +1188,7 @@ function calculateAirflowRate() {
         iterations++;
     }
     
-    const velocity = airflow / area; // Final velocity in fpm
+    const velocity = airflow / area;
     
     return {
         airflow: airflow.toFixed(0),
@@ -1154,7 +1213,6 @@ function calculateSizeVelocity() {
         throw new Error('Please fill in all required fields');
     }
     
-    // Corrected: Area = CFM / fpm = ft²
     const requiredArea = airflow / velocity;
     
     let width, height, diameter;
@@ -1356,16 +1414,10 @@ function clearInputs() {
     }
 }
 
-// Initialize all functionality when DOM is loaded
+// ====================================
+// INITIALIZE EVERYTHING ON PAGE LOAD
+// ====================================
 document.addEventListener('DOMContentLoaded', function() {
-    initializeDesktopMode();
-    initializeSmoothScroll();
-    initializeStatsAnimation();
-    initializeMobileMenuClose();
-    initializeContactForm();
-    initializeFormValidation();
-    initializeConsoleMessages();
-    initializeCalculator();
-    initializePageCounter();
-    initializeDuctulator();
+    // Load templates first, then initialize everything
+    initializeTemplates();
 });
