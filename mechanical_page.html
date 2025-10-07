@@ -4,51 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
     <meta name="google-adsense-account" content="ca-pub-2370605571916318">
-    <title>Mechanical Engineering</title>
+    <title>Mechanical Engineering Tools - EngrAssist</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="https://www.engrassist.com/favicon.ico">
-
-    <!-- Favicon links -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-<!-- External JS -->
-    <script src="scripts.js"></script>
-
-<!-- External CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <header>
-        <nav>
-            <div class="logo-container">
-                <img src="favicon.ico" alt="EA Logo" class="favicon">
-                <span class="brand-name">EngrAssist</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-                ☰
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-    </header>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
 
     <!-- Main Content -->
     <main>
@@ -225,34 +208,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <!-- Left: Page Counter -->
-            <div class="footer-left">
-            </div>
-            
-            <!-- Center: Main Footer Content -->
-            <div class="footer-center">
-                <p>&copy; 2025 EngrAssist.com - Professional Design Tools | Built by Engineers, for Engineers</p>
-                <p>
-                    <a href="privacy.html" style="color: #f39c12;">Privacy Policy</a> | 
-                    <a href="terms.html" style="color: #f39c12;">Terms of Service</a> | 
-                    <a href="contact.html" style="color: #f39c12;">Contact Us</a>
-                </p>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">
-                    Tools for educational purposes only. Users responsible for verification.
-                </p>
-		<p>
-                    <a href="https://ko-fi.com/engrassist" target="_blank" class="coffee-button"><span class="coffee-icon">☕</span>Support Us</a>
-		</p>
-            </div>
-            
-            <!-- Right: Empty spacer for layout balance -->
-            <div class="footer-right">
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 </body>
-
 </html>
