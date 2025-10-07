@@ -4,51 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
     <meta name="google-adsense-account" content="ca-pub-2370605571916318">
-    <title>Terms of Service</title>
-    <link rel="icon" type="image/x-icon" href="https://www.engrassist.com/favicon.ico">
-
-<!-- Favicon links -->
+    <title>Terms of Service - EngrAssist</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-<!-- External JS -->
-    <script src="scripts.js"></script>
-
-<!-- External CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo-container">
-                <img src="favicon.ico" alt="EA Logo" class="favicon">
-                <span class="brand-name">EngrAssist</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html" class="active">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-                ☰
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-    </header>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
 
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
     <main>
         <section class="page-header">
             <div class="container">
@@ -186,14 +171,6 @@
                         <li>Consult original sources for formulas, standards, and design criteria</li>
                         <li>Engage qualified professionals for final design review and approval</li>
                     </ul>
-
-                    <h3>5.3 Appropriate Use</h3>
-                    <ul>
-                        <li>Use tools only for educational and preliminary design purposes</li>
-                        <li>Do not rely on tools for safety-critical applications</li>
-                        <li>Understand the limitations and assumptions of each tool</li>
-                        <li>Report errors or issues to help improve tool accuracy</li>
-                    </ul>
                 </div>
 
                 <h2 class="section-title" id="accuracy-disclaimer">6. Accuracy and Error Reporting</h2>
@@ -211,160 +188,6 @@
                         <li><strong>Response:</strong> We will investigate reported errors and update tools when possible</li>
                         <li><strong>No Guarantee:</strong> Error reports do not guarantee fixes or corrections</li>
                     </ul>
-
-                    <h3>6.3 Continuous Improvement</h3>
-                    <p>We appreciate user feedback and use it to:</p>
-                    <ul>
-                        <li>Identify and correct calculation errors</li>
-                        <li>Improve tool accuracy and reliability</li>
-                        <li>Update formulas and methods based on current standards</li>
-                        <li>Enhance user experience and functionality</li>
-                    </ul>
-
-                    <div class="info-box">
-                        <h4>🤝 Community Contribution</h4>
-                        <p>By reporting errors, you help improve these tools for the entire engineering community. We value your expertise and feedback in making these resources better for everyone.</p>
-                    </div>
-                </div>
-
-                <h2 class="section-title" id="intellectual-property">7. Intellectual Property</h2>
-                <div class="section-content">
-                    <h3>7.1 Our Rights</h3>
-                    <ul>
-                        <li>All website content, design, and software are protected by copyright and other intellectual property laws</li>
-                        <li>EngrAssist.com retains all rights to its tools, calculations, and original content</li>
-                        <li>Users may not copy, distribute, or create derivative works without permission</li>
-                    </ul>
-
-                    <h3>7.2 User License</h3>
-                    <p>We grant you a limited, non-exclusive, non-transferable license to:</p>
-                    <ul>
-                        <li>Use our tools for personal, educational, or professional preliminary design purposes</li>
-                        <li>Print results for your own use</li>
-                        <li>Share results with clients or colleagues with proper attribution</li>
-                    </ul>
-
-                    <h3>7.3 Restrictions</h3>
-                    <p>Users may not:</p>
-                    <ul>
-                        <li>Reverse engineer, decompile, or extract source code</li>
-                        <li>Create competing services using our tools or methods</li>
-                        <li>Remove copyright notices or attribution</li>
-                        <li>Use our tools in any commercial software or service without permission</li>
-                    </ul>
-                </div>
-
-                <h2 class="section-title" id="prohibited-uses">8. Prohibited Uses</h2>
-                <div class="section-content">
-                    <p><strong>Users may not use the Service for:</strong></p>
-                    <ul>
-                        <li>Any unlawful purpose or to solicit others to perform unlawful acts</li>
-                        <li>Violating any international, federal, provincial, or state regulations or laws</li>
-                        <li>Transmitting or procuring material that infringes on intellectual property rights</li>
-                        <li>Harassing, abusing, insulting, harming, defaming, slandering, disparaging, intimidating, or discriminating</li>
-                        <li>Attempting to gain unauthorized access to our systems or other users' accounts</li>
-                        <li>Interfering with, disrupting, or creating undue burden on the Service</li>
-                        <li>Using the Service for final engineering designs or safety-critical applications</li>
-                        <li>Misrepresenting tool outputs as certified or professionally endorsed results</li>
-                    </ul>
-                </div>
-
-                <h2 class="section-title" id="account-terms">9. Account Terms (Future Premium Services)</h2>
-                <div class="section-content">
-                    <h3>9.1 Account Creation</h3>
-                    <p>When premium features become available:</p>
-                    <ul>
-                        <li>You must provide accurate and complete registration information</li>
-                        <li>You are responsible for safeguarding your password and account security</li>
-                        <li>You must notify us of any unauthorized use of your account</li>
-                        <li>You may not share accounts or transfer accounts without permission</li>
-                    </ul>
-
-                    <h3>9.2 Payment Terms</h3>
-                    <p>For premium services:</p>
-                    <ul>
-                        <li>Payment is required in advance for premium features</li>
-                        <li>All fees are non-refundable unless otherwise specified</li>
-                        <li>We reserve the right to modify pricing with 30 days notice</li>
-                        <li>Failure to pay may result in service suspension</li>
-                    </ul>
-                </div>
-
-                <h2 class="section-title" id="privacy">10. Privacy</h2>
-                <div class="section-content">
-                    <p>Your privacy is important to us. Please review our <a href="privacy">Privacy Policy</a>, which also governs your use of the Service, to understand our practices.</p>
-                    
-                    <p><strong>Key Privacy Points:</strong></p>
-                    <ul>
-                        <li>We collect minimal personal information</li>
-                        <li>Tool calculations are processed locally when possible</li>
-                        <li>We do not sell your information to third parties</li>
-                        <li>Contact form submissions are prefixed with "Website_Form:" for organization</li>
-                    </ul>
-                </div>
-
-                <h2 class="section-title" id="modifications">11. Modifications to Service and Terms</h2>
-                <div class="section-content">
-                    <h3>11.1 Service Changes</h3>
-                    <p>We reserve the right to:</p>
-                    <ul>
-                        <li>Modify or discontinue the Service (or any part) at any time</li>
-                        <li>Update tools, calculations, and features without notice</li>
-                        <li>Implement new pricing for premium features</li>
-                        <li>Change access requirements or user limitations</li>
-                    </ul>
-
-                    <h3>11.2 Terms Changes</h3>
-                    <p>We may revise these Terms of Service at any time by:</p>
-                    <ul>
-                        <li>Posting updated terms on this page</li>
-                        <li>Updating the "Last Updated" date</li>
-                        <li>Providing notice of material changes via email or website announcement</li>
-                        <li>Requiring acceptance of new terms for continued service use</li>
-                    </ul>
-
-                    <p><strong>Continued use of the Service after changes constitutes acceptance of revised terms.</strong></p>
-                </div>
-
-                <h2 class="section-title" id="termination">12. Termination</h2>
-                <div class="section-content">
-                    <h3>12.1 User Termination</h3>
-                    <p>You may stop using our Service at any time. For premium accounts (when available), you may cancel your subscription through your account settings.</p>
-
-                    <h3>12.2 Our Right to Terminate</h3>
-                    <p>We may terminate or suspend your access immediately, without prior notice, for:</p>
-                    <ul>
-                        <li>Violation of these Terms of Service</li>
-                        <li>Misuse of the Service or tools</li>
-                        <li>Fraudulent or abusive behavior</li>
-                        <li>Non-payment of premium services</li>
-                        <li>Any reason, at our sole discretion</li>
-                    </ul>
-
-                    <h3>12.3 Effect of Termination</h3>
-                    <p>Upon termination:</p>
-                    <ul>
-                        <li>Your right to use the Service ceases immediately</li>
-                        <li>All provisions that should survive termination shall survive</li>
-                        <li>We may delete your account and data</li>
-                        <li>Outstanding payment obligations remain due</li>
-                    </ul>
-                </div>
-
-                <h2 class="section-title" id="governing-law">13. Governing Law</h2>
-                <div class="section-content">
-                    <p>These Terms shall be interpreted and governed by the laws of the United States, without regard to conflict of law provisions. Any disputes arising from these terms or use of the Service shall be resolved through binding arbitration or in courts of competent jurisdiction.</p>
-
-                    <h3>13.1 Dispute Resolution</h3>
-                    <ul>
-                        <li>Users agree to attempt resolution through good faith negotiation first</li>
-                        <li>Disputes may be resolved through binding arbitration</li>
-                        <li>Class action lawsuits are waived</li>
-                        <li>Users are responsible for their own legal costs</li>
-                    </ul>
-
-                    <h3>13.2 Severability</h3>
-                    <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary so that the Terms will otherwise remain in full force and effect.</p>
                 </div>
 
                 <h2 class="section-title" id="contact">14. Contact Information</h2>
@@ -379,42 +202,11 @@
                     <h4>🔒 FINAL LEGAL NOTICE</h4>
                     <p><strong>BY USING ENGRASSIST.COM, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THESE TERMS OF SERVICE. YOU UNDERSTAND THAT ALL TOOLS ARE FOR EDUCATIONAL PURPOSES ONLY AND THAT YOU ASSUME ALL RISKS ASSOCIATED WITH THEIR USE. YOU AGREE TO VERIFY ALL RESULTS INDEPENDENTLY AND TO NOT HOLD ENGRASSIST.COM LIABLE FOR ANY DAMAGES OR ERRORS.</strong></p>
                 </div>
-
-                <div class="acceptance-box">
-                    <h4>✅ Professional Engineering Ethics</h4>
-                    <p>As professional engineers, we are committed to public safety and welfare. These terms reflect our responsibility to provide tools that support engineering education while clearly defining their appropriate use and limitations. We encourage all users to uphold the highest standards of professional engineering practice.</p>
-                </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <!-- Left: Page Counter -->
-            <div class="footer-left">
-            </div>
-            
-            <!-- Center: Main Footer Content -->
-            <div class="footer-center">
-                <p>&copy; 2025 EngrAssist.com - Professional Design Tools | Built by Engineers, for Engineers</p>
-                <p>
-                    <a href="privacy.html" style="color: #f39c12;">Privacy Policy</a> | 
-                    <a href="terms.html" style="color: #f39c12;">Terms of Service</a> | 
-                    <a href="contact.html" style="color: #f39c12;">Contact Us</a> | 
-                </p>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">
-                    Tools for educational purposes only. Users responsible for verification.
-                </p>
-		<p>
-                    <a href="https://ko-fi.com/engrassist" target="_blank" class="coffee-button"><span class="coffee-icon">☕</span>Support Us</a>
-		</p>
-            </div>
-            
-            <!-- Right: Empty spacer for layout balance -->
-            <div class="footer-right">
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 </body>
 </html>

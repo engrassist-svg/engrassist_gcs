@@ -1,4 +1,52 @@
 /* EngrAssist Website Styles - Complete Consolidated Version */
+/* ====================================
+   TEMPLATE LOADING OPTIMIZATION
+   ==================================== */
+
+/* Prevent flash of unstyled content during template loading */
+body {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.templates-loaded {
+    opacity: 1;
+}
+
+/* Loading spinner (optional but recommended) */
+.page-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.page-loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e9ecef;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 /* Reset and Base Styles */
 * {
@@ -1846,4 +1894,5 @@ footer {
     .constant-card {
         padding: 1.5rem;
     }
+
 }
