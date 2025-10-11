@@ -608,6 +608,38 @@ nav {
     margin-bottom: 0.5rem;
 }
 
+/* Enhanced spacing for legal/document pages */
+.section-content {
+    padding: 0 1rem; /* Adds breathing room on sides */
+}
+
+.section-content h2,
+.section-content h3 {
+    margin-left: 0; /* Aligns section headings properly */
+    padding-left: 0.5rem; /* Slight indent for visual hierarchy */
+}
+
+.section-content h3 {
+    margin-top: 2rem; /* More space before subsections */
+    color: #2c3e50;
+}
+
+.section-content ul,
+.section-content ol {
+    margin-left: 2.5rem; /* Better indentation for lists */
+    padding-left: 0.5rem;
+}
+
+.section-content > p {
+    margin-bottom: 1.5rem; /* More space between paragraphs */
+    padding: 0 0.5rem; /* Slight padding for readability */
+}
+
+/* Specific styling for definition lists and legal content */
+.section-content strong {
+    color: #2c3e50;
+}
+
 /* Last Updated */
 .last-updated {
     background: #e8f4f8;
@@ -2037,4 +2069,5 @@ footer {
     }
 
 }
+
 
