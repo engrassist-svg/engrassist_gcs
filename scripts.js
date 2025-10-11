@@ -808,16 +808,7 @@ function initializeDuctulator() {
     const calcTypeSelect = document.getElementById('calculation-type');
     if (!calcTypeSelect) return;
     
-    updateRoughness();
     updateInputFields();
-}
-
-function updateRoughness() {
-    const materialSelect = document.getElementById('duct-material');
-    const roughnessInput = document.getElementById('duct-roughness');
-    if (materialSelect && roughnessInput) {
-        roughnessInput.value = materialSelect.value;
-    }
 }
 
 function toggleAdvancedConditions() {
@@ -1397,7 +1388,6 @@ function clearInputs() {
     if (originalShapeSelect) originalShapeSelect.value = 'rectangular';
     if (feetRadio) feetRadio.checked = true;
     
-    updateRoughness();
     updateInputFields();
     toggleAdvancedConditions();
     
@@ -1419,5 +1409,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
