@@ -218,6 +218,7 @@ function initializeStatsAnimation() {
 }
 
 function initializeMobileMenuClose() {
+    // Close menu when clicking outside
     document.addEventListener('click', function(event) {
         const mobileMenu = document.getElementById('mobileMenu');
         const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -227,9 +228,16 @@ function initializeMobileMenuClose() {
         }
     });
     
+    // Close menu when clicking links (but NOT the submenu toggle)
     const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
     mobileMenuLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(event) {
+            // Don't close menu if clicking the submenu toggle
+            if (link.classList.contains('mobile-submenu-toggle')) {
+                return; // Exit early - don't close the menu
+            }
+            
+            // Otherwise, close the menu
             const mobileMenu = document.getElementById('mobileMenu');
             if (mobileMenu) {
                 mobileMenu.classList.remove('show');
@@ -1409,6 +1417,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
