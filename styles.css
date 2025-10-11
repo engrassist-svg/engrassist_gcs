@@ -1368,6 +1368,17 @@ nav {
 }
 
 .guide-card-uc {
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    padding: 2rem;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #2c3e50;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.guide-card-uc:hover {
     background-image: url('images/UnderConstruction.png');
     background-size: contain; 
     background-position: center;
@@ -1375,10 +1386,6 @@ nav {
     border-left-color: #3498db;
     transform: translateX(5px);
     opacity: 1;
-}
-
-.guide-card-uc:hover {
-    transform: translateY(-5px);
 }
 
 .guide-card-uc h4 {
@@ -1430,6 +1437,17 @@ nav {
 }
 
 .education-card-uc {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 2rem;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #2c3e50;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border-left: 4px solid #f39c12;
+}
+
+.education-card-uc:hover {
     background-image: url('images/UnderConstruction.png');
     background-size: contain; 
     background-position: center;
@@ -1437,10 +1455,6 @@ nav {
     border-left-color: #3498db;
     transform: translateX(5px);
     opacity: 1;
-}
-
-.education-card-uc:hover {
-    transform: translateY(-5px);
 }
 
 .education-card-uc h4 {
@@ -2068,6 +2082,7 @@ footer {
     }
 
 }
+
 
 
 
