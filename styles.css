@@ -171,6 +171,147 @@ nav {
     color: #f39c12;
 }
 
+/* ====================================
+   DROPDOWN MENU STYLES
+   ==================================== */
+
+/* Make logo clickable with hover effect */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.logo-container:hover {
+    opacity: 0.8;
+}
+
+.logo-container .brand-name {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.logo-container:hover .brand-name {
+    color: #f39c12;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.dropdown:hover .dropbtn {
+    color: #f39c12;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+}
+
+/* Links inside dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+    background: rgba(255,255,255,0.1);
+    border-left-color: #f39c12;
+    color: #f39c12;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ====================================
+   MOBILE DROPDOWN STYLES
+   ==================================== */
+
+/* Mobile submenu container */
+.mobile-submenu {
+    display: none;
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+    background: rgba(0,0,0,0.2);
+}
+
+.mobile-submenu.show {
+    display: block;
+}
+
+.mobile-submenu li {
+    margin: 0;
+}
+
+.mobile-submenu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    font-weight: 400;
+    transition: background 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.mobile-submenu a:hover {
+    background: rgba(255,255,255,0.1);
+    border-left-color: #f39c12;
+    color: #f39c12;
+}
+
+.mobile-submenu-toggle {
+    cursor: pointer;
+}
+
+/* ====================================
+   RESPONSIVE ADJUSTMENTS
+   ==================================== */
+
+@media (max-width: 1024px) {
+    .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        margin-top: 0;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: none;
+    }
+}
+
 /* Mobile Menu Button */
 .mobile-menu-btn {
     display: none;
@@ -1896,3 +2037,4 @@ footer {
     }
 
 }
+
