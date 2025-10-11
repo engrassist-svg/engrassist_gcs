@@ -747,6 +747,7 @@ function calculateBoilerSystem() {
     }
 
     const specificGravity = density / 8.34;
+    const systemFlowGPM = requiredBTU / (500 * deltaT * specificGravity * specificHeat);
 
     boilerSystemData = {
         requiredBTU: requiredBTU,
@@ -756,12 +757,22 @@ function calculateBoilerSystem() {
         density: density,
         specificGravity: specificGravity
     };
-
+    
+    boilerSystemData = {
+        requiredBTU: requiredBTU,
+        baseHeatLoss: baseHeatLoss,
+        deltaT: deltaT,
+        specificHeat: specificHeat,
+        density: density,
+        specificGravity: specificGravity,
+        systemFlowGPM: systemFlowGPM  // Add this line
+    };
     document.getElementById('heatLoss').textContent = formatNumber(baseHeatLoss) + ' BTU/hr';
     document.getElementById('requiredBTU').textContent = formatNumber(requiredBTU) + ' BTU/hr';
     document.getElementById('deltaT').textContent = deltaT.toFixed(1) + ' °F';
     document.getElementById('specificHeat').textContent = specificHeat.toFixed(3) + ' BTU/(lb·°F)';
     document.getElementById('density').textContent = density.toFixed(2) + ' lb/gal';
+    document.getElementById('systemFlow').textContent = systemFlowGPM.toFixed(1) + ' GPM';
 }
 
 function calculateBoilerSelectedSystem() {
@@ -1417,6 +1428,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
