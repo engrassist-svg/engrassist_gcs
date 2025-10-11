@@ -142,6 +142,22 @@ function toggleMobileMenu() {
     }
 }
 
+// ====================================
+// MOBILE SUBMENU TOGGLE
+// ====================================
+
+function toggleMobileSubmenu(event) {
+    event.preventDefault(); // Prevent the link from navigating
+    
+    // Find the submenu that's right after the clicked link
+    const clickedLink = event.target;
+    const submenu = clickedLink.nextElementSibling;
+    
+    if (submenu && submenu.classList.contains('mobile-submenu')) {
+        submenu.classList.toggle('show');
+    }
+}
+
 function initializeSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -1421,3 +1437,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
