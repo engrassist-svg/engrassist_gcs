@@ -54,25 +54,17 @@
                         <input type="number" id="sqft" placeholder="Enter square footage" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="climateOption">Climate/BTU Selection:</label>
-                        <select id="climateOption" onchange="toggleCustomBTU()">
-                            <option value="50">Cold Climate (50 BTU/sq ft)</option>
-                            <option value="35" selected>Moderate Climate (35 BTU/sq ft)</option>
-                            <option value="20">Warm Climate (20 BTU/sq ft)</option>
-                            <option value="custom">Custom BTU/sq ft</option>
-                        </select>
+                        <label for="btuPerSqFt">BTU per Square Foot:</label>
+                        <input type="number" id="btuPerSqFt" placeholder="Enter BTU/sq ft" value="25" min="0" step="0.1" required>
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Common values: Cold Climate: 50 | Moderate: 35 | Warm: 20
+                        </small>
                     </div>
-                </div>
-
-                <div id="customBTUInput" class="form-group" style="display: none;">
-                    <label for="customBTU">Custom BTU per Square Foot:</label>
-                    <input type="number" id="customBTU" placeholder="Enter BTU/sq ft" min="0" step="0.1">
-                </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="safetyFactor">Safety Factor (%):</label>
-                        <input type="number" id="safetyFactor" placeholder="0-50%" value="15" min="0" max="100" step="1">
+                        <input type="number" id="safetyFactor" placeholder="0-50%" value="50" min="0" max="100" step="1">
                     </div>
                     <div class="form-group">
                         <label for="fluidType">Fluid Type:</label>
@@ -243,3 +235,4 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
