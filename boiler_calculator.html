@@ -106,4 +106,140 @@
                     <h3>System Requirements Results</h3>
                     
                     <div class="boiler-result-item boiler-result-blue">
-                        <span class="res
+                        <span class="result-label">Base Heat Loss:</span>
+                        <span class="result-value" id="heatLoss">--</span>
+                    </div>
+                    
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Required BTU (with safety factor):</span>
+                        <span class="result-value" id="requiredBTU">--</span>
+                    </div>
+                    
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Temperature Difference (ΔT):</span>
+                        <span class="result-value" id="deltaT">--</span>
+                    </div>
+                    
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Fluid Specific Heat:</span>
+                        <span class="result-value" id="specificHeat">--</span>
+                    </div>
+                    
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Fluid Density:</span>
+                        <span class="result-value" id="density">--</span>
+                    </div>
+                </div>
+
+                <!-- Selected System Section - Always Visible -->
+                <div class="selected-system-section">
+                    <h2 class="section-title">Selected System</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="boilerQuantity">Number of Boilers:</label>
+                            <input type="number" id="boilerQuantity" placeholder="Enter quantity" min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="boilerInputBTU">Boiler Input BTU/hr (per boiler):</label>
+                            <input type="number" id="boilerInputBTU" placeholder="Enter input BTU" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="boilerEfficiency">Boiler Efficiency (%):</label>
+                            <input type="number" id="boilerEfficiency" placeholder="85-98%" value="96" min="70" max="99" step="0.1">
+                        </div>
+                        <div class="form-group">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateBoilerSelectedSystem()">Calculate Selected System</button>
+
+                    <div id="selectedResults" class="boiler-results-section">
+                        <h3>Selected System Results</h3>
+                        
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Output BTU per Boiler:</span>
+                            <span class="result-value" id="outputBTUPerBoiler">--</span>
+                        </div>
+                        
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Total System Output BTU:</span>
+                            <span class="result-value" id="totalOutputBTU">--</span>
+                        </div>
+                        
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Actual Safety Factor:</span>
+                            <span class="result-value" id="actualSafety">--</span>
+                        </div>
+                        
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Fluid Flow per Boiler:</span>
+                            <span class="result-value" id="flowPerBoiler">--</span>
+                        </div>
+                        
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Total System Flow:</span>
+                            <span class="result-value" id="totalFlow">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Important Disclaimer</h4>
+                    <p>These calculations provide estimates for preliminary sizing only. Always conduct a proper heat loss calculation and consult with a licensed professional engineer or boiler manufacturer for final sizing. Factors such as piping losses, altitude, future expansion, and specific application requirements must be considered. EngrAssist is not responsible for equipment selection based on these estimates.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reference Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Sizing Guidelines & Rules of Thumb</h2>
+                
+                <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Commercial Building BTU per Square Foot</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Cold Climate (Northern US/Canada):</strong> 40-50 BTU/sq ft</li>
+                    <li><strong>Moderate Climate (Most of US):</strong> 30-40 BTU/sq ft</li>
+                    <li><strong>Warm Climate (Southern US):</strong> 20-30 BTU/sq ft</li>
+                    <li><strong>Well-Insulated Modern Buildings:</strong> 25-35 BTU/sq ft</li>
+                    <li><strong>Warehouses/High Ceilings:</strong> 50-75 BTU/sq ft</li>
+                    <li><strong>High-Ventilation Spaces:</strong> 75-100+ BTU/sq ft</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Safety Factors</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Replacement Boilers:</strong> 10-15%</li>
+                    <li><strong>New Construction:</strong> 15-20%</li>
+                    <li><strong>Future Expansion:</strong> 20-25%</li>
+                    <li><strong>Modulating Boilers:</strong> Can size closer to actual load due to turndown ratio</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Leading Commercial Boiler Manufacturers</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔥</div>
+                        <h4 class="feature-title">Lochinvar</h4>
+                        <p>Condensing boilers 399k-6M BTU/hr. Knight & Crest series. Up to 98% efficiency.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚙️</div>
+                        <h4 class="feature-title">Cleaver-Brooks</h4>
+                        <p>Firetube & watertube. 125-1000 BHP. ClearFire condensing series.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏭</div>
+                        <h4 class="feature-title">Fulton</h4>
+                        <p>Vertical tubeless design. 1.2-1000 BHP. Pulse combustion technology.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
