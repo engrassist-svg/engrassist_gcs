@@ -678,18 +678,6 @@ function swapUnits() {
 
 let boilerSystemData = {};
 
-function toggleCustomBTU() {
-    const option = document.getElementById('climateOption');
-    const customInput = document.getElementById('customBTUInput');
-    if (option && customInput) {
-        if (option.value === 'custom') {
-            customInput.style.display = 'block';
-        } else {
-            customInput.style.display = 'none';
-        }
-    }
-}
-
 function toggleGlycolMix() {
     const fluidType = document.getElementById('fluidType');
     const glycolInput = document.getElementById('glycolMixInput');
@@ -704,18 +692,12 @@ function toggleGlycolMix() {
 
 function calculateBoilerSystem() {
     const sqft = parseFloat(document.getElementById('sqft').value);
-    const climateOption = document.getElementById('climateOption').value;
     const safetyFactorPercent = parseFloat(document.getElementById('safetyFactor').value);
+    const btuPerSqFt = parseFloat(document.getElementById('btuPerSqFt').value);
 
-    let btuPerSqFt;
-    if (climateOption === 'custom') {
-        btuPerSqFt = parseFloat(document.getElementById('customBTU').value);
-        if (!btuPerSqFt || btuPerSqFt <= 0) {
-            alert('Please enter a valid custom BTU/sq ft value');
-            return;
-        }
-    } else {
-        btuPerSqFt = parseFloat(climateOption);
+    if (!btuPerSqFt || btuPerSqFt <= 0) {
+        alert('Please enter a valid BTU/sq ft value');
+        return;
     }
 
     if (!sqft || sqft <= 0) {
@@ -1437,4 +1419,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
