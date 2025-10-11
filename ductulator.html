@@ -82,25 +82,11 @@
 
                         <div class="form-row">
                             <div class="form-col">
-                                <label for="duct-material">Duct Material</label>
-                                <select id="duct-material" onchange="updateRoughness()">
-                                    <option value="0.00015">PVC Pipe</option>
-                                    <option value="0.00015">Commercial Steel</option>
-                                    <option value="0.0002">Aluminum Duct, Round</option>
-                                    <option value="0.00032">Galvanized Steel, Round, Longitudinal Seams</option>
-                                    <option value="0.0004">Galvanized Steel, Round, Spiral</option>
-                                    <option value="0.0005" selected>Galvanized Steel, Rectangular</option>
-                                    <option value="0.003">Flexible Duct, Fabric and Wire, Uncompressed</option>
-                                    <option value="0.003">Galvanized Steel, Round, Spiral, Corrugated</option>
-                                    <option value="0.003">Fibrous Glass Duct, Rigid</option>
-                                    <option value="0.005">Duct Liner, Fibrous Glass, Air Side w Facing</option>
-                                    <option value="0.01">Concrete</option>
-                                    <option value="0.015">Duct Liner, Fibrous Glass, Spray Coated</option>
-                                </select>
-                            </div>
-                            <div class="form-col">
                                 <label for="duct-roughness">Duct Roughness <span class="unit-display">(ft)</span></label>
-                                <input type="number" id="duct-roughness" step="0.000001" value="0.0005" readonly>
+                                <input type="number" id="duct-roughness" step="0.000001" value="0.0005" min="0.00001" required>
+                                <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                    See reference table below for common materials
+                                </small>
                             </div>
                         </div>
 
@@ -208,30 +194,6 @@
                                 <p>Enter your duct parameters and click "Calculate Results" to see the HVAC calculations.</p>
                             </div>
                         </div>
-
-                        <div style="margin-top: 2rem;">
-                            <h4 style="color: #2c3e50; margin-bottom: 1rem;">Duct Material Roughness Reference</h4>
-                            <table class="reference-table">
-                                <thead>
-                                    <tr>
-                                        <th>Material</th>
-                                        <th>Roughness (ft)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>PVC Pipe / Commercial Steel</td><td>0.00015</td></tr>
-                                    <tr><td>Aluminum Duct, Round</td><td>0.0002</td></tr>
-                                    <tr><td>Galv. Steel, Round, Long. Seams</td><td>0.00032</td></tr>
-                                    <tr><td>Galv. Steel, Round, Spiral</td><td>0.0004</td></tr>
-                                    <tr><td>Galv. Steel, Rectangular</td><td>0.0005</td></tr>
-                                    <tr><td>Flexible Duct, Uncompressed</td><td>0.003</td></tr>
-                                    <tr><td>Fibrous Glass Duct</td><td>0.003</td></tr>
-                                    <tr><td>Duct Liner w/ Facing</td><td>0.005</td></tr>
-                                    <tr><td>Concrete</td><td>0.01</td></tr>
-                                    <tr><td>Spray Coated Liner</td><td>0.015</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
 
@@ -281,6 +243,99 @@
                     <div class="warning-box">
                         <strong>Additional Considerations:</strong> Always account for pressure losses through fittings, transitions, dampers, and equipment. Total system pressure drop includes ductwork friction plus all components. Consider acoustical requirements, energy efficiency, constructability, and maintenance access in final design.
                     </div>
+</div>
+
+                <!-- Duct Material Roughness Reference - Moved to bottom with categories -->
+                <div class="content-section" style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 15px;">
+                    <h2 class="section-title">Duct Material Roughness Reference</h2>
+                    
+                    <p style="color: #7f8c8d; margin-bottom: 2rem;">
+                        Use this table to determine the appropriate roughness value for your duct material. 
+                        Roughness values are based on ASHRAE Fundamentals and affect friction loss calculations.
+                    </p>
+
+                    <div style="overflow-x: auto;">
+                        <table class="reference-table" style="width: 100%; margin: 0 auto;">
+                            <thead>
+                                <tr>
+                                    <th>Roughness Category</th>
+                                    <th>Material</th>
+                                    <th>Roughness (ft)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Smooth Category -->
+                                <tr style="background: #e8f5e9;">
+                                    <td rowspan="3" style="vertical-align: middle; font-weight: 600; color: #27ae60;">Smooth</td>
+                                    <td>PVC Pipe</td>
+                                    <td>0.00015</td>
+                                </tr>
+                                <tr style="background: #e8f5e9;">
+                                    <td>Commercial Steel</td>
+                                    <td>0.00015</td>
+                                </tr>
+                                <tr style="background: #e8f5e9;">
+                                    <td>Aluminum Duct, Round</td>
+                                    <td>0.0002</td>
+                                </tr>
+
+                                <!-- Medium Category -->
+                                <tr style="background: #fff3cd;">
+                                    <td rowspan="3" style="vertical-align: middle; font-weight: 600; color: #f39c12;">Medium</td>
+                                    <td>Galvanized Steel, Round, Longitudinal Seams</td>
+                                    <td>0.00032</td>
+                                </tr>
+                                <tr style="background: #fff3cd;">
+                                    <td>Galvanized Steel, Round, Spiral</td>
+                                    <td>0.0004</td>
+                                </tr>
+                                <tr style="background: #fff3cd;">
+                                    <td>Galvanized Steel, Rectangular</td>
+                                    <td>0.0005</td>
+                                </tr>
+
+                                <!-- Rough Category -->
+                                <tr style="background: #ffeaa7;">
+                                    <td rowspan="4" style="vertical-align: middle; font-weight: 600; color: #e67e22;">Rough</td>
+                                    <td>Flexible Duct, Fabric and Wire, Uncompressed</td>
+                                    <td>0.003</td>
+                                </tr>
+                                <tr style="background: #ffeaa7;">
+                                    <td>Galvanized Steel, Round, Spiral, Corrugated</td>
+                                    <td>0.003</td>
+                                </tr>
+                                <tr style="background: #ffeaa7;">
+                                    <td>Fibrous Glass Duct, Rigid</td>
+                                    <td>0.003</td>
+                                </tr>
+                                <tr style="background: #ffeaa7;">
+                                    <td>Duct Liner, Fibrous Glass, Air Side w/ Facing</td>
+                                    <td>0.005</td>
+                                </tr>
+
+                                <!-- Very Rough Category -->
+                                <tr style="background: #fadbd8;">
+                                    <td rowspan="2" style="vertical-align: middle; font-weight: 600; color: #c0392b;">Very Rough</td>
+                                    <td>Concrete</td>
+                                    <td>0.01</td>
+                                </tr>
+                                <tr style="background: #fadbd8;">
+                                    <td>Duct Liner, Fibrous Glass, Spray Coated</td>
+                                    <td>0.015</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 2rem;">
+                        <h4>📘 Understanding Roughness Categories</h4>
+                        <ul style="margin-left: 2rem; line-height: 1.8;">
+                            <li><strong>Smooth (0.00015-0.0002 ft):</strong> Lowest friction loss, best for long duct runs and energy efficiency</li>
+                            <li><strong>Medium (0.00032-0.0005 ft):</strong> Standard commercial ductwork, good balance of cost and performance</li>
+                            <li><strong>Rough (0.003-0.005 ft):</strong> Higher friction loss, requires more fan power</li>
+                            <li><strong>Very Rough (0.01-0.015 ft):</strong> Highest friction loss, typically avoided in HVAC design when possible</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -290,3 +345,4 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
