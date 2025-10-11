@@ -1935,6 +1935,21 @@ footer {
         font-size: 2rem;
     }
 
+   /* Reduce container padding on mobile for wider content */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    /* Make tools grid more spacious on mobile */
+    .tools-grid {
+        gap: 1.5rem;
+    }
+    
+    /* Ensure tool cards use full available width */
+    .tool-category {
+        padding: 1.5rem;
+    }
+   
     .page-title {
         font-size: 2rem;
     }
@@ -2082,6 +2097,7 @@ footer {
     }
 
 }
+
 
 
 
