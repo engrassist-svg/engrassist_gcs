@@ -1,23 +1,52 @@
 <header>
     <nav>
-        <div class="logo-container">
+        <!-- Logo now links to homepage -->
+        <a href="index.html" class="logo-container">
             <img src="images/favicon.ico" alt="EA Logo" class="favicon">
             <span class="brand-name">EngrAssist</span>
-        </div>
+        </a>
+        
         <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
+            
+            <!-- New Engineering Dropdown -->
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Engineering ▾</a>
+                <div class="dropdown-content">
+                    <a href="mechanical_page.html">Mechanical</a>
+                    <a href="index.html">Electrical</a>
+                    <a href="index.html">Plumbing</a>
+                </div>
+            </li>
+            
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="terms.html">Terms</a></li>
             <li><a href="privacy.html">Privacy</a></li>
         </ul>
+        
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
             ☰
         </button>
     </nav>
+    
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <ul>
             <li><a href="index.html">Home</a></li>
+            
+            <!-- Engineering submenu for mobile -->
+            <li>
+                <a href="#" onclick="toggleMobileSubmenu(event)" class="mobile-submenu-toggle">
+                    Engineering ▾
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a href="mechanical_page.html">→ Mechanical</a></li>
+                    <li><a href="index.html">→ Electrical</a></li>
+                    <li><a href="index.html">→ Plumbing</a></li>
+                </ul>
+            </li>
+            
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="terms.html">Terms</a></li>
