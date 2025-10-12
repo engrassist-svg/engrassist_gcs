@@ -1421,6 +1421,321 @@ function clearInputs() {
     }
 }
 
+// ========================================
+// AIR BALANCE CALCULATOR FUNCTIONS
+// ========================================
+
+// Initialize air balance calculator when page loads
+function initializeAirBalance() {
+    // Only run on air balance page
+    if (!document.getElementById('air-terminals-table')) return;
+    
+    // Add 3 starter rows
+    addTerminalRow();
+    addTerminalRow();
+    addTerminalRow();
+}
+
+// Store air terminals data
+let airTerminals = [];
+let nextTerminalId = 1;
+
+// Add a new air terminal row
+function addTerminalRow() {
+    const tbody = document.getElementById('terminals-tbody');
+    if (!tbody) return;
+    
+    const row = tbody.insertRow();
+    const terminalData = {
+        id: nextTerminalId++,
+        name: '',
+        type: 'supply',
+        cfm: 0
+    };
+    airTerminals.push(terminalData);
+    
+    row.innerHTML = `
+        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="text" 
+                   placeholder="e.g., AHU-1" 
+                   value="${terminalData.name}"
+                   onchange="updateTerminalName(${terminalData.id}, this.value)"
+                   style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+        </td>
+        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+            <select onchange="updateTerminalType(${terminalData.id}, this.value)"
+                    style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+                <option value="supply" selected>Supply</option>
+                <option value="return">Return</option>
+                <option value="exhaust">Exhaust</option>
+            </select>
+        </td>
+        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="number" 
+                   placeholder="0" 
+                   value="${terminalData.cfm}"
+                   onchange="updateTerminalCFM(${terminalData.id}, this.value)"
+                   style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+        </td>
+        <td style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
+            <button onclick="moveRowUp(${terminalData.id})" 
+                    style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                    title="Move Up">
+                ▲
+            </button>
+            <button onclick="moveRowDown(${terminalData.id})" 
+                    style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                    title="Move Down">
+                ▼
+            </button>
+            <button onclick="deleteRow(${terminalData.id})" 
+                    style="background: #e74c3c; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                    title="Delete">
+                ✕
+            </button>
+        </td>
+    `;
+    
+    calculateAirflow();
+}
+
+// Update terminal name
+function updateTerminalName(id, value) {
+    const terminal = airTerminals.find(t => t.id === id);
+    if (terminal) {
+        terminal.name = value;
+    }
+}
+
+// Update terminal type
+function updateTerminalType(id, value) {
+    const terminal = airTerminals.find(t => t.id === id);
+    if (terminal) {
+        terminal.type = value;
+        calculateAirflow();
+    }
+}
+
+// Update terminal CFM
+function updateTerminalCFM(id, value) {
+    const terminal = airTerminals.find(t => t.id === id);
+    if (terminal) {
+        terminal.cfm = parseFloat(value) || 0;
+        calculateAirflow();
+    }
+}
+
+// Delete a row
+function deleteRow(id) {
+    const index = airTerminals.findIndex(t => t.id === id);
+    if (index > -1) {
+        airTerminals.splice(index, 1);
+        rebuildTable();
+        calculateAirflow();
+    }
+}
+
+// Move row up
+function moveRowUp(id) {
+    const index = airTerminals.findIndex(t => t.id === id);
+    if (index > 0) {
+        // Swap with previous item
+        [airTerminals[index - 1], airTerminals[index]] = [airTerminals[index], airTerminals[index - 1]];
+        rebuildTable();
+    }
+}
+
+// Move row down
+function moveRowDown(id) {
+    const index = airTerminals.findIndex(t => t.id === id);
+    if (index < airTerminals.length - 1) {
+        // Swap with next item
+        [airTerminals[index], airTerminals[index + 1]] = [airTerminals[index + 1], airTerminals[index]];
+        rebuildTable();
+    }
+}
+
+// Rebuild entire table from airTerminals data
+function rebuildTable() {
+    const tbody = document.getElementById('terminals-tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    airTerminals.forEach(terminal => {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+            <td style="padding: 0.75rem; border: 1px solid #ddd;">
+                <input type="text" 
+                       placeholder="e.g., AHU-1" 
+                       value="${terminal.name}"
+                       onchange="updateTerminalName(${terminal.id}, this.value)"
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+            </td>
+            <td style="padding: 0.75rem; border: 1px solid #ddd;">
+                <select onchange="updateTerminalType(${terminal.id}, this.value)"
+                        style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+                    <option value="supply" ${terminal.type === 'supply' ? 'selected' : ''}>Supply</option>
+                    <option value="return" ${terminal.type === 'return' ? 'selected' : ''}>Return</option>
+                    <option value="exhaust" ${terminal.type === 'exhaust' ? 'selected' : ''}>Exhaust</option>
+                </select>
+            </td>
+            <td style="padding: 0.75rem; border: 1px solid #ddd;">
+                <input type="number" 
+                       placeholder="0" 
+                       value="${terminal.cfm}"
+                       onchange="updateTerminalCFM(${terminal.id}, this.value)"
+                       style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+            </td>
+            <td style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
+                <button onclick="moveRowUp(${terminal.id})" 
+                        style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                        title="Move Up">
+                    ▲
+                </button>
+                <button onclick="moveRowDown(${terminal.id})" 
+                        style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                        title="Move Down">
+                    ▼
+                </button>
+                <button onclick="deleteRow(${terminal.id})" 
+                        style="background: #e74c3c; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                        title="Delete">
+                    ✕
+                </button>
+            </td>
+        `;
+    });
+}
+
+// Calculate total airflow for each type
+function calculateAirflow() {
+    let supplyCFM = 0;
+    let returnCFM = 0;
+    let exhaustCFM = 0;
+    
+    airTerminals.forEach(terminal => {
+        if (terminal.type === 'supply') {
+            supplyCFM += terminal.cfm;
+        } else if (terminal.type === 'return') {
+            returnCFM += terminal.cfm;
+        } else if (terminal.type === 'exhaust') {
+            exhaustCFM += terminal.cfm;
+        }
+    });
+    
+    // Update display
+    document.getElementById('supply-cfm').value = supplyCFM.toFixed(0);
+    document.getElementById('return-cfm').value = returnCFM.toFixed(0);
+    document.getElementById('exhaust-cfm').value = exhaustCFM.toFixed(0);
+    
+    // Calculate outside air needed for target pressurization
+    updatePressurization();
+}
+
+// Update pressurization calculations
+function updatePressurization() {
+    const pressType = document.getElementById('pressurization-type').value;
+    const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
+    const exhaustCFM = parseFloat(document.getElementById('exhaust-cfm').value) || 0;
+    const supplyCFM = parseFloat(document.getElementById('supply-cfm').value) || 0;
+    const returnCFM = parseFloat(document.getElementById('return-cfm').value) || 0;
+    
+    // Calculate required outside air based on target pressurization
+    let requiredOA = 0;
+    
+    if (exhaustCFM > 0) {
+        if (pressType === 'positive') {
+            // Positive: Supply > Exhaust
+            // targetPercent = ((Supply - Exhaust) / Exhaust) * 100
+            // Supply = Exhaust * (1 + targetPercent/100)
+            const requiredSupply = exhaustCFM * (1 + targetPercent / 100);
+            requiredOA = requiredSupply - returnCFM;
+        } else if (pressType === 'negative') {
+            // Negative: Exhaust > Supply
+            // targetPercent = ((Exhaust - Supply) / Supply) * 100
+            // Supply = Exhaust / (1 + targetPercent/100)
+            const requiredSupply = exhaustCFM / (1 + targetPercent / 100);
+            requiredOA = requiredSupply - returnCFM;
+        } else {
+            // Neutral: Supply = Exhaust
+            requiredOA = exhaustCFM - returnCFM;
+        }
+    } else {
+        // No exhaust, just use supply
+        requiredOA = supplyCFM - returnCFM;
+    }
+    
+    // Don't allow negative OA
+    requiredOA = Math.max(0, requiredOA);
+    
+    document.getElementById('outside-air-cfm').value = requiredOA.toFixed(0);
+    
+    // Calculate actual pressurization
+    const totalSupply = supplyCFM;
+    const totalExhaust = exhaustCFM;
+    
+    let actualPercent = 0;
+    let actualType = 'Neutral';
+    
+    if (totalExhaust > 0) {
+        actualPercent = ((totalSupply - totalExhaust) / totalExhaust) * 100;
+        
+        if (actualPercent > 0.5) {
+            actualType = 'Positive';
+        } else if (actualPercent < -0.5) {
+            actualType = 'Negative';
+            actualPercent = Math.abs(actualPercent);
+        } else {
+            actualType = 'Neutral';
+            actualPercent = 0;
+        }
+    }
+    
+    document.getElementById('actual-pressurization').textContent = 
+        `${actualPercent.toFixed(1)}% ${actualType}`;
+    
+    // Determine status
+    let status = 'Within Target';
+    let statusColor = '#27ae60';
+    
+    const tolerance = 1.0; // 1% tolerance
+    
+    if (pressType === 'positive' && actualType === 'Positive') {
+        if (Math.abs(actualPercent - targetPercent) <= tolerance) {
+            status = '✓ Within Target';
+            statusColor = '#27ae60';
+        } else if (actualPercent < targetPercent) {
+            status = '⚠ Below Target';
+            statusColor = '#f39c12';
+        } else {
+            status = '⚠ Above Target';
+            statusColor = '#f39c12';
+        }
+    } else if (pressType === 'negative' && actualType === 'Negative') {
+        if (Math.abs(actualPercent - targetPercent) <= tolerance) {
+            status = '✓ Within Target';
+            statusColor = '#27ae60';
+        } else if (actualPercent < targetPercent) {
+            status = '⚠ Below Target';
+            statusColor = '#f39c12';
+        } else {
+            status = '⚠ Above Target';
+            statusColor = '#f39c12';
+        }
+    } else if (pressType === 'neutral' && actualType === 'Neutral') {
+        status = '✓ Within Target';
+        statusColor = '#27ae60';
+    } else {
+        status = '✗ Wrong Type';
+        statusColor = '#e74c3c';
+    }
+    
+    const statusElement = document.getElementById('pressurization-status');
+    statusElement.textContent = status;
+    statusElement.style.color = statusColor;
+}
+
 // ====================================
 // INITIALIZE EVERYTHING ON PAGE LOAD
 // ====================================
@@ -1428,6 +1743,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
