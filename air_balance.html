@@ -44,6 +44,16 @@
             </div>
         </section>
 
+<!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Air Balance Calculator</h1>
+                <p class="hero-subtitle">Calculate building pressurization and airflow balance for HVAC systems. Track supply, return, exhaust, and outside air to maintain proper building pressure control.</p>
+            </div>
+        </section>
+
         <!-- Calculator Section -->
         <section class="content-section">
             <div class="container">
@@ -54,7 +64,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="pressurization-type">Pressurization Type:</label>
-                        <select id="pressurization-type" onchange="updatePressurization()">
+                        <select id="pressurization-type" onchange="calculateAirflow()">
                             <option value="positive" selected>Positive</option>
                             <option value="neutral">Neutral</option>
                             <option value="negative">Negative</option>
@@ -62,20 +72,7 @@
                     </div>
                     <div class="form-group">
                         <label for="target-percent">Target Percent (%):</label>
-                        <input type="number" id="target-percent" value="5" min="0" max="100" step="0.1" onchange="updatePressurization()">
-                    </div>
-                </div>
-
-                <!-- Actual Pressurization Display -->
-                <div class="boiler-results-section" style="margin-top: 2rem;">
-                    <h3>Actual Pressurization</h3>
-                    <div class="boiler-result-item boiler-result-blue">
-                        <span class="result-label">Actual Pressurization:</span>
-                        <span class="result-value" id="actual-pressurization">0.0% Positive</span>
-                    </div>
-                    <div class="boiler-result-item boiler-result-green">
-                        <span class="result-label">Status:</span>
-                        <span class="result-value" id="pressurization-status">Within Target</span>
+                        <input type="number" id="target-percent" value="5" min="0" max="100" step="0.1" oninput="calculateAirflow()">
                     </div>
                 </div>
 
@@ -99,8 +96,30 @@
                         <input type="number" id="exhaust-cfm" value="0" readonly style="background: #f8f9fa; font-weight: bold; color: #e74c3c;">
                     </div>
                     <div class="form-group">
-                        <label>Outside Air (CFM):</label>
-                        <input type="number" id="outside-air-cfm" value="0" readonly style="background: #fff3cd; font-weight: bold; color: #f39c12;">
+                        <label for="outside-air-cfm">Outside Air (CFM):</label>
+                        <input type="number" id="outside-air-cfm" value="0" min="0" step="1" oninput="calculateAirflow()" style="font-weight: bold; color: #f39c12; border: 2px solid #f39c12;">
+                    </div>
+                </div>
+
+                <!-- Actual Pressurization Results -->
+                <div class="boiler-results-section" style="margin-top: 2rem;">
+                    <h3>Actual Pressurization Results</h3>
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Actual Pressurization:</span>
+                        <span class="result-value" id="actual-pressurization">0.0% Neutral</span>
+                    </div>
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Status:</span>
+                        <span class="result-value" id="pressurization-status">Within Target</span>
+                    </div>
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Suggested Outside Air:</span>
+                        <span class="result-value" id="suggested-oa">0 CFM</span>
+                    </div>
+                    <div class="info-box" style="margin-top: 1rem; background: #e8f4f8;">
+                        <p style="margin: 0; color: #2c3e50;" id="oa-explanation">
+                            Enter outside air CFM above to see pressurization results.
+                        </p>
                     </div>
                 </div>
 
@@ -136,6 +155,7 @@
                         <li><strong>Negative Pressurization:</strong> More air exhausted than supplied. Prevents contaminated air from spreading. Typical: 5-15%</li>
                     </ul>
                     <p style="margin-top: 1rem;"><strong>Formula:</strong> Pressurization % = ((Supply - Exhaust) / Exhaust) × 100</p>
+                    <p style="margin-top: 0.5rem;"><strong>Note:</strong> Supply Air = Return Air + Outside Air</p>
                 </div>
 
                 <!-- Disclaimer -->
@@ -151,6 +171,9 @@
             </div>
         </section>
     </main>
+
+    <!-- Footer Placeholder -->
+    <div id="foote
 
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
