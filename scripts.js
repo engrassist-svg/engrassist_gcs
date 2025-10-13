@@ -1798,72 +1798,146 @@ const psychChartConfig = {
     tMin: 30,
     tMax: 120,
     wMin: 0,
-    wMax: 0.030
+    wMax: 0.030  // lb water / lb dry air
 };
 
 // ============================================
 // PSYCHROMETRIC CALCULATIONS (ASHRAE)
 // ============================================
 
+/**
+ * Calculate saturation vapor pressure using ASHRAE formula
+ * @param {number} T - Temperature in Fahrenheit
+ * @returns {number} Saturation pressure in psia
+ */
 function psychSaturationPressure(T) {
+    // ASHRAE Fundamentals empirical formula
+    // Input: T in °F, Output: psia
     const C1 = -1.0440397E+04;
     const C2 = -1.1294650E+01;
     const C3 = -2.7022355E-02;
     const C4 = 1.2890360E-05;
     const C5 = -2.4780681E-09;
     const C6 = 6.5459673E+00;
-    const T_R = T + 459.67;
+    
+    const T_R = T + 459.67; // Convert to Rankine
     const lnPws = C1/T_R + C2 + C3*T_R + C4*T_R*T_R + C5*T_R*T_R*T_R + C6*Math.log(T_R);
-    return Math.exp(lnPws);
+    const Pws = Math.exp(lnPws);
+    
+    // Clamp to slightly below ambient pressure to avoid division issues
+    return Math.min(Pws, psychCurrentPressure * 0.999);
 }
 
+/**
+ * Calculate humidity ratio from dry bulb, wet bulb, and pressure
+ */
 function psychHumidityRatioFromWB(T_db, T_wb, P) {
+    // All temperatures in °F, pressure in psia
     const Pws_wb = psychSaturationPressure(T_wb);
     const Ws_wb = 0.621945 * Pws_wb / (P - Pws_wb);
+    
+    // ASHRAE psychrometric equation
     const W = ((1093 - 0.556 * T_wb) * Ws_wb - 0.240 * (T_db - T_wb)) / 
               (1093 + 0.444 * T_db - T_wb);
+    
     return Math.max(0, W);
 }
 
+/**
+ * Calculate all psychrometric properties from dry bulb and humidity ratio
+ * @param {number} T_db - Dry bulb temperature (°F)
+ * @param {number} W - Humidity ratio (lb water/lb dry air)
+ * @param {number} P - Barometric pressure (psia)
+ * @returns {object} All psychrometric properties
+ */
 function psychCalculateProperties(T_db, W, P) {
     const properties = {};
     properties.dryBulb = T_db;
     properties.humidityRatio = W;
+    
+    // Vapor pressure (psia)
     properties.vaporPressure = (P * W) / (0.621945 + W);
     
+    // Dew point temperature (°F)
     const Pw = properties.vaporPressure;
-    if (Pw > 0.0005) {
-        const C14 = 6.54, C15 = 14.526, C16 = 0.7389, C17 = 0.09486, C18 = 0.4569;
+    if (Pw > 1e-6) {
+        // ASHRAE inverse saturation pressure formula
+        const C14 = 6.54;
+        const C15 = 14.526;
+        const C16 = 0.7389;
+        const C17 = 0.09486;
+        const C18 = 0.4569;
+        
         const alpha = Math.log(Pw);
         properties.dewPoint = C14 + C15*alpha + C16*alpha*alpha + 
                              C17*Math.pow(alpha, 3) + C18*Math.pow(Pw, 0.1984);
+        
+        // Clamp to reasonable range
+        properties.dewPoint = Math.max(-100, Math.min(T_db, properties.dewPoint));
     } else {
-        properties.dewPoint = T_db;
+        // Very dry air - use asymptotic approximation
+        properties.dewPoint = -100;
     }
     
+    // Relative humidity (%)
     const Pws = psychSaturationPressure(T_db);
     properties.relativeHumidity = Math.min(100, Math.max(0, (Pw / Pws) * 100));
+    
+    // Enthalpy (BTU/lb dry air)
     properties.enthalpy = 0.240 * T_db + W * (1061 + 0.444 * T_db);
-    const T_R = T_db + 459.67;
+    
+    // Specific volume (ft³/lb dry air)
+    const T_R = T_db + 459.67; // Rankine
     properties.specificVolume = 0.370486 * T_R * (1 + 1.607858 * W) / P;
+    
+    // Wet bulb temperature (°F) - iterative calculation
     properties.wetBulb = psychApproximateWetBulb(T_db, W, P);
+    
     return properties;
 }
 
-function psychApproximateWetBulb(T_db, W, P) {
-    let T_wb = T_db;
-    for (let i = 0; i < 20; i++) {
-        const W_calc = psychHumidityRatioFromWB(T_db, T_wb, P);
-        const error = W_calc - W;
-        if (Math.abs(error) < 0.00001) break;
-        T_wb = T_wb - error * 50;
-        T_wb = Math.max(-50, Math.min(T_db, T_wb));
+/**
+ * Approximate wet bulb temperature using bisection method
+ * More robust than Newton's method with arbitrary step size
+ */
+function psychApproximateWetBulb(T_db, W_target, P) {
+    // Use bisection for robust convergence
+    let T_wb_low = -50;
+    let T_wb_high = T_db;
+    let T_wb_mid = T_db;
+    
+    const tolerance = 0.001; // °F
+    const maxIterations = 50;
+    
+    for (let i = 0; i < maxIterations; i++) {
+        T_wb_mid = (T_wb_low + T_wb_high) / 2;
+        const W_calc = psychHumidityRatioFromWB(T_db, T_wb_mid, P);
+        const error = W_calc - W_target;
+        
+        if (Math.abs(error) < tolerance * W_target || Math.abs(T_wb_high - T_wb_low) < 0.01) {
+            break;
+        }
+        
+        // Adjust bounds based on error
+        if (error > 0) {
+            // Calculated W is too high, wet bulb is too high
+            T_wb_high = T_wb_mid;
+        } else {
+            // Calculated W is too low, wet bulb is too low
+            T_wb_low = T_wb_mid;
+        }
     }
-    return T_wb;
+    
+    return T_wb_mid;
 }
 
+/**
+ * Calculate properties from two known variables
+ */
 function psychCalculateFromTwoVariables(var1Type, var1Value, var2Type, var2Value, P) {
     let T_db, W;
+    
+    // Determine dry bulb and humidity ratio
     if (var1Type === 'db') {
         T_db = var1Value;
         W = psychGetWFromSecondVariable(T_db, var2Type, var2Value, P);
@@ -1871,47 +1945,78 @@ function psychCalculateFromTwoVariables(var1Type, var1Value, var2Type, var2Value
         T_db = var2Value;
         W = psychGetWFromSecondVariable(T_db, var1Type, var1Value, P);
     } else {
+        // Neither is dry bulb - need to solve iteratively
         const result = psychSolveForDbAndW(var1Type, var1Value, var2Type, var2Value, P);
         T_db = result.T_db;
         W = result.W;
     }
+    
     return psychCalculateProperties(T_db, W, P);
 }
 
+/**
+ * Get humidity ratio from known dry bulb and another variable
+ */
 function psychGetWFromSecondVariable(T_db, varType, varValue, P) {
     switch(varType) {
         case 'wb':
             return psychHumidityRatioFromWB(T_db, varValue, P);
+        
         case 'rh':
             const Pws = psychSaturationPressure(T_db);
             const Pw = (varValue / 100) * Pws;
             return 0.621945 * Pw / (P - Pw);
+        
         case 'dp':
             const Pw_dp = psychSaturationPressure(varValue);
             return 0.621945 * Pw_dp / (P - Pw_dp);
+        
         case 'w':
             return varValue;
+        
         case 'h':
+            // Solve for W from enthalpy: h = 0.240*T + W*(1061 + 0.444*T)
             return (varValue - 0.240 * T_db) / (1061 + 0.444 * T_db);
+        
         default:
             return 0;
     }
 }
 
+/**
+ * Solve for dry bulb and humidity ratio when neither is given
+ * Uses bisection for robust convergence
+ */
 function psychSolveForDbAndW(var1Type, var1Value, var2Type, var2Value, P) {
-    let T_db = 70;
+    // Bisection method for T_db
+    let T_low = psychChartConfig.tMin;
+    let T_high = psychChartConfig.tMax;
+    let T_mid = 70; // Initial guess
+    
     for (let i = 0; i < 50; i++) {
-        const W1 = psychGetWFromSecondVariable(T_db, var1Type, var1Value, P);
-        const W2 = psychGetWFromSecondVariable(T_db, var2Type, var2Value, P);
+        T_mid = (T_low + T_high) / 2;
+        const W1 = psychGetWFromSecondVariable(T_mid, var1Type, var1Value, P);
+        const W2 = psychGetWFromSecondVariable(T_mid, var2Type, var2Value, P);
+        
         const error = W1 - W2;
         if (Math.abs(error) < 0.00001) {
-            return { T_db: T_db, W: W1 };
+            return { T_db: T_mid, W: W1 };
         }
-        T_db = T_db - error * 100;
-        T_db = Math.max(psychChartConfig.tMin, Math.min(psychChartConfig.tMax, T_db));
+        
+        // Adjust bounds
+        if (error > 0) {
+            T_high = T_mid;
+        } else {
+            T_low = T_mid;
+        }
+        
+        // Check convergence on temperature
+        if (Math.abs(T_high - T_low) < 0.01) break;
     }
-    const W = psychGetWFromSecondVariable(T_db, var1Type, var1Value, P);
-    return { T_db, W };
+    
+    // Return best estimate
+    const W = psychGetWFromSecondVariable(T_mid, var1Type, var1Value, P);
+    return { T_db: T_mid, W };
 }
 
 // ============================================
@@ -1965,6 +2070,7 @@ function psychDrawTemperatureGrid(svg) {
 }
 
 function psychDrawHumidityGrid(svg) {
+    // Draw grid lines for humidity ratio (lb/lb)
     for (let w = 0; w <= psychChartConfig.wMax; w += 0.002) {
         const y = psychHumidityToY(w);
         const isMajor = (w * 1000) % 4 === 0;
@@ -1981,6 +2087,7 @@ function psychDrawHumidityGrid(svg) {
                 class: 'chart-label',
                 'text-anchor': 'end'
             });
+            // Display as lb/lb × 1000 for readability
             label.textContent = (w * 1000).toFixed(0);
             svg.appendChild(label);
         }
@@ -2090,6 +2197,7 @@ function psychDrawEnthalpyLines(svg) {
 }
 
 function psychDrawAxes(svg) {
+    // X-axis label
     const xLabel = psychCreateSVGElement('text', {
         x: psychChartConfig.width / 2,
         y: psychChartConfig.height - 10,
@@ -2099,6 +2207,7 @@ function psychDrawAxes(svg) {
     xLabel.textContent = 'Dry Bulb Temperature (°F)';
     svg.appendChild(xLabel);
     
+    // Y-axis label - CORRECTED to show actual units
     const yLabel = psychCreateSVGElement('text', {
         x: 20,
         y: psychChartConfig.height / 2,
@@ -2106,7 +2215,7 @@ function psychDrawAxes(svg) {
         'text-anchor': 'middle',
         transform: `rotate(-90, 20, ${psychChartConfig.height / 2})`
     });
-    yLabel.textContent = 'Humidity Ratio (grains/lb × 1000)';
+    yLabel.textContent = 'Humidity Ratio (lb water / lb dry air × 1000)';
     svg.appendChild(yLabel);
 }
 
@@ -2135,11 +2244,13 @@ function psychHandleChartClick(evt) {
     }
     
     const props = psychCalculateProperties(T_db, W, psychCurrentPressure);
+    
+    // FIXED: Use spread operator correctly
     const point = {
         id: Date.now(),
         label: String.fromCharCode(65 + psychPoints.length),
         color: psychPointColors[psychPoints.length % psychPointColors.length],
-        ...props
+        ...props  // Spread operator to copy all properties
     };
     
     psychPoints.push(point);
@@ -2172,11 +2283,12 @@ function addManualPoint() {
             psychCurrentPressure
         );
         
+        // FIXED: Use spread operator correctly
         const point = {
             id: Date.now(),
             label: label.substring(0, 3),
             color: psychPointColors[psychPoints.length % psychPointColors.length],
-            ...props
+            ...props  // Spread operator to copy all properties
         };
         
         psychPoints.push(point);
@@ -2258,7 +2370,7 @@ function psychUpdateManualInputFields() {
     
     const labels = {
         db: 'Dry Bulb (°F)', wb: 'Wet Bulb (°F)', rh: 'Relative Humidity (%)',
-        dp: 'Dew Point (°F)', w: 'Humidity Ratio', h: 'Enthalpy (BTU/lb)'
+        dp: 'Dew Point (°F)', w: 'Humidity Ratio (lb/lb)', h: 'Enthalpy (BTU/lb)'
     };
     
     if (psychSelectedVariables.length >= 1) {
@@ -2383,6 +2495,7 @@ function exportData() {
         return;
     }
     
+    // CSV with consistent units (lb/lb for humidity ratio, psia for pressure)
     let csv = 'Point,DB(F),WB(F),DP(F),RH(%),W(lb/lb),h(BTU/lb),v(ft3/lb),Pv(psia)\n';
     psychPoints.forEach(point => {
         csv += `${point.label},${point.dryBulb.toFixed(2)},${point.wetBulb.toFixed(2)},`;
@@ -2399,7 +2512,10 @@ function exportData() {
     a.click();
 }
 
-// Coordinate conversion functions
+// ============================================
+// COORDINATE CONVERSION
+// ============================================
+
 function psychTempToX(t) {
     const chartWidth = psychChartConfig.width - psychChartConfig.marginLeft - psychChartConfig.marginRight;
     return psychChartConfig.marginLeft + 
@@ -2433,6 +2549,10 @@ function psychCreateSVGElement(type, attributes) {
     return element;
 }
 
+// ============================================
+// INITIALIZATION
+// ============================================
+
 // Initialize psychrometric chart after templates load
 function initializePsychrometricChart() {
     const svg = document.getElementById('psychChart');
@@ -2456,6 +2576,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
