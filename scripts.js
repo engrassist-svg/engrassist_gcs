@@ -1767,6 +1767,689 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAirBalance();
 });
 
+// ============================================
+// PSYCHROMETRIC CHART CALCULATOR
+// Based on ASHRAE Fundamentals
+// ============================================
+
+// Global state for psychrometric chart
+let psychCurrentElevation = 'sealevel';
+let psychCurrentPressure = 14.696; // psia
+let psychInputMode = 'click';
+let psychConnectMode = false;
+let psychPoints = []; // Array of point objects
+let psychSelectedVariables = [];
+let psychMaxPoints = 12;
+
+// Color palette for points
+const psychPointColors = [
+    '#e74c3c', '#3498db', '#2ecc71', '#f39c12', 
+    '#9b59b6', '#1abc9c', '#e67e22', '#34495e',
+    '#c0392b', '#2980b9', '#27ae60', '#d35400'
+];
+
+// Chart dimensions and scales
+const psychChartConfig = {
+    width: 1000,
+    height: 700,
+    marginLeft: 80,
+    marginRight: 50,
+    marginTop: 50,
+    marginBottom: 80,
+    tMin: 30,
+    tMax: 120,
+    wMin: 0,
+    wMax: 0.030
+};
+
+// ============================================
+// PSYCHROMETRIC CALCULATIONS (ASHRAE)
+// ============================================
+
+function psychSaturationPressure(T) {
+    const C1 = -1.0440397E+04;
+    const C2 = -1.1294650E+01;
+    const C3 = -2.7022355E-02;
+    const C4 = 1.2890360E-05;
+    const C5 = -2.4780681E-09;
+    const C6 = 6.5459673E+00;
+    const T_R = T + 459.67;
+    const lnPws = C1/T_R + C2 + C3*T_R + C4*T_R*T_R + C5*T_R*T_R*T_R + C6*Math.log(T_R);
+    return Math.exp(lnPws);
+}
+
+function psychHumidityRatioFromWB(T_db, T_wb, P) {
+    const Pws_wb = psychSaturationPressure(T_wb);
+    const Ws_wb = 0.621945 * Pws_wb / (P - Pws_wb);
+    const W = ((1093 - 0.556 * T_wb) * Ws_wb - 0.240 * (T_db - T_wb)) / 
+              (1093 + 0.444 * T_db - T_wb);
+    return Math.max(0, W);
+}
+
+function psychCalculateProperties(T_db, W, P) {
+    const properties = {};
+    properties.dryBulb = T_db;
+    properties.humidityRatio = W;
+    properties.vaporPressure = (P * W) / (0.621945 + W);
+    
+    const Pw = properties.vaporPressure;
+    if (Pw > 0.0005) {
+        const C14 = 6.54, C15 = 14.526, C16 = 0.7389, C17 = 0.09486, C18 = 0.4569;
+        const alpha = Math.log(Pw);
+        properties.dewPoint = C14 + C15*alpha + C16*alpha*alpha + 
+                             C17*Math.pow(alpha, 3) + C18*Math.pow(Pw, 0.1984);
+    } else {
+        properties.dewPoint = T_db;
+    }
+    
+    const Pws = psychSaturationPressure(T_db);
+    properties.relativeHumidity = Math.min(100, Math.max(0, (Pw / Pws) * 100));
+    properties.enthalpy = 0.240 * T_db + W * (1061 + 0.444 * T_db);
+    const T_R = T_db + 459.67;
+    properties.specificVolume = 0.370486 * T_R * (1 + 1.607858 * W) / P;
+    properties.wetBulb = psychApproximateWetBulb(T_db, W, P);
+    return properties;
+}
+
+function psychApproximateWetBulb(T_db, W, P) {
+    let T_wb = T_db;
+    for (let i = 0; i < 20; i++) {
+        const W_calc = psychHumidityRatioFromWB(T_db, T_wb, P);
+        const error = W_calc - W;
+        if (Math.abs(error) < 0.00001) break;
+        T_wb = T_wb - error * 50;
+        T_wb = Math.max(-50, Math.min(T_db, T_wb));
+    }
+    return T_wb;
+}
+
+function psychCalculateFromTwoVariables(var1Type, var1Value, var2Type, var2Value, P) {
+    let T_db, W;
+    if (var1Type === 'db') {
+        T_db = var1Value;
+        W = psychGetWFromSecondVariable(T_db, var2Type, var2Value, P);
+    } else if (var2Type === 'db') {
+        T_db = var2Value;
+        W = psychGetWFromSecondVariable(T_db, var1Type, var1Value, P);
+    } else {
+        const result = psychSolveForDbAndW(var1Type, var1Value, var2Type, var2Value, P);
+        T_db = result.T_db;
+        W = result.W;
+    }
+    return psychCalculateProperties(T_db, W, P);
+}
+
+function psychGetWFromSecondVariable(T_db, varType, varValue, P) {
+    switch(varType) {
+        case 'wb':
+            return psychHumidityRatioFromWB(T_db, varValue, P);
+        case 'rh':
+            const Pws = psychSaturationPressure(T_db);
+            const Pw = (varValue / 100) * Pws;
+            return 0.621945 * Pw / (P - Pw);
+        case 'dp':
+            const Pw_dp = psychSaturationPressure(varValue);
+            return 0.621945 * Pw_dp / (P - Pw_dp);
+        case 'w':
+            return varValue;
+        case 'h':
+            return (varValue - 0.240 * T_db) / (1061 + 0.444 * T_db);
+        default:
+            return 0;
+    }
+}
+
+function psychSolveForDbAndW(var1Type, var1Value, var2Type, var2Value, P) {
+    let T_db = 70;
+    for (let i = 0; i < 50; i++) {
+        const W1 = psychGetWFromSecondVariable(T_db, var1Type, var1Value, P);
+        const W2 = psychGetWFromSecondVariable(T_db, var2Type, var2Value, P);
+        const error = W1 - W2;
+        if (Math.abs(error) < 0.00001) {
+            return { T_db: T_db, W: W1 };
+        }
+        T_db = T_db - error * 100;
+        T_db = Math.max(psychChartConfig.tMin, Math.min(psychChartConfig.tMax, T_db));
+    }
+    const W = psychGetWFromSecondVariable(T_db, var1Type, var1Value, P);
+    return { T_db, W };
+}
+
+// ============================================
+// CHART DRAWING FUNCTIONS
+// ============================================
+
+function psychDrawChart() {
+    const svg = document.getElementById('psychChart');
+    if (!svg) return;
+    svg.innerHTML = '';
+    
+    const bg = psychCreateSVGElement('rect', {
+        width: psychChartConfig.width,
+        height: psychChartConfig.height,
+        fill: '#ffffff'
+    });
+    svg.appendChild(bg);
+    
+    psychDrawTemperatureGrid(svg);
+    psychDrawHumidityGrid(svg);
+    psychDrawSaturationCurve(svg);
+    psychDrawRelativeHumidityLines(svg);
+    psychDrawWetBulbLines(svg);
+    psychDrawEnthalpyLines(svg);
+    psychDrawAxes(svg);
+    psychDrawConnections(svg);
+    psychDrawPoints(svg);
+}
+
+function psychDrawTemperatureGrid(svg) {
+    for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 5) {
+        const x = psychTempToX(t);
+        const isMajor = t % 10 === 0;
+        const line = psychCreateSVGElement('line', {
+            x1: x, y1: psychChartConfig.marginTop,
+            x2: x, y2: psychChartConfig.height - psychChartConfig.marginBottom,
+            class: isMajor ? 'chart-grid-line-major' : 'chart-grid-line'
+        });
+        svg.appendChild(line);
+        if (isMajor) {
+            const label = psychCreateSVGElement('text', {
+                x: x,
+                y: psychChartConfig.height - psychChartConfig.marginBottom + 20,
+                class: 'chart-label',
+                'text-anchor': 'middle'
+            });
+            label.textContent = t;
+            svg.appendChild(label);
+        }
+    }
+}
+
+function psychDrawHumidityGrid(svg) {
+    for (let w = 0; w <= psychChartConfig.wMax; w += 0.002) {
+        const y = psychHumidityToY(w);
+        const isMajor = (w * 1000) % 4 === 0;
+        const line = psychCreateSVGElement('line', {
+            x1: psychChartConfig.marginLeft, y1: y,
+            x2: psychChartConfig.width - psychChartConfig.marginRight, y2: y,
+            class: isMajor ? 'chart-grid-line-major' : 'chart-grid-line'
+        });
+        svg.appendChild(line);
+        if (isMajor) {
+            const label = psychCreateSVGElement('text', {
+                x: psychChartConfig.marginLeft - 10,
+                y: y + 4,
+                class: 'chart-label',
+                'text-anchor': 'end'
+            });
+            label.textContent = (w * 1000).toFixed(0);
+            svg.appendChild(label);
+        }
+    }
+}
+
+function psychDrawSaturationCurve(svg) {
+    let pathData = 'M';
+    let isFirst = true;
+    for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 0.5) {
+        const Pws = psychSaturationPressure(t);
+        const W_sat = 0.621945 * Pws / (psychCurrentPressure - Pws);
+        if (W_sat <= psychChartConfig.wMax && W_sat >= psychChartConfig.wMin) {
+            const x = psychTempToX(t);
+            const y = psychHumidityToY(W_sat);
+            if (isFirst) {
+                pathData += `${x},${y}`;
+                isFirst = false;
+            } else {
+                pathData += ` L${x},${y}`;
+            }
+        }
+    }
+    const path = psychCreateSVGElement('path', {
+        d: pathData,
+        class: 'chart-saturation-line'
+    });
+    svg.appendChild(path);
+}
+
+function psychDrawRelativeHumidityLines(svg) {
+    const rhValues = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+    rhValues.forEach(rh => {
+        let pathData = 'M';
+        let isFirst = true;
+        for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
+            const Pws = psychSaturationPressure(t);
+            const Pw = (rh / 100) * Pws;
+            const W = 0.621945 * Pw / (psychCurrentPressure - Pw);
+            if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin) {
+                const x = psychTempToX(t);
+                const y = psychHumidityToY(W);
+                if (isFirst) {
+                    pathData += `${x},${y}`;
+                    isFirst = false;
+                } else {
+                    pathData += ` L${x},${y}`;
+                }
+            }
+        }
+        const path = psychCreateSVGElement('path', {
+            d: pathData,
+            class: 'chart-rh-line'
+        });
+        svg.appendChild(path);
+    });
+}
+
+function psychDrawWetBulbLines(svg) {
+    for (let t_wb = 40; t_wb <= 100; t_wb += 10) {
+        let pathData = 'M';
+        let isFirst = true;
+        for (let t_db = t_wb; t_db <= psychChartConfig.tMax; t_db += 1) {
+            const W = psychHumidityRatioFromWB(t_db, t_wb, psychCurrentPressure);
+            if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin) {
+                const x = psychTempToX(t_db);
+                const y = psychHumidityToY(W);
+                if (isFirst) {
+                    pathData += `${x},${y}`;
+                    isFirst = false;
+                } else {
+                    pathData += ` L${x},${y}`;
+                }
+            }
+        }
+        const path = psychCreateSVGElement('path', {
+            d: pathData,
+            class: 'chart-wb-line'
+        });
+        svg.appendChild(path);
+    }
+}
+
+function psychDrawEnthalpyLines(svg) {
+    for (let h = 15; h <= 60; h += 5) {
+        let pathData = 'M';
+        let isFirst = true;
+        for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
+            const W = (h - 0.240 * t) / (1061 + 0.444 * t);
+            if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin && W >= 0) {
+                const x = psychTempToX(t);
+                const y = psychHumidityToY(W);
+                if (isFirst) {
+                    pathData += `${x},${y}`;
+                    isFirst = false;
+                } else {
+                    pathData += ` L${x},${y}`;
+                }
+            }
+        }
+        const path = psychCreateSVGElement('path', {
+            d: pathData,
+            class: 'chart-enthalpy-line'
+        });
+        svg.appendChild(path);
+    }
+}
+
+function psychDrawAxes(svg) {
+    const xLabel = psychCreateSVGElement('text', {
+        x: psychChartConfig.width / 2,
+        y: psychChartConfig.height - 10,
+        class: 'chart-axis-label',
+        'text-anchor': 'middle'
+    });
+    xLabel.textContent = 'Dry Bulb Temperature (°F)';
+    svg.appendChild(xLabel);
+    
+    const yLabel = psychCreateSVGElement('text', {
+        x: 20,
+        y: psychChartConfig.height / 2,
+        class: 'chart-axis-label',
+        'text-anchor': 'middle',
+        transform: `rotate(-90, 20, ${psychChartConfig.height / 2})`
+    });
+    yLabel.textContent = 'Humidity Ratio (grains/lb × 1000)';
+    svg.appendChild(yLabel);
+}
+
+// ============================================
+// POINT MANAGEMENT
+// ============================================
+
+function psychHandleChartClick(evt) {
+    if (psychInputMode !== 'click') return;
+    if (psychPoints.length >= psychMaxPoints) {
+        alert(`Maximum of ${psychMaxPoints} points reached`);
+        return;
+    }
+    
+    const svg = document.getElementById('psychChart');
+    const rect = svg.getBoundingClientRect();
+    const x = evt.clientX - rect.left;
+    const y = evt.clientY - rect.top;
+    
+    const T_db = psychXToTemp(x);
+    const W = psychYToHumidity(y);
+    
+    if (T_db < psychChartConfig.tMin || T_db > psychChartConfig.tMax || 
+        W < psychChartConfig.wMin || W > psychChartConfig.wMax) {
+        return;
+    }
+    
+    const props = psychCalculateProperties(T_db, W, psychCurrentPressure);
+    const point = {
+        id: Date.now(),
+        label: String.fromCharCode(65 + psychPoints.length),
+        color: psychPointColors[psychPoints.length % psychPointColors.length],
+        ...props
+    };
+    
+    psychPoints.push(point);
+    psychUpdateDisplay();
+}
+
+function addManualPoint() {
+    if (psychSelectedVariables.length !== 2) {
+        alert('Please select exactly two variables');
+        return;
+    }
+    if (psychPoints.length >= psychMaxPoints) {
+        alert(`Maximum of ${psychMaxPoints} points reached`);
+        return;
+    }
+    
+    const var1Value = parseFloat(document.getElementById('manualVar1').value);
+    const var2Value = parseFloat(document.getElementById('manualVar2').value);
+    const label = document.getElementById('pointLabel').value || String.fromCharCode(65 + psychPoints.length);
+    
+    if (isNaN(var1Value) || isNaN(var2Value)) {
+        alert('Please enter valid numbers for both variables');
+        return;
+    }
+    
+    try {
+        const props = psychCalculateFromTwoVariables(
+            psychSelectedVariables[0], var1Value,
+            psychSelectedVariables[1], var2Value,
+            psychCurrentPressure
+        );
+        
+        const point = {
+            id: Date.now(),
+            label: label.substring(0, 3),
+            color: psychPointColors[psychPoints.length % psychPointColors.length],
+            ...props
+        };
+        
+        psychPoints.push(point);
+        document.getElementById('manualVar1').value = '';
+        document.getElementById('manualVar2').value = '';
+        document.getElementById('pointLabel').value = '';
+        psychUpdateDisplay();
+    } catch (error) {
+        alert('Error calculating properties: ' + error.message);
+    }
+}
+
+function deletePoint(id) {
+    psychPoints = psychPoints.filter(p => p.id !== id);
+    psychUpdateDisplay();
+}
+
+function clearAllPoints() {
+    if (psychPoints.length === 0) return;
+    if (confirm('Clear all points?')) {
+        psychPoints = [];
+        psychUpdateDisplay();
+    }
+}
+
+// ============================================
+// UI FUNCTIONS
+// ============================================
+
+function switchElevation() {
+    psychCurrentElevation = document.getElementById('elevationSelect').value;
+    psychCurrentPressure = psychCurrentElevation === 'sealevel' ? 14.696 : 12.228;
+    psychPoints.forEach(point => {
+        const newProps = psychCalculateProperties(point.dryBulb, point.humidityRatio, psychCurrentPressure);
+        Object.assign(point, newProps);
+    });
+    psychUpdateDisplay();
+}
+
+function switchInputMode() {
+    psychInputMode = document.getElementById('inputMode').value;
+    const manualPanel = document.getElementById('manualInputPanel');
+    if (manualPanel) {
+        manualPanel.style.display = psychInputMode === 'manual' ? 'block' : 'none';
+    }
+}
+
+function toggleConnectMode() {
+    psychConnectMode = !psychConnectMode;
+    const modeText = document.getElementById('connectModeText');
+    if (modeText) {
+        modeText.textContent = psychConnectMode ? 'Connect Mode: ON' : 'Connect Mode: OFF';
+    }
+    psychUpdateDisplay();
+}
+
+function selectVariable(checkbox) {
+    const checkboxes = document.querySelectorAll('.variable-checkboxes input[type="checkbox"]');
+    if (checkbox.checked) {
+        if (psychSelectedVariables.length >= 2) {
+            checkbox.checked = false;
+            alert('You can only select 2 variables');
+            return;
+        }
+        psychSelectedVariables.push(checkbox.value);
+    } else {
+        psychSelectedVariables = psychSelectedVariables.filter(v => v !== checkbox.value);
+    }
+    psychUpdateManualInputFields();
+}
+
+function psychUpdateManualInputFields() {
+    const var1Input = document.getElementById('manualVar1');
+    const var2Input = document.getElementById('manualVar2');
+    const var1Label = document.getElementById('var1Label');
+    const var2Label = document.getElementById('var2Label');
+    
+    if (!var1Input || !var2Input) return;
+    
+    const labels = {
+        db: 'Dry Bulb (°F)', wb: 'Wet Bulb (°F)', rh: 'Relative Humidity (%)',
+        dp: 'Dew Point (°F)', w: 'Humidity Ratio', h: 'Enthalpy (BTU/lb)'
+    };
+    
+    if (psychSelectedVariables.length >= 1) {
+        var1Input.disabled = false;
+        var1Label.textContent = labels[psychSelectedVariables[0]];
+    } else {
+        var1Input.disabled = true;
+        var1Input.value = '';
+        var1Label.textContent = '-';
+    }
+    
+    if (psychSelectedVariables.length >= 2) {
+        var2Input.disabled = false;
+        var2Label.textContent = labels[psychSelectedVariables[1]];
+    } else {
+        var2Input.disabled = true;
+        var2Input.value = '';
+        var2Label.textContent = '-';
+    }
+}
+
+function psychUpdateDisplay() {
+    psychDrawChart();
+    psychUpdateResultsTable();
+    psychUpdatePointsList();
+}
+
+function psychDrawPoints(svg) {
+    psychPoints.forEach(point => {
+        const x = psychTempToX(point.dryBulb);
+        const y = psychHumidityToY(point.humidityRatio);
+        const group = psychCreateSVGElement('g', { class: 'chart-point' });
+        const circle = psychCreateSVGElement('circle', {
+            cx: x, cy: y, r: 8, fill: point.color, class: 'chart-point-circle'
+        });
+        const text = psychCreateSVGElement('text', {
+            x: x, y: y, class: 'chart-point-label'
+        });
+        text.textContent = point.label;
+        group.appendChild(circle);
+        group.appendChild(text);
+        svg.appendChild(group);
+    });
+}
+
+function psychDrawConnections(svg) {
+    if (!psychConnectMode || psychPoints.length < 2) return;
+    for (let i = 0; i < psychPoints.length - 1; i++) {
+        const p1 = psychPoints[i];
+        const p2 = psychPoints[i + 1];
+        const x1 = psychTempToX(p1.dryBulb);
+        const y1 = psychHumidityToY(p1.humidityRatio);
+        const x2 = psychTempToX(p2.dryBulb);
+        const y2 = psychHumidityToY(p2.humidityRatio);
+        const line = psychCreateSVGElement('line', {
+            x1: x1, y1: y1, x2: x2, y2: y2, stroke: p1.color, class: 'chart-connection-line'
+        });
+        svg.appendChild(line);
+    }
+}
+
+function psychUpdateResultsTable() {
+    const container = document.getElementById('resultsTable');
+    if (!container) return;
+    
+    if (psychPoints.length === 0) {
+        container.innerHTML = '<p class="info-text">Click on the chart or use manual entry to add points. Up to 12 points can be added.</p>';
+        return;
+    }
+    
+    let html = '<table><thead><tr>';
+    html += '<th>Point</th><th>DB (°F)</th><th>WB (°F)</th><th>DP (°F)</th>';
+    html += '<th>RH (%)</th><th>W (lb/lb)</th><th>h (BTU/lb)</th>';
+    html += '<th>v (ft³/lb)</th><th>Pv (psia)</th>';
+    html += '</tr></thead><tbody>';
+    
+    psychPoints.forEach(point => {
+        html += '<tr>';
+        html += `<td><span class="point-color-indicator" style="background: ${point.color}"></span> ${point.label}</td>`;
+        html += `<td>${point.dryBulb.toFixed(1)}</td>`;
+        html += `<td>${point.wetBulb.toFixed(1)}</td>`;
+        html += `<td>${point.dewPoint.toFixed(1)}</td>`;
+        html += `<td>${point.relativeHumidity.toFixed(1)}</td>`;
+        html += `<td>${point.humidityRatio.toFixed(5)}</td>`;
+        html += `<td>${point.enthalpy.toFixed(2)}</td>`;
+        html += `<td>${point.specificVolume.toFixed(3)}</td>`;
+        html += `<td>${point.vaporPressure.toFixed(4)}</td>`;
+        html += '</tr>';
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+}
+
+function psychUpdatePointsList() {
+    const container = document.getElementById('pointsList');
+    const countElem = document.getElementById('pointCount');
+    if (!container) return;
+    if (countElem) countElem.textContent = psychPoints.length;
+    
+    if (psychPoints.length === 0) {
+        container.innerHTML = '<p class="info-text">No points added yet</p>';
+        return;
+    }
+    
+    let html = '';
+    psychPoints.forEach(point => {
+        html += `<div class="point-card" style="border-left-color: ${point.color}">`;
+        html += `<div class="point-card-info">`;
+        html += `<div class="point-card-color" style="background: ${point.color}"></div>`;
+        html += `<span class="point-card-label">${point.label}</span>`;
+        html += `</div>`;
+        html += `<div class="point-card-actions">`;
+        html += `<button class="point-action-btn point-delete-btn" onclick="deletePoint(${point.id})" title="Delete">🗑️</button>`;
+        html += `</div></div>`;
+    });
+    container.innerHTML = html;
+}
+
+function exportData() {
+    if (psychPoints.length === 0) {
+        alert('No points to export');
+        return;
+    }
+    
+    let csv = 'Point,DB(F),WB(F),DP(F),RH(%),W(lb/lb),h(BTU/lb),v(ft3/lb),Pv(psia)\n';
+    psychPoints.forEach(point => {
+        csv += `${point.label},${point.dryBulb.toFixed(2)},${point.wetBulb.toFixed(2)},`;
+        csv += `${point.dewPoint.toFixed(2)},${point.relativeHumidity.toFixed(2)},`;
+        csv += `${point.humidityRatio.toFixed(6)},${point.enthalpy.toFixed(3)},`;
+        csv += `${point.specificVolume.toFixed(4)},${point.vaporPressure.toFixed(5)}\n`;
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `psychrometric_data_${Date.now()}.csv`;
+    a.click();
+}
+
+// Coordinate conversion functions
+function psychTempToX(t) {
+    const chartWidth = psychChartConfig.width - psychChartConfig.marginLeft - psychChartConfig.marginRight;
+    return psychChartConfig.marginLeft + 
+           ((t - psychChartConfig.tMin) / (psychChartConfig.tMax - psychChartConfig.tMin)) * chartWidth;
+}
+
+function psychXToTemp(x) {
+    const chartWidth = psychChartConfig.width - psychChartConfig.marginLeft - psychChartConfig.marginRight;
+    return psychChartConfig.tMin + 
+           ((x - psychChartConfig.marginLeft) / chartWidth) * (psychChartConfig.tMax - psychChartConfig.tMin);
+}
+
+function psychHumidityToY(w) {
+    const chartHeight = psychChartConfig.height - psychChartConfig.marginTop - psychChartConfig.marginBottom;
+    return psychChartConfig.height - psychChartConfig.marginBottom - 
+           ((w - psychChartConfig.wMin) / (psychChartConfig.wMax - psychChartConfig.wMin)) * chartHeight;
+}
+
+function psychYToHumidity(y) {
+    const chartHeight = psychChartConfig.height - psychChartConfig.marginTop - psychChartConfig.marginBottom;
+    return psychChartConfig.wMin + 
+           ((psychChartConfig.height - psychChartConfig.marginBottom - y) / chartHeight) * 
+           (psychChartConfig.wMax - psychChartConfig.wMin);
+}
+
+function psychCreateSVGElement(type, attributes) {
+    const element = document.createElementNS('http://www.w3.org/2000/svg', type);
+    for (let key in attributes) {
+        element.setAttribute(key, attributes[key]);
+    }
+    return element;
+}
+
+// Initialize psychrometric chart after templates load
+function initializePsychrometricChart() {
+    const svg = document.getElementById('psychChart');
+    if (svg) {
+        psychDrawChart();
+        svg.addEventListener('click', psychHandleChartClick);
+    }
+}
+
+// Add to main initialization
+const originalInitializeAllFeatures = initializeAllFeatures;
+initializeAllFeatures = function() {
+    originalInitializeAllFeatures();
+    setTimeout(initializePsychrometricChart, 500);
+};
+
 // ====================================
 // INITIALIZE EVERYTHING ON PAGE LOAD
 // ====================================
@@ -1774,6 +2457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
