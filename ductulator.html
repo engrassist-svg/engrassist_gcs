@@ -55,11 +55,11 @@
                         <div class="form-group">
                             <label for="calculation-type">Calculation Type</label>
                             <select id="calculation-type" onchange="updateInputFields()">
+                                <option value="size-friction">Determine Sizes for Given Friction Rate</option>
                                 <option value="friction-loss">Calculate Friction Loss</option>
                                 <option value="airflow-rate">Determine Airflow Rate for Given Size and Friction</option>
                                 <option value="size-velocity-friction">Determine Sizes for Given Velocity and Friction Rate</option>
                                 <option value="size-velocity">Determine Sizes for Given Velocity</option>
-                                <option value="size-friction">Determine Sizes for Given Friction Rate</option>
                                 <option value="convert-shape">Convert Duct Shape or Size to Another</option>
                             </select>
                         </div>
@@ -344,3 +344,4 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
