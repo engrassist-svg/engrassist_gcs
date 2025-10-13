@@ -1610,15 +1610,12 @@ function rebuildTable() {
 
 // Calculate total airflow for each type and pressurization
 function calculateAirflow() {
-    let supplyCFM = 0;
+    // Sum up all air terminals by type
     let returnCFM = 0;
     let exhaustCFM = 0;
     
-    // Sum up all air terminals
     airTerminals.forEach(terminal => {
-        if (terminal.type === 'supply') {
-            supplyCFM += terminal.cfm;
-        } else if (terminal.type === 'return') {
+        if (terminal.type === 'return') {
             returnCFM += terminal.cfm;
         } else if (terminal.type === 'exhaust') {
             exhaustCFM += terminal.cfm;
@@ -1628,11 +1625,11 @@ function calculateAirflow() {
     // Get user-entered outside air
     const outsideAirCFM = parseFloat(document.getElementById('outside-air-cfm').value) || 0;
     
-    // Calculate actual supply (return + outside air)
-    const actualSupplyCFM = returnCFM + outsideAirCFM;
+    // CALCULATE SUPPLY = RETURN + OUTSIDE AIR
+    const supplyCFM = returnCFM + outsideAirCFM;
     
-    // Update display - show calculated supply
-    document.getElementById('supply-cfm').value = actualSupplyCFM.toFixed(0);
+    // Update all airflow displays
+    document.getElementById('supply-cfm').value = supplyCFM.toFixed(0);
     document.getElementById('return-cfm').value = returnCFM.toFixed(0);
     document.getElementById('exhaust-cfm').value = exhaustCFM.toFixed(0);
     
@@ -1641,7 +1638,7 @@ function calculateAirflow() {
     const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
     
     // Calculate suggested outside air to meet target pressurization
-    // Building pressurization is based on OA vs EA, not Supply vs Exhaust!
+    // Building pressurization is based on OA vs EA
     let suggestedOA = 0;
     
     if (exhaustCFM > 0) {
@@ -1750,10 +1747,10 @@ function updateExplanationText(pressType, targetPercent, actualType, actualPerce
     
     if (pressType === 'positive') {
         message = `For <strong>${targetPercent}% positive pressurization</strong>, outside air should be <strong>${targetPercent}% MORE</strong> than exhaust. `;
-        message += `Suggested OA = ${exhaustCFM} CFM × 1.${(targetPercent).toString().padStart(2, '0')} = <strong>${suggestedOA.toFixed(0)} CFM</strong>`;
+        message += `Suggested OA = ${exhaustCFM} CFM × ${(1 + targetPercent/100).toFixed(2)} = <strong>${suggestedOA.toFixed(0)} CFM</strong>`;
     } else if (pressType === 'negative') {
         message = `For <strong>${targetPercent}% negative pressurization</strong>, outside air should be <strong>${targetPercent}% LESS</strong> than exhaust. `;
-        message += `Suggested OA = ${exhaustCFM} CFM × 0.${(100 - targetPercent).toString().padStart(2, '0')} = <strong>${suggestedOA.toFixed(0)} CFM</strong>`;
+        message += `Suggested OA = ${exhaustCFM} CFM × ${(1 - targetPercent/100).toFixed(2)} = <strong>${suggestedOA.toFixed(0)} CFM</strong>`;
     } else {
         message = `For <strong>neutral pressurization</strong>, outside air should <strong>EQUAL</strong> exhaust. `;
         message += `Suggested OA = ${exhaustCFM} CFM (same as exhaust)`;
@@ -2457,6 +2454,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
