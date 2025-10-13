@@ -889,8 +889,8 @@ function updateInputFields() {
                         <input type="number" id="height" min="0" step="0.1" required>
                     </div>
                     <div class="form-col">
-                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(in wg/100ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.001" value="0.100" required>
+                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.00833" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -927,8 +927,8 @@ function updateInputFields() {
                         <input type="number" id="airflow" min="0" step="1" required>
                     </div>
                     <div class="form-col">
-                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(in wg/100ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.001" value="0.100" required>
+                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.00833" required>
                     </div>
                     <div class="form-col">
                         <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
@@ -973,8 +973,8 @@ function updateInputFields() {
                         <input type="number" id="velocity" min="0" step="1" required>
                     </div>
                     <div class="form-col">
-                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(in wg/100ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.001" value="0.100" required>
+                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.00833" required>
                     </div>
                 </div>
             `;
@@ -1139,7 +1139,8 @@ function calculateFrictionLoss() {
     frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
     
     const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-    frictionLoss = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+    const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+    const frictionLoss = frictionLossInWG / 12; // Convert in. wg to feet
     
     return {
         hydraulicDiameter: (hydraulicDiameter * 12).toFixed(2),
@@ -1147,7 +1148,7 @@ function calculateFrictionLoss() {
         velocity: velocity.toFixed(0),
         reynoldsNumber: reynoldsNumber.toFixed(0),
         frictionFactor: frictionFactor.toFixed(4),
-        frictionLoss: frictionLoss.toFixed(4),
+        frictionLoss: frictionLoss.toFixed(5),
         velocityPressure: velocityPressure.toFixed(4)
     };
 }
@@ -1187,7 +1188,8 @@ function calculateAirflowRate() {
         const relativeRoughness = roughness / hydraulicDiameter;
         const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
         const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-        const calculatedFriction = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+        const calculatedFrictionInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+        const calculatedFriction = calculatedFrictionInWG / 12; // Convert to feet
         
         const error = calculatedFriction - frictionRate;
         if (Math.abs(error) < 0.001) break;
@@ -1361,7 +1363,7 @@ function formatLabel(key) {
         velocity: isMetric ? 'Velocity (m/s)' : 'Velocity (fpm)',
         reynoldsNumber: 'Reynolds Number',
         frictionFactor: 'Friction Factor',
-        frictionLoss: isMetric ? 'Friction Loss (Pa/m)' : 'Friction Loss (in wg/100ft)',
+        frictionLoss: isMetric ? 'Friction Loss (Pa/m)' : 'Friction Loss (ft/100 ft)',
         velocityPressure: isMetric ? 'Velocity Pressure (Pa)' : 'Velocity Pressure (in wg)',
         airflow: isMetric ? 'Airflow (L/s)' : 'Airflow (CFM)',
         diameter: isMetric ? 'Diameter (mm)' : 'Diameter (in)',
@@ -2454,6 +2456,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
