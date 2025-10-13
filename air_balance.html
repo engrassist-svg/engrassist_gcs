@@ -141,8 +141,11 @@
                         <li><strong>Neutral Pressurization:</strong> Balanced exhaust and outside air. Used when specific pressure control isn't critical.</li>
                         <li><strong>Negative Pressurization:</strong> More air exhausted than outside air. Prevents contaminated air from spreading. Typical: 5-15%</li>
                     </ul>
-                    <p style="margin-top: 1rem;"><strong>Formula:</strong> Pressurization % = ((Supply - Exhaust) / Exhaust) × 100</p>
-                    <p style="margin-top: 0.5rem;"><strong>Note:</strong> Supply Air = Return Air + Outside Air</p>
+                    <p style="margin-top: 1rem;"><strong>Formula:</strong> Pressurization % = ((Outside Air / Exhaust Air) - 1) × 100</p>
+                    <p style="margin-top: 0.5rem;"><strong>Note:</strong> 
+                        <li>Supply Air = Return Air + Outside Air</li>
+                        <li>Outside Air % = (Outside Air / Supply Air) x 100</li>
+                    </p>
                 </div>
 
                 <!-- Disclaimer -->
