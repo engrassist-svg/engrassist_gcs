@@ -1140,7 +1140,7 @@ function calculateFrictionLoss() {
     
     const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
     const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-    const frictionLoss = frictionLossInWG / 12; // Convert in. wg to feet
+    frictionLoss = frictionLossInWG / 12; // Convert in. wg to feet
     
     return {
         hydraulicDiameter: (hydraulicDiameter * 12).toFixed(2),
