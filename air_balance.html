@@ -44,22 +44,12 @@
             </div>
         </section>
 
-<!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <h1 class="hero-title">Air Balance Calculator</h1>
-                <p class="hero-subtitle">Calculate building pressurization and airflow balance for HVAC systems. Track supply, return, exhaust, and outside air to maintain proper building pressure control.</p>
-            </div>
-        </section>
-
         <!-- Calculator Section -->
         <section class="content-section">
             <div class="container">
-                
-                <!-- Target Pressurization Settings -->
-                <h2 class="section-title">Target Pressurization</h2>
+
+                <!-- Actual Airflow Summary -->
+                <h2 class="section-title" style="margin-top: 3rem;">Actual Airflow Summary</h2>
                 
                 <div class="form-row">
                     <div class="form-group">
@@ -75,9 +65,6 @@
                         <input type="number" id="target-percent" value="5" min="0" max="100" step="0.1" oninput="calculateAirflow()">
                     </div>
                 </div>
-
-                <!-- Actual Airflow Summary -->
-                <h2 class="section-title" style="margin-top: 3rem;">Actual Airflow Summary</h2>
                 
                 <div class="form-row">
                     <div class="form-group">
@@ -150,9 +137,9 @@
                 <div class="info-box" style="margin-top: 3rem;">
                     <h4>📘 Building Pressurization Guide</h4>
                     <ul style="margin-left: 2rem; line-height: 1.8;">
-                        <li><strong>Positive Pressurization:</strong> More air supplied than exhausted. Prevents outdoor air infiltration. Typical: 3-10%</li>
-                        <li><strong>Neutral Pressurization:</strong> Balanced supply and exhaust. Used when specific pressure control isn't critical.</li>
-                        <li><strong>Negative Pressurization:</strong> More air exhausted than supplied. Prevents contaminated air from spreading. Typical: 5-15%</li>
+                        <li><strong>Positive Pressurization:</strong> More outside air supplied than internal air exhausted. Prevents outdoor air infiltration. Typical: 3-10%</li>
+                        <li><strong>Neutral Pressurization:</strong> Balanced exhaust and outside air. Used when specific pressure control isn't critical.</li>
+                        <li><strong>Negative Pressurization:</strong> More air exhausted than outside air. Prevents contaminated air from spreading. Typical: 5-15%</li>
                     </ul>
                     <p style="margin-top: 1rem;"><strong>Formula:</strong> Pressurization % = ((Supply - Exhaust) / Exhaust) × 100</p>
                     <p style="margin-top: 0.5rem;"><strong>Note:</strong> Supply Air = Return Air + Outside Air</p>
