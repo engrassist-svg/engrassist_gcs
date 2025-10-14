@@ -918,7 +918,7 @@ function updateInputFields() {
                     </div>
                     <div class="form-col">
                         <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.00833" required>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -956,7 +956,7 @@ function updateInputFields() {
                     </div>
                     <div class="form-col">
                         <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.00833" required>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
                     </div>
                     <div class="form-col">
                         <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
@@ -1002,7 +1002,7 @@ function updateInputFields() {
                     </div>
                     <div class="form-col">
                         <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.00833" required>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
                     </div>
                 </div>
             `;
@@ -2874,6 +2874,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
