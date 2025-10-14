@@ -2667,3 +2667,100 @@ body {
         pointer-events: none;
     }
 }
+
+/* ====================================
+   SEARCH BOX STYLES
+   ==================================== */
+
+/* Desktop Search Container */
+.search-container {
+    position: relative;
+}
+
+.search-container input[type="search"] {
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: white;
+    color: #2c3e50;
+    min-width: 200px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-container input[type="search"]:focus {
+    outline: none;
+    border-color: #f39c12;
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+}
+
+.search-container input[type="search"]::placeholder {
+    color: #95a5a6;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+    pointer-events: none;
+    font-size: 1.1rem;
+}
+
+/* Desktop Search - visible by default */
+.desktop-search {
+    display: block;
+}
+
+/* Mobile Search - hidden by default */
+.mobile-search-container {
+    display: none;
+}
+
+/* Mobile breakpoint - hide desktop search, show mobile search */
+@media (max-width: 1024px) {
+    .desktop-search {
+        display: none;
+    }
+    
+    .mobile-search-container {
+        display: block;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+    }
+    
+    .mobile-search-container input {
+        width: 100%;
+        padding: 0.75rem 2.5rem 0.75rem 1rem;
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.9);
+        color: #2c3e50;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-search-container input:focus {
+        outline: none;
+        border-color: #f39c12;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+    }
+    
+    .mobile-search-container input::placeholder {
+        color: #95a5a6;
+    }
+    
+    .mobile-search-icon {
+        position: absolute;
+        right: 2.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #7f8c8d;
+        pointer-events: none;
+        font-size: 1.1rem;
+    }
+}
