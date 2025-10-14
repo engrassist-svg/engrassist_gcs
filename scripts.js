@@ -247,6 +247,34 @@ function initializeMobileMenuClose() {
 }
 
 // ====================================
+// HEADER SEARH FUNCTIONALITY
+// ====================================
+function handleSearch(event) {
+    if (event.key === 'Enter') {
+        const query = event.target.value.toLowerCase();
+        const searchMap = {
+            'duct': 'ductulator.html',
+            'psychrometric': 'psychrometric.html',
+            'psychro': 'psychrometric.html',
+            'chart': 'psychrometric.html',
+            'boiler': 'boiler_calculator.html',
+            'air balance': 'air_balance.html',
+            'conversion': 'conversions.html',
+            'unit': 'conversions.html'
+        };
+        
+        for (let key in searchMap) {
+            if (query.includes(key)) {
+                window.location.href = searchMap[key];
+                return;
+            }
+        }
+        
+        alert('No results found. Try "duct", "psychrometric", "boiler", or "conversion"');
+    }
+}
+
+// ====================================
 // CONTACT FORM WITH EMAILJS
 // ====================================
 function initializeContactForm() {
@@ -2576,6 +2604,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
