@@ -1287,26 +1287,132 @@ function calculateSizeVelocity() {
 function calculateSizeFriction() {
     const airflow = parseFloat(document.getElementById('airflow').value);
     const frictionRate = parseFloat(document.getElementById('friction-rate').value);
+    const heightRestriction = parseFloat(document.getElementById('height-restriction')?.value);
+    const roughness = parseFloat(document.getElementById('duct-roughness').value);
+    const shape = document.getElementById('original-shape').value;
+    const density = parseFloat(document.getElementById('density').value);
     
     if (!airflow || !frictionRate) {
         throw new Error('Please fill in all required fields');
     }
     
-    const typicalVelocity = currentUnitSystem === 'metric' ? 4 : 800;
+    // Use iterative method to find duct size that produces target friction rate
+    let diameter, width, height;
     
-    const tempVelocityInput = document.createElement('input');
-    tempVelocityInput.id = 'velocity';
-    tempVelocityInput.value = typicalVelocity;
-    document.body.appendChild(tempVelocityInput);
-    
-    try {
-        const results = calculateSizeVelocity();
-        results.designVelocity = typicalVelocity;
-        document.body.removeChild(tempVelocityInput);
-        return results;
-    } catch (error) {
-        document.body.removeChild(tempVelocityInput);
-        throw error;
+    if (shape === 'round') {
+        // Start with initial guess based on simplified friction formula
+        // Q = (π/4) * D² * V, and friction ≈ f * (L/D) * (V²/2g)
+        // Initial estimate: D ≈ (Q / (1000 * sqrt(friction)))^(1/2.5)
+        diameter = Math.pow(airflow / (1000 * Math.sqrt(frictionRate)), 0.4) * 12;
+        
+        // Iteratively refine using actual friction calculation
+        for (let i = 0; i < 30; i++) {
+            const area = Math.PI * Math.pow(diameter / 12, 2) / 4;
+            const velocity = airflow / area;
+            const hydraulicDiameter = diameter / 12;
+            const velocityFPS = velocity / 60;
+            const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+            const relativeRoughness = roughness / hydraulicDiameter;
+            const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
+            const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+            const calculatedFrictionInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+            const calculatedFriction = calculatedFrictionInWG / 12;
+            
+            const error = calculatedFriction - frictionRate;
+            if (Math.abs(error) < 0.0001) break;
+            
+            // Adjust diameter based on error
+            // If calculated friction is too high, increase diameter
+            // If calculated friction is too low, decrease diameter
+            const adjustment = error > 0 ? 0.1 : -0.1;
+            diameter = diameter + adjustment;
+            
+            // Safety bounds
+            if (diameter < 3) diameter = 3;
+            if (diameter > 120) diameter = 120;
+        }
+        
+        return {
+            diameter: diameter.toFixed(1),
+            area: (Math.PI * Math.pow(diameter / 12, 2) / 4).toFixed(3),
+            velocity: (airflow / (Math.PI * Math.pow(diameter / 12, 2) / 4)).toFixed(0),
+            shape: 'Round',
+            frictionRate: frictionRate.toFixed(5)
+        };
+        
+    } else {
+        // Rectangular duct
+        if (heightRestriction) {
+            height = heightRestriction;
+            
+            // Start with initial width guess
+            width = (airflow * 144) / (height * 800); // Assume ~800 fpm initially
+            
+            // Iteratively refine
+            for (let i = 0; i < 30; i++) {
+                const area = (width * height) / 144;
+                const velocity = airflow / area;
+                const perimeter = 2 * (width + height) / 12;
+                const hydraulicDiameter = 4 * area / perimeter;
+                const velocityFPS = velocity / 60;
+                const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+                const relativeRoughness = roughness / hydraulicDiameter;
+                const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
+                const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+                const calculatedFrictionInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+                const calculatedFriction = calculatedFrictionInWG / 12;
+                
+                const error = calculatedFriction - frictionRate;
+                if (Math.abs(error) < 0.0001) break;
+                
+                const adjustment = error > 0 ? 0.2 : -0.2;
+                width = width + adjustment;
+                
+                if (width < 4) width = 4;
+                if (width > 120) width = 120;
+            }
+        } else {
+            // Square duct - start with initial guess
+            const side = Math.pow(airflow / 800, 0.5) * 12; // ~800 fpm initial guess
+            width = side;
+            height = side;
+            
+            // Iteratively refine while maintaining square shape
+            for (let i = 0; i < 30; i++) {
+                const area = (width * height) / 144;
+                const velocity = airflow / area;
+                const perimeter = 2 * (width + height) / 12;
+                const hydraulicDiameter = 4 * area / perimeter;
+                const velocityFPS = velocity / 60;
+                const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+                const relativeRoughness = roughness / hydraulicDiameter;
+                const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
+                const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+                const calculatedFrictionInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+                const calculatedFriction = calculatedFrictionInWG / 12;
+                
+                const error = calculatedFriction - frictionRate;
+                if (Math.abs(error) < 0.0001) break;
+                
+                const adjustment = error > 0 ? 0.2 : -0.2;
+                width = width + adjustment;
+                height = width; // Keep square
+                
+                if (width < 4) width = 4;
+                if (width > 120) width = 120;
+                height = width;
+            }
+        }
+        
+        return {
+            width: width.toFixed(1),
+            height: height.toFixed(1),
+            area: ((width * height) / 144).toFixed(3),
+            velocity: (airflow / ((width * height) / 144)).toFixed(0),
+            aspectRatio: (width / height).toFixed(2),
+            shape: 'Rectangular',
+            frictionRate: frictionRate.toFixed(5)
+        };
     }
 }
 
@@ -2708,6 +2814,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
