@@ -2614,3 +2614,56 @@ body {
     top: 0;
 }
 
+/* ====================================
+   RESPONSIVE SEARCH BOX STYLES
+   ==================================== */
+
+/* Desktop Search - visible by default */
+.desktop-search {
+    display: block;
+}
+
+/* Mobile Search - hidden by default */
+.mobile-search-container {
+    display: none;
+}
+
+/* Mobile breakpoint - hide desktop search, show mobile search */
+@media (max-width: 1024px) {
+    .desktop-search {
+        display: none;
+    }
+    
+    .mobile-search-container {
+        display: block;
+        padding: 1rem 2rem;
+        background: rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        position: relative;
+    }
+    
+    .mobile-search-container input {
+        width: 100%;
+        padding: 0.75rem 2.5rem 0.75rem 1rem;
+        border-radius: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.9);
+        color: #2c3e50;
+        font-size: 1rem;
+    }
+    
+    .mobile-search-container input:focus {
+        outline: none;
+        border-color: #f39c12;
+        background: white;
+    }
+    
+    .mobile-search-icon {
+        position: absolute;
+        right: 2.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #7f8c8d;
+        pointer-events: none;
+    }
+}
