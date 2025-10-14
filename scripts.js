@@ -2578,7 +2578,7 @@ function psychCreateSVGElement(type, attributes) {
 }
 
 // ============================================
-// INITIALIZATION
+// INITIALIZATION PSYCHROMETRICS
 // ============================================
 
 // Initialize psychrometric chart after templates load
@@ -2590,12 +2590,116 @@ function initializePsychrometricChart() {
     }
 }
 
+// ============================================
+// UPDATES 20251013
+// ============================================
 // Add to main initialization
 const originalInitializeAllFeatures = initializeAllFeatures;
 initializeAllFeatures = function() {
     originalInitializeAllFeatures();
     setTimeout(initializePsychrometricChart, 500);
 };
+
+function validateNumberInput(input, min, max, label) {
+    const value = parseFloat(input.value);
+    const warningDiv = input.nextElementSibling?.classList.contains('input-warning') 
+        ? input.nextElementSibling 
+        : null;
+    
+    if (value < min || value > max) {
+        input.style.borderColor = '#e74c3c';
+        if (!warningDiv) {
+            const warning = document.createElement('div');
+            warning.className = 'input-warning';
+            warning.style.color = '#e74c3c';
+            warning.style.fontSize = '0.85rem';
+            warning.style.marginTop = '0.25rem';
+            warning.textContent = `${label} should be between ${min} and ${max}`;
+            input.parentElement.appendChild(warning);
+        }
+    } else {
+        input.style.borderColor = '#27ae60';
+        if (warningDiv) warningDiv.remove();
+    }
+}
+
+// Example usage for airflow inputs
+document.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('blur', function() {
+        if (this.id === 'airflow') {
+            validateNumberInput(this, 50, 50000, 'Airflow');
+        }
+    });
+});
+
+function saveCalculation(type, inputs, results) {
+    const history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+    history.unshift({
+        type: type,
+        timestamp: new Date().toLocaleString(),
+        inputs: inputs,
+        results: results
+    });
+    // Keep only last 10 calculations
+    if (history.length > 10) history.pop();
+    localStorage.setItem('calcHistory', JSON.stringify(history));
+    displayHistory();
+}
+
+function displayHistory() {
+    const historyDiv = document.getElementById('historyList');
+    if (!historyDiv) return;
+    
+    const history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+    if (history.length === 0) {
+        historyDiv.innerHTML = '<p class="info-text">No calculations yet</p>';
+        return;
+    }
+    
+    historyDiv.innerHTML = history.map((calc, index) => `
+        <div class="history-item" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; cursor: pointer;" onclick="loadCalculation(${index})">
+            <div style="font-weight: 600; color: #2c3e50;">${calc.type}</div>
+            <div style="font-size: 0.85rem; color: #7f8c8d;">${calc.timestamp}</div>
+        </div>
+    `).join('');
+}
+
+function clearHistory() {
+    if (confirm('Clear all calculation history?')) {
+        localStorage.removeItem('calcHistory');
+        displayHistory();
+    }
+}
+
+const CACHE_NAME = 'engrassist-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/scripts.js',
+  '/header.html',
+  '/footer.html',
+  '/mechanical_page.html',
+  '/ductulator.html'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
+  );
+});
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+}
 
 // ====================================
 // INITIALIZE EVERYTHING ON PAGE LOAD
@@ -2604,6 +2708,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
