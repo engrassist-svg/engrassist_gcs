@@ -425,6 +425,22 @@ nav {
     color: #7f8c8d;
 }
 
+/* Website Updates */
+.tool-card {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    background: white;
+}
+
+
 /* Contact Page Header Override */
 .contact-page .page-header {
     padding: 4rem 0 2rem;
@@ -2550,6 +2566,51 @@ footer {
     }
 }
 
+/* Updates 20251013 */
 
+@media (max-width: 768px) {
+    .btn, .btn-secondary, .btn-psych, .btn-psych-secondary {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .tool-link, .reference-card, .guide-card, .education-card {
+        min-height: 60px;
+        padding: 1.25rem;
+    }
+    
+    input[type="number"], input[type="text"], select {
+        min-height: 44px;
+        font-size: 16px; /* Prevents iOS zoom */
+    }
+}
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #3498db;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
 
