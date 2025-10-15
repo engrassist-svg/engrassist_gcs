@@ -80,6 +80,9 @@ function initializeAllFeatures() {
     initializePageCounter();
     initializeDuctulator();
     initializeDesktopMode();
+    
+    // Add psychrometric initialization here
+    setTimeout(initializePsychrometricChart, 500);
 }
 
 // ====================================
@@ -2851,12 +2854,6 @@ function initializePsychrometricChart() {
 // UPDATES 20251013
 // ============================================
 // Add to main initialization
-const originalInitializeAllFeatures = initializeAllFeatures;
-initializeAllFeatures = function() {
-    originalInitializeAllFeatures();
-    setTimeout(initializePsychrometricChart, 500);
-};
-
 function validateNumberInput(input, min, max, label) {
     const value = parseFloat(input.value);
     const warningDiv = input.nextElementSibling?.classList.contains('input-warning') 
@@ -2965,6 +2962,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
