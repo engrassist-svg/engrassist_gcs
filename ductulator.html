@@ -134,7 +134,23 @@
                                 </div>
                             </div>
                         </div>
-
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Standard Conditions</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="std-yes" name="standard-conditions" value="yes" checked onchange="toggleAdvancedConditions()">
+                                        <label for="std-yes">Yes</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="std-no" name="standard-conditions" value="no" onchange="toggleAdvancedConditions()">
+                                        <label for="std-no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="form-row">
                             <div class="form-col">
                                 <label>Duct Length Units</label>
@@ -154,7 +170,6 @@
                                 <input type="number" id="length" min="0" step="0.1">
                             </div>
                         </div>
-
                         <!-- Advanced conditions (hidden by default) -->
                         <div id="advanced-conditions" style="display: none;">
                             <h3 class="subsection-title">Advanced Conditions</h3>
@@ -344,5 +359,6 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
 
 
