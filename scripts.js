@@ -1296,63 +1296,80 @@ function calculateSizeFriction() {
         throw new Error('Please fill in all required fields');
     }
     
-    // Use iterative method to find duct size that produces target friction rate
+    // Helper function to calculate friction for a given size
+    function calculateFrictionForSize(d_inches) {
+        const area = Math.PI * Math.pow(d_inches / 12, 2) / 4;
+        const velocity = airflow / area;
+        const hydraulicDiameter = d_inches / 12;
+        const velocityFPS = velocity / 60;
+        
+        const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+        const relativeRoughness = roughness / hydraulicDiameter;
+        
+        let frictionFactor;
+        if (reynoldsNumber > 4000) {
+            const term1 = relativeRoughness / 3.7;
+            const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
+            frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
+        } else {
+            frictionFactor = 64 / reynoldsNumber;
+        }
+        
+        const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+        const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+        return frictionLossInWG / 12; // Convert to ft per 100 ft
+    }
+    
+    // Helper function for rectangular ducts
+    function calculateFrictionForRect(w_inches, h_inches) {
+        const area = (w_inches * h_inches) / 144;
+        const velocity = airflow / area;
+        const perimeter = 2 * (w_inches + h_inches) / 12;
+        const hydraulicDiameter = 4 * area / perimeter;
+        const velocityFPS = velocity / 60;
+        
+        const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+        const relativeRoughness = roughness / hydraulicDiameter;
+        
+        let frictionFactor;
+        if (reynoldsNumber > 4000) {
+            const term1 = relativeRoughness / 3.7;
+            const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
+            frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
+        } else {
+            frictionFactor = 64 / reynoldsNumber;
+        }
+        
+        const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+        const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+        return frictionLossInWG / 12;
+    }
+    
     let diameter, width, height;
     
     if (shape === 'round') {
-        // Improved initial guess using SMACNA approximation
-        // For round ducts: D ≈ 0.109 * (Q^0.625 / ΔP^0.1875)
-        diameter = 0.109 * Math.pow(airflow, 0.625) / Math.pow(frictionRate, 0.1875);
+        // Binary search for the correct diameter
+        let minD = 3;
+        let maxD = 120;
+        diameter = (minD + maxD) / 2;
         
-        // Iteratively refine using exact Darcy-Weisbach equation
-        const maxIterations = 50;
-        for (let i = 0; i < maxIterations; i++) {
-            const area = Math.PI * Math.pow(diameter / 12, 2) / 4;
-            const velocity = airflow / area;
-            const hydraulicDiameter = diameter / 12;
-            const velocityFPS = velocity / 60;
-            
-            // Reynolds number
-            const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
-            
-            // Colebrook-White friction factor (more accurate than simple approximation)
-            const relativeRoughness = roughness / hydraulicDiameter;
-            let frictionFactor;
-            
-            if (reynoldsNumber > 4000) {
-                // Turbulent flow - use Colebrook-White
-                // Swamee-Jain explicit approximation (very accurate)
-                const term1 = relativeRoughness / 3.7;
-                const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
-                frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
-            } else {
-                // Laminar flow
-                frictionFactor = 64 / reynoldsNumber;
-            }
-            
-            // Darcy-Weisbach equation: ΔP/L = f * (ρ * V²) / (2 * D)
-            // Convert to in. wg per 100 ft
-            const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-            const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-            const calculatedFriction = frictionLossInWG / 12; // Convert to ft per 100 ft
-            
-            const error = calculatedFriction - frictionRate;
+        for (let i = 0; i < 50; i++) {
+            const calculatedFriction = calculateFrictionForSize(diameter);
+            const error = Math.abs(calculatedFriction - frictionRate);
             
             // Check convergence
-            if (Math.abs(error) < 0.00001 || Math.abs(error / frictionRate) < 0.001) {
-                break;
+            if (error < 0.00001) break;
+            
+            // Binary search adjustment
+            if (calculatedFriction > frictionRate) {
+                // Friction too high, need larger diameter
+                minD = diameter;
+            } else {
+                // Friction too low, need smaller diameter
+                maxD = diameter;
             }
             
-            // Newton-Raphson style adjustment with damping for stability
-            // If friction is too high, we need larger diameter
-            // If friction is too low, we need smaller diameter
-            const errorPercent = error / frictionRate;
-            const adjustmentFactor = 1 - (errorPercent * 0.3); // 0.3 is damping factor
-            diameter = diameter * adjustmentFactor;
-            
-            // Safety bounds
-            if (diameter < 3) diameter = 3;
-            if (diameter > 120) diameter = 120;
+            diameter = (minD + maxD) / 2;
         }
         
         // Calculate final properties
@@ -1372,94 +1389,45 @@ function calculateSizeFriction() {
         if (heightRestriction) {
             height = heightRestriction;
             
-            // Initial width guess based on hydraulic diameter approximation
-            const targetDh = 0.109 * Math.pow(airflow, 0.625) / Math.pow(frictionRate, 0.1875);
-            width = (targetDh * 12 * height) / (2 * height - targetDh * 12);
-            if (width < 4) width = 4;
+            // Binary search for correct width
+            let minW = 4;
+            let maxW = 120;
+            width = (minW + maxW) / 2;
             
-            // Iteratively refine
-            const maxIterations = 50;
-            for (let i = 0; i < maxIterations; i++) {
-                const area = (width * height) / 144;
-                const velocity = airflow / area;
-                const perimeter = 2 * (width + height) / 12;
-                const hydraulicDiameter = 4 * area / perimeter;
-                const velocityFPS = velocity / 60;
+            for (let i = 0; i < 50; i++) {
+                const calculatedFriction = calculateFrictionForRect(width, height);
+                const error = Math.abs(calculatedFriction - frictionRate);
                 
-                const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
-                const relativeRoughness = roughness / hydraulicDiameter;
+                if (error < 0.00001) break;
                 
-                let frictionFactor;
-                if (reynoldsNumber > 4000) {
-                    const term1 = relativeRoughness / 3.7;
-                    const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
-                    frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
+                if (calculatedFriction > frictionRate) {
+                    minW = width;
                 } else {
-                    frictionFactor = 64 / reynoldsNumber;
+                    maxW = width;
                 }
                 
-                const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-                const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-                const calculatedFriction = frictionLossInWG / 12;
-                
-                const error = calculatedFriction - frictionRate;
-                
-                if (Math.abs(error) < 0.00001 || Math.abs(error / frictionRate) < 0.001) {
-                    break;
-                }
-                
-                const errorPercent = error / frictionRate;
-                const adjustmentFactor = 1 - (errorPercent * 0.3);
-                width = width * adjustmentFactor;
-                
-                if (width < 4) width = 4;
-                if (width > 120) width = 120;
+                width = (minW + maxW) / 2;
             }
         } else {
-            // Square duct
-            const targetDh = 0.109 * Math.pow(airflow, 0.625) / Math.pow(frictionRate, 0.1875);
-            const side = targetDh * 12 * 1.13; // Approximate conversion
-            width = side;
-            height = side;
+            // Square duct - binary search for side length
+            let minS = 4;
+            let maxS = 120;
+            width = (minS + maxS) / 2;
+            height = width;
             
-            // Iteratively refine while maintaining square shape
-            const maxIterations = 50;
-            for (let i = 0; i < maxIterations; i++) {
-                const area = (width * height) / 144;
-                const velocity = airflow / area;
-                const perimeter = 2 * (width + height) / 12;
-                const hydraulicDiameter = 4 * area / perimeter;
-                const velocityFPS = velocity / 60;
+            for (let i = 0; i < 50; i++) {
+                const calculatedFriction = calculateFrictionForRect(width, height);
+                const error = Math.abs(calculatedFriction - frictionRate);
                 
-                const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
-                const relativeRoughness = roughness / hydraulicDiameter;
+                if (error < 0.00001) break;
                 
-                let frictionFactor;
-                if (reynoldsNumber > 4000) {
-                    const term1 = relativeRoughness / 3.7;
-                    const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
-                    frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
+                if (calculatedFriction > frictionRate) {
+                    minS = width;
                 } else {
-                    frictionFactor = 64 / reynoldsNumber;
+                    maxS = width;
                 }
                 
-                const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-                const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-                const calculatedFriction = frictionLossInWG / 12;
-                
-                const error = calculatedFriction - frictionRate;
-                
-                if (Math.abs(error) < 0.00001 || Math.abs(error / frictionRate) < 0.001) {
-                    break;
-                }
-                
-                const errorPercent = error / frictionRate;
-                const adjustmentFactor = 1 - (errorPercent * 0.3);
-                width = width * adjustmentFactor;
-                height = width; // Keep square
-                
-                if (width < 4) width = 4;
-                if (width > 120) width = 120;
+                width = (minS + maxS) / 2;
                 height = width;
             }
         }
@@ -2874,6 +2842,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
