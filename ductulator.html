@@ -65,20 +65,6 @@
                         </div>
 
                         <h3 class="subsection-title">Design Conditions</h3>
-                        
-                        <div class="form-group">
-                            <label>Standard Conditions</label>
-                            <div class="radio-group">
-                                <div class="radio-item">
-                                    <input type="radio" id="std-yes" name="standard-conditions" value="yes" checked onchange="toggleAdvancedConditions()">
-                                    <label for="std-yes">Yes</label>
-                                </div>
-                                <div class="radio-item">
-                                    <input type="radio" id="std-no" name="standard-conditions" value="no" onchange="toggleAdvancedConditions()">
-                                    <label for="std-no">No</label>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="form-row">
                             <div class="form-col">
@@ -115,22 +101,6 @@
                                 <div class="form-col">
                                     <label for="height">Height <span class="unit-display">(in)</span></label>
                                     <input type="number" id="height" min="0" step="0.1" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label>Unit System</label>
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="imperial" name="unit-system" value="imperial" checked onchange="updateUnitSystem()">
-                                        <label for="imperial">Imperial</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="metric" name="unit-system" value="metric" onchange="updateUnitSystem()">
-                                        <label for="metric">Metric</label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +164,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <br>
                         <button class="btn btn-full" onclick="calculateResults()">Calculate Results</button>
                         <button class="btn btn-secondary btn-full" onclick="clearInputs()">Clear All</button>
                     </div>
@@ -359,6 +329,7 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
 
 
 
