@@ -883,122 +883,139 @@ function updateInputFields() {
     let html = '';
     
     switch(calcValue) {
-        case 'friction-loss':
-            html = `
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
-                        <input type="number" id="airflow" min="0" step="1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="width">Width <span class="unit-display">(in)</span></label>
-                        <input type="number" id="width" min="0" step="0.1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="height">Height <span class="unit-display">(in)</span></label>
-                        <input type="number" id="height" min="0" step="0.1" required>
-                    </div>
-                </div>
-            `;
-            break;
-        case 'airflow-rate':
-            html = `
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="width">Width <span class="unit-display">(in)</span></label>
-                        <input type="number" id="width" min="0" step="0.1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="height">Height <span class="unit-display">(in)</span></label>
-                        <input type="number" id="height" min="0" step="0.1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
-                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
-                        <input type="number" id="height-restriction" min="0" step="0.1">
-                    </div>
-                </div>
-            `;
-            break;
-        case 'size-velocity':
-            html = `
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
-                        <input type="number" id="airflow" min="0" step="1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="velocity">Velocity <span class="unit-display">(fpm)</span></label>
-                        <input type="number" id="velocity" min="0" step="1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
-                        <input type="number" id="height-restriction" min="0" step="0.1">
-                    </div>
-                </div>
-            `;
-            break;
         case 'size-friction':
             html = `
                 <div class="form-row">
-                    <div class="form-col">
-                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
+                    <div class="form-group">
+                        <label for="airflow">Airflow (CFM)</label>
                         <input type="number" id="airflow" min="0" step="1" required>
                     </div>
-                    <div class="form-col">
-                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
+                    <div class="form-group">
+                        <label for="friction-rate">Friction Loss Rate (ft/100 ft)</label>
                         <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
                     </div>
-                    <div class="form-col">
-                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="height-restriction">Height Restriction - Optional (in)</label>
                         <input type="number" id="height-restriction" min="0" step="0.1">
                     </div>
                 </div>
             `;
             break;
-        case 'convert-shape':
+            
+        case 'friction-loss':
             html = `
                 <div class="form-row">
-                    <div class="form-col">
-                        <label for="width">Width <span class="unit-display">(in)</span></label>
+                    <div class="form-group">
+                        <label for="airflow">Airflow (CFM)</label>
+                        <input type="number" id="airflow" min="0" step="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="width">Width (in)</label>
                         <input type="number" id="width" min="0" step="0.1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="height">Height <span class="unit-display">(in)</span></label>
-                        <input type="number" id="height" min="0" step="0.1" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="airflow">Airflow - Optional <span class="unit-display">(CFM)</span></label>
-                        <input type="number" id="airflow" min="0" step="1">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-col">
-                        <label for="height-restriction">Height Restriction - Optional <span class="unit-display">(in)</span></label>
+                    <div class="form-group">
+                        <label for="height">Height (in)</label>
+                        <input type="number" id="height" min="0" step="0.1" required>
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'airflow-rate':
+            html = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="width">Width (in)</label>
+                        <input type="number" id="width" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (in)</label>
+                        <input type="number" id="height" min="0" step="0.1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="friction-rate">Friction Loss Rate (ft/100 ft)</label>
+                        <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height-restriction">Height Restriction - Optional (in)</label>
                         <input type="number" id="height-restriction" min="0" step="0.1">
                     </div>
                 </div>
             `;
             break;
+            
         case 'size-velocity-friction':
             html = `
                 <div class="form-row">
-                    <div class="form-col">
-                        <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
+                    <div class="form-group">
+                        <label for="airflow">Airflow (CFM)</label>
                         <input type="number" id="airflow" min="0" step="1" required>
                     </div>
-                    <div class="form-col">
-                        <label for="velocity">Velocity <span class="unit-display">(fpm)</span></label>
+                    <div class="form-group">
+                        <label for="velocity">Velocity (fpm)</label>
                         <input type="number" id="velocity" min="0" step="1" required>
                     </div>
-                    <div class="form-col">
-                        <label for="friction-rate">Friction Loss Rate <span class="unit-display">(ft/100 ft)</span></label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="friction-rate">Friction Loss Rate (ft/100 ft)</label>
                         <input type="number" id="friction-rate" min="0" step="0.0001" value="0.08" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height-restriction">Height Restriction - Optional (in)</label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'size-velocity':
+            html = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="airflow">Airflow (CFM)</label>
+                        <input type="number" id="airflow" min="0" step="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="velocity">Velocity (fpm)</label>
+                        <input type="number" id="velocity" min="0" step="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="height-restriction">Height Restriction - Optional (in)</label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'convert-shape':
+            html = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="width">Width (in)</label>
+                        <input type="number" id="width" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (in)</label>
+                        <input type="number" id="height" min="0" step="0.1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="airflow">Airflow - Optional (CFM)</label>
+                        <input type="number" id="airflow" min="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="height-restriction">Height Restriction - Optional (in)</label>
+                        <input type="number" id="height-restriction" min="0" step="0.1">
                     </div>
                 </div>
             `;
@@ -3188,6 +3205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
