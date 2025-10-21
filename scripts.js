@@ -1806,10 +1806,10 @@ function initializeAirBalance() {
     // Only run on air balance page
     if (!document.getElementById('air-terminals-table')) return;
     
-    // Add 3 starter rows
-    addTerminalRow();
-    addTerminalRow();
-    addTerminalRow();
+    // Add 3 starter rows - one of each type
+    addTerminalRowWithType('supply');
+    addTerminalRowWithType('return');
+    addTerminalRowWithType('exhaust');
 }
 
 // Store air terminals data
@@ -1863,6 +1863,65 @@ function addTerminalRow() {
                 <option value="supply" selected>Supply</option>
                 <option value="return">Return</option>
                 <option value="exhaust">Exhaust</option>
+            </select>
+        </td>
+        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="number" 
+                   placeholder="0" 
+                   value="${terminalData.cfm}"
+                   onchange="updateTerminalCFM(${terminalData.id}, this.value)"
+                   style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+        </td>
+        <td style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
+            <button onclick="moveRowUp(${terminalData.id})" 
+                    style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                    title="Move Up">
+                ▲
+            </button>
+            <button onclick="moveRowDown(${terminalData.id})" 
+                    style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                    title="Move Down">
+                ▼
+            </button>
+            <button onclick="deleteRow(${terminalData.id})" 
+                    style="background: #e74c3c; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
+                    title="Delete">
+                ✕
+            </button>
+        </td>
+    `;
+    
+    calculateAirflow();
+}
+
+// Add a new air terminal row with specific type
+function addTerminalRowWithType(terminalType) {
+    const tbody = document.getElementById('terminals-tbody');
+    if (!tbody) return;
+    
+    const row = tbody.insertRow();
+    const terminalData = {
+        id: nextTerminalId++,
+        name: '',
+        type: terminalType,
+        cfm: 0
+    };
+    airTerminals.push(terminalData);
+    
+    row.innerHTML = `
+        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="text" 
+                   placeholder="e.g., AHU-1" 
+                   value="${terminalData.name}"
+                   onchange="updateTerminalName(${terminalData.id}, this.value)"
+                   style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+        </td>
+        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+            <select onchange="updateTerminalType(${terminalData.id}, this.value)"
+                    style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+                <option value="supply" ${terminalType === 'supply' ? 'selected' : ''}>Supply</option>
+                <option value="return" ${terminalType === 'return' ? 'selected' : ''}>Return</option>
+                <option value="exhaust" ${terminalType === 'exhaust' ? 'selected' : ''}>Exhaust</option>
             </select>
         </td>
         <td style="padding: 0.75rem; border: 1px solid #ddd;">
@@ -2082,12 +2141,28 @@ function calculateAirflow() {
     document.getElementById('actual-pressurization').textContent = 
         `${actualPercent.toFixed(1)}% ${actualType}`;
     
-    // Calculate Outside Air Percentage (based on supply)
+// Calculate Outside Air Percentage (based on supply)
     let oaPercentage = 0;
     if (supplyCFM > 0) {
         oaPercentage = (requiredOA / supplyCFM) * 100;
     }
     document.getElementById('oa-percentage').textContent = oaPercentage.toFixed(1) + '%';
+    
+    // Check System Balance: Supply should equal Return + Outside Air
+    const balanceElement = document.getElementById('system-balance');
+    const balanceBox = document.getElementById('balance-indicator-box');
+    const calculatedSupply = returnCFM + requiredOA;
+    const balanceTolerance = 1; // Allow 1 CFM tolerance for rounding
+    
+    if (Math.abs(supplyCFM - calculatedSupply) <= balanceTolerance) {
+        balanceElement.textContent = '✓ BALANCED';
+        balanceElement.style.color = '#27ae60';
+        balanceBox.style.background = '#d4edda';
+    } else {
+        balanceElement.textContent = '✗ UNBALANCED';
+        balanceElement.style.color = '#e74c3c';
+        balanceBox.style.background = '#f8d7da';
+    }
     
     // Update explanation text
     updateExplanationText(pressType, targetPercent, requiredOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM);
@@ -3113,6 +3188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
