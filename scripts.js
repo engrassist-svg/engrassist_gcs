@@ -1758,7 +1758,7 @@ function addTerminalRow() {
     const terminalData = {
         id: nextTerminalId++,
         name: '',
-        type: 'return',
+        type: 'supply',
         cfm: 0
     };
     airTerminals.push(terminalData);
@@ -1774,7 +1774,8 @@ function addTerminalRow() {
         <td style="padding: 0.75rem; border: 1px solid #ddd;">
             <select onchange="updateTerminalType(${terminalData.id}, this.value)"
                     style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
-                <option value="return" selected>Return</option>
+                <option value="supply" selected>Supply</option>
+                <option value="return">Return</option>
                 <option value="exhaust">Exhaust</option>
             </select>
         </td>
@@ -1881,6 +1882,7 @@ function rebuildTable() {
             <td style="padding: 0.75rem; border: 1px solid #ddd;">
                 <select onchange="updateTerminalType(${terminal.id}, this.value)"
                         style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
+                    <option value="supply" ${terminal.type === 'supply' ? 'selected' : ''}>Supply</option>
                     <option value="return" ${terminal.type === 'return' ? 'selected' : ''}>Return</option>
                     <option value="exhaust" ${terminal.type === 'exhaust' ? 'selected' : ''}>Exhaust</option>
                 </select>
@@ -1916,7 +1918,6 @@ function rebuildTable() {
 // Calculate enthalpy from dry-bulb and wet-bulb temperatures (Btu/lb)
 function calculateEnthalpy(dryBulb, wetBulb) {
     // Simplified psychrometric calculation
-    // More accurate than basic approximation
     const pws = Math.exp(77.3450 + 0.0057 * wetBulb - 7235 / (wetBulb + 459.67)) / Math.pow(wetBulb + 459.67, 8.2);
     const ws = 0.62198 * pws / (14.696 - pws);
     const enthalpy = 0.240 * dryBulb + ws * (1061 + 0.444 * dryBulb);
@@ -1926,38 +1927,23 @@ function calculateEnthalpy(dryBulb, wetBulb) {
 // Calculate total airflow for each type and pressurization
 function calculateAirflow() {
     // Sum up all air terminals by type
+    let supplyCFM = 0;
     let returnCFM = 0;
     let exhaustCFM = 0;
     
     airTerminals.forEach(terminal => {
-        if (terminal.type === 'return') {
+        if (terminal.type === 'supply') {
+            supplyCFM += terminal.cfm;
+        } else if (terminal.type === 'return') {
             returnCFM += terminal.cfm;
         } else if (terminal.type === 'exhaust') {
             exhaustCFM += terminal.cfm;
         }
     });
     
-    // Get target pressurization settings
-    const pressType = document.getElementById('pressurization-type').value;
-    const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
-    
-    // Calculate required outside air to meet target pressurization
-    let outsideAirCFM = 0;
-    
-    if (exhaustCFM > 0) {
-        if (pressType === 'positive') {
-            outsideAirCFM = exhaustCFM * (1 + targetPercent / 100);
-        } else if (pressType === 'negative') {
-            outsideAirCFM = exhaustCFM * (1 - targetPercent / 100);
-        } else {
-            outsideAirCFM = exhaustCFM;
-        }
-    }
-    
-    outsideAirCFM = Math.max(0, outsideAirCFM);
-    
-    // Calculate supply = return + outside air
-    const supplyCFM = returnCFM + outsideAirCFM;
+    // Calculate outside air as the difference between supply and return
+    // OA = Supply - Return
+    const outsideAirCFM = supplyCFM - returnCFM;
     
     // Update all airflow displays
     document.getElementById('supply-cfm').value = supplyCFM.toFixed(0);
@@ -1965,7 +1951,26 @@ function calculateAirflow() {
     document.getElementById('exhaust-cfm').value = exhaustCFM.toFixed(0);
     document.getElementById('outside-air-cfm').value = outsideAirCFM.toFixed(0);
     
-    // Calculate actual pressurization
+    // Get target pressurization settings
+    const pressType = document.getElementById('pressurization-type').value;
+    const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
+    
+    // Calculate suggested outside air based on exhaust and target pressurization
+    let suggestedOA = 0;
+    
+    if (exhaustCFM > 0) {
+        if (pressType === 'positive') {
+            suggestedOA = exhaustCFM * (1 + targetPercent / 100);
+        } else if (pressType === 'negative') {
+            suggestedOA = exhaustCFM * (1 - targetPercent / 100);
+        } else {
+            suggestedOA = exhaustCFM;
+        }
+    }
+    
+    suggestedOA = Math.max(0, suggestedOA);
+    
+    // Calculate actual pressurization based on actual OA vs Exhaust
     let actualPercent = 0;
     let actualType = 'Neutral';
     
@@ -2037,7 +2042,7 @@ function calculateAirflow() {
     statusElement.style.color = statusColor;
     
     // Update explanation text
-    updateExplanationText(pressType, targetPercent, actualType, actualPercent, outsideAirCFM, exhaustCFM, oaPercentage);
+    updateExplanationText(pressType, targetPercent, actualType, actualPercent, outsideAirCFM, suggestedOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM);
     
     // Check if advanced mode is enabled
     const advancedSection = document.getElementById('advanced-section');
@@ -2106,28 +2111,43 @@ function calculatePsychrometrics(supplyCFM, outsideAirCFM, returnCFM, oaPercenta
 }
 
 // Update the explanation text based on current state
-function updateExplanationText(pressType, targetPercent, actualType, actualPercent, outsideAirCFM, exhaustCFM, oaPercentage) {
+function updateExplanationText(pressType, targetPercent, actualType, actualPercent, outsideAirCFM, suggestedOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM) {
     const explanationElement = document.getElementById('oa-explanation');
     
+    if (exhaustCFM === 0 && supplyCFM === 0) {
+        explanationElement.innerHTML = 'Add air terminals below to calculate airflow and pressurization.';
+        return;
+    }
+    
     if (exhaustCFM === 0) {
-        explanationElement.innerHTML = 'Add exhaust air terminals to calculate building pressurization.';
+        explanationElement.innerHTML = `Outside air is <strong>${outsideAirCFM.toFixed(0)} CFM</strong> (Supply ${supplyCFM} CFM - Return ${returnCFM} CFM), representing <strong>${oaPercentage.toFixed(1)}%</strong> of supply air. Add exhaust air to calculate pressurization.`;
         return;
     }
     
     let message = '';
     
+    message = `Current outside air is <strong>${outsideAirCFM.toFixed(0)} CFM</strong> (Supply ${supplyCFM} CFM - Return ${returnCFM} CFM), `;
+    message += `representing <strong>${oaPercentage.toFixed(1)}%</strong> of supply air. `;
+    
     if (pressType === 'positive') {
-        message = `For <strong>${targetPercent}% positive pressurization</strong>, outside air is automatically calculated as <strong>${outsideAirCFM.toFixed(0)} CFM</strong> `;
-        message += `(${exhaustCFM} CFM exhaust × ${(1 + targetPercent/100).toFixed(2)}). `;
+        message += `For <strong>${targetPercent}% positive pressurization</strong>, suggested OA should be <strong>${suggestedOA.toFixed(0)} CFM</strong> `;
+        message += `(Exhaust ${exhaustCFM} CFM × ${(1 + targetPercent/100).toFixed(2)}).`;
     } else if (pressType === 'negative') {
-        message = `For <strong>${targetPercent}% negative pressurization</strong>, outside air is automatically calculated as <strong>${outsideAirCFM.toFixed(0)} CFM</strong> `;
-        message += `(${exhaustCFM} CFM exhaust × ${(1 - targetPercent/100).toFixed(2)}). `;
+        message += `For <strong>${targetPercent}% negative pressurization</strong>, suggested OA should be <strong>${suggestedOA.toFixed(0)} CFM</strong> `;
+        message += `(Exhaust ${exhaustCFM} CFM × ${(1 - targetPercent/100).toFixed(2)}).`;
     } else {
-        message = `For <strong>neutral pressurization</strong>, outside air is automatically calculated as <strong>${outsideAirCFM.toFixed(0)} CFM</strong> `;
-        message += `(equal to ${exhaustCFM} CFM exhaust). `;
+        message += `For <strong>neutral pressurization</strong>, suggested OA should be <strong>${suggestedOA.toFixed(0)} CFM</strong> `;
+        message += `(equal to exhaust).`;
     }
     
-    message += `This represents <strong>${oaPercentage.toFixed(1)}%</strong> of total supply air.`;
+    const oaDifference = outsideAirCFM - suggestedOA;
+    if (Math.abs(oaDifference) > 10) {
+        if (oaDifference > 0) {
+            message += ` Adjust supply or return terminals to reduce OA by ${Math.abs(oaDifference).toFixed(0)} CFM.`;
+        } else {
+            message += ` Adjust supply or return terminals to increase OA by ${Math.abs(oaDifference).toFixed(0)} CFM.`;
+        }
+    }
     
     explanationElement.innerHTML = message;
 }
@@ -2136,7 +2156,6 @@ function updateExplanationText(pressType, targetPercent, actualType, actualPerce
 document.addEventListener('DOMContentLoaded', function() {
     initializeAirBalance();
 });
-
 
 // ============================================
 // PSYCHROMETRIC CHART CALCULATOR
@@ -3046,6 +3065,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
