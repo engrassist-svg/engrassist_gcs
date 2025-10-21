@@ -1172,7 +1172,7 @@ function calculateFrictionLoss() {
         velocity = airflow / area;
     }
     
-    const dynamicViscosity = 0.00073;
+    const dynamicViscosity = 1.22e-5; // lb/(ft·s) for air at 70°F
     const velocityFPS = velocity / 60;
     reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / dynamicViscosity;
     
@@ -1180,7 +1180,7 @@ function calculateFrictionLoss() {
     frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
     
     const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-    const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
+    const frictionLossInWG = frictionFactor * (100 / hydraulicDiameter) * velocityPressure;
     frictionLoss = frictionLossInWG / 12; // Convert in. wg to feet
     
     return {
@@ -1402,7 +1402,7 @@ function calculateSizeFriction() {
         const velocity_fps = velocity / 60; // fps
         
         // Reynolds number
-        const dynamicViscosity = 0.00073;
+        const dynamicViscosity = 1.22e-5; // lb/(ft·s) for air at 70°F
         const reynoldsNumber = (density * velocity_fps * diameter_ft) / dynamicViscosity;
         
         // Friction factor - Swamee-Jain approximation
@@ -1417,10 +1417,10 @@ function calculateSizeFriction() {
             frictionFactor = 64 / reynoldsNumber;
         }
         
-        // ASHRAE formula: ΔP = f * (L/D_inches) * (V/4005)²
-        // where V is in fpm, D is in inches, L is in feet
+        // ASHRAE formula: ΔP = f * (L/D_feet) * (V/4005)²
+        // where V is in fpm, D is in feet, L is in feet
         const velocityPressure = Math.pow(velocity / 4005, 2); // in.wg
-        const frictionLoss_inwg = frictionFactor * (100 / (diameter_ft * 12)) * velocityPressure;
+        const frictionLoss_inwg = frictionFactor * (100 / diameter_ft) * velocityPressure;
         
         return frictionLoss_inwg;
     }
@@ -1433,7 +1433,7 @@ function calculateSizeFriction() {
         const hydraulicDiameter_ft = 4 * area / perimeter; // ft
         const velocity_fps = velocity / 60; // fps
         
-        const dynamicViscosity = 0.00073;
+        const dynamicViscosity = 1.22e-5; // lb/(ft·s) for air at 70°F
         const reynoldsNumber = (density * velocity_fps * hydraulicDiameter_ft) / dynamicViscosity;
         
         const relativeRoughness = roughness / hydraulicDiameter_ft;
@@ -1448,8 +1448,8 @@ function calculateSizeFriction() {
         }
         
         const velocityPressure = Math.pow(velocity / 4005, 2);
-        const frictionLoss_inwg = frictionFactor * (100 / (hydraulicDiameter_ft * 12)) * velocityPressure;
-        
+        const frictionLoss_inwg = frictionFactor * (100 / hydraulicDiameter_ft) * velocityPressure;
+
         return frictionLoss_inwg;
     }
     
