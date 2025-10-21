@@ -2023,41 +2023,46 @@ function calculateAirflow() {
         }
     });
     
-    // Calculate outside air as the difference between supply and return
-    // OA = Supply - Return
-    const outsideAirCFM = supplyCFM - returnCFM;
+    // Get target pressurization settings
+    const pressType = document.getElementById('pressurization-type').value;
+    const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
+    
+    // Calculate REQUIRED outside air based on exhaust and target pressurization
+    let requiredOA = 0;
+    
+    if (exhaustCFM > 0) {
+        if (pressType === 'positive') {
+            // Positive: OA = Exhaust × (1 + percent/100)
+            // Example: 2000 CFM exhaust × 1.05 = 2100 CFM OA (100 CFM extra)
+            requiredOA = exhaustCFM * (1 + targetPercent / 100);
+        } else if (pressType === 'negative') {
+            // Negative: OA = Exhaust × (1 - percent/100)
+            // Example: 2000 CFM exhaust × 0.95 = 1900 CFM OA (100 CFM deficit)
+            requiredOA = exhaustCFM * (1 - targetPercent / 100);
+        } else {
+            // Neutral: OA = Exhaust
+            requiredOA = exhaustCFM;
+        }
+    } else {
+        requiredOA = 0;
+    }
+    
+    requiredOA = Math.max(0, requiredOA);
     
     // Update all airflow displays
     document.getElementById('supply-cfm').value = supplyCFM.toFixed(0);
     document.getElementById('return-cfm').value = returnCFM.toFixed(0);
     document.getElementById('exhaust-cfm').value = exhaustCFM.toFixed(0);
-    document.getElementById('outside-air-cfm').value = outsideAirCFM.toFixed(0);
+    document.getElementById('outside-air-cfm').value = requiredOA.toFixed(0);
     
-    // Get target pressurization settings
-    const pressType = document.getElementById('pressurization-type').value;
-    const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
-    
-    // Calculate suggested outside air based on exhaust and target pressurization
-    let suggestedOA = 0;
-    
-    if (exhaustCFM > 0) {
-        if (pressType === 'positive') {
-            suggestedOA = exhaustCFM * (1 + targetPercent / 100);
-        } else if (pressType === 'negative') {
-            suggestedOA = exhaustCFM * (1 - targetPercent / 100);
-        } else {
-            suggestedOA = exhaustCFM;
-        }
-    }
-    
-    suggestedOA = Math.max(0, suggestedOA);
-    
-    // Calculate actual pressurization based on actual OA vs Exhaust
+    // Calculate actual pressurization percentage
+    // This shows what the pressurization actually is based on the required OA
     let actualPercent = 0;
     let actualType = 'Neutral';
     
     if (exhaustCFM > 0) {
-        actualPercent = ((outsideAirCFM - exhaustCFM) / exhaustCFM) * 100;
+        // Actual Pressurization % = ((OA - Exhaust) / Exhaust) × 100
+        actualPercent = ((requiredOA - exhaustCFM) / exhaustCFM) * 100;
         
         if (actualPercent > 0.5) {
             actualType = 'Positive';
@@ -2073,60 +2078,20 @@ function calculateAirflow() {
     document.getElementById('actual-pressurization').textContent = 
         `${actualPercent.toFixed(1)}% ${actualType}`;
     
-    // Calculate Outside Air Percentage
+    // Calculate Outside Air Percentage (based on supply)
     let oaPercentage = 0;
     if (supplyCFM > 0) {
-        oaPercentage = (outsideAirCFM / supplyCFM) * 100;
+        oaPercentage = (requiredOA / supplyCFM) * 100;
     }
     document.getElementById('oa-percentage').textContent = oaPercentage.toFixed(1) + '%';
     
-    // Determine status
-    let status = 'Within Target';
-    let statusColor = '#27ae60';
-    
-    const tolerance = 1.0;
-    
-    if (exhaustCFM === 0) {
-        status = 'No Exhaust Air';
-        statusColor = '#7f8c8d';
-    } else if (pressType === 'positive' && actualType === 'Positive') {
-        if (Math.abs(actualPercent - targetPercent) <= tolerance) {
-            status = '✓ Within Target';
-            statusColor = '#27ae60';
-        } else if (actualPercent < targetPercent) {
-            status = '⚠ Below Target';
-            statusColor = '#f39c12';
-        } else {
-            status = '⚠ Above Target';
-            statusColor = '#f39c12';
-        }
-    } else if (pressType === 'negative' && actualType === 'Negative') {
-        if (Math.abs(actualPercent - targetPercent) <= tolerance) {
-            status = '✓ Within Target';
-            statusColor = '#27ae60';
-        } else if (actualPercent < targetPercent) {
-            status = '⚠ Below Target';
-            statusColor = '#f39c12';
-        } else {
-            status = '⚠ Above Target';
-            statusColor = '#f39c12';
-        }
-    } else if (pressType === 'neutral' && actualType === 'Neutral') {
-        status = '✓ Within Target';
-        statusColor = '#27ae60';
-    } else {
-        status = '✗ Wrong Type';
-        statusColor = '#e74c3c';
-    }
-    
-    const statusElement = document.getElementById('pressurization-status');
-    statusElement.textContent = status;
-    statusElement.style.color = statusColor;
+    // Update explanation text
+    updateExplanationText(pressType, targetPercent, requiredOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM);
     
     // Check if advanced mode is enabled
     const advancedSection = document.getElementById('advanced-section');
     if (advancedSection && advancedSection.style.display !== 'none') {
-        calculatePsychrometrics(supplyCFM, outsideAirCFM, returnCFM, oaPercentage);
+        calculatePsychrometrics(supplyCFM, requiredOA, returnCFM, oaPercentage);
     }
 }
 
@@ -3144,6 +3109,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
