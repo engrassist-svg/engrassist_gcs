@@ -1184,60 +1184,142 @@ function calculateFrictionLoss() {
     };
 }
 
-function calculateAirflowRate() {
-    const width = parseFloat(document.getElementById('width').value);
-    const height = parseFloat(document.getElementById('height').value);
-    const frictionRate = parseFloat(document.getElementById('friction-rate').value);
-    const roughness = parseFloat(document.getElementById('duct-roughness').value);
-    const shape = document.getElementById('original-shape').value;
-    const density = parseFloat(document.getElementById('density').value);
+// Calculate total airflow for each type and pressurization
+function calculateAirflow() {
+    // Sum up all air terminals by type
+    let supplyCFM = 0;
+    let returnCFM = 0;
+    let exhaustCFM = 0;
     
-    if (!width || (shape !== 'round' && !height) || !frictionRate) {
-        throw new Error('Please fill in all required fields');
-    }
+    airTerminals.forEach(terminal => {
+        if (terminal.type === 'supply') {
+            supplyCFM += terminal.cfm;
+        } else if (terminal.type === 'return') {
+            returnCFM += terminal.cfm;
+        } else if (terminal.type === 'exhaust') {
+            exhaustCFM += terminal.cfm;
+        }
+    });
     
-    let hydraulicDiameter, area;
+    // Get target pressurization settings
+    const pressType = document.getElementById('pressurization-type').value;
+    const targetPercent = parseFloat(document.getElementById('target-percent').value) || 0;
     
-    if (shape === 'round') {
-        const diameter = width;
-        area = Math.PI * Math.pow(diameter / 12, 2) / 4;
-        hydraulicDiameter = diameter / 12;
+    // Calculate REQUIRED outside air based on exhaust and target pressurization
+    let requiredOA = 0;
+    
+    if (exhaustCFM > 0) {
+        if (pressType === 'positive') {
+            // Positive: OA must be MORE than exhaust
+            requiredOA = exhaustCFM * (1 + targetPercent / 100);
+        } else if (pressType === 'negative') {
+            // Negative: OA must be LESS than exhaust
+            requiredOA = exhaustCFM * (1 - targetPercent / 100);
+        } else {
+            // Neutral: OA must EQUAL exhaust
+            requiredOA = exhaustCFM;
+        }
     } else {
-        area = (width * height) / 144;
-        const perimeter = 2 * (width + height) / 12;
-        hydraulicDiameter = 4 * area / perimeter;
+        requiredOA = 0;
     }
     
-    let airflow = 1000;
-    let iterations = 0;
-    const maxIterations = 50;
+    requiredOA = Math.max(0, requiredOA);
     
-    while (iterations < maxIterations) {
-        const velocity = airflow / area;
-        const velocityFPS = velocity / 60;
-        const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
-        const relativeRoughness = roughness / hydraulicDiameter;
-        const frictionFactor = 0.25 / Math.pow(Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynoldsNumber, 0.9)), 2);
-        const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-        const calculatedFrictionInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-        const calculatedFriction = calculatedFrictionInWG / 12; // Convert to feet
+    // Update all airflow displays
+    document.getElementById('supply-cfm').value = supplyCFM.toFixed(0);
+    document.getElementById('return-cfm').value = returnCFM.toFixed(0);
+    document.getElementById('exhaust-cfm').value = exhaustCFM.toFixed(0);
+    document.getElementById('outside-air-cfm').value = requiredOA.toFixed(0);
+    
+    // Calculate actual pressurization based on required OA vs Exhaust
+    let actualPercent = 0;
+    let actualType = 'Neutral';
+    
+    if (exhaustCFM > 0) {
+        actualPercent = ((requiredOA - exhaustCFM) / exhaustCFM) * 100;
         
-        const error = calculatedFriction - frictionRate;
-        if (Math.abs(error) < 0.001) break;
-        
-        airflow = airflow - error * 1000;
-        iterations++;
+        if (actualPercent > 0.5) {
+            actualType = 'Positive';
+        } else if (actualPercent < -0.5) {
+            actualType = 'Negative';
+            actualPercent = Math.abs(actualPercent);
+        } else {
+            actualType = 'Neutral';
+            actualPercent = 0;
+        }
     }
     
-    const velocity = airflow / area;
+    document.getElementById('actual-pressurization').textContent = 
+        `${actualPercent.toFixed(1)}% ${actualType}`;
     
-    return {
-        airflow: airflow.toFixed(0),
-        velocity: velocity.toFixed(0),
-        hydraulicDiameter: (hydraulicDiameter * 12).toFixed(2),
-        area: area.toFixed(3),
-        iterations: iterations
-    };
+    // Calculate Outside Air Percentage (based on supply)
+    let oaPercentage = 0;
+    if (supplyCFM > 0) {
+        oaPercentage = (requiredOA / supplyCFM) * 100;
+    }
+    document.getElementById('oa-percentage').textContent = oaPercentage.toFixed(1) + '%';
+    
+    // Update explanation text
+    updateExplanationText(pressType, targetPercent, requiredOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM);
+    
+    // Check if advanced mode is enabled
+    const advancedSection = document.getElementById('advanced-section');
+    if (advancedSection && advancedSection.style.display !== 'none') {
+        calculatePsychrometrics(supplyCFM, requiredOA, returnCFM, oaPercentage);
+    }
+}
+
+// Update the explanation text based on current state
+function updateExplanationText(pressType, targetPercent, requiredOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM) {
+    const explanationElement = document.getElementById('oa-explanation');
+    
+    if (exhaustCFM === 0 && supplyCFM === 0) {
+        explanationElement.innerHTML = 'Add air terminals below to calculate airflow and pressurization.';
+        return;
+    }
+    
+    if (exhaustCFM === 0) {
+        explanationElement.innerHTML = 'Add exhaust air terminals to calculate building pressurization requirements.';
+        return;
+    }
+    
+    let message = '';
+    
+    // Explain the required OA calculation
+    if (pressType === 'positive') {
+        message = `For <strong>${targetPercent}% positive pressurization</strong>, required outside air is <strong>${requiredOA.toFixed(0)} CFM</strong> `;
+        message += `(Exhaust ${exhaustCFM} CFM × ${(1 + targetPercent/100).toFixed(2)}). `;
+    } else if (pressType === 'negative') {
+        message = `For <strong>${targetPercent}% negative pressurization</strong>, required outside air is <strong>${requiredOA.toFixed(0)} CFM</strong> `;
+        message += `(Exhaust ${exhaustCFM} CFM × ${(1 - targetPercent/100).toFixed(2)}). `;
+    } else {
+        message = `For <strong>neutral pressurization</strong>, required outside air is <strong>${requiredOA.toFixed(0)} CFM</strong> `;
+        message += `(equal to exhaust ${exhaustCFM} CFM). `;
+    }
+    
+    if (supplyCFM > 0) {
+        message += `This represents <strong>${oaPercentage.toFixed(1)}%</strong> of supply air. `;
+        
+        // Check system balance: Supply should = Return + OA
+        const actualOAFromBalance = supplyCFM - returnCFM;
+        const oaBalance = requiredOA - actualOAFromBalance;
+        
+        if (Math.abs(oaBalance) > 10) {
+            if (oaBalance > 0) {
+                // Need more OA - need to increase supply or reduce return
+                message += `<br><br><strong>⚠️ System Balance:</strong> Current terminals provide ${actualOAFromBalance.toFixed(0)} CFM outside air (Supply ${supplyCFM} - Return ${returnCFM}). `;
+                message += `Need to increase supply by ${oaBalance.toFixed(0)} CFM or decrease return by ${oaBalance.toFixed(0)} CFM to meet pressurization target.`;
+            } else {
+                // Have too much OA - need to decrease supply or increase return
+                message += `<br><br><strong>⚠️ System Balance:</strong> Current terminals provide ${actualOAFromBalance.toFixed(0)} CFM outside air (Supply ${supplyCFM} - Return ${returnCFM}). `;
+                message += `Need to decrease supply by ${Math.abs(oaBalance).toFixed(0)} CFM or increase return by ${Math.abs(oaBalance).toFixed(0)} CFM to meet pressurization target.`;
+            }
+        } else {
+            message += `<br><br><strong>✓ System Balance:</strong> Supply (${supplyCFM} CFM) = Return (${returnCFM} CFM) + Outside Air (${requiredOA.toFixed(0)} CFM). System is balanced!`;
+        }
+    }
+    
+    explanationElement.innerHTML = message;
 }
 
 function calculateSizeVelocityFriction() {
@@ -2040,9 +2122,6 @@ function calculateAirflow() {
     const statusElement = document.getElementById('pressurization-status');
     statusElement.textContent = status;
     statusElement.style.color = statusColor;
-    
-    // Update explanation text
-    updateExplanationText(pressType, targetPercent, actualType, actualPercent, outsideAirCFM, suggestedOA, exhaustCFM, oaPercentage, supplyCFM, returnCFM);
     
     // Check if advanced mode is enabled
     const advancedSection = document.getElementById('advanced-section');
@@ -3065,6 +3144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
