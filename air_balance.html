@@ -54,12 +54,88 @@
             </div>
         </section>
 
-        <!-- Calculator Section -->
+<!-- Calculator Section -->
         <section class="content-section">
             <div class="container">
 
-                <!-- Actual Airflow Summary -->
-                <h2 class="section-title" style="margin-top: 3rem;">Actual Airflow Summary</h2>
+                <!-- Advanced Settings Toggle -->
+                <div style="margin-bottom: 2rem;">
+                    <button class="btn" onclick="toggleAdvanced()" style="background: #9b59b6;">
+                        <span id="advanced-toggle-text">▶ Show Advanced Psychrometric Calculations</span>
+                    </button>
+                </div>
+
+                <!-- Advanced Temperature Inputs (Hidden by default) -->
+                <div id="advanced-section" style="display: none; background: #f8f9fa; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                    <h2 class="section-title">Advanced Psychrometric Settings</h2>
+                    
+                    <h3 style="color: #3498db; margin-top: 1.5rem;">Summer Design Conditions</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="summer-oa-db">Outside Air Dry-Bulb (°F):</label>
+                            <input type="number" id="summer-oa-db" value="95" step="1" oninput="calculateAirflow()">
+                        </div>
+                        <div class="form-group">
+                            <label for="summer-oa-wb">Outside Air Wet-Bulb (°F):</label>
+                            <input type="number" id="summer-oa-wb" value="78" step="1" oninput="calculateAirflow()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="summer-ra-db">Return Air Dry-Bulb (°F):</label>
+                            <input type="number" id="summer-ra-db" value="75" step="1" oninput="calculateAirflow()">
+                        </div>
+                        <div class="form-group">
+                            <label for="summer-ra-wb">Return Air Wet-Bulb (°F):</label>
+                            <input type="number" id="summer-ra-wb" value="63" step="1" oninput="calculateAirflow()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="summer-sa-db">Supply Air Dry-Bulb (°F):</label>
+                            <input type="number" id="summer-sa-db" value="55" step="1" oninput="calculateAirflow()">
+                        </div>
+                        <div class="form-group">
+                            <label for="summer-sa-wb">Supply Air Wet-Bulb (°F):</label>
+                            <input type="number" id="summer-sa-wb" value="54" step="1" oninput="calculateAirflow()">
+                        </div>
+                    </div>
+
+                    <h3 style="color: #e74c3c; margin-top: 2rem;">Winter Design Conditions</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="winter-oa-db">Outside Air Dry-Bulb (°F):</label>
+                            <input type="number" id="winter-oa-db" value="10" step="1" oninput="calculateAirflow()">
+                        </div>
+                        <div class="form-group">
+                            <label for="winter-oa-wb">Outside Air Wet-Bulb (°F):</label>
+                            <input type="number" id="winter-oa-wb" value="9" step="1" oninput="calculateAirflow()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="winter-ra-db">Return Air Dry-Bulb (°F):</label>
+                            <input type="number" id="winter-ra-db" value="70" step="1" oninput="calculateAirflow()">
+                        </div>
+                        <div class="form-group">
+                            <label for="winter-ra-wb">Return Air Wet-Bulb (°F):</label>
+                            <input type="number" id="winter-ra-wb" value="60" step="1" oninput="calculateAirflow()">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="winter-sa-db">Supply Air Dry-Bulb (°F):</label>
+                            <input type="number" id="winter-sa-db" value="95" step="1" oninput="calculateAirflow()">
+                        </div>
+                        <div class="form-group">
+                            <label for="winter-sa-wb">Supply Air Wet-Bulb (°F):</label>
+                            <input type="number" id="winter-sa-wb" value="75" step="1" oninput="calculateAirflow()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Pressurization Settings -->
+                <h2 class="section-title">Target Pressurization</h2>
                 
                 <div class="form-row">
                     <div class="form-group">
@@ -75,6 +151,9 @@
                         <input type="number" id="target-percent" value="5" min="0" max="100" step="0.1" oninput="calculateAirflow()">
                     </div>
                 </div>
+
+                <!-- Actual Airflow Summary -->
+                <h2 class="section-title" style="margin-top: 3rem;">Actual Airflow Summary</h2>
                 
                 <div class="form-row">
                     <div class="form-group">
@@ -93,14 +172,14 @@
                         <input type="number" id="exhaust-cfm" value="0" readonly style="background: #f8f9fa; font-weight: bold; color: #e74c3c;">
                     </div>
                     <div class="form-group">
-                        <label for="outside-air-cfm">Outside Air (CFM):</label>
-                        <input type="number" id="outside-air-cfm" value="0" min="0" step="1" oninput="calculateAirflow()" style="font-weight: bold; color: #f39c12; border: 2px solid #f39c12;">
+                        <label>Outside Air (CFM):</label>
+                        <input type="number" id="outside-air-cfm" value="0" readonly style="background: #fff3cd; font-weight: bold; color: #f39c12;">
                     </div>
                 </div>
 
                 <!-- Actual Pressurization Results -->
                 <div class="boiler-results-section" style="margin-top: 2rem;">
-                    <h3>Actual Pressurization Results</h3>
+                    <h3>Pressurization Results</h3>
                     <div class="boiler-result-item boiler-result-blue">
                         <span class="result-label">Actual Pressurization:</span>
                         <span class="result-value" id="actual-pressurization">0.0% Neutral</span>
@@ -109,14 +188,51 @@
                         <span class="result-label">Status:</span>
                         <span class="result-value" id="pressurization-status">Within Target</span>
                     </div>
-                    <div class="boiler-result-item boiler-result-orange">
-                        <span class="result-label">Suggested Outside Air:</span>
-                        <span class="result-value" id="suggested-oa">0 CFM</span>
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Outside Air Percentage:</span>
+                        <span class="result-value" id="oa-percentage">0.0%</span>
                     </div>
                     <div class="info-box" style="margin-top: 1rem; background: #e8f4f8;">
                         <p style="margin: 0; color: #2c3e50;" id="oa-explanation">
-                            Enter outside air CFM above to see pressurization results.
+                            Add air terminals below to calculate airflow and pressurization.
                         </p>
+                    </div>
+                </div>
+
+                <!-- Advanced Psychrometric Results (Hidden by default) -->
+                <div id="psychrometric-results" style="display: none;">
+                    <!-- Summer Cooling Results -->
+                    <div class="boiler-results-section" style="margin-top: 2rem;">
+                        <h3 style="color: #3498db;">☀️ Summer Cooling Analysis</h3>
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Mixed Air Temperature:</span>
+                            <span class="result-value" id="summer-mixed-air-temp">-- °F</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Total Cooling Load:</span>
+                            <span class="result-value" id="summer-total-cooling">-- MBH</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Sensible Cooling Load:</span>
+                            <span class="result-value" id="summer-sensible-cooling">-- MBH</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Sensible Heat Ratio:</span>
+                            <span class="result-value" id="summer-shr">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Winter Heating Results -->
+                    <div class="boiler-results-section" style="margin-top: 2rem;">
+                        <h3 style="color: #e74c3c;">❄️ Winter Heating Analysis</h3>
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Mixed Air Temperature:</span>
+                            <span class="result-value" id="winter-mixed-air-temp">-- °F</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-red">
+                            <span class="result-label">Total Heating Load:</span>
+                            <span class="result-value" id="winter-total-heating">-- MBH</span>
+                        </div>
                     </div>
                 </div>
 
@@ -147,16 +263,14 @@
                 <div class="info-box" style="margin-top: 3rem;">
                     <h4>📘 Building Pressurization Guide</h4>
                     <ul style="margin-left: 2rem; line-height: 1.8;">
-                        <li><strong>Positive Pressurization:</strong> More outside air supplied than internal air exhausted. Prevents outdoor air infiltration. Typical: 3-10%</li>
-                        <li><strong>Neutral Pressurization:</strong> Balanced exhaust and outside air. Used when specific pressure control isn't critical.</li>
-                        <li><strong>Negative Pressurization:</strong> More air exhausted than outside air. Prevents contaminated air from spreading. Typical: 5-15%</li>
+                        <li><strong>Positive Pressurization:</strong> More outside air than exhaust. Prevents outdoor air infiltration. Typical: 3-10%</li>
+                        <li><strong>Neutral Pressurization:</strong> Outside air equals exhaust. Used when specific pressure control isn't critical.</li>
+                        <li><strong>Negative Pressurization:</strong> Less outside air than exhaust. Prevents contaminated air from spreading. Typical: 5-15%</li>
+                        <li><strong>Outside Air %:</strong> Percentage of supply air that is fresh outside air. Important for ventilation requirements and energy calculations.</li>
                     </ul>
-                    <p style="margin-top: 1rem;"><strong>Formula:</strong> Pressurization % = ((Outside Air / Exhaust Air) - 1) × 100</p>
-                    <p style="margin-top: 0.5rem;"><strong>Note:</strong></p>
-                    <ul style="margin-left: 2rem; line-height: 1.8;">
-                        <li>Supply Air = Return Air + Outside Air</li>
-                        <li>Outside Air % = (Outside Air / Supply Air) x 100</li>
-                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Pressurization Formula:</strong> ((Outside Air - Exhaust) / Exhaust) × 100</p>
+                    <p style="margin-top: 0.5rem;"><strong>Outside Air % Formula:</strong> (Outside Air / Supply Air) × 100</p>
+                    <p style="margin-top: 0.5rem;"><strong>Note:</strong> Outside Air = Target Pressurization + Exhaust Air</p>
                 </div>
 
                 <!-- Disclaimer -->
@@ -172,9 +286,6 @@
             </div>
         </section>
     </main>
-
-    <!-- Footer Placeholder -->
-    <div id="foote
 
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
