@@ -65,45 +65,6 @@
                         </div>
 
                         <h3 class="subsection-title">Design Conditions</h3>
-
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label for="duct-roughness">Duct Roughness <span class="unit-display">(ft)</span></label>
-                                <input type="number" id="duct-roughness" step="0.000001" value="0.0005" min="0.00001" required>
-                                <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                                    See reference table below for common materials
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label for="original-shape">Original Duct Shape</label>
-                                <select id="original-shape" onchange="updateShapeFields()">
-                                    <option value="rectangular" selected>Rectangular</option>
-                                    <option value="round">Round</option>
-                                    <option value="oval">Oval</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Dynamic input fields -->
-                        <div id="dynamic-inputs">
-                            <div class="form-row">
-                                <div class="form-col">
-                                    <label for="airflow">Airflow <span class="unit-display">(CFM)</span></label>
-                                    <input type="number" id="airflow" min="0" step="1" required>
-                                </div>
-                                <div class="form-col">
-                                    <label for="width">Width <span class="unit-display">(in)</span></label>
-                                    <input type="number" id="width" min="0" step="0.1" required>
-                                </div>
-                                <div class="form-col">
-                                    <label for="height">Height <span class="unit-display">(in)</span></label>
-                                    <input type="number" id="height" min="0" step="0.1" required>
-                                </div>
-                            </div>
-                        </div>
                         
                         <div class="form-row">
                             <div class="form-col">
@@ -127,11 +88,11 @@
                                 <div class="radio-group">
                                     <div class="radio-item">
                                         <input type="radio" id="feet" name="length-units" value="feet" checked>
-                                        <label for="feet" id="length-unit-1">Feet</label>
+                                        <label for="feet">Feet</label>
                                     </div>
                                     <div class="radio-item">
                                         <input type="radio" id="inches" name="length-units" value="inches">
-                                        <label for="inches" id="length-unit-2">Inches</label>
+                                        <label for="inches">Inches</label>
                                     </div>
                                 </div>
                             </div>
@@ -140,6 +101,28 @@
                                 <input type="number" id="length" min="0" step="0.1">
                             </div>
                         </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="duct-roughness">Duct Roughness <span class="unit-display">(ft)</span></label>
+                                <input type="number" id="duct-roughness" step="0.000001" value="0.0005" min="0.00001" required>
+                                <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                    See reference table below for common materials
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="original-shape">Original Duct Shape</label>
+                                <select id="original-shape" onchange="updateShapeFields()">
+                                    <option value="round" selected>Round</option>
+                                    <option value="rectangular">Rectangular</option>
+                                    <option value="oval">Oval</option>
+                                </select>
+                            </div>
+                        </div>
+                        
                         <!-- Advanced conditions (hidden by default) -->
                         <div id="advanced-conditions" style="display: none;">
                             <h3 class="subsection-title">Advanced Conditions</h3>
@@ -329,6 +312,7 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
 
 
 
