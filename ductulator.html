@@ -64,89 +64,95 @@
                             </select>
                         </div>
 
-                        <h3 class="subsection-title">Design Conditions</h3>
+<h3 class="subsection-title">Design Conditions</h3>
+
+<div class="form-row">
+    <div class="form-group">
+        <label for="calculation-type">Standard Conditions</label>
+        <div class="radio-group">
+            <div class="radio-item">
+                <input type="radio" id="std-yes" name="standard-conditions" value="yes" checked onchange="toggleAdvancedConditions()">
+                <label for="std-yes">Yes</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="std-no" name="standard-conditions" value="no" onchange="toggleAdvancedConditions()">
+                <label for="std-no">No</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Duct Length Units</label>
+        <div class="radio-group">
+            <div class="radio-item">
+                <input type="radio" id="feet" name="length-units" value="feet" checked>
+                <label for="feet">Feet</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="inches" name="length-units" value="inches">
+                <label for="inches">Inches</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="length">Length - Optional</label>
+        <input type="number" id="length" min="0" step="0.1">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label for="duct-roughness">Duct Roughness (ft)</label>
+        <input type="number" id="duct-roughness" step="0.000001" value="0.0005" min="0.00001" required>
+        <small style="color: #7f8c8d; font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+            See reference table below for common materials
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="original-shape">Original Duct Shape</label>
+        <select id="original-shape" onchange="updateShapeFields()">
+            <option value="round" selected>Round</option>
+            <option value="rectangular">Rectangular</option>
+            <option value="oval">Oval</option>
+        </select>
+    </div>
+</div>
+
+<!-- Dynamic input fields -->
+<div id="dynamic-inputs">
+    <!-- Input fields will be generated here by JavaScript -->
+</div>
+
+<!-- Advanced conditions (hidden by default) -->
+<div id="advanced-conditions" style="display: none;">
+    <h3 class="subsection-title">Advanced Conditions</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="temp">Dry Bulb Temperature (°F)</label>
+            <input type="number" id="temp" value="70" step="0.1">
+        </div>
+        <div class="form-group">
+            <label for="humidity">Relative Humidity (%)</label>
+            <input type="number" id="humidity" value="0" min="0" max="100" step="1">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="elevation">Elevation (ft)</label>
+            <input type="number" id="elevation" value="0" step="1">
+        </div>
+        <div class="form-group">
+            <label for="density">Density (lb/ft³)</label>
+            <input type="number" id="density" value="0.075" step="0.001" readonly style="background: #f8f9fa;">
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-full" onclick="calculateResults()">Calculate Results</button>
+<button class="btn-secondary btn-full" onclick="clearInputs()">Clear All</button>
                         
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label>Standard Conditions</label>
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="std-yes" name="standard-conditions" value="yes" checked onchange="toggleAdvancedConditions()">
-                                        <label for="std-yes">Yes</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="std-no" name="standard-conditions" value="no" onchange="toggleAdvancedConditions()">
-                                        <label for="std-no">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label>Duct Length Units</label>
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="feet" name="length-units" value="feet" checked>
-                                        <label for="feet">Feet</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="inches" name="length-units" value="inches">
-                                        <label for="inches">Inches</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <label for="length">Length - Optional</label>
-                                <input type="number" id="length" min="0" step="0.1">
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label for="duct-roughness">Duct Roughness <span class="unit-display">(ft)</span></label>
-                                <input type="number" id="duct-roughness" step="0.000001" value="0.0005" min="0.00001" required>
-                                <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                                    See reference table below for common materials
-                                </small>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label for="original-shape">Original Duct Shape</label>
-                                <select id="original-shape" onchange="updateShapeFields()">
-                                    <option value="round" selected>Round</option>
-                                    <option value="rectangular">Rectangular</option>
-                                    <option value="oval">Oval</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <!-- Advanced conditions (hidden by default) -->
-                        <div id="advanced-conditions" style="display: none;">
-                            <h3 class="subsection-title">Advanced Conditions</h3>
-                            <div class="form-row">
-                                <div class="form-col">
-                                    <label for="temp">Dry Bulb Temperature <span class="unit-display">(°F)</span></label>
-                                    <input type="number" id="temp" value="70" step="0.1">
-                                </div>
-                                <div class="form-col">
-                                    <label for="humidity">Relative Humidity <span class="unit-display">(%)</span></label>
-                                    <input type="number" id="humidity" value="0" min="0" max="100" step="1">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-col">
-                                    <label for="elevation">Elevation <span class="unit-display">(ft)</span></label>
-                                    <input type="number" id="elevation" value="0" step="1">
-                                </div>
-                                <div class="form-col">
-                                    <label for="density">Density <span class="unit-display">(lb/ft³)</span></label>
-                                    <input type="number" id="density" value="0.075" step="0.001" readonly>
-                                </div>
-                            </div>
-                        </div>
                         <br>
                         <button class="btn btn-full" onclick="calculateResults()">Calculate Results</button>
                         <button class="btn btn-secondary btn-full" onclick="clearInputs()">Clear All</button>
@@ -312,6 +318,7 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+
 
 
 
