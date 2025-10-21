@@ -862,22 +862,15 @@ function initializeDuctulator() {
 }
 
 function toggleAdvancedConditions() {
-    const advancedDiv = document.getElementById('advanced-conditions');
-    const isStandardConditions = document.getElementById('std-yes').checked;
-    if (advancedDiv) {
-        advancedDiv.style.display = isStandardConditions ? 'none' : 'block';
-    }
+    const stdNo = document.getElementById('std-no');
+    const advancedSection = document.getElementById('advanced-conditions');
     
-    if (isStandardConditions) {
-        const tempInput = document.getElementById('temp');
-        const humidityInput = document.getElementById('humidity');
-        const elevationInput = document.getElementById('elevation');
-        const densityInput = document.getElementById('density');
-        
-        if (tempInput) tempInput.value = 70;
-        if (humidityInput) humidityInput.value = 0;
-        if (elevationInput) elevationInput.value = 0;
-        if (densityInput) densityInput.value = 0.075;
+    if (stdNo && stdNo.checked) {
+        // Show advanced conditions
+        advancedSection.style.display = 'block';
+    } else {
+        // Hide advanced conditions
+        advancedSection.style.display = 'none';
     }
 }
 
@@ -1381,35 +1374,42 @@ function calculateSizeFriction() {
         throw new Error('Please fill in all required fields');
     }
     
-    // Helper function to calculate friction for a given diameter (round duct)
+    // Convert friction rate from ft/100ft to in.wg/100ft for internal calculations
+    const frictionRateInWG = frictionRate * 12;
+    
+    // Helper function to calculate friction for a given diameter (uses ASHRAE method)
     function getFrictionForDiameter(d_inches) {
-        const area = Math.PI * Math.pow(d_inches / 12, 2) / 4; // ft²
+        const diameter_ft = d_inches / 12;
+        const area = Math.PI * Math.pow(diameter_ft, 2) / 4; // ft²
         const velocity = airflow / area; // fpm
-        const hydraulicDiameter = d_inches / 12; // ft
-        const velocityFPS = velocity / 60; // fps
+        const velocity_fps = velocity / 60; // fps
         
-        const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
-        const relativeRoughness = roughness / hydraulicDiameter;
+        // Reynolds number
+        const dynamicViscosity = 0.00073; // lb/(ft·s) for air at standard conditions
+        const reynoldsNumber = (density * velocity_fps * diameter_ft) / dynamicViscosity;
         
+        // Friction factor using Colebrook-White (Swamee-Jain approximation)
+        const relativeRoughness = roughness / diameter_ft;
         let frictionFactor;
-        if (reynoldsNumber > 4000) {
-            // Swamee-Jain approximation of Colebrook-White
+        
+        if (reynoldsNumber > 2300) {
+            // Turbulent flow - Swamee-Jain equation
             const term1 = relativeRoughness / 3.7;
             const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
             frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
         } else {
+            // Laminar flow
             frictionFactor = 64 / reynoldsNumber;
         }
         
-        // Darcy-Weisbach: ΔP = f * (L/D) * (ρ * V²) / 2
-        // Velocity pressure in inches water gauge
-        const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
+        // Darcy-Weisbach equation for pressure drop
+        // ΔP = f * (L/D) * (ρ * V²) / 2
+        // Convert to inches water gauge per 100 ft
+        const velocityHead = Math.pow(velocity_fps, 2) / (2 * 32.174); // ft
+        const pressureDropFt = frictionFactor * (100 / diameter_ft) * velocityHead; // ft per 100 ft
+        const pressureDropInWG = pressureDropFt * (density / 0.075) * 12; // in.wg per 100 ft
         
-        // Friction loss in inches water gauge per 100 ft
-        const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-        
-        // Convert to ft per 100 ft
-        return frictionLossInWG / 12;
+        return pressureDropInWG;
     }
     
     // Helper function for rectangular ducts
@@ -1418,13 +1418,15 @@ function calculateSizeFriction() {
         const velocity = airflow / area; // fpm
         const perimeter = 2 * (w_inches + h_inches) / 12; // ft
         const hydraulicDiameter = 4 * area / perimeter; // ft
-        const velocityFPS = velocity / 60; // fps
+        const velocity_fps = velocity / 60; // fps
         
-        const reynoldsNumber = (density * velocityFPS * hydraulicDiameter) / 0.00073;
+        const dynamicViscosity = 0.00073;
+        const reynoldsNumber = (density * velocity_fps * hydraulicDiameter) / dynamicViscosity;
+        
         const relativeRoughness = roughness / hydraulicDiameter;
-        
         let frictionFactor;
-        if (reynoldsNumber > 4000) {
+        
+        if (reynoldsNumber > 2300) {
             const term1 = relativeRoughness / 3.7;
             const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
             frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
@@ -1432,9 +1434,11 @@ function calculateSizeFriction() {
             frictionFactor = 64 / reynoldsNumber;
         }
         
-        const velocityPressure = (density / 0.075) * Math.pow(velocity / 4005, 2);
-        const frictionLossInWG = frictionFactor * (100 / (hydraulicDiameter * 12)) * velocityPressure;
-        return frictionLossInWG / 12;
+        const velocityHead = Math.pow(velocity_fps, 2) / (2 * 32.174);
+        const pressureDropFt = frictionFactor * (100 / hydraulicDiameter) * velocityHead;
+        const pressureDropInWG = pressureDropFt * (density / 0.075) * 12;
+        
+        return pressureDropInWG;
     }
     
     let diameter, width, height;
@@ -1444,15 +1448,17 @@ function calculateSizeFriction() {
         let minD = 3;
         let maxD = 120;
         
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 100; i++) {
             diameter = (minD + maxD) / 2;
             const calculatedFriction = getFrictionForDiameter(diameter);
             
-            if (Math.abs(calculatedFriction - frictionRate) < 0.00001) {
+            const error = Math.abs(calculatedFriction - frictionRateInWG);
+            
+            if (error < 0.0001) {
                 break;
             }
             
-            if (calculatedFriction > frictionRate) {
+            if (calculatedFriction > frictionRateInWG) {
                 // Friction too high, need larger diameter
                 minD = diameter;
             } else {
@@ -1484,15 +1490,15 @@ function calculateSizeFriction() {
             let minW = 4;
             let maxW = 120;
             
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 100; i++) {
                 width = (minW + maxW) / 2;
                 const calculatedFriction = getFrictionForRect(width, height);
                 
-                if (Math.abs(calculatedFriction - frictionRate) < 0.00001) {
+                if (Math.abs(calculatedFriction - frictionRateInWG) < 0.0001) {
                     break;
                 }
                 
-                if (calculatedFriction > frictionRate) {
+                if (calculatedFriction > frictionRateInWG) {
                     minW = width;
                 } else {
                     maxW = width;
@@ -1503,16 +1509,16 @@ function calculateSizeFriction() {
             let minS = 4;
             let maxS = 120;
             
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 100; i++) {
                 width = (minS + maxS) / 2;
                 height = width;
                 const calculatedFriction = getFrictionForRect(width, height);
                 
-                if (Math.abs(calculatedFriction - frictionRate) < 0.00001) {
+                if (Math.abs(calculatedFriction - frictionRateInWG) < 0.0001) {
                     break;
                 }
                 
-                if (calculatedFriction > frictionRate) {
+                if (calculatedFriction > frictionRateInWG) {
                     minS = width;
                 } else {
                     maxS = width;
@@ -1532,28 +1538,26 @@ function calculateSizeFriction() {
     }
 }
 
-// New helper function to calculate equivalent rectangular and oval sizes
+// Helper function to calculate equivalent rectangular and oval sizes
 function calculateRectEquivalents(roundDiameter, airflow) {
     const roundArea = Math.PI * Math.pow(roundDiameter / 12, 2) / 4;
     
-    // 1:1 ratio (square)
+    // 1:1 ratio (square) - equal area
     const side_1_1 = Math.sqrt(roundArea) * 12;
     
-    // 2:1 ratio
+    // 2:1 ratio - equal area
     const height_2_1 = Math.sqrt(roundArea / 2) * 12;
     const width_2_1 = height_2_1 * 2;
     
-    // 3:1 ratio
+    // 3:1 ratio - equal area
     const height_3_1 = Math.sqrt(roundArea / 3) * 12;
     const width_3_1 = height_3_1 * 3;
     
-    // Calculate velocities
-    const vel_1_1 = (airflow / roundArea).toFixed(0);
-    const vel_2_1 = (airflow / roundArea).toFixed(0);
-    const vel_3_1 = (airflow / roundArea).toFixed(0);
+    // Calculate velocities (same for all since same area)
+    const velocity = (airflow / roundArea).toFixed(0);
     
-    // Calculate equivalent oval dimensions using SMACNA formula
-    // De = 1.30 * [(a*b)^0.625] / [(a+b)^0.25]
+    // Calculate flat oval dimensions (using SMACNA equivalent diameter formula)
+    // For flat oval: major axis ≈ width, minor axis ≈ height
     const oval_2_1_major = width_2_1;
     const oval_2_1_minor = height_2_1;
     
@@ -1563,13 +1567,13 @@ function calculateRectEquivalents(roundDiameter, airflow) {
     return {
         rect_1_1_width: side_1_1.toFixed(1),
         rect_1_1_height: side_1_1.toFixed(1),
-        rect_1_1_velocity: vel_1_1,
+        rect_1_1_velocity: velocity,
         rect_2_1_width: width_2_1.toFixed(1),
         rect_2_1_height: height_2_1.toFixed(1),
-        rect_2_1_velocity: vel_2_1,
+        rect_2_1_velocity: velocity,
         rect_3_1_width: width_3_1.toFixed(1),
         rect_3_1_height: height_3_1.toFixed(1),
-        rect_3_1_velocity: vel_3_1,
+        rect_3_1_velocity: velocity,
         oval_2_1_major: oval_2_1_major.toFixed(1),
         oval_2_1_minor: oval_2_1_minor.toFixed(1),
         oval_3_1_major: oval_3_1_major.toFixed(1),
@@ -3109,6 +3113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
 });
+
 
 
 
