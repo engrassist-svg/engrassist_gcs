@@ -2159,10 +2159,37 @@ function rebuildTable() {
 
 // Calculate enthalpy from dry-bulb and wet-bulb temperatures (Btu/lb)
 function calculateEnthalpy(dryBulb, wetBulb) {
-    // Simplified psychrometric calculation
-    const pws = Math.exp(77.3450 + 0.0057 * wetBulb - 7235 / (wetBulb + 459.67)) / Math.pow(wetBulb + 459.67, 8.2);
-    const ws = 0.62198 * pws / (14.696 - pws);
-    const enthalpy = 0.240 * dryBulb + ws * (1061 + 0.444 * dryBulb);
+    // Using ASHRAE approximation for psychrometric properties
+    // Temperature must be in Fahrenheit, pressure at sea level (14.696 psia)
+
+    // Convert to Rankine for calculations
+    const Tdb_R = dryBulb + 459.67;
+    const Twb_R = wetBulb + 459.67;
+
+    // Calculate saturation pressure at wet bulb using ASHRAE correlation (psia)
+    // Valid for temperature range -148°F to 392°F
+    const C1 = -1.0440397e4;
+    const C2 = -1.1294650e1;
+    const C3 = -2.7022355e-2;
+    const C4 = 1.2890360e-5;
+    const C5 = -2.4780681e-9;
+    const C6 = 6.5459673;
+
+    const lnPws = C1/Twb_R + C2 + C3*Twb_R + C4*Math.pow(Twb_R, 2) + C5*Math.pow(Twb_R, 3) + C6*Math.log(Twb_R);
+    const Pws = Math.exp(lnPws);
+
+    // Humidity ratio at saturation at wet bulb temperature
+    const Ws = 0.62198 * Pws / (14.696 - Pws);
+
+    // Approximate humidity ratio using energy balance at wet bulb
+    // This is a simplified approach - more complex iterative methods exist
+    // but this is sufficiently accurate for HVAC calculations
+    const W = ((1093 - 0.556 * wetBulb) * Ws - 0.240 * (dryBulb - wetBulb)) / (1093 + 0.444 * dryBulb - wetBulb);
+
+    // Calculate enthalpy: h = cp*T + W*(hfg + cpv*T)
+    // Standard form: h = 0.240*Tdb + W*(1061 + 0.444*Tdb)
+    const enthalpy = 0.240 * dryBulb + W * (1061 + 0.444 * dryBulb);
+
     return enthalpy;
 }
 
@@ -2202,14 +2229,17 @@ function calculatePsychrometrics(supplyCFM, outsideAirCFM, returnCFM, oaPercenta
     
     // Total cooling load (uses enthalpy difference)
     // Q_total = CFM × 4.5 × Δh (BTU/hr), convert to MBH
-    const summerTotalCooling = (supplyCFM * 4.5 * (summerMixedAirEnthalpy - summerSupplyAirEnthalpy)) / 1000;
+    // For cooling: mixed air enthalpy > supply air enthalpy (removing heat)
+    const enthalpyDifference = summerMixedAirEnthalpy - summerSupplyAirEnthalpy;
+    const summerTotalCooling = Math.max(0, (supplyCFM * 4.5 * enthalpyDifference) / 1000);
     document.getElementById('summer-total-cooling').textContent = summerTotalCooling.toFixed(1) + ' MBH';
-    
+
     // Sensible cooling load (uses temperature difference)
     // Q_sensible = CFM × 1.08 × ΔT (BTU/hr), convert to MBH
-    const summerSensibleCooling = (supplyCFM * 1.08 * (summerMixedAirDB - summerSAdb)) / 1000;
+    const tempDifference = summerMixedAirDB - summerSAdb;
+    const summerSensibleCooling = Math.max(0, (supplyCFM * 1.08 * tempDifference) / 1000);
     document.getElementById('summer-sensible-cooling').textContent = summerSensibleCooling.toFixed(1) + ' MBH';
-    
+
     // Sensible Heat Ratio
     const summerSHR = summerTotalCooling > 0 ? (summerSensibleCooling / summerTotalCooling) : 0;
     document.getElementById('summer-shr').textContent = summerSHR.toFixed(3);
