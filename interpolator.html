@@ -21,6 +21,78 @@
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
 
+    <!-- Mobile Responsive Styles -->
+    <style>
+        /* Interpolator-specific mobile styles */
+        .interpolator-points-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .interpolator-input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .interpolator-point-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .point-1-card {
+            border-left: 4px solid #3498db;
+        }
+
+        .point-2-card {
+            border-left: 4px solid #27ae60;
+        }
+
+        .interpolator-point-card h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .interpolator-points-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .interpolator-input-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .interpolator-point-card {
+                padding: 1.25rem;
+            }
+
+            /* Ensure inputs and labels are mobile-friendly */
+            .form-group input {
+                font-size: 16px; /* Prevents iOS zoom on input focus */
+            }
+
+            /* Make buttons stack on very small screens */
+            @media (max-width: 480px) {
+                .converter-buttons {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+
+                .converter-buttons .btn,
+                .converter-buttons .btn-secondary {
+                    width: 100%;
+                }
+            }
+        }
+    </style>
+
     <!-- JavaScript -->
     <script src="scripts.js" defer></script>
 </head>
@@ -76,10 +148,10 @@
                         <div style="margin-bottom: 3rem;">
                             <h3 style="color: #2c3e50; margin-bottom: 1.5rem; text-align: center;">Known Data Points</h3>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                            <div class="interpolator-points-grid">
                                 <!-- Point 1 -->
-                                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #3498db;">
-                                    <h4 style="color: #2c3e50; margin-bottom: 1rem;">Point 1 (X₁, Y₁)</h4>
+                                <div class="interpolator-point-card point-1-card">
+                                    <h4>Point 1 (X₁, Y₁)</h4>
                                     <div class="form-group">
                                         <label for="x1">X₁:</label>
                                         <input type="number" id="x1" placeholder="Enter X₁ value" step="any">
@@ -91,8 +163,8 @@
                                 </div>
 
                                 <!-- Point 2 -->
-                                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #27ae60;">
-                                    <h4 style="color: #2c3e50; margin-bottom: 1rem;">Point 2 (X₂, Y₂)</h4>
+                                <div class="interpolator-point-card point-2-card">
+                                    <h4>Point 2 (X₂, Y₂)</h4>
                                     <div class="form-group">
                                         <label for="x2">X₂:</label>
                                         <input type="number" id="x2" placeholder="Enter X₂ value" step="any">
@@ -112,7 +184,7 @@
                                 <p style="text-align: center; margin: 0;"><strong>Important:</strong> Enter ONLY ONE value below. Leave the other field empty to calculate it.</p>
                             </div>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                            <div class="interpolator-input-grid">
                                 <div class="form-group">
                                     <label for="x3">X₃ (Known):</label>
                                     <input type="number" id="x3" placeholder="Enter X₃ if known, or leave blank" step="any">
