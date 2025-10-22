@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
     <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free professional engineering design tools for HVAC, mechanical, electrical, and plumbing systems. Calculators for duct sizing, psychrometric analysis, boiler sizing, and more.">
+    <meta name="keywords" content="HVAC calculator, ductulator, engineering tools, mechanical engineering, duct sizing, psychrometric chart, ASHRAE">
+    <link rel="canonical" href="https://engrassist.com/">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="EngrAssist - Professional Engineering Design Tools">
+    <meta property="og:description" content="Free professional engineering design tools for HVAC and mechanical systems. Duct sizing, psychrometric charts, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+    <meta property="og:site_name" content="EngrAssist">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EngrAssist - Professional Engineering Design Tools">
+    <meta name="twitter:description" content="Free professional engineering design tools for HVAC and mechanical systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
     <title>EngrAssist - Professional Engineering Design Tools</title>
     
     <!-- Preload critical resources -->
@@ -23,10 +41,46 @@
     
     <!-- JavaScript -->
     <script src="scripts.js" defer></script>
-    
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
      crossorigin="anonymous"></script>
+
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "EngrAssist",
+      "url": "https://engrassist.com",
+      "logo": "https://engrassist.com/images/logo_coffee.png",
+      "description": "Professional engineering design tools for HVAC, mechanical, electrical, and plumbing systems",
+      "sameAs": [
+        "https://ko-fi.com/engrassist"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "url": "https://engrassist.com/contact.html"
+      }
+    }
+    </script>
+
+    <!-- Structured Data - Website -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "EngrAssist",
+      "url": "https://engrassist.com",
+      "description": "Free professional engineering design tools and calculators",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://engrassist.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 <body>
     <!-- Loading Spinner -->
@@ -77,29 +131,29 @@
         </section>
     </main>
 
-    <section class="content-section" style="background: white;">
+    <section class="content-section content-section-white">
     <div class="container">
         <h2 class="section-title">Recently Updated Tools</h2>
-        <div class="tools-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-            <a href="ductulator.html" class="tool-card" style="text-decoration: none;">
-                <div class="tool-icon" style="font-size: 2rem; margin-bottom: 1rem;">🔧</div>
-                <h3 style="color: #2c3e50; margin-bottom: 0.5rem;">Duct Sizer</h3>
-                <p style="color: #7f8c8d; margin: 0;">Advanced HVAC duct sizing with friction loss calculations</p>
-                <span class="badge" style="display: inline-block; background: #27ae60; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-top: 0.5rem;">Updated</span>
+        <div class="tools-grid">
+            <a href="ductulator.html" class="tool-card">
+                <div class="tool-icon">🔧</div>
+                <h3>Duct Sizer</h3>
+                <p>Advanced HVAC duct sizing with friction loss calculations</p>
+                <span class="badge badge-updated">Updated</span>
             </a>
-            
-            <a href="psychrometric.html" class="tool-card" style="text-decoration: none;">
-                <div class="tool-icon" style="font-size: 2rem; margin-bottom: 1rem;">📊</div>
-                <h3 style="color: #2c3e50; margin-bottom: 0.5rem;">Psychrometric Chart</h3>
-                <p style="color: #7f8c8d; margin: 0;">Interactive air property analysis tool</p>
-                <span class="badge" style="display: inline-block; background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-top: 0.5rem;">New</span>
+
+            <a href="psychrometric.html" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h3>Psychrometric Chart</h3>
+                <p>Interactive air property analysis tool</p>
+                <span class="badge badge-new">New</span>
             </a>
-            
-            <a href="air_balance.html" class="tool-card" style="text-decoration: none;">
-                <div class="tool-icon" style="font-size: 2rem; margin-bottom: 1rem;">⚖️</div>
-                <h3 style="color: #2c3e50; margin-bottom: 0.5rem;">Air Balance Calculator</h3>
-                <p style="color: #7f8c8d; margin: 0;">Calculate building pressurization and airflow balance</p>
-                <span class="badge" style="display: inline-block; background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; margin-top: 0.5rem;">New</span>
+
+            <a href="air_balance.html" class="tool-card">
+                <div class="tool-icon">⚖️</div>
+                <h3>Air Balance Calculator</h3>
+                <p>Calculate building pressurization and airflow balance</p>
+                <span class="badge badge-new">New</span>
             </a>
         </div>
     </div>

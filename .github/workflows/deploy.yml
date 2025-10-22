@@ -23,4 +23,6 @@ jobs:
       
       - name: Upload files to bucket
         run: |
-          gsutil -m rsync -r -d . gs://${{ secrets.GCP_BUCKET_NAME }}
+          gsutil -m rsync -r -d -c \
+            -x ".git/.*|.github/.*|.*\.psd$|.*_old\.*|README\.md|.*\.DS_Store|node_modules/.*" \
+            . gs://${{ secrets.GCP_BUCKET_NAME }}

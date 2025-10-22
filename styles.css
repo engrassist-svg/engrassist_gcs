@@ -2821,3 +2821,63 @@ body {
     }
 }
 
+/* ====================================
+   TOOLS GRID & CARDS - HOME PAGE
+   ==================================== */
+
+.content-section-white {
+    background: white;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.tool-card {
+    text-decoration: none;
+    display: block;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tool-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.tool-card h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.tool-card p {
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.badge {
+    display: inline-block;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.badge-updated {
+    background: #27ae60;
+}
+
+.badge-new {
+    background: #3498db;
+}
+
