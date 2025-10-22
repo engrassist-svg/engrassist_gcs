@@ -216,6 +216,44 @@
                     </div>
                 </div>
 
+                <!-- Balance Adjustment Section -->
+                <div id="balance-adjustment-section" class="boiler-results-section" style="margin-top: 2rem; display: none;">
+                    <h3 style="color: #9b59b6;">⚖️ Balance Adjustment Calculations</h3>
+
+                    <div class="info-box" style="margin-bottom: 1rem; background: #f8f4ff;">
+                        <p style="margin: 0; color: #2c3e50; font-size: 0.95rem;">
+                            <strong>Target Pressurization Formula:</strong> Outside Air = Exhaust × Multiplier
+                        </p>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Current Outside Air:</span>
+                        <span class="result-value" id="balance-current-oa">-- CFM</span>
+                    </div>
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Current Exhaust:</span>
+                        <span class="result-value" id="balance-current-exhaust">-- CFM</span>
+                    </div>
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Required Multiplier:</span>
+                        <span class="result-value" id="balance-multiplier">--</span>
+                    </div>
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Exhaust Needed for Balance:</span>
+                        <span class="result-value" id="balance-exhaust-needed">-- CFM</span>
+                    </div>
+                    <div class="boiler-result-item boiler-result-red">
+                        <span class="result-label">Exhaust Adjustment:</span>
+                        <span class="result-value" id="balance-exhaust-adjustment">-- CFM</span>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1rem; background: #fff8e1;">
+                        <p style="margin: 0; color: #2c3e50; font-size: 0.9rem;" id="balance-recommendation">
+                            Adjust exhaust airflow to achieve target pressurization.
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Advanced Psychrometric Results (Hidden by default) -->
                 <div id="psychrometric-results" style="display: none;">
                     <!-- Summer Cooling Results -->
