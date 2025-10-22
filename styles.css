@@ -2035,6 +2035,11 @@ footer {
         margin: 1rem 0;
     }
 
+    /* Reduce padding further for reference sections on mobile for better use of space */
+    .reference-section {
+        padding: 1rem !important;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
     }

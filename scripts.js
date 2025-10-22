@@ -256,7 +256,7 @@ function handleSearch(event) {
     if (event.key === 'Enter') {
         const query = event.target.value.toLowerCase();
         const searchMap = {
-            'duct': 'ductulator.html',
+            'duct': 'duct_sizing.html',
             'psychrometric': 'psychrometric.html',
             'psychro': 'psychrometric.html',
             'chart': 'psychrometric.html',
@@ -888,7 +888,7 @@ function updateInputFields() {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="airflow">Airflow (CFM)</label>
-                        <input type="number" id="airflow" min="0" step="1" required>
+                        <input type="number" id="airflow" min="0" max="100000" step="1" required>
                     </div>
                     <div class="form-group">
                         <label for="friction-rate">Friction Loss Rate (in.wg/100 ft)</label>
@@ -909,7 +909,7 @@ function updateInputFields() {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="airflow">Airflow (CFM)</label>
-                        <input type="number" id="airflow" min="0" step="1" required>
+                        <input type="number" id="airflow" min="0" max="100000" step="1" required>
                     </div>
                     <div class="form-group">
                         <label for="width">Width (in)</label>
@@ -955,7 +955,7 @@ function updateInputFields() {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="airflow">Airflow (CFM)</label>
-                        <input type="number" id="airflow" min="0" step="1" required>
+                        <input type="number" id="airflow" min="0" max="100000" step="1" required>
                     </div>
                     <div class="form-group">
                         <label for="velocity">Velocity (fpm)</label>
@@ -980,7 +980,7 @@ function updateInputFields() {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="airflow">Airflow (CFM)</label>
-                        <input type="number" id="airflow" min="0" step="1" required>
+                        <input type="number" id="airflow" min="0" max="100000" step="1" required>
                     </div>
                     <div class="form-group">
                         <label for="velocity">Velocity (fpm)</label>
@@ -1011,7 +1011,7 @@ function updateInputFields() {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="airflow">Airflow - Optional (CFM)</label>
-                        <input type="number" id="airflow" min="0" step="1">
+                        <input type="number" id="airflow" min="0" max="100000" step="1">
                     </div>
                     <div class="form-group">
                         <label for="height-restriction">Height Restriction - Optional (in)</label>
@@ -1749,6 +1749,7 @@ function formatLabel(key) {
         velocity: isMetric ? 'Velocity (m/s)' : 'Velocity (fpm)',
         reynoldsNumber: 'Reynolds Number',
         frictionFactor: 'Friction Factor',
+        frictionRate: isMetric ? 'Friction Rate (Pa/m)' : 'Friction Rate (in wg/100 ft)',
         frictionLoss: isMetric ? 'Friction Loss (Pa/m)' : 'Friction Loss (ft/100 ft)',
         velocityPressure: isMetric ? 'Velocity Pressure (Pa)' : 'Velocity Pressure (in wg)',
         airflow: isMetric ? 'Airflow (L/s)' : 'Airflow (CFM)',
@@ -3172,7 +3173,7 @@ const urlsToCache = [
   '/header.html',
   '/footer.html',
   '/mechanical_page.html',
-  '/ductulator.html'
+  '/duct_sizing.html'
 ];
 
 self.addEventListener('install', event => {

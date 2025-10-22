@@ -7,7 +7,7 @@ const urlsToCache = [
   '/header.html',
   '/footer.html',
   '/mechanical_page.html',
-  '/ductulator.html'
+  '/duct_sizing.html'
 ];
 
 self.addEventListener('install', event => {
