@@ -2881,3 +2881,91 @@ body {
     background: #3498db;
 }
 
+/* Air Terminals Table Mobile Responsiveness */
+@media (max-width: 768px) {
+    /* Hide table headers on mobile */
+    #air-terminals-table thead {
+        display: none;
+    }
+
+    /* Make table body display as block */
+    #air-terminals-table,
+    #air-terminals-table tbody,
+    #air-terminals-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    /* Style each row as a card */
+    #air-terminals-table tr {
+        margin-bottom: 1rem;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Make each cell display as block with label */
+    #air-terminals-table td {
+        display: block;
+        width: 100% !important;
+        padding: 0.75rem !important;
+        border: none !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        text-align: left !important;
+    }
+
+    /* Remove border from last cell */
+    #air-terminals-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    /* Add labels before each field using data attributes */
+    #air-terminals-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #2c3e50;
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Style inputs and selects to be full width and larger for touch */
+    #air-terminals-table input,
+    #air-terminals-table select {
+        width: 100% !important;
+        padding: 0.75rem !important;
+        font-size: 16px !important;
+        border: 2px solid #e9ecef !important;
+        border-radius: 8px !important;
+        box-sizing: border-box;
+    }
+
+    /* Make action buttons larger and stack horizontally */
+    #air-terminals-table td:last-child {
+        display: flex !important;
+        gap: 0.5rem;
+        padding: 1rem !important;
+        background: #f8f9fa;
+        border-radius: 0 0 10px 10px;
+    }
+
+    #air-terminals-table td:last-child::before {
+        display: none;
+    }
+
+    #air-terminals-table button {
+        flex: 1;
+        padding: 0.75rem !important;
+        font-size: 1.1rem !important;
+        border-radius: 8px !important;
+        min-height: 44px;
+        cursor: pointer;
+        transition: transform 0.1s ease;
+    }
+
+    #air-terminals-table button:active {
+        transform: scale(0.95);
+    }
+}
+
