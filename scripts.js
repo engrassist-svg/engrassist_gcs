@@ -1862,14 +1862,14 @@ function addTerminalRow() {
     airTerminals.push(terminalData);
     
     row.innerHTML = `
-        <td style="padding: 0.75rem; border: 1px solid #ddd;">
-            <input type="text" 
-                   placeholder="e.g., AHU-1" 
+        <td data-label="Terminal ID:" style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="text"
+                   placeholder="e.g., AHU-1"
                    value="${terminalData.name}"
                    onchange="updateTerminalName(${terminalData.id}, this.value)"
                    style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
         </td>
-        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+        <td data-label="Type:" style="padding: 0.75rem; border: 1px solid #ddd;">
             <select onchange="updateTerminalType(${terminalData.id}, this.value)"
                     style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
                 <option value="supply" selected>Supply</option>
@@ -1877,25 +1877,25 @@ function addTerminalRow() {
                 <option value="exhaust">Exhaust</option>
             </select>
         </td>
-        <td style="padding: 0.75rem; border: 1px solid #ddd;">
-            <input type="number" 
-                   placeholder="0" 
+        <td data-label="CFM:" style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="number"
+                   placeholder="0"
                    value="${terminalData.cfm}"
                    onchange="updateTerminalCFM(${terminalData.id}, this.value)"
                    style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
         </td>
-        <td style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
-            <button onclick="moveRowUp(${terminalData.id})" 
+        <td data-label="Actions:" style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
+            <button onclick="moveRowUp(${terminalData.id})"
                     style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
                     title="Move Up">
                 ▲
             </button>
-            <button onclick="moveRowDown(${terminalData.id})" 
+            <button onclick="moveRowDown(${terminalData.id})"
                     style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
                     title="Move Down">
                 ▼
             </button>
-            <button onclick="deleteRow(${terminalData.id})" 
+            <button onclick="deleteRow(${terminalData.id})"
                     style="background: #e74c3c; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
                     title="Delete">
                 ✕
@@ -1921,14 +1921,14 @@ function addTerminalRowWithType(terminalType) {
     airTerminals.push(terminalData);
     
     row.innerHTML = `
-        <td style="padding: 0.75rem; border: 1px solid #ddd;">
-            <input type="text" 
-                   placeholder="e.g., AHU-1" 
+        <td data-label="Terminal ID:" style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="text"
+                   placeholder="e.g., AHU-1"
                    value="${terminalData.name}"
                    onchange="updateTerminalName(${terminalData.id}, this.value)"
                    style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
         </td>
-        <td style="padding: 0.75rem; border: 1px solid #ddd;">
+        <td data-label="Type:" style="padding: 0.75rem; border: 1px solid #ddd;">
             <select onchange="updateTerminalType(${terminalData.id}, this.value)"
                     style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
                 <option value="supply" ${terminalType === 'supply' ? 'selected' : ''}>Supply</option>
@@ -1936,25 +1936,25 @@ function addTerminalRowWithType(terminalType) {
                 <option value="exhaust" ${terminalType === 'exhaust' ? 'selected' : ''}>Exhaust</option>
             </select>
         </td>
-        <td style="padding: 0.75rem; border: 1px solid #ddd;">
-            <input type="number" 
-                   placeholder="0" 
+        <td data-label="CFM:" style="padding: 0.75rem; border: 1px solid #ddd;">
+            <input type="number"
+                   placeholder="0"
                    value="${terminalData.cfm}"
                    onchange="updateTerminalCFM(${terminalData.id}, this.value)"
                    style="width: 100%; padding: 0.5rem; border: 1px solid #e9ecef; border-radius: 5px;">
         </td>
-        <td style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
-            <button onclick="moveRowUp(${terminalData.id})" 
+        <td data-label="Actions:" style="padding: 0.75rem; border: 1px solid #ddd; text-align: center;">
+            <button onclick="moveRowUp(${terminalData.id})"
                     style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
                     title="Move Up">
                 ▲
             </button>
-            <button onclick="moveRowDown(${terminalData.id})" 
+            <button onclick="moveRowDown(${terminalData.id})"
                     style="background: #3498db; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
                     title="Move Down">
                 ▼
             </button>
-            <button onclick="deleteRow(${terminalData.id})" 
+            <button onclick="deleteRow(${terminalData.id})"
                     style="background: #e74c3c; color: white; border: none; padding: 0.5rem 0.75rem; margin: 0 0.25rem; border-radius: 5px; cursor: pointer;"
                     title="Delete">
                 ✕
