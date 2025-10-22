@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free fan selection tool for HVAC systems. Select the right fan based on airflow (CFM), static pressure, application type, and installation requirements.">
+    <meta name="keywords" content="fan selection, HVAC fan, CFM calculator, static pressure, centrifugal fan, axial fan, inline fan, Greenheck, Cook, Penn Barry">
+    <link rel="canonical" href="https://engrassist.com/fan_selection.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Fan Selection Tool - EngrAssist">
+    <meta property="og:description" content="Professional fan selection tool for HVAC systems. Calculate and select fans based on performance requirements.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/fan_selection.html">
+    <meta property="og:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fan Selection Tool - EngrAssist">
+    <meta name="twitter:description" content="Professional fan selection tool for HVAC systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <title>Fan Selection Tool - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Fan Selection Tool</h1>
+                <p class="page-subtitle">Select the right fan for your HVAC system based on airflow, static pressure, and application requirements</p>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="content-section">
+            <div class="container">
+
+                <!-- Fan Selection Calculator -->
+                <div class="fan-selection-calculator">
+                    <div class="calculator-interface">
+
+                        <!-- Input Section -->
+                        <div class="fan-input-panel">
+                            <h3>System Requirements</h3>
+
+                            <div class="form-group">
+                                <label for="airflow">Airflow (CFM)</label>
+                                <input type="number" id="airflow" placeholder="Enter airflow in CFM" min="0" step="100">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staticPressure">Static Pressure (inches wg)</label>
+                                <input type="number" id="staticPressure" placeholder="Enter static pressure" min="0" step="0.1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="applicationType">Application Type</label>
+                                <select id="applicationType">
+                                    <option value="">Select application...</option>
+                                    <option value="supply">Supply Air</option>
+                                    <option value="exhaust">Exhaust Air</option>
+                                    <option value="return">Return Air</option>
+                                    <option value="makeup">Makeup Air</option>
+                                    <option value="smoke">Smoke Exhaust</option>
+                                    <option value="kitchen">Kitchen Exhaust</option>
+                                    <option value="industrial">Industrial Exhaust</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="installationType">Installation Type</label>
+                                <select id="installationType">
+                                    <option value="">Select installation...</option>
+                                    <option value="inline">Inline Duct</option>
+                                    <option value="cabinet">Cabinet/Fan Room</option>
+                                    <option value="rooftop">Rooftop</option>
+                                    <option value="ceiling">Ceiling Mounted</option>
+                                    <option value="wall">Wall Mounted</option>
+                                    <option value="plenum">Plenum</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="airstream">Airstream Condition</label>
+                                <select id="airstream">
+                                    <option value="clean">Clean Air (Standard)</option>
+                                    <option value="dusty">Dusty Air</option>
+                                    <option value="corrosive">Corrosive/Chemical Fumes</option>
+                                    <option value="hot">High Temperature (>140°F)</option>
+                                    <option value="grease">Grease-Laden</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="soundLevel">Sound Level Requirement</label>
+                                <select id="soundLevel">
+                                    <option value="standard">Standard</option>
+                                    <option value="low">Low Noise (Libraries, Offices)</option>
+                                    <option value="verylow">Very Low Noise (Hospitals, Studios)</option>
+                                    <option value="industrial">Industrial (No Restriction)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="efficiencyPriority">Efficiency Priority</label>
+                                <select id="efficiencyPriority">
+                                    <option value="standard">Standard Efficiency</option>
+                                    <option value="high">High Efficiency</option>
+                                    <option value="premium">Premium Efficiency (AMCA)</option>
+                                </select>
+                            </div>
+
+                            <div class="converter-buttons">
+                                <button class="btn" onclick="calculateFanSelection()">Calculate Fan Selection</button>
+                                <button class="btn-secondary" onclick="resetFanSelection()">Reset</button>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="fan-results-panel" id="fanResults" style="display: none;">
+                            <h3>Recommended Fan Types</h3>
+                            <div id="fanRecommendations"></div>
+
+                            <h3 style="margin-top: 2rem;">Performance Specifications</h3>
+                            <div id="fanSpecifications"></div>
+
+                            <h3 style="margin-top: 2rem;">Selection Notes</h3>
+                            <div id="fanNotes" class="info-box"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Fan Types Reference -->
+                <div class="fan-types-section">
+                    <h2 class="section-title">Fan Types Guide</h2>
+                    <div class="fan-types-grid">
+
+                        <div class="fan-type-card">
+                            <h4>Centrifugal Fans</h4>
+                            <p><strong>Applications:</strong> General HVAC, high static pressure systems</p>
+                            <p><strong>Characteristics:</strong></p>
+                            <ul>
+                                <li>Backward inclined: High efficiency, clean air</li>
+                                <li>Forward curved: Low velocity, space-constrained</li>
+                                <li>Airfoil: Highest efficiency, quiet operation</li>
+                                <li>Static Pressure: 0.5" - 10" wg</li>
+                            </ul>
+                            <p><strong>Best For:</strong> Supply air systems, built-up air handlers</p>
+                        </div>
+
+                        <div class="fan-type-card">
+                            <h4>Inline Centrifugal Fans</h4>
+                            <p><strong>Applications:</strong> Duct-mounted systems, space-saving installations</p>
+                            <p><strong>Characteristics:</strong></p>
+                            <ul>
+                                <li>Compact design for inline mounting</li>
+                                <li>Good efficiency at moderate pressures</li>
+                                <li>Easy installation and maintenance</li>
+                                <li>Static Pressure: 0.25" - 3.5" wg</li>
+                            </ul>
+                            <p><strong>Best For:</strong> Exhaust systems, bathroom/kitchen fans</p>
+                        </div>
+
+                        <div class="fan-type-card">
+                            <h4>Axial Fans</h4>
+                            <p><strong>Applications:</strong> Low pressure, high volume air movement</p>
+                            <p><strong>Characteristics:</strong></p>
+                            <ul>
+                                <li>Propeller or tube-axial design</li>
+                                <li>High airflow at low static pressure</li>
+                                <li>Simple construction, low cost</li>
+                                <li>Static Pressure: 0" - 1" wg</li>
+                            </ul>
+                            <p><strong>Best For:</strong> Ventilation, cooling towers, condensers</p>
+                        </div>
+
+                        <div class="fan-type-card">
+                            <h4>Mixed Flow Fans</h4>
+                            <p><strong>Applications:</strong> Medium pressure applications</p>
+                            <p><strong>Characteristics:</strong></p>
+                            <ul>
+                                <li>Combines centrifugal and axial characteristics</li>
+                                <li>Compact design with good efficiency</li>
+                                <li>Moderate pressure capability</li>
+                                <li>Static Pressure: 0.5" - 2.5" wg</li>
+                            </ul>
+                            <p><strong>Best For:</strong> Commercial ventilation, inline applications</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Selection Factors -->
+                <div class="selection-factors-section">
+                    <h2 class="section-title">Key Selection Factors</h2>
+
+                    <div class="factors-grid">
+                        <div class="factor-card">
+                            <div class="factor-icon">💨</div>
+                            <h4>Airflow (CFM)</h4>
+                            <p>Calculate required CFM based on room volume, air changes per hour (ACH), or cooling/heating loads. Add 10-15% safety factor for duct losses and future expansion.</p>
+                        </div>
+
+                        <div class="factor-card">
+                            <div class="factor-icon">⬆️</div>
+                            <h4>Static Pressure</h4>
+                            <p>Account for all system resistances: filters, ductwork, fittings, grilles, and dampers. Typical values: 0.2-0.4" per 100 ft of duct, 0.08" per fitting.</p>
+                        </div>
+
+                        <div class="factor-card">
+                            <div class="factor-icon">🔊</div>
+                            <h4>Sound Levels</h4>
+                            <p>Consider noise criteria (NC) ratings for the space. Libraries and offices require NC-25 to NC-35. Use sound attenuators for noise-sensitive areas.</p>
+                        </div>
+
+                        <div class="factor-card">
+                            <div class="factor-icon">⚡</div>
+                            <h4>Energy Efficiency</h4>
+                            <p>Higher efficiency fans reduce operating costs. Look for AMCA-certified fans. Backward inclined and airfoil wheels offer best efficiency (75-85%).</p>
+                        </div>
+
+                        <div class="factor-card">
+                            <div class="factor-icon">🏗️</div>
+                            <h4>Space Constraints</h4>
+                            <p>Inline fans save space but may be limited in pressure. Cabinet fans require fan rooms. Rooftop fans save indoor space but need weatherproofing.</p>
+                        </div>
+
+                        <div class="factor-card">
+                            <div class="factor-icon">🛠️</div>
+                            <h4>Maintenance Access</h4>
+                            <p>Ensure adequate clearance for belt changes, bearing lubrication, and wheel cleaning. Belt-driven fans require more maintenance than direct-driven.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manufacturer Resources -->
+                <div class="manufacturer-section">
+                    <h2 class="section-title">Manufacturer Selection Tools</h2>
+                    <p class="content-text">For detailed fan selection and performance curves, use these manufacturer-specific tools:</p>
+
+                    <div class="manufacturer-grid">
+                        <div class="manufacturer-card">
+                            <h4>Greenheck</h4>
+                            <p><strong>Tools:</strong></p>
+                            <ul>
+                                <li>CAPS (Computer Aided Product Selection)</li>
+                                <li>Static Pressure Calculator</li>
+                                <li>Performance Filter Tool</li>
+                            </ul>
+                            <p><strong>Website:</strong> <a href="https://www.greenheck.com" target="_blank" rel="noopener">www.greenheck.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Loren Cook Company</h4>
+                            <p><strong>Tools:</strong></p>
+                            <ul>
+                                <li>Compute-A-Fan Selection Software</li>
+                                <li>CookTools App (iOS/Android)</li>
+                                <li>Fan Law Calculator</li>
+                            </ul>
+                            <p><strong>Website:</strong> <a href="https://www.lorencook.com" target="_blank" rel="noopener">www.lorencook.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Penn Barry</h4>
+                            <p><strong>Products:</strong></p>
+                            <ul>
+                                <li>Centrex Inline Centrifugal Fans</li>
+                                <li>TUB Tubular Inline Fans</li>
+                                <li>AMCA Certified Performance</li>
+                            </ul>
+                            <p><strong>Website:</strong> <a href="https://www.pennbarry.com" target="_blank" rel="noopener">www.pennbarry.com</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Reference Calculations -->
+                <div class="quick-reference-section">
+                    <h2 class="section-title">Quick Reference Calculations</h2>
+
+                    <div class="reference-calculations">
+                        <div class="calc-card">
+                            <h4>CFM Calculation</h4>
+                            <p class="formula">CFM = Room Volume (ft³) ÷ Minutes per Air Change</p>
+                            <p><strong>Example:</strong> 10,000 ft³ room with 4 air changes/hour</p>
+                            <p>CFM = 10,000 ÷ (60 ÷ 4) = 667 CFM</p>
+                        </div>
+
+                        <div class="calc-card">
+                            <h4>Static Pressure Estimate</h4>
+                            <p class="formula">SP = (Duct Loss) + (Fitting Loss) + (Equipment Loss)</p>
+                            <p><strong>Rules of Thumb:</strong></p>
+                            <ul>
+                                <li>Duct: 0.2-0.4" per 100 ft (1000-1800 FPM)</li>
+                                <li>Fittings: 0.08" per elbow/damper/grill</li>
+                                <li>Filter: 0.5-1.5" wg depending on type</li>
+                            </ul>
+                        </div>
+
+                        <div class="calc-card">
+                            <h4>Fan Laws (Affinity Laws)</h4>
+                            <p><strong>Speed Changes:</strong></p>
+                            <ul>
+                                <li>CFM₂ = CFM₁ × (RPM₂ ÷ RPM₁)</li>
+                                <li>SP₂ = SP₁ × (RPM₂ ÷ RPM₁)²</li>
+                                <li>HP₂ = HP₁ × (RPM₂ ÷ RPM₁)³</li>
+                            </ul>
+                        </div>
+
+                        <div class="calc-card">
+                            <h4>Velocity Pressure</h4>
+                            <p class="formula">VP = (Velocity ÷ 4005)²</p>
+                            <p><strong>Example:</strong> 2000 FPM duct velocity</p>
+                            <p>VP = (2000 ÷ 4005)² = 0.25" wg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This fan selection tool provides preliminary guidance only. Final fan selection must be verified using manufacturer's certified performance curves and selection software. All selections should be reviewed and approved by a licensed professional engineer. Actual fan performance may vary based on installation conditions, altitude, temperature, and system configuration.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

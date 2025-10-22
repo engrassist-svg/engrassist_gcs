@@ -2969,3 +2969,341 @@ body {
     }
 }
 
+/* ====================================
+   FAN SELECTION TOOL STYLES
+   ==================================== */
+
+/* Fan Selection Calculator */
+.fan-selection-calculator {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.fan-input-panel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.fan-input-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+/* Fan Results Panel */
+.fan-results-panel {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    border-radius: 15px;
+    border-left: 4px solid #3498db;
+}
+
+.fan-results-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+/* Fan Recommendation Cards */
+.fan-recommendation-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-left: 4px solid;
+}
+
+.fan-recommendation-card.recommended {
+    border-left-color: #27ae60;
+}
+
+.fan-recommendation-card.alternative {
+    border-left-color: #3498db;
+}
+
+.fan-recommendation-card.not-recommended {
+    border-left-color: #e74c3c;
+    opacity: 0.7;
+}
+
+.fan-recommendation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.fan-recommendation-header h4 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.fan-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+}
+
+.fan-badge.recommended {
+    background: #27ae60;
+}
+
+.fan-badge.alternative {
+    background: #3498db;
+}
+
+.fan-badge.not-recommended {
+    background: #e74c3c;
+}
+
+.fan-recommendation-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.fan-detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.fan-detail-item strong {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.fan-detail-item span {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Fan Types Section */
+.fan-types-section {
+    margin: 4rem 0;
+}
+
+.fan-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.fan-type-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #3498db;
+    transition: transform 0.3s ease;
+}
+
+.fan-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.fan-type-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.fan-type-card p {
+    color: #34495e;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.fan-type-card ul {
+    margin-left: 1.5rem;
+    color: #7f8c8d;
+}
+
+.fan-type-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Selection Factors Section */
+.selection-factors-section {
+    margin: 4rem 0;
+}
+
+.factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.factor-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.factor-card:hover {
+    transform: translateY(-5px);
+}
+
+.factor-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.factor-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.factor-card p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Manufacturer Section */
+.manufacturer-section {
+    margin: 4rem 0;
+}
+
+.manufacturer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.manufacturer-card {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #f39c12;
+    transition: transform 0.3s ease;
+}
+
+.manufacturer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.manufacturer-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.manufacturer-card p {
+    color: #856404;
+    margin-bottom: 0.75rem;
+}
+
+.manufacturer-card ul {
+    margin-left: 1.5rem;
+    color: #856404;
+}
+
+.manufacturer-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+.manufacturer-card a {
+    color: #2c3e50;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.manufacturer-card a:hover {
+    color: #f39c12;
+}
+
+/* Quick Reference Section */
+.quick-reference-section {
+    margin: 4rem 0;
+}
+
+.reference-calculations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.calc-card {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8ff);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #27ae60;
+}
+
+.calc-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.calc-card p {
+    color: #34495e;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.calc-card .formula {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 1rem 0;
+}
+
+.calc-card ul {
+    margin-left: 1.5rem;
+    color: #7f8c8d;
+}
+
+.calc-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Design for Fan Selection */
+@media (max-width: 768px) {
+    .fan-selection-calculator {
+        padding: 2rem;
+    }
+
+    .fan-input-panel {
+        padding: 1.5rem;
+    }
+
+    .fan-types-grid,
+    .factors-grid,
+    .manufacturer-grid,
+    .reference-calculations {
+        grid-template-columns: 1fr;
+    }
+
+    .fan-recommendation-details {
+        grid-template-columns: 1fr;
+    }
+
+    .fan-recommendation-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
