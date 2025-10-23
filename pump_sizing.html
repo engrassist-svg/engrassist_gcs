@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free pump sizing calculator for HVAC and plumbing systems. Calculate pump head, horsepower, and flow requirements based on Bell & Gossett methods and industry standards.">
+    <meta name="keywords" content="pump sizing, pump calculator, pump selection, GPM, total dynamic head, TDH, NPSH, pump curve, Bell and Gossett">
+    <link rel="canonical" href="https://engrassist.com/pump_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Pump Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Free pump sizing calculator for HVAC and plumbing systems based on Bell & Gossett methods.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/pump_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pump Sizing Calculator">
+    <meta name="twitter:description" content="Free pump sizing calculator for HVAC and plumbing systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Pump Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <script>
+        // Pump Sizing Calculator Functions
+        function calculatePumpRequirements() {
+            // Get input values
+            const flowRate = parseFloat(document.getElementById('flowRate').value);
+            const staticHead = parseFloat(document.getElementById('staticHead').value) || 0;
+            const frictionLoss = parseFloat(document.getElementById('frictionLoss').value) || 0;
+            const pressureHead = parseFloat(document.getElementById('pressureHead').value) || 0;
+            const safetyFactor = parseFloat(document.getElementById('pumpSafetyFactor').value) || 10;
+            const pumpEfficiency = parseFloat(document.getElementById('pumpEfficiency').value) || 70;
+            const fluidType = document.getElementById('fluidType').value;
+            const temperature = parseFloat(document.getElementById('fluidTemp').value) || 60;
+
+            // Validate inputs
+            if (!flowRate || flowRate <= 0) {
+                alert('Please enter a valid flow rate');
+                return;
+            }
+
+            // Calculate specific gravity based on fluid type
+            let specificGravity = 1.0;
+            if (fluidType === 'glycol30') specificGravity = 1.04;
+            else if (fluidType === 'glycol50') specificGravity = 1.05;
+
+            // Calculate Total Dynamic Head (TDH)
+            const baseTDH = staticHead + frictionLoss + pressureHead;
+            const tdh = baseTDH * (1 + safetyFactor / 100);
+
+            // Calculate Hydraulic Horsepower
+            // HHP = (GPM × TDH × SG) / 3960
+            const hhp = (flowRate * tdh * specificGravity) / 3960;
+
+            // Calculate Brake Horsepower
+            // BHP = HHP / (Efficiency / 100)
+            const bhp = hhp / (pumpEfficiency / 100);
+
+            // Calculate motor size (round up to next standard size)
+            const standardMotorSizes = [0.5, 0.75, 1, 1.5, 2, 3, 5, 7.5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 125, 150, 200];
+            let motorSize = standardMotorSizes.find(size => size >= bhp) || bhp;
+
+            // Estimate pump speed (RPM) - typical range 1750-3500 RPM
+            let estimatedRPM = 1750; // Standard motor speed
+            if (tdh > 100) estimatedRPM = 3500;
+            else if (tdh > 50) estimatedRPM = 1750;
+
+            // Calculate impeller tip speed (rough estimate)
+            // Assume 8-inch impeller diameter for estimation
+            const impellerDiameter = 8; // inches
+            const tipSpeed = (Math.PI * impellerDiameter * estimatedRPM) / 12; // ft/min
+
+            // Display results
+            document.getElementById('baseTDH').textContent = baseTDH.toFixed(2) + ' ft';
+            document.getElementById('designTDH').textContent = tdh.toFixed(2) + ' ft';
+            document.getElementById('hydraulicHP').textContent = hhp.toFixed(2) + ' HP';
+            document.getElementById('brakeHP').textContent = bhp.toFixed(2) + ' HP';
+            document.getElementById('motorSize').textContent = motorSize.toFixed(2) + ' HP';
+            document.getElementById('specificGravity').textContent = specificGravity.toFixed(3);
+
+            // Show results section
+            document.getElementById('pumpResults').style.display = 'block';
+
+            // Calculate NPSH if system type is selected
+            calculateNPSH();
+        }
+
+        function calculateNPSH() {
+            const systemType = document.getElementById('systemType').value;
+            const elevation = parseFloat(document.getElementById('elevation').value) || 0;
+            const suctionLift = parseFloat(document.getElementById('suctionLift').value) || 0;
+            const suctionFriction = parseFloat(document.getElementById('suctionFriction').value) || 0;
+            const fluidTemp = parseFloat(document.getElementById('fluidTemp').value) || 60;
+
+            // Vapor pressure of water at different temperatures (psi)
+            const vaporPressures = {
+                40: 0.12, 60: 0.26, 80: 0.51, 100: 0.95,
+                120: 1.69, 140: 2.89, 160: 4.74, 180: 7.51,
+                200: 11.53, 212: 14.7
+            };
+
+            // Interpolate vapor pressure
+            let vaporPressurePSI = 0.26; // default for 60°F
+            const tempKeys = Object.keys(vaporPressures).map(Number).sort((a, b) => a - b);
+            for (let i = 0; i < tempKeys.length - 1; i++) {
+                if (fluidTemp >= tempKeys[i] && fluidTemp <= tempKeys[i + 1]) {
+                    const t1 = tempKeys[i];
+                    const t2 = tempKeys[i + 1];
+                    const p1 = vaporPressures[t1];
+                    const p2 = vaporPressures[t2];
+                    vaporPressurePSI = p1 + (p2 - p1) * (fluidTemp - t1) / (t2 - t1);
+                    break;
+                }
+            }
+
+            // Calculate NPSHa (Net Positive Suction Head Available)
+            // NPSHa = Atmospheric Pressure + Static Height - Friction Losses - Vapor Pressure
+            // All in feet of head
+
+            // Atmospheric pressure at elevation
+            const atmPressurePSI = 14.7 * Math.pow((1 - elevation / 145440), 5.255);
+            const atmPressureFeet = atmPressurePSI * 2.31; // Convert PSI to feet of water
+
+            const vaporPressureFeet = vaporPressurePSI * 2.31;
+            const staticHeadFeet = -suctionLift; // Negative because it's a lift
+
+            const npsha = atmPressureFeet + staticHeadFeet - suctionFriction - vaporPressureFeet;
+
+            // Display NPSH results
+            document.getElementById('npsha').textContent = npsha.toFixed(2) + ' ft';
+            document.getElementById('vaporPressure').textContent = vaporPressurePSI.toFixed(2) + ' psi';
+            document.getElementById('atmPressure').textContent = atmPressurePSI.toFixed(2) + ' psi';
+
+            // Show NPSH warning if needed
+            const npshWarning = document.getElementById('npshWarning');
+            if (npsha < 10) {
+                npshWarning.style.display = 'block';
+                npshWarning.innerHTML = '<strong>⚠️ Warning:</strong> NPSHa is low. Verify pump NPSHr requirements to avoid cavitation. Consider reducing suction lift or friction losses.';
+            } else {
+                npshWarning.style.display = 'none';
+            }
+
+            document.getElementById('npshResults').style.display = 'block';
+        }
+
+        function calculateParallelSeries() {
+            const basePumpGPM = parseFloat(document.getElementById('basePumpGPM').value);
+            const basePumpHead = parseFloat(document.getElementById('basePumpHead').value);
+            const numPumps = parseInt(document.getElementById('numPumps').value) || 2;
+
+            if (!basePumpGPM || !basePumpHead) {
+                alert('Please enter base pump GPM and Head');
+                return;
+            }
+
+            // Parallel Operation: Flow adds, head stays same
+            const parallelGPM = basePumpGPM * numPumps;
+            const parallelHead = basePumpHead;
+
+            // Series Operation: Head adds, flow stays same
+            const seriesGPM = basePumpGPM;
+            const seriesHead = basePumpHead * numPumps;
+
+            // Display results
+            document.getElementById('parallelGPM').textContent = parallelGPM.toFixed(1) + ' GPM';
+            document.getElementById('parallelHead').textContent = parallelHead.toFixed(1) + ' ft';
+            document.getElementById('seriesGPM').textContent = seriesGPM.toFixed(1) + ' GPM';
+            document.getElementById('seriesHead').textContent = seriesHead.toFixed(1) + ' ft';
+
+            document.getElementById('parallelSeriesResults').style.display = 'block';
+        }
+
+        function toggleNPSHInputs() {
+            const systemType = document.getElementById('systemType').value;
+            const npshInputs = document.getElementById('npshInputs');
+
+            if (systemType === 'open' || systemType === 'suction') {
+                npshInputs.style.display = 'block';
+            } else {
+                npshInputs.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Pump Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate pump requirements for hydronic, chilled water, condenser water, and plumbing systems using industry-standard methods based on Bell & Gossett technical guidelines</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">System Parameters</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="flowRate">Flow Rate (GPM): <span style="color: red;">*</span></label>
+                        <input type="number" id="flowRate" placeholder="Enter flow rate in GPM" min="0" step="0.1" required>
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Required system flow rate in gallons per minute
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="systemType">System Type:</label>
+                        <select id="systemType" onchange="toggleNPSHInputs()">
+                            <option value="closed">Closed Loop (HVAC)</option>
+                            <option value="open">Open System (Cooling Tower)</option>
+                            <option value="suction">Suction Lift Required</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title" style="margin-top: 2rem; color: #2c3e50; font-size: 1.3rem;">Head Components</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="staticHead">Static Head (ft):</label>
+                        <input type="number" id="staticHead" placeholder="Vertical elevation change" value="0" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Vertical distance pump must lift fluid
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="frictionLoss">Friction Loss (ft):</label>
+                        <input type="number" id="frictionLoss" placeholder="Pipe and fitting losses" value="0" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Total system friction losses from pipes, fittings, valves
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pressureHead">Equipment Pressure Drop (ft):</label>
+                        <input type="number" id="pressureHead" placeholder="Coils, chillers, etc." value="0" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Pressure drop through equipment (convert PSI × 2.31 = ft)
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="pumpSafetyFactor">Safety Factor (%):</label>
+                        <input type="number" id="pumpSafetyFactor" placeholder="5-15%" value="10" min="0" max="25" step="1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical: 10% for known systems, 15% for estimated
+                        </small>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title" style="margin-top: 2rem; color: #2c3e50; font-size: 1.3rem;">Fluid Properties</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fluidType">Fluid Type:</label>
+                        <select id="fluidType">
+                            <option value="water">Water</option>
+                            <option value="glycol30">30% Glycol Solution</option>
+                            <option value="glycol50">50% Glycol Solution</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fluidTemp">Fluid Temperature (°F):</label>
+                        <input type="number" id="fluidTemp" placeholder="Avg. system temp" value="60" step="1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Average operating temperature for NPSH calculations
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pumpEfficiency">Expected Pump Efficiency (%):</label>
+                        <input type="number" id="pumpEfficiency" placeholder="60-85%" value="70" min="40" max="90" step="1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical: Small pumps 60-70%, Large pumps 75-85%
+                        </small>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </div>
+
+                <!-- NPSH Inputs (conditional) -->
+                <div id="npshInputs" style="display: none;">
+                    <h3 class="subsection-title" style="margin-top: 2rem; color: #2c3e50; font-size: 1.3rem;">NPSH Calculation Inputs</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="elevation">Site Elevation (ft above sea level):</label>
+                            <input type="number" id="elevation" placeholder="0 for sea level" value="0" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="suctionLift">Suction Lift (ft):</label>
+                            <input type="number" id="suctionLift" placeholder="Distance below pump" value="0" step="0.1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                Vertical distance from fluid level to pump centerline
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="suctionFriction">Suction Line Friction Loss (ft):</label>
+                            <input type="number" id="suctionFriction" placeholder="Suction piping losses" value="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculatePumpRequirements()">Calculate Pump Requirements</button>
+
+                <div id="pumpResults" class="boiler-results-section" style="display: none;">
+                    <h3>Pump Sizing Results</h3>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Base Total Dynamic Head (TDH):</span>
+                        <span class="result-value" id="baseTDH">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Design TDH (with safety factor):</span>
+                        <span class="result-value" id="designTDH">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Hydraulic Horsepower (HHP):</span>
+                        <span class="result-value" id="hydraulicHP">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Brake Horsepower (BHP):</span>
+                        <span class="result-value" id="brakeHP">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Recommended Motor Size:</span>
+                        <span class="result-value" id="motorSize">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Fluid Specific Gravity:</span>
+                        <span class="result-value" id="specificGravity">--</span>
+                    </div>
+                </div>
+
+                <!-- NPSH Results -->
+                <div id="npshResults" class="boiler-results-section" style="display: none;">
+                    <h3>NPSH Analysis</h3>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Net Positive Suction Head Available (NPSHa):</span>
+                        <span class="result-value" id="npsha">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Atmospheric Pressure at Elevation:</span>
+                        <span class="result-value" id="atmPressure">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Vapor Pressure at Temperature:</span>
+                        <span class="result-value" id="vaporPressure">--</span>
+                    </div>
+
+                    <div id="npshWarning" class="warning-box" style="display: none; margin-top: 1rem;">
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <h4>NPSH Requirements</h4>
+                        <p><strong>NPSHa</strong> (Available) must be greater than <strong>NPSHr</strong> (Required by pump manufacturer) by at least 2-3 feet to prevent cavitation.</p>
+                        <p>Typical NPSHr values: 5-15 ft for most centrifugal pumps. Always verify with pump curves.</p>
+                    </div>
+                </div>
+
+                <!-- Parallel and Series Operation -->
+                <div class="selected-system-section">
+                    <h2 class="section-title">Parallel & Series Pump Operation</h2>
+
+                    <div class="info-box">
+                        <p><strong>Parallel Operation:</strong> Flow rates add together, head remains the same. Use when high flow is needed.</p>
+                        <p><strong>Series Operation:</strong> Head adds together, flow rate remains the same. Use when high head is needed.</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="basePumpGPM">Single Pump Flow Rate (GPM):</label>
+                            <input type="number" id="basePumpGPM" placeholder="Enter GPM" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="basePumpHead">Single Pump Head (ft):</label>
+                            <input type="number" id="basePumpHead" placeholder="Enter head" min="0" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="numPumps">Number of Pumps:</label>
+                            <select id="numPumps">
+                                <option value="2">2 Pumps</option>
+                                <option value="3">3 Pumps</option>
+                                <option value="4">4 Pumps</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateParallelSeries()">Calculate Parallel/Series Operation</button>
+
+                    <div id="parallelSeriesResults" class="boiler-results-section" style="display: none;">
+                        <h3>Multiple Pump Configuration Results</h3>
+
+                        <h4 style="color: #2c3e50; margin: 1.5rem 0 1rem;">Parallel Operation (High Flow)</h4>
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Total Flow Rate:</span>
+                            <span class="result-value" id="parallelGPM">--</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">System Head:</span>
+                            <span class="result-value" id="parallelHead">--</span>
+                        </div>
+
+                        <h4 style="color: #2c3e50; margin: 1.5rem 0 1rem;">Series Operation (High Head)</h4>
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">System Flow Rate:</span>
+                            <span class="result-value" id="seriesGPM">--</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Total Head:</span>
+                            <span class="result-value" id="seriesHead">--</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Best Practices Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Pump Selection Best Practices</h2>
+
+                <div class="highlight-box">
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem;">Key Principles from Bell & Gossett</h3>
+                    <p>Proper pump selection is critical for system efficiency, reliability, and longevity. Follow these industry-standard guidelines based on Bell & Gossett technical education materials.</p>
+                </div>
+
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <div class="guide-icon">📊</div>
+                        <h4>System Curve vs Pump Curve</h4>
+                        <p><strong>System Curve:</strong> Represents the relationship between flow rate and head loss in your piping system. Includes static head plus friction losses that increase with flow squared.</p>
+                        <p><strong>Pump Curve:</strong> Shows the pump's performance - head decreases as flow increases. The intersection of these curves is your operating point.</p>
+                        <p><strong>Best Practice:</strong> Select a pump where the operating point falls in the middle third of the pump curve for best efficiency and widest operating range.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">⚡</div>
+                        <h4>Pump Efficiency</h4>
+                        <p>Operating at or near Best Efficiency Point (BEP) provides:</p>
+                        <ul style="text-align: left; margin: 1rem 0 0 1.5rem;">
+                            <li>Lowest energy consumption</li>
+                            <li>Minimal wear and maintenance</li>
+                            <li>Quietest operation</li>
+                            <li>Longest pump life</li>
+                        </ul>
+                        <p><strong>Avoid:</strong> Operating at less than 70% or more than 120% of BEP flow.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">🔄</div>
+                        <h4>Parallel vs Series Operation</h4>
+                        <p><strong>Use Parallel When:</strong></p>
+                        <ul style="text-align: left; margin: 0.5rem 0 1rem 1.5rem;">
+                            <li>High flow rate required</li>
+                            <li>Redundancy needed for reliability</li>
+                            <li>Variable flow with staging capability</li>
+                        </ul>
+                        <p><strong>Use Series When:</strong></p>
+                        <ul style="text-align: left; margin: 0.5rem 0 0 1.5rem;">
+                            <li>High head required</li>
+                            <li>Steep system curve</li>
+                            <li>Booster applications</li>
+                        </ul>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">💧</div>
+                        <h4>NPSH Considerations</h4>
+                        <p><strong>NPSHa > NPSHr + 2-3 ft minimum</strong></p>
+                        <p>To improve NPSHa:</p>
+                        <ul style="text-align: left; margin: 0.5rem 0 0 1.5rem;">
+                            <li>Increase suction tank elevation</li>
+                            <li>Reduce suction line friction (larger pipe)</li>
+                            <li>Reduce fluid temperature</li>
+                            <li>Pressurize suction vessel</li>
+                            <li>Lower pump installation elevation</li>
+                        </ul>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">🎯</div>
+                        <h4>Pump Type Selection</h4>
+                        <p><strong>End Suction:</strong> Compact, economical, flows up to 5,000 GPM</p>
+                        <p><strong>Split Case:</strong> High efficiency, flows 500-15,000 GPM, easier maintenance</p>
+                        <p><strong>Inline:</strong> Space-saving, easy installation, lower flows</p>
+                        <p><strong>Vertical Turbine:</strong> Suction lift applications, condensate, cooling towers</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">🔧</div>
+                        <h4>Variable Speed Drives</h4>
+                        <p>VFDs provide energy savings in variable flow systems by following the Affinity Laws:</p>
+                        <ul style="text-align: left; margin: 0.5rem 0 0 1.5rem;">
+                            <li>Flow varies directly with speed</li>
+                            <li>Head varies with speed squared</li>
+                            <li>Power varies with speed cubed</li>
+                        </ul>
+                        <p><strong>Example:</strong> 80% speed = 51% power consumption</p>
+                    </div>
+                </div>
+
+                <!-- Formulas Section -->
+                <h2 class="section-title" style="margin-top: 3rem;">Essential Pump Formulas</h2>
+
+                <div class="reference-tables">
+                    <div class="tables-grid">
+                        <div class="reference-table">
+                            <h3>Hydraulic Calculations</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Formula</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TDH = H<sub>s</sub> + H<sub>f</sub> + H<sub>p</sub></td>
+                                        <td>Total Dynamic Head</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HHP = (GPM × TDH × SG) / 3960</td>
+                                        <td>Hydraulic Horsepower</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BHP = HHP / Efficiency</td>
+                                        <td>Brake Horsepower</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Velocity = GPM / (2.45 × D²)</td>
+                                        <td>Pipe Velocity (ft/s), D in inches</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PSI × 2.31 = Feet of Head</td>
+                                        <td>Pressure Conversion (water)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="reference-table">
+                            <h3>Affinity Laws</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Relationship</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Flow (GPM)</td>
+                                        <td>GPM₂ = GPM₁ × (N₂/N₁)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Head (ft)</td>
+                                        <td>H₂ = H₁ × (N₂/N₁)²</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Power (HP)</td>
+                                        <td>HP₂ = HP₁ × (N₂/N₁)³</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-style: italic; color: #7f8c8d;">Where N = pump speed (RPM)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="reference-table">
+                            <h3>Typical System Values</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>System Type</th>
+                                        <th>Typical ΔT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Hot Water Heating</td>
+                                        <td>20°F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chilled Water</td>
+                                        <td>10-14°F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Condenser Water</td>
+                                        <td>10°F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Domestic Hot Water Recirc</td>
+                                        <td>5-10°F</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="reference-table">
+                            <h3>Flow Rate Calculation</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Formula</th>
+                                        <th>Units</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GPM = (BTU/hr) / (500 × ΔT)</td>
+                                        <td>For water systems</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GPM = (Tons × 24) / ΔT</td>
+                                        <td>Chilled water (10°F ΔT = 2.4 GPM/ton)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GPM = (Tons × 30) / ΔT</td>
+                                        <td>Condenser water (10°F ΔT = 3 GPM/ton)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Design Values -->
+                <h2 class="section-title" style="margin-top: 3rem;">Design Guidelines & Standards</h2>
+
+                <div class="constants-grid">
+                    <div class="constant-card">
+                        <h4>Pipe Velocity Limits</h4>
+                        <p>Suction: 2-4 ft/s</p>
+                        <p>Discharge: 5-10 ft/s</p>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Friction Loss</h4>
+                        <p>Target: 2-4 ft/100 ft pipe</p>
+                        <p>Maximum: 8 ft/100 ft</p>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Safety Factors</h4>
+                        <p>Known System: 5-10%</p>
+                        <p>Estimated System: 10-15%</p>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Pump Efficiency</h4>
+                        <p>Small (&lt;10 HP): 60-70%</p>
+                        <p>Large (>10 HP): 75-85%</p>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Water Properties</h4>
+                        <p>Density: 62.4 lb/ft³</p>
+                        <p>Sp. Heat: 1 BTU/lb·°F</p>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Glycol Solutions</h4>
+                        <p>30% Glycol SG: 1.04</p>
+                        <p>50% Glycol SG: 1.05</p>
+                    </div>
+                </div>
+
+                <!-- Application Guide -->
+                <h2 class="section-title" style="margin-top: 3rem;">Application-Specific Guidance</h2>
+
+                <div class="fan-types-grid">
+                    <div class="fan-type-card">
+                        <h4>🔥 Heating Hot Water</h4>
+                        <p><strong>Typical Range:</strong> 180-200°F supply, 160-180°F return</p>
+                        <p><strong>Flow Rate:</strong> GPM = (BTU/hr) / (500 × 20°F)</p>
+                        <p><strong>Pump Type:</strong> Bronze or stainless steel for high temp</p>
+                        <p><strong>Notes:</strong> Consider expansion tank sizing, air elimination</p>
+                    </div>
+
+                    <div class="fan-type-card">
+                        <h4>❄️ Chilled Water</h4>
+                        <p><strong>Typical Range:</strong> 42-45°F supply, 54-58°F return</p>
+                        <p><strong>Flow Rate:</strong> 2.4 GPM/ton (10°F ΔT)</p>
+                        <p><strong>Pump Type:</strong> Cast iron or bronze</p>
+                        <p><strong>Notes:</strong> Primary-secondary or variable primary flow</p>
+                    </div>
+
+                    <div class="fan-type-card">
+                        <h4>🌊 Condenser Water</h4>
+                        <p><strong>Typical Range:</strong> 85°F supply, 95°F return</p>
+                        <p><strong>Flow Rate:</strong> 3.0 GPM/ton (10°F ΔT)</p>
+                        <p><strong>Pump Type:</strong> Bronze or stainless (corrosive environment)</p>
+                        <p><strong>Notes:</strong> Account for cooling tower lift, fouling factor</p>
+                    </div>
+
+                    <div class="fan-type-card">
+                        <h4>🏢 Domestic Water</h4>
+                        <p><strong>Pressure:</strong> 40-60 PSI typical building</p>
+                        <p><strong>Fixture Units:</strong> Convert to GPM for sizing</p>
+                        <p><strong>Pump Type:</strong> Stainless steel or bronze</p>
+                        <p><strong>Notes:</strong> Booster systems, pressure tanks, backflow prevention</p>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting -->
+                <h2 class="section-title" style="margin-top: 3rem;">Common Issues & Solutions</h2>
+
+                <div class="info-box">
+                    <h4>🔊 Noisy Operation</h4>
+                    <p><strong>Possible Causes:</strong> Cavitation (check NPSH), air in system, misalignment, worn bearings</p>
+                    <p><strong>Solutions:</strong> Verify NPSHa > NPSHr, vent air from system, check alignment, inspect/replace bearings</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>📉 Low Flow Rate</h4>
+                    <p><strong>Possible Causes:</strong> Clogged strainer, closed valve, air lock, wrong impeller size, wrong rotation</p>
+                    <p><strong>Solutions:</strong> Clean strainer, verify all valves open, vent air, check impeller trim, verify motor rotation</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>⚡ High Energy Use</h4>
+                    <p><strong>Possible Causes:</strong> Oversized pump, operating far from BEP, system changes increased flow</p>
+                    <p><strong>Solutions:</strong> Trim impeller, install VFD, balance system, verify control sequences</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Cavitation</h4>
+                    <p><strong>Symptoms:</strong> Noise, vibration, loss of capacity, pitting damage to impeller</p>
+                    <p><strong>Prevention:</strong> Ensure NPSHa exceeds NPSHr by 2-3 ft minimum, reduce suction lift, increase suction pipe size, reduce fluid temperature, check for blockages</p>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer" style="margin-top: 3rem;">
+                    <div class="disclaimer-title">Professional Engineering Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This calculator is provided for preliminary design and educational purposes only. All pump selections, calculations, and system designs must be verified by a licensed professional engineer and comply with applicable local codes and standards. Pump manufacturer's certified curves and data should always be used for final selection. The user assumes all responsibility for the accuracy and application of these calculations. This tool is based on industry-standard methods including Bell & Gossett technical guidelines, but does not replace professional engineering judgment or manufacturer specifications.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
