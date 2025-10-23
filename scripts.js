@@ -2670,20 +2670,55 @@ function psychDrawChart() {
     const svg = document.getElementById('psychChart');
     if (!svg) return;
     svg.innerHTML = '';
-    
+
+    // Professional gradient background
+    const defs = psychCreateSVGElement('defs', {});
+    const gradient = psychCreateSVGElement('linearGradient', {
+        id: 'chartBg',
+        x1: '0%',
+        y1: '0%',
+        x2: '100%',
+        y2: '100%'
+    });
+    const stop1 = psychCreateSVGElement('stop', {
+        offset: '0%',
+        style: 'stop-color:#f8fbfd;stop-opacity:1'
+    });
+    const stop2 = psychCreateSVGElement('stop', {
+        offset: '100%',
+        style: 'stop-color:#e8f4f8;stop-opacity:1'
+    });
+    gradient.appendChild(stop1);
+    gradient.appendChild(stop2);
+    defs.appendChild(gradient);
+    svg.appendChild(defs);
+
     const bg = psychCreateSVGElement('rect', {
         width: psychChartConfig.width,
         height: psychChartConfig.height,
-        fill: '#ffffff'
+        fill: 'url(#chartBg)'
     });
     svg.appendChild(bg);
-    
+
+    // Chart area background
+    const chartBg = psychCreateSVGElement('rect', {
+        x: psychChartConfig.marginLeft,
+        y: psychChartConfig.marginTop,
+        width: psychChartConfig.width - psychChartConfig.marginLeft - psychChartConfig.marginRight,
+        height: psychChartConfig.height - psychChartConfig.marginTop - psychChartConfig.marginBottom,
+        fill: '#ffffff',
+        stroke: '#bdc3c7',
+        'stroke-width': 1
+    });
+    svg.appendChild(chartBg);
+
     psychDrawTemperatureGrid(svg);
     psychDrawHumidityGrid(svg);
-    psychDrawSaturationCurve(svg);
-    psychDrawRelativeHumidityLines(svg);
-    psychDrawWetBulbLines(svg);
+    psychDrawSpecificVolumeLines(svg);
     psychDrawEnthalpyLines(svg);
+    psychDrawWetBulbLines(svg);
+    psychDrawRelativeHumidityLines(svg);
+    psychDrawSaturationCurve(svg);
     psychDrawAxes(svg);
     psychDrawConnections(svg);
     psychDrawPoints(svg);
@@ -2740,6 +2775,9 @@ function psychDrawHumidityGrid(svg) {
 function psychDrawSaturationCurve(svg) {
     let pathData = 'M';
     let isFirst = true;
+    let labelX, labelY;
+    let pointCount = 0;
+
     for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 0.5) {
         const Pws = psychSaturationPressure(t);
         const W_sat = 0.621945 * Pws / (psychCurrentPressure - Pws);
@@ -2752,13 +2790,36 @@ function psychDrawSaturationCurve(svg) {
             } else {
                 pathData += ` L${x},${y}`;
             }
+            // Store a middle point for label placement
+            if (pointCount === 60) {
+                labelX = x;
+                labelY = y;
+            }
+            pointCount++;
         }
     }
     const path = psychCreateSVGElement('path', {
         d: pathData,
-        class: 'chart-saturation-line'
+        class: 'chart-saturation-line',
+        stroke: '#c0392b',
+        'stroke-width': 2.5,
+        fill: 'none'
     });
     svg.appendChild(path);
+
+    // Add "100% RH" label on the saturation line
+    if (labelX && labelY) {
+        const label = psychCreateSVGElement('text', {
+            x: labelX - 10,
+            y: labelY - 8,
+            class: 'chart-line-label',
+            fill: '#c0392b',
+            'font-size': '12px',
+            'font-weight': '700'
+        });
+        label.textContent = '100% RH';
+        svg.appendChild(label);
+    }
 }
 
 function psychDrawRelativeHumidityLines(svg) {
@@ -2766,6 +2827,7 @@ function psychDrawRelativeHumidityLines(svg) {
     rhValues.forEach(rh => {
         let pathData = 'M';
         let isFirst = true;
+        let lastX, lastY;
         for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
             const Pws = psychSaturationPressure(t);
             const Pw = (rh / 100) * Pws;
@@ -2779,13 +2841,31 @@ function psychDrawRelativeHumidityLines(svg) {
                 } else {
                     pathData += ` L${x},${y}`;
                 }
+                lastX = x;
+                lastY = y;
             }
         }
         const path = psychCreateSVGElement('path', {
             d: pathData,
-            class: 'chart-rh-line'
+            class: 'chart-rh-line',
+            stroke: rh === 50 ? '#2980b9' : '#3498db',
+            'stroke-width': rh === 50 ? 1.5 : 1
         });
         svg.appendChild(path);
+
+        // Add label at the end of the line
+        if (lastX && lastY) {
+            const label = psychCreateSVGElement('text', {
+                x: lastX + 5,
+                y: lastY,
+                class: 'chart-line-label',
+                fill: '#2980b9',
+                'font-size': '11px',
+                'font-weight': '600'
+            });
+            label.textContent = `${rh}%`;
+            svg.appendChild(label);
+        }
     });
 }
 
@@ -2793,6 +2873,8 @@ function psychDrawWetBulbLines(svg) {
     for (let t_wb = 40; t_wb <= 100; t_wb += 10) {
         let pathData = 'M';
         let isFirst = true;
+        let labelX, labelY;
+        let pointCount = 0;
         for (let t_db = t_wb; t_db <= psychChartConfig.tMax; t_db += 1) {
             const W = psychHumidityRatioFromWB(t_db, t_wb, psychCurrentPressure);
             if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin) {
@@ -2804,6 +2886,12 @@ function psychDrawWetBulbLines(svg) {
                 } else {
                     pathData += ` L${x},${y}`;
                 }
+                // Store a point near the saturation line for label placement
+                if (pointCount === 5) {
+                    labelX = x;
+                    labelY = y;
+                }
+                pointCount++;
             }
         }
         const path = psychCreateSVGElement('path', {
@@ -2811,6 +2899,20 @@ function psychDrawWetBulbLines(svg) {
             class: 'chart-wb-line'
         });
         svg.appendChild(path);
+
+        // Add label near the saturation curve
+        if (labelX && labelY) {
+            const label = psychCreateSVGElement('text', {
+                x: labelX - 15,
+                y: labelY - 5,
+                class: 'chart-line-label',
+                fill: '#8e44ad',
+                'font-size': '10px',
+                'font-weight': '500'
+            });
+            label.textContent = `${t_wb}°F WB`;
+            svg.appendChild(label);
+        }
     }
 }
 
@@ -2818,6 +2920,7 @@ function psychDrawEnthalpyLines(svg) {
     for (let h = 15; h <= 60; h += 5) {
         let pathData = 'M';
         let isFirst = true;
+        let firstX, firstY;
         for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
             const W = (h - 0.240 * t) / (1061 + 0.444 * t);
             if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin && W >= 0) {
@@ -2825,6 +2928,8 @@ function psychDrawEnthalpyLines(svg) {
                 const y = psychHumidityToY(W);
                 if (isFirst) {
                     pathData += `${x},${y}`;
+                    firstX = x;
+                    firstY = y;
                     isFirst = false;
                 } else {
                     pathData += ` L${x},${y}`;
@@ -2836,7 +2941,83 @@ function psychDrawEnthalpyLines(svg) {
             class: 'chart-enthalpy-line'
         });
         svg.appendChild(path);
+
+        // Add label at the top-left of the line
+        if (firstX && firstY && h % 10 === 0) {
+            const label = psychCreateSVGElement('text', {
+                x: firstX - 25,
+                y: firstY - 5,
+                class: 'chart-line-label',
+                fill: '#d35400',
+                'font-size': '10px',
+                'font-weight': '500',
+                transform: `rotate(-30, ${firstX - 25}, ${firstY - 5})`
+            });
+            label.textContent = `${h} BTU/lb`;
+            svg.appendChild(label);
+        }
     }
+}
+
+function psychDrawSpecificVolumeLines(svg) {
+    // Specific volume lines (ft³/lb dry air)
+    const volumeValues = [12.5, 13.0, 13.5, 14.0, 14.5, 15.0];
+    volumeValues.forEach(v => {
+        let pathData = 'M';
+        let isFirst = true;
+        let labelX, labelY;
+        let pointCount = 0;
+
+        for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
+            // v = 0.370486 * T_R * (1 + 1.607858 * W) / P
+            // Solve for W: W = (v * P / (0.370486 * T_R) - 1) / 1.607858
+            const T_R = t + 459.67;
+            const W = (v * psychCurrentPressure / (0.370486 * T_R) - 1) / 1.607858;
+
+            if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin && W >= 0) {
+                const x = psychTempToX(t);
+                const y = psychHumidityToY(W);
+                if (isFirst) {
+                    pathData += `${x},${y}`;
+                    isFirst = false;
+                } else {
+                    pathData += ` L${x},${y}`;
+                }
+                // Store middle point for label
+                if (pointCount === 40) {
+                    labelX = x;
+                    labelY = y;
+                }
+                pointCount++;
+            }
+        }
+
+        const path = psychCreateSVGElement('path', {
+            d: pathData,
+            class: 'chart-volume-line',
+            stroke: '#16a085',
+            'stroke-width': 0.8,
+            'stroke-dasharray': '4,2',
+            fill: 'none',
+            opacity: 0.5
+        });
+        svg.appendChild(path);
+
+        // Add label
+        if (labelX && labelY) {
+            const label = psychCreateSVGElement('text', {
+                x: labelX + 5,
+                y: labelY + 3,
+                class: 'chart-line-label',
+                fill: '#16a085',
+                'font-size': '9px',
+                'font-weight': '500',
+                transform: `rotate(15, ${labelX + 5}, ${labelY + 3})`
+            });
+            label.textContent = `${v} ft³/lb`;
+            svg.appendChild(label);
+        }
+    });
 }
 
 function psychDrawAxes(svg) {
@@ -2860,6 +3041,73 @@ function psychDrawAxes(svg) {
     });
     yLabel.textContent = 'Humidity Ratio (lb water / lb dry air × 1000)';
     svg.appendChild(yLabel);
+
+    // Add chart legend in top-right corner
+    const legendX = psychChartConfig.width - psychChartConfig.marginRight - 150;
+    const legendY = psychChartConfig.marginTop + 10;
+
+    const legendItems = [
+        { color: '#c0392b', text: '100% RH (Saturation)', dash: false, width: 2.5 },
+        { color: '#3498db', text: 'Relative Humidity', dash: true, width: 1 },
+        { color: '#8e44ad', text: 'Wet Bulb Temp', dash: false, width: 1 },
+        { color: '#d35400', text: 'Enthalpy', dash: false, width: 1 },
+        { color: '#16a085', text: 'Specific Volume', dash: true, width: 0.8 }
+    ];
+
+    // Legend background
+    const legendBg = psychCreateSVGElement('rect', {
+        x: legendX - 10,
+        y: legendY - 5,
+        width: 160,
+        height: legendItems.length * 20 + 10,
+        fill: 'white',
+        stroke: '#bdc3c7',
+        'stroke-width': 1,
+        rx: 5,
+        opacity: 0.95
+    });
+    svg.appendChild(legendBg);
+
+    // Legend title
+    const legendTitle = psychCreateSVGElement('text', {
+        x: legendX + 70,
+        y: legendY + 10,
+        class: 'chart-label',
+        'text-anchor': 'middle',
+        'font-weight': '700',
+        'font-size': '11px',
+        fill: '#2c3e50'
+    });
+    legendTitle.textContent = 'Chart Legend';
+    svg.appendChild(legendTitle);
+
+    // Legend items
+    legendItems.forEach((item, i) => {
+        const y = legendY + 25 + i * 20;
+
+        // Line sample
+        const line = psychCreateSVGElement('line', {
+            x1: legendX,
+            y1: y,
+            x2: legendX + 20,
+            y2: y,
+            stroke: item.color,
+            'stroke-width': item.width,
+            'stroke-dasharray': item.dash ? '3,2' : 'none'
+        });
+        svg.appendChild(line);
+
+        // Text label
+        const text = psychCreateSVGElement('text', {
+            x: legendX + 25,
+            y: y + 4,
+            class: 'chart-label',
+            'font-size': '10px',
+            fill: '#2c3e50'
+        });
+        text.textContent = item.text;
+        svg.appendChild(text);
+    });
 }
 
 // ============================================
