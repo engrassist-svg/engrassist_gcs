@@ -110,21 +110,16 @@ gsutil -m setmeta -h "Content-Encoding:gzip" \
 
 ### Update Tracking Code
 
-The GA4 code is already added to `header.html`. Replace the placeholder:
+The GA4 code is already added to `header.html` with the measurement ID `G-9HVPYW6169`.
 
-**In `header.html`, replace:**
+**Current implementation in `header.html`:**
 ```javascript
-gtag('config', 'G-XXXXXXXXXX');
+gtag('config', 'G-9HVPYW6169');
 ```
 
-**With your actual Measurement ID:**
-```javascript
-gtag('config', 'G-YOUR_MEASUREMENT_ID');
-```
-
-Also update the script src:
+And the script src:
 ```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
 ```
 
 ### Recommended GA4 Events to Track
