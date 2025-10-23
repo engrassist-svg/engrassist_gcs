@@ -209,6 +209,91 @@
             font-size: 2rem;
             margin: 0.5rem 0;
         }
+
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .design-guide-container {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .step-content {
+                margin-left: 0;
+            }
+
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .step-number {
+                margin-bottom: 0.5rem;
+            }
+
+            .step-title {
+                font-size: 1.25rem;
+            }
+
+            .key-activities,
+            .reference-box,
+            .important-note {
+                padding: 0.75rem;
+                margin: 0.75rem 0;
+            }
+
+            .workflow-diagram {
+                padding: 1rem;
+            }
+
+            .workflow-step {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .tool-reference {
+                display: block;
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .design-guide-container {
+                padding: 0.75rem;
+            }
+
+            .guide-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .guide-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .guide-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .guide-section h4 {
+                font-size: 1rem;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 1rem;
+            }
+
+            .step-title {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
