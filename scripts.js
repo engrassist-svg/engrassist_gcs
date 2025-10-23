@@ -894,10 +894,10 @@ function updateChillerEfficiencyLabel() {
 function calculateChillerSystem() {
     const sqft = parseFloat(document.getElementById('chiller-sqft').value);
     const safetyFactorPercent = parseFloat(document.getElementById('chiller-safetyFactor').value);
-    const btuPerSqFt = parseFloat(document.getElementById('chiller-btuPerSqFt').value);
+    const sqftPerTon = parseFloat(document.getElementById('chiller-sqftPerTon').value);
 
-    if (!btuPerSqFt || btuPerSqFt <= 0) {
-        alert('Please enter a valid BTU/sq ft value');
+    if (!sqftPerTon || sqftPerTon <= 0) {
+        alert('Please enter a valid square feet per ton value');
         return;
     }
 
@@ -922,7 +922,9 @@ function calculateChillerSystem() {
         return;
     }
 
-    const baseCoolingLoad = sqft * btuPerSqFt;
+    // Calculate base cooling load: sqft / (sqft/ton) * 12000 BTU/ton
+    const baseTons = sqft / sqftPerTon;
+    const baseCoolingLoad = baseTons * 12000;
     const safetyFactor = 1 + (safetyFactorPercent / 100);
     const requiredBTU = baseCoolingLoad * safetyFactor;
     const requiredTons = requiredBTU / 12000; // 12,000 BTU/hr = 1 ton

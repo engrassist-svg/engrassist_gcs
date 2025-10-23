@@ -71,10 +71,10 @@
                         <input type="number" id="chiller-sqft" placeholder="Enter square footage" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="chiller-btuPerSqFt">BTU per Square Foot:</label>
-                        <input type="number" id="chiller-btuPerSqFt" placeholder="Enter BTU/sq ft" value="250" min="0" step="0.1" required>
+                        <label for="chiller-sqftPerTon">Square Feet per Ton:</label>
+                        <input type="number" id="chiller-sqftPerTon" placeholder="Enter sq ft/ton" value="400" min="50" max="1000" step="10" required>
                         <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                            Common values: Office: 250 | Retail: 300 | Restaurant: 400 | Data Center: 150-200 per sq ft
+                            Common values: Office: 400-500 | Retail: 350-400 | Restaurant: 200-300 | Data Center: 200-300
                         </small>
                     </div>
                 </div>
@@ -237,15 +237,16 @@
             <div class="container">
                 <h2 class="section-title">Sizing Guidelines & Rules of Thumb</h2>
 
-                <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Commercial Building Cooling Load (BTU per Square Foot)</h3>
+                <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Commercial Building Cooling Load (Square Feet per Ton)</h3>
                 <ul style="margin-left: 2rem; line-height: 2;">
-                    <li><strong>Office Buildings:</strong> 200-300 BTU/sq ft (or 40-60 sq ft per ton)</li>
-                    <li><strong>Retail Stores:</strong> 250-350 BTU/sq ft (or 35-50 sq ft per ton)</li>
-                    <li><strong>Restaurants:</strong> 350-500 BTU/sq ft (or 25-35 sq ft per ton)</li>
-                    <li><strong>Hotels/Residential:</strong> 200-300 BTU/sq ft (or 40-60 sq ft per ton)</li>
-                    <li><strong>Data Centers:</strong> 150-200 BTU/sq ft of IT space (highly variable)</li>
-                    <li><strong>Hospitals:</strong> 250-400 BTU/sq ft (or 30-50 sq ft per ton)</li>
-                    <li><strong>Warehouses (conditioned):</strong> 100-150 BTU/sq ft (or 80-120 sq ft per ton)</li>
+                    <li><strong>Office Buildings:</strong> 400-500 sq ft/ton (24-30 BTU/sq ft)</li>
+                    <li><strong>Retail Stores:</strong> 350-400 sq ft/ton (30-34 BTU/sq ft)</li>
+                    <li><strong>Restaurants:</strong> 200-300 sq ft/ton (40-60 BTU/sq ft) - higher loads from kitchen equipment</li>
+                    <li><strong>Hotels/Residential:</strong> 400-600 sq ft/ton (20-30 BTU/sq ft)</li>
+                    <li><strong>Data Centers:</strong> 200-300 sq ft/ton (40-60 BTU/sq ft) - highly variable based on IT load</li>
+                    <li><strong>Hospitals:</strong> 300-400 sq ft/ton (30-40 BTU/sq ft)</li>
+                    <li><strong>Warehouses (conditioned):</strong> 600-800 sq ft/ton (15-20 BTU/sq ft)</li>
+                    <li><strong>Schools/Classrooms:</strong> 350-450 sq ft/ton (27-34 BTU/sq ft)</li>
                 </ul>
 
                 <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Safety Factors</h3>
