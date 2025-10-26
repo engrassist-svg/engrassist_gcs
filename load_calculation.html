@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free HVAC load calculation tool based on Carrier methods. Calculate heating and cooling loads for residential and commercial buildings with Manual J procedures.">
+    <meta name="keywords" content="load calculation, HVAC load, Manual J, heat gain, heat loss, BTU, cooling load, heating load, air conditioning sizing">
+    <link rel="canonical" href="https://engrassist.com/load_calculation.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="HVAC Load Calculation - EngrAssist">
+    <meta property="og:description" content="Free HVAC load calculation tool based on Carrier methods and Manual J procedures.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/load_calculation.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HVAC Load Calculation">
+    <meta name="twitter:description" content="Free HVAC load calculation tool for residential and commercial buildings.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>HVAC Load Calculation - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <script src="load_calculation.js" defer></script>
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">HVAC Load Calculation</h1>
+                <p class="hero-subtitle">Calculate heating and cooling loads for residential and commercial buildings using industry-standard methods based on Carrier and ACCA Manual J procedures</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Project Information</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectName">Project Name:</label>
+                        <input type="text" id="projectName" placeholder="Enter project name">
+                    </div>
+                    <div class="form-group">
+                        <label for="roomName">Room/Area Name:</label>
+                        <input type="text" id="roomName" placeholder="Enter room name">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="location">Location/City:</label>
+                        <input type="text" id="location" placeholder="Enter location">
+                    </div>
+                    <div class="form-group">
+                        <label for="calculationDate">Date:</label>
+                        <input type="date" id="calculationDate">
+                    </div>
+                </div>
+
+                <!-- Design Conditions -->
+                <h2 class="section-title" style="margin-top: 2rem;">Design Conditions</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="outdoorSummerDB">Outdoor Summer Design Dry Bulb (°F):</label>
+                        <input type="number" id="outdoorSummerDB" placeholder="e.g., 95" step="0.1" value="95">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical: 95-105°F for most US locations
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="outdoorSummerWB">Outdoor Summer Wet Bulb (°F):</label>
+                        <input type="number" id="outdoorSummerWB" placeholder="e.g., 75" step="0.1" value="75">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="indoorSummerDB">Indoor Summer Design Dry Bulb (°F):</label>
+                        <input type="number" id="indoorSummerDB" placeholder="e.g., 75" step="0.1" value="75">
+                    </div>
+                    <div class="form-group">
+                        <label for="indoorSummerRH">Indoor Summer Relative Humidity (%):</label>
+                        <input type="number" id="indoorSummerRH" placeholder="e.g., 50" step="1" value="50" min="0" max="100">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="outdoorWinterDB">Outdoor Winter Design Dry Bulb (°F):</label>
+                        <input type="number" id="outdoorWinterDB" placeholder="e.g., 10" step="0.1" value="10">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Use 99% design temperature for your location
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="indoorWinterDB">Indoor Winter Design Dry Bulb (°F):</label>
+                        <input type="number" id="indoorWinterDB" placeholder="e.g., 70" step="0.1" value="70">
+                    </div>
+                </div>
+
+                <!-- Room Dimensions -->
+                <h2 class="section-title" style="margin-top: 2rem;">Room Dimensions</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="roomLength">Room Length (ft):</label>
+                        <input type="number" id="roomLength" placeholder="Enter length" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="roomWidth">Room Width (ft):</label>
+                        <input type="number" id="roomWidth" placeholder="Enter width" step="0.1" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ceilingHeight">Ceiling Height (ft):</label>
+                        <input type="number" id="ceilingHeight" placeholder="Enter height" step="0.1" min="0" value="8">
+                    </div>
+                    <div class="form-group">
+                        <label for="roomVolume">Room Volume (ft³):</label>
+                        <input type="number" id="roomVolume" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
+                    </div>
+                </div>
+
+                <!-- Windows -->
+                <h2 class="section-title" style="margin-top: 2rem;">Windows & Glass</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="windowAreaNorth">North-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaNorth" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="windowAreaSouth">South-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaSouth" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="windowAreaEast">East-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaEast" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="windowAreaWest">West-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaWest" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="glassType">Glass Type:</label>
+                        <select id="glassType">
+                            <option value="single">Single Pane, Clear</option>
+                            <option value="double" selected>Double Pane, Clear</option>
+                            <option value="doubleLowE">Double Pane, Low-E</option>
+                            <option value="triple">Triple Pane, Low-E</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="shading">External Shading:</label>
+                        <select id="shading">
+                            <option value="none">No Shading</option>
+                            <option value="partial" selected>Partial Shading (Trees, Overhangs)</option>
+                            <option value="full">Full Shading</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Walls -->
+                <h2 class="section-title" style="margin-top: 2rem;">Exterior Walls</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="wallAreaNorth">North Wall Area (ft²):</label>
+                        <input type="number" id="wallAreaNorth" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="wallAreaSouth">South Wall Area (ft²):</label>
+                        <input type="number" id="wallAreaSouth" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="wallAreaEast">East Wall Area (ft²):</label>
+                        <input type="number" id="wallAreaEast" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="wallAreaWest">West Wall Area (ft²):</label>
+                        <input type="number" id="wallAreaWest" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="wallConstruction">Wall Construction Type:</label>
+                        <select id="wallConstruction">
+                            <option value="frame_uninsulated">Frame Wall - Uninsulated</option>
+                            <option value="frame_r11">Frame Wall - R-11 Insulation</option>
+                            <option value="frame_r13" selected>Frame Wall - R-13 Insulation</option>
+                            <option value="frame_r19">Frame Wall - R-19 Insulation</option>
+                            <option value="frame_r21">Frame Wall - R-21 Insulation</option>
+                            <option value="masonry_uninsulated">Masonry - Uninsulated</option>
+                            <option value="masonry_r11">Masonry - R-11 Insulation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="wallColor">Wall Exterior Color:</label>
+                        <select id="wallColor">
+                            <option value="light" selected>Light Color</option>
+                            <option value="medium">Medium Color</option>
+                            <option value="dark">Dark Color</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Roof/Ceiling -->
+                <h2 class="section-title" style="margin-top: 2rem;">Roof/Ceiling</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ceilingArea">Ceiling Area (ft²):</label>
+                        <input type="number" id="ceilingArea" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label for="roofType">Roof/Ceiling Type:</label>
+                        <select id="roofType">
+                            <option value="ceiling_unconditioned">Ceiling Below Unconditioned Attic</option>
+                            <option value="ceiling_conditioned" selected>Ceiling Below Conditioned Space</option>
+                            <option value="roof_direct">Roof Directly Above Room</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ceilingInsulation">Ceiling/Roof Insulation:</label>
+                        <select id="ceilingInsulation">
+                            <option value="none">No Insulation</option>
+                            <option value="r11">R-11</option>
+                            <option value="r19">R-19</option>
+                            <option value="r30" selected>R-30</option>
+                            <option value="r38">R-38</option>
+                            <option value="r49">R-49</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="roofColor">Roof Color:</label>
+                        <select id="roofColor">
+                            <option value="light" selected>Light Color</option>
+                            <option value="medium">Medium Color</option>
+                            <option value="dark">Dark Color</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Floor -->
+                <h2 class="section-title" style="margin-top: 2rem;">Floor</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="floorArea">Floor Area (ft²):</label>
+                        <input type="number" id="floorArea" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label for="floorType">Floor Type:</label>
+                        <select id="floorType">
+                            <option value="slab">Slab on Grade</option>
+                            <option value="basement">Over Basement</option>
+                            <option value="crawlspace">Over Crawlspace</option>
+                            <option value="conditioned" selected>Over Conditioned Space</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="floorInsulation">Floor Insulation:</label>
+                        <select id="floorInsulation">
+                            <option value="none">No Insulation</option>
+                            <option value="r11">R-11</option>
+                            <option value="r19" selected>R-19</option>
+                            <option value="r30">R-30</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </div>
+
+                <!-- Internal Heat Gains -->
+                <h2 class="section-title" style="margin-top: 2rem;">Internal Heat Gains</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="numPeople">Number of Occupants:</label>
+                        <input type="number" id="numPeople" placeholder="Enter number" step="1" min="0" value="2">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Sensible: 250 BTU/hr, Latent: 200 BTU/hr per person
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="activityLevel">Activity Level:</label>
+                        <select id="activityLevel">
+                            <option value="seated" selected>Seated, Light Work</option>
+                            <option value="standing">Standing, Walking</option>
+                            <option value="moderate">Moderate Activity</option>
+                            <option value="heavy">Heavy Work/Exercise</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lightingLoad">Lighting Load (Watts):</label>
+                        <input type="number" id="lightingLoad" placeholder="Enter wattage" step="1" min="0" value="0">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Rule of thumb: 1.5-2.0 W/ft² for LED, 3-4 W/ft² for fluorescent
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="equipmentLoad">Equipment Load (Watts):</label>
+                        <input type="number" id="equipmentLoad" placeholder="Computers, appliances, etc." step="1" min="0" value="0">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Include computers, TVs, kitchen equipment, etc.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Infiltration & Ventilation -->
+                <h2 class="section-title" style="margin-top: 2rem;">Infiltration & Ventilation</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="airChangesPerHour">Air Changes Per Hour (ACH):</label>
+                        <input type="number" id="airChangesPerHour" placeholder="e.g., 0.5" step="0.1" min="0" value="0.5">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Tight: 0.35, Average: 0.5, Loose: 1.0
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ventilationCFM">Ventilation Air (CFM):</label>
+                        <input type="number" id="ventilationCFM" placeholder="Outside air CFM" step="1" min="0" value="0">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            ASHRAE 62.1: ~15 CFM per person for offices
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Safety Factors -->
+                <h2 class="section-title" style="margin-top: 2rem;">Safety Factors</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coolingSafetyFactor">Cooling Safety Factor (%):</label>
+                        <input type="number" id="coolingSafetyFactor" placeholder="0-20%" step="1" min="0" max="25" value="0">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical: 0-10% for precise calculations
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="heatingSafetyFactor">Heating Safety Factor (%):</label>
+                        <input type="number" id="heatingSafetyFactor" placeholder="0-20%" step="1" min="0" max="25" value="0">
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculateLoads()">Calculate Heating & Cooling Loads</button>
+
+                <!-- Results Section -->
+                <div id="loadResults" class="boiler-results-section" style="display: none;">
+                    <h3>Cooling Load Summary</h3>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Solar & Transmission - Windows:</span>
+                        <span class="result-value" id="coolingWindows">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Walls:</span>
+                        <span class="result-value" id="coolingWalls">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Roof/Ceiling:</span>
+                        <span class="result-value" id="coolingRoof">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Floor:</span>
+                        <span class="result-value" id="coolingFloor">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">People (Sensible):</span>
+                        <span class="result-value" id="coolingPeopleSensible">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">People (Latent):</span>
+                        <span class="result-value" id="coolingPeopleLatent">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Lighting:</span>
+                        <span class="result-value" id="coolingLighting">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Equipment:</span>
+                        <span class="result-value" id="coolingEquipment">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Infiltration (Sensible):</span>
+                        <span class="result-value" id="coolingInfiltrationSensible">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Infiltration (Latent):</span>
+                        <span class="result-value" id="coolingInfiltrationLatent">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Ventilation (Sensible):</span>
+                        <span class="result-value" id="coolingVentilationSensible">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Ventilation (Latent):</span>
+                        <span class="result-value" id="coolingVentilationLatent">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green" style="border: 2px solid #27ae60; font-weight: bold;">
+                        <span class="result-label">TOTAL SENSIBLE COOLING:</span>
+                        <span class="result-value" id="totalSensibleCooling">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green" style="border: 2px solid #27ae60; font-weight: bold;">
+                        <span class="result-label">TOTAL LATENT COOLING:</span>
+                        <span class="result-value" id="totalLatentCooling">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green" style="border: 3px solid #27ae60; font-weight: bold; font-size: 1.1rem;">
+                        <span class="result-label">TOTAL COOLING LOAD:</span>
+                        <span class="result-value" id="totalCoolingLoad">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Equipment Capacity (Tons):</span>
+                        <span class="result-value" id="coolingTons">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Required Airflow (CFM @ 400 CFM/ton):</span>
+                        <span class="result-value" id="coolingCFM">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Sensible Heat Ratio (SHR):</span>
+                        <span class="result-value" id="shr">--</span>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Heating Load Summary</h3>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Windows:</span>
+                        <span class="result-value" id="heatingWindows">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Walls:</span>
+                        <span class="result-value" id="heatingWalls">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Roof/Ceiling:</span>
+                        <span class="result-value" id="heatingRoof">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Transmission - Floor:</span>
+                        <span class="result-value" id="heatingFloor">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Infiltration:</span>
+                        <span class="result-value" id="heatingInfiltration">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Ventilation:</span>
+                        <span class="result-value" id="heatingVentilation">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green" style="border: 3px solid #27ae60; font-weight: bold; font-size: 1.1rem;">
+                        <span class="result-label">TOTAL HEATING LOAD:</span>
+                        <span class="result-value" id="totalHeatingLoad">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Required Airflow (CFM @ 350 CFM/ton):</span>
+                        <span class="result-value" id="heatingCFM">--</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Reference Information Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Load Calculation Guidelines</h2>
+
+                <div class="highlight-box">
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem;">Industry Standards</h3>
+                    <p>This calculator follows procedures based on Carrier Load Estimation methods and ACCA Manual J (Residential Load Calculation) and Manual N (Commercial Load Calculation) principles.</p>
+                </div>
+
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <div class="guide-icon">📏</div>
+                        <h4>Design Conditions</h4>
+                        <p><strong>Summer:</strong> Use ASHRAE 1% design dry bulb and mean coincident wet bulb temperatures for your location.</p>
+                        <p><strong>Winter:</strong> Use ASHRAE 99% design dry bulb temperature (99% of hours are warmer than this).</p>
+                        <p><strong>Indoor:</strong> Typical comfort conditions are 75°F/50% RH for cooling and 70°F for heating.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">🪟</div>
+                        <h4>Window Heat Gain</h4>
+                        <p>Windows are the largest source of cooling load in most buildings due to:</p>
+                        <ul style="text-align: left; margin: 0.5rem 0 0 1.5rem;">
+                            <li>Solar radiation (varies by orientation)</li>
+                            <li>Conduction through glass</li>
+                            <li>Poor insulation value</li>
+                        </ul>
+                        <p><strong>Best Practice:</strong> Use Low-E double or triple pane windows to reduce load by 30-50%.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">🧱</div>
+                        <h4>Wall & Roof Insulation</h4>
+                        <p><strong>Walls:</strong> R-13 to R-21 for frame construction, higher for cold climates.</p>
+                        <p><strong>Roofs:</strong> R-30 minimum, R-38 to R-49 recommended for attics.</p>
+                        <p><strong>Color Impact:</strong> Dark colors absorb 20-40% more heat than light colors on roofs and walls.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">👥</div>
+                        <h4>Internal Loads</h4>
+                        <p><strong>People:</strong> 450 BTU/hr total (250 sensible, 200 latent) for seated office work.</p>
+                        <p><strong>Lighting:</strong> LED = 3.41 BTU/hr per Watt. Modern offices: 0.6-1.0 W/ft².</p>
+                        <p><strong>Equipment:</strong> Computers ~200 W, monitors ~50 W. Use actual nameplate data when available.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">💨</div>
+                        <h4>Infiltration & Ventilation</h4>
+                        <p><strong>Infiltration:</strong> Uncontrolled air leakage through building envelope. Tight construction = 0.35 ACH, loose = 1.0 ACH.</p>
+                        <p><strong>Ventilation:</strong> Required outdoor air per ASHRAE 62.1/62.2. Typical office: 15-20 CFM per person.</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-icon">🎯</div>
+                        <h4>Equipment Sizing</h4>
+                        <p><strong>Cooling:</strong> Don't oversize! Oversized units short-cycle, don't dehumidify, and waste energy.</p>
+                        <p><strong>Size Range:</strong> Select equipment within 10-15% of calculated load.</p>
+                        <p><strong>Airflow:</strong> 350-450 CFM per ton cooling, 350 CFM per ton heating (rule of thumb).</p>
+                    </div>
+                </div>
+
+                <!-- U-Value Reference Tables -->
+                <h2 class="section-title" style="margin-top: 3rem;">Reference Tables</h2>
+
+                <div class="reference-tables">
+                    <div class="tables-grid">
+                        <div class="reference-table">
+                            <h3>Window U-Values & SHGC</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Window Type</th>
+                                        <th>U-Value</th>
+                                        <th>SHGC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Single Pane, Clear</td>
+                                        <td>1.10</td>
+                                        <td>0.86</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Double Pane, Clear</td>
+                                        <td>0.50</td>
+                                        <td>0.70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Double Pane, Low-E</td>
+                                        <td>0.30</td>
+                                        <td>0.40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Triple Pane, Low-E</td>
+                                        <td>0.20</td>
+                                        <td>0.35</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="reference-table">
+                            <h3>Solar Heat Gain Factors</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Orientation</th>
+                                        <th>Peak SHGF (BTU/hr·ft²)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>North</td>
+                                        <td>40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>East</td>
+                                        <td>200</td>
+                                    </tr>
+                                    <tr>
+                                        <td>South</td>
+                                        <td>120</td>
+                                    </tr>
+                                    <tr>
+                                        <td>West</td>
+                                        <td>220</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <small style="color: #7f8c8d; display: block; margin-top: 0.5rem;">
+                                Values for 40° N latitude, July conditions
+                            </small>
+                        </div>
+
+                        <div class="reference-table">
+                            <h3>Typical U-Values (BTU/hr·ft²·°F)</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Assembly</th>
+                                        <th>U-Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Frame Wall, R-13</td>
+                                        <td>0.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Frame Wall, R-19</td>
+                                        <td>0.06</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ceiling, R-30</td>
+                                        <td>0.03</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ceiling, R-38</td>
+                                        <td>0.026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Slab on Grade</td>
+                                        <td>0.05</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="reference-table">
+                            <h3>Design Temperatures</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>City</th>
+                                        <th>Summer DB/WB (°F)</th>
+                                        <th>Winter DB (°F)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Atlanta, GA</td>
+                                        <td>93/74</td>
+                                        <td>22</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chicago, IL</td>
+                                        <td>91/73</td>
+                                        <td>-3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dallas, TX</td>
+                                        <td>100/75</td>
+                                        <td>22</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Miami, FL</td>
+                                        <td>91/78</td>
+                                        <td>47</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phoenix, AZ</td>
+                                        <td>108/71</td>
+                                        <td>34</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulas -->
+                <h2 class="section-title" style="margin-top: 3rem;">Key Formulas</h2>
+
+                <div class="constants-grid">
+                    <div class="constant-card">
+                        <h4>Transmission Load</h4>
+                        <p>Q = U × A × ΔT</p>
+                        <small>U = U-value, A = Area (ft²), ΔT = Temp difference</small>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Solar Load</h4>
+                        <p>Q = A × SHGF × SC</p>
+                        <small>SHGF = Solar Heat Gain Factor, SC = Shading Coefficient</small>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Infiltration</h4>
+                        <p>Q = 1.08 × CFM × ΔT</p>
+                        <small>Sensible heat only</small>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Latent Load</h4>
+                        <p>Q = 0.68 × CFM × ΔW</p>
+                        <small>ΔW = Humidity ratio difference (grains/lb)</small>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>CFM from ACH</h4>
+                        <p>CFM = (Volume × ACH) / 60</p>
+                        <small>Converts air changes per hour to CFM</small>
+                    </div>
+
+                    <div class="constant-card">
+                        <h4>Equipment Size</h4>
+                        <p>Tons = BTU/hr ÷ 12,000</p>
+                        <small>1 Ton = 12,000 BTU/hr</small>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer" style="margin-top: 3rem;">
+                    <div class="disclaimer-title">Professional Engineering Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This calculator is provided for preliminary design and educational purposes only. All HVAC load calculations and equipment selections must be verified by a licensed professional engineer or qualified HVAC contractor and comply with applicable local codes and standards including ASHRAE, ACCA Manual J/N, and local energy codes. This tool provides estimates based on simplified methods and should not be used as the sole basis for equipment selection or system design. Site-specific factors, local climate data, building orientation, construction details, and operational requirements must be carefully evaluated. The user assumes all responsibility for the accuracy and application of these calculations.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
