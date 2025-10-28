@@ -4132,11 +4132,94 @@ function displayCoilResults(capacity, airflow, eat, lat, airDelta, gpm, eft, lft
 }
 
 // ====================================
+// COOKIE CONSENT BANNER
+// ====================================
+
+function initializeCookieConsent() {
+    // Check if user has already made a choice
+    const cookieConsent = localStorage.getItem('cookieConsent');
+
+    if (!cookieConsent) {
+        // Show the cookie banner after a short delay
+        setTimeout(() => {
+            showCookieBanner();
+        }, 1000);
+    }
+}
+
+function showCookieBanner() {
+    // Check if banner already exists
+    if (document.getElementById('cookie-consent-banner')) return;
+
+    // Create cookie consent banner
+    const banner = document.createElement('div');
+    banner.id = 'cookie-consent-banner';
+    banner.className = 'cookie-consent-banner';
+    banner.innerHTML = `
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h4>🍪 Cookie Notice</h4>
+                <p>We use cookies and similar technologies to enhance your experience and show relevant advertisements through Google AdSense. By continuing to use this site, you consent to our use of cookies.</p>
+                <p class="cookie-links">
+                    <a href="privacy.html" target="_blank">Privacy Policy</a> |
+                    <a href="terms.html" target="_blank">Terms of Service</a>
+                </p>
+            </div>
+            <div class="cookie-consent-buttons">
+                <button id="cookie-accept" class="cookie-btn cookie-btn-accept">Accept All</button>
+                <button id="cookie-reject" class="cookie-btn cookie-btn-reject">Essential Only</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(banner);
+
+    // Add event listeners
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+        acceptCookies();
+    });
+
+    document.getElementById('cookie-reject').addEventListener('click', () => {
+        rejectCookies();
+    });
+
+    // Show banner with animation
+    setTimeout(() => {
+        banner.classList.add('show');
+    }, 100);
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    hideCookieBanner();
+}
+
+function rejectCookies() {
+    localStorage.setItem('cookieConsent', 'essential');
+    hideCookieBanner();
+    // Note: For essential-only mode, you would need to disable AdSense
+    // This is a simplified implementation
+}
+
+function hideCookieBanner() {
+    const banner = document.getElementById('cookie-consent-banner');
+    if (banner) {
+        banner.classList.remove('show');
+        setTimeout(() => {
+            banner.remove();
+        }, 300);
+    }
+}
+
+// ====================================
 // INITIALIZE EVERYTHING ON PAGE LOAD
 // ====================================
 document.addEventListener('DOMContentLoaded', function() {
     // Load templates first, then initialize everything
     initializeTemplates();
+
+    // Initialize cookie consent
+    initializeCookieConsent();
 });
 
 
