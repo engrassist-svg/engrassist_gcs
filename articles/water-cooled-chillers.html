@@ -40,6 +40,7 @@
             max-width: 900px;
             margin: 0 auto;
             line-height: 1.8;
+            padding: 0 1.5rem;
         }
 
         .article-hero {
@@ -57,6 +58,42 @@
         .article-meta {
             opacity: 0.9;
             font-size: 0.95rem;
+        }
+
+        /* Section Spacing */
+        .article-content h2 {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .article-content h2:first-of-type {
+            border-top: none;
+            margin-top: 0;
+        }
+
+        .article-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 1.5rem;
+            margin-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
         }
 
         .toc {
@@ -104,6 +141,7 @@
         .info-box h4 {
             color: #2c3e50;
             margin-top: 0;
+            margin-bottom: 1rem;
         }
 
         .warning-box {
@@ -117,6 +155,7 @@
         .warning-box h4 {
             color: #856404;
             margin-top: 0;
+            margin-bottom: 1rem;
         }
 
         .spec-table {
@@ -163,6 +202,7 @@
         .manufacturer-card h4 {
             color: #2c3e50;
             margin-top: 0;
+            margin-bottom: 1rem;
         }
 
         .manufacturer-card a {
@@ -208,6 +248,29 @@
         @media (max-width: 768px) {
             .article-hero h1 {
                 font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 0 1rem;
+            }
+
+            .article-content h2 {
+                font-size: 1.5rem;
+                margin-top: 2.5rem;
+            }
+
+            .article-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .toc {
+                padding: 1.5rem;
+            }
+
+            .spec-table th,
+            .spec-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
             }
 
             .manufacturer-grid,
