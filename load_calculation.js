@@ -3,8 +3,40 @@
 // Based on Carrier and ACCA Manual J Methods
 // ====================================
 
-// Auto-calculate room dimensions on input
+// Disclaimer Modal Management
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if user has previously accepted disclaimer
+    const disclaimerAccepted = sessionStorage.getItem('hvacDisclaimerAccepted');
+
+    if (disclaimerAccepted === 'true') {
+        // Show main content
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('disclaimerModal').style.display = 'none';
+    } else {
+        // Show disclaimer modal
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('disclaimerModal').style.display = 'block';
+    }
+
+    // Enable accept button when checkbox is checked
+    const checkbox = document.getElementById('disclaimerAgreed');
+    const acceptButton = document.getElementById('acceptButton');
+
+    if (checkbox && acceptButton) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                acceptButton.disabled = false;
+                acceptButton.style.backgroundColor = '#27ae60';
+                acceptButton.style.cursor = 'pointer';
+            } else {
+                acceptButton.disabled = true;
+                acceptButton.style.backgroundColor = '#ccc';
+                acceptButton.style.cursor = 'not-allowed';
+            }
+        });
+    }
+
+    // Auto-calculate room dimensions on input
     // Add event listeners for dimension inputs
     const lengthInput = document.getElementById('roomLength');
     const widthInput = document.getElementById('roomWidth');
@@ -22,6 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
 });
+
+// Accept disclaimer and show main content
+function acceptDisclaimer() {
+    sessionStorage.setItem('hvacDisclaimerAccepted', 'true');
+    document.getElementById('disclaimerModal').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+}
 
 function updateCalculatedDimensions() {
     const length = parseFloat(document.getElementById('roomLength').value) || 0;
@@ -115,11 +154,12 @@ const colorFactors = {
 };
 
 // People heat gain (BTU/hr per person)
+// Values per ASHRAE Handbook Fundamentals, Chapter 28, Table 3
 const peopleHeatGain = {
-    seated: { sensible: 250, latent: 200 },
-    standing: { sensible: 300, latent: 250 },
-    moderate: { sensible: 350, latent: 300 },
-    heavy: { sensible: 450, latent: 550 }
+    seated: { sensible: 250, latent: 200 },     // Seated, very light work
+    standing: { sensible: 250, latent: 250 },   // Walking, standing - CORRECTED from 300/250
+    moderate: { sensible: 250, latent: 250 },   // Moderately active office work - CORRECTED from 350/300
+    heavy: { sensible: 450, latent: 550 }       // Heavy work/exercise
 };
 
 // Main calculation function
@@ -347,17 +387,33 @@ function calculateCoolingLoads(inputs) {
 
     loads.totalLoad = loads.totalSensible + loads.totalLatent;
 
-    // Apply safety factor
-    loads.totalLoad = loads.totalLoad * (1 + inputs.coolingSafetyFactor / 100);
+    // NOTE: Safety factors NOT applied per ACCA Manual J guidance
+    // Manual J already includes inherent 10-15% safety factors through:
+    // - Conservative 99%/1% design temperatures
+    // - Conservative heat transfer coefficients
+    // - Worst-case exposure assumptions
+    // Additional safety factors lead to oversizing problems
+
+    // Calculate Sensible Heat Ratio first
+    loads.shr = loads.totalSensible / (loads.totalSensible + loads.totalLatent);
 
     // Calculate equipment size
     loads.tons = loads.totalLoad / 12000; // 12,000 BTU/hr per ton
 
-    // Calculate required airflow (typical 400 CFM/ton for cooling)
-    loads.cfm = loads.tons * 400;
-
-    // Calculate Sensible Heat Ratio
-    loads.shr = loads.totalSensible / (loads.totalSensible + loads.totalLatent);
+    // Calculate required airflow - VARIABLE based on SHR per ACCA Manual S
+    // Humid climates (SHR < 0.80): 350-375 CFM/ton for better dehumidification
+    // Moderate climates (SHR 0.80-0.85): 400 CFM/ton
+    // Dry climates (SHR > 0.85): 425-450 CFM/ton
+    let cfmPerTon;
+    if (loads.shr < 0.80) {
+        cfmPerTon = 365; // Average of 350-375 range
+    } else if (loads.shr >= 0.80 && loads.shr <= 0.85) {
+        cfmPerTon = 400;
+    } else {
+        cfmPerTon = 437; // Average of 425-450 range
+    }
+    loads.cfm = loads.tons * cfmPerTon;
+    loads.cfmPerTon = cfmPerTon; // Store for display
 
     return loads;
 }
@@ -425,14 +481,21 @@ function calculateHeatingLoads(inputs) {
     loads.totalLoad = loads.windows + loads.walls + loads.roof + loads.floor +
                      loads.infiltration + loads.ventilation;
 
-    // Apply safety factor
-    loads.totalLoad = loads.totalLoad * (1 + inputs.heatingSafetyFactor / 100);
+    // NOTE: Safety factors NOT applied per ACCA Manual J guidance
+    // See cooling calculation for explanation
 
     // Calculate equipment size
     loads.tons = loads.totalLoad / 12000;
 
-    // Calculate required airflow (typical 350 CFM/ton for heating)
-    loads.cfm = loads.tons * 350;
+    // Calculate required airflow for heating
+    // Note: Heat pumps require 450-500 CFM/ton for optimal efficiency
+    // Furnaces may use 350 CFM/ton, but modern systems often use cooling airflow year-round
+    // Using 400 CFM/ton as compromise for mixed systems
+    loads.cfm = loads.tons * 400;
+    loads.cfmPerTon = 400; // Store for display
+
+    // Alternative for heat pump only systems
+    loads.cfmHeatPump = loads.tons * 475; // Heat pump optimal airflow
 
     return loads;
 }
@@ -456,8 +519,68 @@ function displayResults(cooling, heating) {
     document.getElementById('totalLatentCooling').textContent = formatBTU(cooling.totalLatent);
     document.getElementById('totalCoolingLoad').textContent = formatBTU(cooling.totalLoad);
     document.getElementById('coolingTons').textContent = cooling.tons.toFixed(2) + ' tons';
-    document.getElementById('coolingCFM').textContent = Math.round(cooling.cfm) + ' CFM';
     document.getElementById('shr').textContent = cooling.shr.toFixed(2);
+    document.getElementById('coolingCFM').textContent = Math.round(cooling.cfm) + ' CFM @ ' + cooling.cfmPerTon + ' CFM/ton';
+
+    // SHR Recommendation
+    let shrText = '';
+    if (cooling.shr < 0.80) {
+        shrText = '<strong>High Latent Load Environment (SHR = ' + cooling.shr.toFixed(2) + ')</strong><br>' +
+                 'This building has significant moisture/humidity loads. Recommendations:<br>' +
+                 '• Target 350-375 CFM/ton airflow for better dehumidification<br>' +
+                 '• Verify equipment can achieve this SHR at design conditions using manufacturer data<br>' +
+                 '• Consider enhanced dehumidification options';
+    } else if (cooling.shr >= 0.80 && cooling.shr <= 0.85) {
+        shrText = '<strong>Moderate Climate (SHR = ' + cooling.shr.toFixed(2) + ')</strong><br>' +
+                 'Balanced sensible and latent loads. Standard 400 CFM/ton airflow is appropriate.<br>' +
+                 '• Verify equipment performance at design conditions<br>' +
+                 '• Standard comfort cooling equipment should work well';
+    } else {
+        shrText = '<strong>Low Latent Load / Dry Climate (SHR = ' + cooling.shr.toFixed(2) + ')</strong><br>' +
+                 'This building is dominated by sensible (temperature) loads. Recommendations:<br>' +
+                 '• Can use 425-450 CFM/ton airflow to maximize cooling capacity<br>' +
+                 '• Standard equipment should provide excellent performance<br>' +
+                 '• Humidity control is less critical';
+    }
+    document.querySelector('#shrRecommendation p').innerHTML = shrText;
+
+    // Load Component Breakdown
+    const components = [
+        { name: 'Windows (Solar + Transmission)', value: cooling.windows, color: '#e74c3c' },
+        { name: 'Walls', value: cooling.walls, color: '#e67e22' },
+        { name: 'Roof/Ceiling', value: cooling.roof, color: '#f39c12' },
+        { name: 'Floor', value: cooling.floor, color: '#f1c40f' },
+        { name: 'People', value: cooling.peopleSensible + cooling.peopleLatent, color: '#3498db' },
+        { name: 'Lighting', value: cooling.lighting, color: '#9b59b6' },
+        { name: 'Equipment', value: cooling.equipment, color: '#8e44ad' },
+        { name: 'Infiltration', value: cooling.infiltrationSensible + cooling.infiltrationLatent, color: '#1abc9c' },
+        { name: 'Ventilation', value: cooling.ventilationSensible + cooling.ventilationLatent, color: '#16a085' }
+    ];
+
+    // Sort by value descending
+    components.sort((a, b) => b.value - a.value);
+
+    let breakdownHTML = '';
+    components.forEach(comp => {
+        const percentage = (comp.value / cooling.totalLoad * 100).toFixed(1);
+        if (comp.value > 0) {
+            breakdownHTML += '<div style="margin-bottom: 0.8rem;">';
+            breakdownHTML += '<div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">';
+            breakdownHTML += '<span style="font-weight: 500; color: #2c3e50;">' + comp.name + '</span>';
+            breakdownHTML += '<span style="color: #7f8c8d;">' + formatBTU(comp.value) + ' (' + percentage + '%)</span>';
+            breakdownHTML += '</div>';
+            breakdownHTML += '<div style="background-color: #ecf0f1; height: 24px; border-radius: 4px; overflow: hidden;">';
+            breakdownHTML += '<div style="background-color: ' + comp.color + '; height: 100%; width: ' + percentage + '%; display: flex; align-items: center; padding-left: 8px; color: white; font-size: 0.85rem; font-weight: bold;">';
+            if (parseFloat(percentage) > 10) {
+                breakdownHTML += percentage + '%';
+            }
+            breakdownHTML += '</div>';
+            breakdownHTML += '</div>';
+            breakdownHTML += '</div>';
+        }
+    });
+
+    document.getElementById('loadBreakdown').innerHTML = breakdownHTML;
 
     // Heating results
     document.getElementById('heatingWindows').textContent = formatBTU(heating.windows);
@@ -468,7 +591,45 @@ function displayResults(cooling, heating) {
     document.getElementById('heatingVentilation').textContent = formatBTU(heating.ventilation);
 
     document.getElementById('totalHeatingLoad').textContent = formatBTU(heating.totalLoad);
-    document.getElementById('heatingCFM').textContent = Math.round(heating.cfm) + ' CFM';
+    document.getElementById('heatingCFM').textContent = Math.round(heating.cfm) + ' CFM @ ' + heating.cfmPerTon + ' CFM/ton';
+
+    // Equipment Selection Guidance per ACCA Manual S
+    const coolingBTUperSF = cooling.totalLoad / (parseFloat(document.getElementById('floorArea').value) || 1);
+    const heatingBTUperSF = heating.totalLoad / (parseFloat(document.getElementById('floorArea').value) || 1);
+
+    // Calculate recommended equipment sizes
+    const minCoolingTons = (cooling.totalLoad * 0.95) / 12000;
+    const maxCoolingTons = (cooling.totalLoad * 1.15) / 12000;
+    const minHeatingTons = (heating.totalLoad * 1.00) / 12000;
+    const maxHeatingTons = (heating.totalLoad * 1.40) / 12000;
+
+    // Find nearest standard equipment sizes
+    const standardSizes = [1.5, 2, 2.5, 3, 3.5, 4, 5];
+    const recommendedCoolingSizes = standardSizes.filter(size => size >= minCoolingTons && size <= maxCoolingTons);
+    const recommendedHeatingSizes = standardSizes.filter(size => size >= minHeatingTons && size <= maxHeatingTons);
+
+    let guidanceHTML = '<p style="margin: 0.5rem 0; color: #e65100;"><strong>Calculated Loads:</strong></p>';
+    guidanceHTML += '<ul style="margin: 0.5rem 0 0.5rem 1.5rem; color: #e65100;">';
+    guidanceHTML += '<li>Cooling: ' + formatBTU(cooling.totalLoad) + ' (' + cooling.tons.toFixed(2) + ' tons, ' + coolingBTUperSF.toFixed(1) + ' BTU/hr·ft²)</li>';
+    guidanceHTML += '<li>Heating: ' + formatBTU(heating.totalLoad) + ' (' + heating.tons.toFixed(2) + ' tons, ' + heatingBTUperSF.toFixed(1) + ' BTU/hr·ft²)</li>';
+    guidanceHTML += '</ul>';
+
+    guidanceHTML += '<p style="margin: 0.5rem 0; color: #e65100;"><strong>ACCA Manual S Sizing Range:</strong></p>';
+    guidanceHTML += '<ul style="margin: 0.5rem 0 0.5rem 1.5rem; color: #e65100;">';
+    guidanceHTML += '<li>Cooling: 95-115% of calculated load = ' + minCoolingTons.toFixed(2) + ' to ' + maxCoolingTons.toFixed(2) + ' tons</li>';
+    guidanceHTML += '<li>Heating: 100-140% of calculated load = ' + minHeatingTons.toFixed(2) + ' to ' + maxHeatingTons.toFixed(2) + ' tons</li>';
+    guidanceHTML += '</ul>';
+
+    if (recommendedCoolingSizes.length > 0) {
+        guidanceHTML += '<p style="margin: 0.5rem 0; color: #e65100;"><strong>Recommended Standard Equipment Sizes:</strong> ' +
+                       recommendedCoolingSizes.join(', ') + ' tons</p>';
+    }
+
+    guidanceHTML += '<p style="margin: 0.5rem 0 0 0; color: #e65100; font-size: 0.9rem;"><em>' +
+                   'Note: "Rounding to available sizes" provides adequate safety margin. Do not deliberately oversize beyond Manual S range.' +
+                   '</em></p>';
+
+    document.getElementById('equipmentGuidanceText').innerHTML = guidanceHTML;
 }
 
 function formatBTU(value) {
