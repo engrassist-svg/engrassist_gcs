@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive guide to building codes and requirements for mechanical HVAC systems. Essential code references, compliance requirements, and design standards for engineers.">
+    <meta name="keywords" content="building codes, mechanical codes, HVAC requirements, IMC, ASHRAE, NFPA, code compliance, engineering standards">
+    <link rel="canonical" href="https://engrassist.com/code_requirements.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mechanical Code Requirements - EngrAssist">
+    <meta property="og:description" content="Essential building codes and requirements for mechanical HVAC systems design and installation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/code_requirements.html">
+    <meta property="og:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mechanical Code Requirements - EngrAssist">
+    <meta name="twitter:description" content="Essential building codes and requirements for mechanical HVAC systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <title>Mechanical Code Requirements - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <style>
+        .code-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .guide-section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-section h4 {
+            color: #2c3e50;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .code-reference-box {
+            background: #e8f4f8;
+            border: 1px solid #b8dde8;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .code-reference-box h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .code-reference-box h4::before {
+            content: "📋";
+            margin-right: 0.5rem;
+        }
+
+        .code-category {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .code-category h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .code-category ul {
+            margin-bottom: 0;
+        }
+
+        .code-category li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .requirement-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .requirement-box h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .code-table th,
+        .code-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        .code-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .code-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .code-link {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .code-link:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .code-guide-container {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .code-reference-box,
+            .code-category,
+            .requirement-box {
+                padding: 1rem;
+            }
+
+            .code-table {
+                font-size: 0.9rem;
+            }
+
+            .code-table th,
+            .code-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .code-guide-container {
+                padding: 0.5rem;
+            }
+
+            .guide-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .guide-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .guide-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .code-table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Mechanical Code Requirements</h1>
+                <p class="hero-subtitle">Essential building codes, standards, and requirements for mechanical HVAC system design and installation. A comprehensive reference for engineers, designers, and contractors.</p>
+            </div>
+        </section>
+
+        <!-- Code Requirements Content -->
+        <section class="content-section">
+            <div class="code-guide-container">
+
+                <!-- Introduction -->
+                <div class="guide-section">
+                    <h2>Introduction to Mechanical Codes</h2>
+                    <p>Mechanical HVAC systems must comply with multiple codes and standards to ensure safe, efficient, and reliable operation. These codes are established by various organizations and are typically adopted by local jurisdictions with possible amendments.</p>
+
+                    <p>Understanding and applying these codes is essential for:</p>
+                    <ul>
+                        <li>Obtaining building permits and approvals</li>
+                        <li>Ensuring occupant safety and comfort</li>
+                        <li>Meeting energy efficiency requirements</li>
+                        <li>Achieving proper system performance</li>
+                        <li>Avoiding costly redesigns and construction delays</li>
+                        <li>Professional liability protection</li>
+                    </ul>
+
+                    <div class="requirement-box">
+                        <h4>Important Note:</h4>
+                        <p>Always verify current code requirements with your local authority having jurisdiction (AHJ). Local amendments may be more stringent than model codes. This guide provides general information and should not replace consultation with local building officials.</p>
+                    </div>
+                </div>
+
+                <!-- Major Building Codes -->
+                <div class="guide-section">
+                    <h2>Major Building Codes</h2>
+                    <p>The following model codes are commonly adopted by jurisdictions throughout the United States and internationally. Many states and municipalities adopt these codes with local amendments.</p>
+
+                    <div class="code-category">
+                        <h4>International Mechanical Code (IMC)</h4>
+                        <p><strong>Published by:</strong> International Code Council (ICC)</p>
+                        <p><strong>Scope:</strong> Comprehensive mechanical code covering HVAC, ventilation, exhaust systems, and combustion air requirements.</p>
+                        <ul>
+                            <li>Updated every three years (2021, 2024, etc.)</li>
+                            <li>Most widely adopted mechanical code in the United States</li>
+                            <li>Covers design, installation, inspection, and maintenance</li>
+                            <li>Addresses combustion air, venting, and chimneys</li>
+                            <li>Includes requirements for specific occupancies</li>
+                        </ul>
+                        <p><strong>Key Chapters:</strong></p>
+                        <ul>
+                            <li>Chapter 3: General Regulations</li>
+                            <li>Chapter 4: Ventilation</li>
+                            <li>Chapter 5: Exhaust Systems</li>
+                            <li>Chapter 6: Duct Systems</li>
+                            <li>Chapter 7: Combustion Air</li>
+                            <li>Chapter 9: Specific Appliances</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Uniform Mechanical Code (UMC)</h4>
+                        <p><strong>Published by:</strong> International Association of Plumbing and Mechanical Officials (IAPMO)</p>
+                        <p><strong>Scope:</strong> Alternative mechanical code primarily used in western United States.</p>
+                        <ul>
+                            <li>Similar scope to IMC with some differences in requirements</li>
+                            <li>Common in California and other western states</li>
+                            <li>Updated every three years</li>
+                            <li>Includes appliance and equipment standards</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>International Energy Conservation Code (IECC)</h4>
+                        <p><strong>Published by:</strong> International Code Council (ICC)</p>
+                        <p><strong>Scope:</strong> Energy efficiency requirements for building envelope and mechanical systems.</p>
+                        <ul>
+                            <li>Mandatory equipment efficiency minimums</li>
+                            <li>Insulation requirements for ducts and pipes</li>
+                            <li>Control requirements for energy savings</li>
+                            <li>Alternative compliance paths available</li>
+                            <li>Climate zone-specific requirements</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>International Building Code (IBC)</h4>
+                        <p><strong>Published by:</strong> International Code Council (ICC)</p>
+                        <p><strong>Scope:</strong> Overall building code that references mechanical requirements.</p>
+                        <ul>
+                            <li>Addresses means of egress and fire protection</li>
+                            <li>References IMC for mechanical provisions</li>
+                            <li>Includes structural requirements for equipment support</li>
+                            <li>Covers emergency power and smoke control</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>International Fire Code (IFC)</h4>
+                        <p><strong>Published by:</strong> International Code Council (ICC)</p>
+                        <p><strong>Scope:</strong> Fire and life safety requirements affecting mechanical systems.</p>
+                        <ul>
+                            <li>Commercial kitchen hood and suppression systems</li>
+                            <li>Smoke control and smoke evacuation</li>
+                            <li>Hazardous material ventilation</li>
+                            <li>Fire dampers and smoke dampers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ASHRAE Standards -->
+                <div class="guide-section">
+                    <h2>ASHRAE Standards</h2>
+                    <p>The American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE) publishes consensus standards that are widely referenced in building codes and considered industry best practices.</p>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 62.1: Ventilation for Acceptable Indoor Air Quality</h4>
+                        <p><strong>Scope:</strong> Minimum ventilation rates and indoor air quality procedures.</p>
+                        <ul>
+                            <li>Outdoor air requirements based on occupancy type and density</li>
+                            <li>Ventilation effectiveness and zone air distribution</li>
+                            <li>Natural ventilation criteria</li>
+                            <li>Referenced by IMC, IBC, and IECC</li>
+                            <li>Updated frequently to incorporate new research</li>
+                        </ul>
+                        <p><strong>Key Requirements:</strong></p>
+                        <ul>
+                            <li>Minimum outdoor air flow rates per person and per area</li>
+                            <li>Ventilation system design and operation</li>
+                            <li>Air filtration requirements (minimum MERV 6 or equivalent)</li>
+                            <li>Demand-controlled ventilation where applicable</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 62.2: Ventilation for Acceptable Indoor Air Quality in Residential Buildings</h4>
+                        <p><strong>Scope:</strong> Ventilation requirements for single-family homes and multi-family dwellings.</p>
+                        <ul>
+                            <li>Whole-building ventilation rates</li>
+                            <li>Local exhaust requirements (kitchens, bathrooms)</li>
+                            <li>Referenced by residential energy codes</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 90.1: Energy Standard for Buildings Except Low-Rise Residential Buildings</h4>
+                        <p><strong>Scope:</strong> Comprehensive energy efficiency standard for commercial buildings.</p>
+                        <ul>
+                            <li>Minimum equipment efficiency requirements by type and capacity</li>
+                            <li>Economizer requirements based on climate zone</li>
+                            <li>Duct and pipe insulation minimums</li>
+                            <li>Mandatory control requirements (setback, optimum start/stop)</li>
+                            <li>Climate zone-specific requirements</li>
+                        </ul>
+                        <p><strong>HVAC Equipment Efficiency:</strong></p>
+                        <ul>
+                            <li>Air conditioners and heat pumps: Minimum SEER, EER, IEER</li>
+                            <li>Chillers: Minimum kW/ton at AHRI conditions</li>
+                            <li>Boilers: Minimum combustion efficiency or thermal efficiency</li>
+                            <li>Furnaces: Minimum AFUE ratings</li>
+                            <li>Motors: Premium efficiency required for certain applications</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 15: Safety Standard for Refrigeration Systems</h4>
+                        <p><strong>Scope:</strong> Safety requirements for refrigeration systems and refrigerant handling.</p>
+                        <ul>
+                            <li>Refrigerant quantity limits by occupancy classification</li>
+                            <li>Machinery room requirements</li>
+                            <li>Refrigerant leak detection requirements</li>
+                            <li>Pressure relief and emergency venting</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 34: Designation and Safety Classification of Refrigerants</h4>
+                        <p><strong>Scope:</strong> Refrigerant nomenclature and safety classifications.</p>
+                        <ul>
+                            <li>Refrigerant safety groups (A1, A2L, B1, etc.)</li>
+                            <li>Flammability and toxicity classifications</li>
+                            <li>Used in conjunction with Standard 15</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 55: Thermal Environmental Conditions for Human Occupancy</h4>
+                        <p><strong>Scope:</strong> Thermal comfort conditions for occupants.</p>
+                        <ul>
+                            <li>Temperature and humidity ranges for comfort</li>
+                            <li>Predicted mean vote (PMV) and predicted percentage dissatisfied (PPD)</li>
+                            <li>Not typically code-required but used for design criteria</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>ASHRAE Standard 189.1: Standard for the Design of High-Performance Green Buildings</h4>
+                        <p><strong>Scope:</strong> Requirements for sustainable, high-performance buildings.</p>
+                        <ul>
+                            <li>More stringent than Standard 90.1</li>
+                            <li>Includes indoor air quality, energy, water, and materials</li>
+                            <li>Referenced by some green building programs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NFPA Standards -->
+                <div class="guide-section">
+                    <h2>NFPA Standards</h2>
+                    <p>The National Fire Protection Association (NFPA) publishes fire and safety standards affecting mechanical systems.</p>
+
+                    <div class="code-category">
+                        <h4>NFPA 90A: Standard for the Installation of Air-Conditioning and Ventilating Systems</h4>
+                        <p><strong>Scope:</strong> Fire safety requirements for air distribution systems.</p>
+                        <ul>
+                            <li>Fire damper and smoke damper requirements</li>
+                            <li>Duct construction and fire-resistance ratings</li>
+                            <li>Penetrations through fire-rated assemblies</li>
+                            <li>Kitchen hood and exhaust requirements</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>NFPA 90B: Standard for the Installation of Warm Air Heating and Air-Conditioning Systems</h4>
+                        <p><strong>Scope:</strong> Requirements for residential and small commercial warm air systems.</p>
+                        <ul>
+                            <li>Clearances from combustible materials</li>
+                            <li>Duct installation and support</li>
+                            <li>Filter requirements and maintenance access</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>NFPA 54 (National Fuel Gas Code)</h4>
+                        <p><strong>Scope:</strong> Installation of fuel gas piping and gas-fired appliances.</p>
+                        <ul>
+                            <li>Gas pipe sizing and materials</li>
+                            <li>Combustion air requirements</li>
+                            <li>Venting and chimney requirements</li>
+                            <li>Gas-fired equipment installation</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>NFPA 96: Standard for Ventilation Control and Fire Protection of Commercial Cooking Operations</h4>
+                        <p><strong>Scope:</strong> Commercial kitchen hood and fire suppression systems.</p>
+                        <ul>
+                            <li>Hood sizing and exhaust rates</li>
+                            <li>Duct construction and cleaning</li>
+                            <li>Fire suppression system requirements</li>
+                            <li>Makeup air requirements</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>NFPA 92: Standard for Smoke Control Systems</h4>
+                        <p><strong>Scope:</strong> Design and installation of smoke control systems.</p>
+                        <ul>
+                            <li>Atrium smoke control</li>
+                            <li>Stairwell pressurization</li>
+                            <li>Elevator hoistway pressurization</li>
+                            <li>Zoned smoke control</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Common Code Requirements by System -->
+                <div class="guide-section">
+                    <h2>Common Code Requirements by System</h2>
+
+                    <h3>Ventilation Requirements</h3>
+                    <div class="code-category">
+                        <h4>Outdoor Air Ventilation (ASHRAE 62.1 / IMC)</h4>
+                        <p><strong>Minimum Outdoor Air Flow Rates (Examples):</strong></p>
+                        <table class="code-table">
+                            <thead>
+                                <tr>
+                                    <th>Occupancy Type</th>
+                                    <th>Rate (CFM/person)</th>
+                                    <th>Rate (CFM/sq ft)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Office Space</td>
+                                    <td>5</td>
+                                    <td>0.06</td>
+                                </tr>
+                                <tr>
+                                    <td>Conference Rooms</td>
+                                    <td>5</td>
+                                    <td>0.06</td>
+                                </tr>
+                                <tr>
+                                    <td>Classrooms</td>
+                                    <td>10</td>
+                                    <td>0.12</td>
+                                </tr>
+                                <tr>
+                                    <td>Retail</td>
+                                    <td>7.5</td>
+                                    <td>0.12</td>
+                                </tr>
+                                <tr>
+                                    <td>Restaurant Dining</td>
+                                    <td>7.5</td>
+                                    <td>0.18</td>
+                                </tr>
+                                <tr>
+                                    <td>Gym/Fitness</td>
+                                    <td>20</td>
+                                    <td>0.06</td>
+                                </tr>
+                                <tr>
+                                    <td>Hotel/Motel Guest Rooms</td>
+                                    <td>5</td>
+                                    <td>0.06</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><strong>Note:</strong> Total outdoor air = (People × CFM/person) + (Area × CFM/sq ft). Refer to ASHRAE 62.1 Table 6.2.2.1 for complete listing.</p>
+                    </div>
+
+                    <h3>Duct System Requirements</h3>
+                    <div class="code-category">
+                        <h4>Duct Construction (IMC Chapter 6 / SMACNA)</h4>
+                        <ul>
+                            <li><strong>Materials:</strong> Galvanized steel, aluminum, or approved materials</li>
+                            <li><strong>Duct gauge:</strong> Based on pressure class and duct dimensions (SMACNA standards)</li>
+                            <li><strong>Sealing:</strong> All ducts sealed to leakage class requirements
+                                <ul>
+                                    <li>Seal Class A: 4 CFM per 100 sq ft @ 1 in. w.g.</li>
+                                    <li>Seal Class B: 8 CFM per 100 sq ft @ 1 in. w.g.</li>
+                                    <li>Seal Class C: 16 CFM per 100 sq ft @ 1 in. w.g.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Support:</strong> Hung from structure at maximum 10 ft intervals</li>
+                            <li><strong>Clearances:</strong> Minimum clearances from combustibles per code</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Fire and Smoke Dampers (IMC Section 607 / NFPA 90A)</h4>
+                        <ul>
+                            <li><strong>Fire dampers:</strong> Required where ducts penetrate fire-rated walls/floors</li>
+                            <li><strong>Smoke dampers:</strong> Required in smoke barriers and certain air transfer openings</li>
+                            <li><strong>Combination fire/smoke dampers:</strong> Where both requirements apply</li>
+                            <li><strong>Ratings:</strong> Must match fire-resistance rating of assembly (typically 1.5 or 3 hours)</li>
+                            <li><strong>Access:</strong> Accessible for inspection, testing, and maintenance</li>
+                            <li><strong>Testing:</strong> UL 555 (fire dampers), UL 555S (smoke dampers)</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Insulation (IMC Section 604 / IECC)</h4>
+                        <ul>
+                            <li><strong>Supply ducts in unconditioned spaces:</strong> Minimum R-8 (IECC Climate Zones 1-2), R-6 (Zones 3-4), R-8 (Zones 5-8)</li>
+                            <li><strong>Return ducts in unconditioned spaces:</strong> Minimum R-6</li>
+                            <li><strong>Outdoor air ducts:</strong> Minimum R-8</li>
+                            <li><strong>Materials:</strong> Class 1 flame spread/smoke development per ASTM E84</li>
+                            <li><strong>Vapor retarder:</strong> Required on exterior side when ducts operate below ambient dew point</li>
+                        </ul>
+                    </div>
+
+                    <h3>Combustion Air and Venting</h3>
+                    <div class="code-category">
+                        <h4>Combustion Air (IMC Chapter 7 / NFPA 54)</h4>
+                        <ul>
+                            <li><strong>Direct vent appliances:</strong> Sealed combustion with dedicated outdoor air</li>
+                            <li><strong>Indoor combustion air:</strong> Minimum 50 CFM per 1,000 Btuh input</li>
+                            <li><strong>Outdoor combustion air:</strong> Two permanent openings or mechanical supply</li>
+                            <li><strong>Opening sizes:</strong> Based on total input rating of all appliances</li>
+                            <li><strong>Makeup air:</strong> Required for commercial kitchen hoods exceeding 400 CFM</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Venting of Combustion Products (IMC Chapter 8 / NFPA 54)</h4>
+                        <ul>
+                            <li><strong>Natural draft:</strong> Type B vents sized per appliance manufacturer and code tables</li>
+                            <li><strong>Mechanical draft:</strong> Direct vent or power vent per manufacturer</li>
+                            <li><strong>Condensing appliances:</strong> Category IV vents (typically PVC or CPVC)</li>
+                            <li><strong>Termination:</strong> Minimum distances from openings, property lines, and grade</li>
+                            <li><strong>Materials:</strong> Listed and labeled for application (vent type)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Equipment Installation</h3>
+                    <div class="code-category">
+                        <h4>Equipment Location and Access (IMC Chapter 3)</h4>
+                        <ul>
+                            <li><strong>Working clearances:</strong> Minimum clearances per manufacturer and code
+                                <ul>
+                                    <li>Service access: 30 inches minimum</li>
+                                    <li>Control access: 30 inches minimum width</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ceiling height:</strong> Minimum 7.5 ft in equipment rooms</li>
+                            <li><strong>Lighting:</strong> Minimum 10 foot-candles at equipment</li>
+                            <li><strong>Receptacle:</strong> Required within 25 feet of equipment</li>
+                            <li><strong>Disconnects:</strong> Within sight and readily accessible</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Refrigerant Systems (IMC Chapter 11 / ASHRAE 15)</h4>
+                        <ul>
+                            <li><strong>Quantity limits:</strong> Based on refrigerant safety group and occupancy classification</li>
+                            <li><strong>Machinery rooms:</strong> Required for systems exceeding refrigerant limits</li>
+                            <li><strong>Ventilation:</strong> Emergency mechanical ventilation in machinery rooms</li>
+                            <li><strong>Leak detection:</strong> Required in machinery rooms and high-occupancy spaces</li>
+                            <li><strong>Pressure relief:</strong> Relief valves and discharge piping per Standard 15</li>
+                        </ul>
+                    </div>
+
+                    <h3>Piping Systems</h3>
+                    <div class="code-category">
+                        <h4>Hydronic Piping (IMC Chapter 12)</h4>
+                        <ul>
+                            <li><strong>Materials:</strong> Listed and labeled for intended use (steel, copper, CPVC, PEX)</li>
+                            <li><strong>Joints:</strong> Approved methods (welded, brazed, soldered, threaded, compression)</li>
+                            <li><strong>Support:</strong> Maximum spacing per code tables (typically 10-12 ft for horizontal steel pipe)</li>
+                            <li><strong>Expansion compensation:</strong> Required for temperature changes exceeding 30°F</li>
+                            <li><strong>Insulation:</strong> Per IECC requirements
+                                <ul>
+                                    <li>Heating piping: Minimum 1 inch for pipes ≤ 1.5 inch, 1.5 inches for larger</li>
+                                    <li>Cooling piping: Minimum 0.5 inch for all sizes</li>
+                                    <li>Higher R-values required in some climate zones</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pressure testing:</strong> Hydrostatic test at 1.5 times operating pressure</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Fuel Gas Piping (NFPA 54 / IMC)</h4>
+                        <ul>
+                            <li><strong>Materials:</strong> Black steel, copper (where approved), CSST (corrugated stainless steel tubing)</li>
+                            <li><strong>Sizing:</strong> Based on input rating, pipe length, and pressure drop</li>
+                            <li><strong>Joints:</strong> Threaded, brazed, or mechanical fittings per code</li>
+                            <li><strong>Support:</strong> Every 6 feet for horizontal steel pipe</li>
+                            <li><strong>Testing:</strong> Pressure test at 1.5 times operating pressure (minimum 3 psig)</li>
+                            <li><strong>Labeling:</strong> Identification at 20-foot intervals</li>
+                        </ul>
+                    </div>
+
+                    <h3>Controls</h3>
+                    <div class="code-category">
+                        <h4>Control Requirements (IECC / ASHRAE 90.1)</h4>
+                        <ul>
+                            <li><strong>Thermostatic controls:</strong> Required for each zone</li>
+                            <li><strong>Setback controls:</strong> Automatic setback during unoccupied hours</li>
+                            <li><strong>Optimum start:</strong> Required for systems over 10,000 CFM</li>
+                            <li><strong>Economizer:</strong> Required based on climate zone and equipment capacity</li>
+                            <li><strong>Demand ventilation:</strong> CO2-based control in high-density spaces</li>
+                            <li><strong>Static pressure reset:</strong> Required for VAV systems</li>
+                            <li><strong>Shutoff dampers:</strong> Automatic closure when system is off</li>
+                            <li><strong>Variable speed drives:</strong> Required for fans and pumps over certain horsepower thresholds</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Energy Code Compliance -->
+                <div class="guide-section">
+                    <h2>Energy Code Compliance Paths</h2>
+
+                    <div class="code-category">
+                        <h4>Prescriptive Compliance (IECC / ASHRAE 90.1)</h4>
+                        <p>Meet all mandatory requirements plus prescriptive requirements for:</p>
+                        <ul>
+                            <li>Equipment efficiency minimums</li>
+                            <li>Insulation minimums</li>
+                            <li>Control requirements</li>
+                            <li>Economizer requirements</li>
+                        </ul>
+                        <p><strong>Advantages:</strong> Straightforward, no modeling required</p>
+                        <p><strong>Disadvantages:</strong> Less flexibility, may not recognize trade-offs</p>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Performance Compliance (Energy Modeling)</h4>
+                        <p>Demonstrate that proposed design uses no more energy than baseline design:</p>
+                        <ul>
+                            <li>Create energy model of proposed building</li>
+                            <li>Create baseline building per code requirements</li>
+                            <li>Compare annual energy costs</li>
+                            <li>Proposed must be ≤ baseline</li>
+                        </ul>
+                        <p><strong>Advantages:</strong> Flexibility to trade off measures, credit for innovative designs</p>
+                        <p><strong>Disadvantages:</strong> Requires energy modeling expertise and software</p>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Climate Zones (IECC / ASHRAE 90.1)</h4>
+                        <p>Requirements vary by climate zone (8 zones from hot to very cold):</p>
+                        <ul>
+                            <li><strong>Zone 1:</strong> Very Hot (Miami, FL)</li>
+                            <li><strong>Zone 2:</strong> Hot (Houston, TX)</li>
+                            <li><strong>Zone 3:</strong> Warm (Atlanta, GA)</li>
+                            <li><strong>Zone 4:</strong> Mixed (New York, NY)</li>
+                            <li><strong>Zone 5:</strong> Cool (Chicago, IL)</li>
+                            <li><strong>Zone 6:</strong> Cold (Minneapolis, MN)</li>
+                            <li><strong>Zone 7:</strong> Very Cold (Duluth, MN)</li>
+                            <li><strong>Zone 8:</strong> Subarctic (Fairbanks, AK)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Testing and Commissioning -->
+                <div class="guide-section">
+                    <h2>Testing, Adjusting, and Commissioning</h2>
+
+                    <div class="code-category">
+                        <h4>Testing and Balancing (IMC Section 403.3.3)</h4>
+                        <ul>
+                            <li><strong>Required documentation:</strong> Certified air and water balance reports</li>
+                            <li><strong>Air systems:</strong> Verify airflow at all terminals within ±10%</li>
+                            <li><strong>Hydronic systems:</strong> Verify flow rates at all coils and equipment</li>
+                            <li><strong>Agencies:</strong> AABC, NEBB, or TABB certified firms</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-category">
+                        <h4>Commissioning (IECC / ASHRAE 90.1)</h4>
+                        <p><strong>Mandatory for systems over specified capacities:</strong></p>
+                        <ul>
+                            <li>HVAC systems ≥ 480,000 Btuh cooling or 600,000 Btuh heating</li>
+                            <li>Verify equipment installation and operation</li>
+                            <li>Functional performance testing of all systems</li>
+                            <li>Verify control sequences</li>
+                            <li>Training of facility operators</li>
+                            <li>Commissioning report and final documentation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Common Code Violations -->
+                <div class="guide-section">
+                    <h2>Common Code Violations to Avoid</h2>
+
+                    <div class="requirement-box">
+                        <h4>Ventilation:</h4>
+                        <ul>
+                            <li>Insufficient outdoor air ventilation rates</li>
+                            <li>No economizer where required by energy code</li>
+                            <li>Inadequate makeup air for exhaust systems</li>
+                            <li>Missing CO2 sensors in high-density spaces</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirement-box">
+                        <h4>Ductwork:</h4>
+                        <ul>
+                            <li>Missing or improperly located fire dampers</li>
+                            <li>Inadequate duct insulation in unconditioned spaces</li>
+                            <li>Poor duct sealing leading to excessive leakage</li>
+                            <li>Flexible duct exceeding maximum length or improperly supported</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirement-box">
+                        <h4>Equipment:</h4>
+                        <ul>
+                            <li>Equipment efficiency below code minimums</li>
+                            <li>Insufficient clearances for service access</li>
+                            <li>Missing disconnects or not within sight</li>
+                            <li>Condensate drain not properly trapped or terminated</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirement-box">
+                        <h4>Controls:</h4>
+                        <ul>
+                            <li>Missing occupancy sensors or setback thermostats</li>
+                            <li>No automatic shutoff dampers</li>
+                            <li>Missing static pressure reset on VAV systems</li>
+                            <li>Improper economizer control sequences</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirement-box">
+                        <h4>Combustion:</h4>
+                        <ul>
+                            <li>Insufficient combustion air openings</li>
+                            <li>Improper vent termination locations</li>
+                            <li>Incorrect vent material for appliance category</li>
+                            <li>Missing or undersized gas shutoff valves</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Code Compliance Checklist -->
+                <div class="guide-section">
+                    <h2>Code Compliance Checklist</h2>
+                    <p>Use this checklist during design to ensure code compliance:</p>
+
+                    <h3>Design Phase:</h3>
+                    <ul class="checklist">
+                        <li>Verify applicable codes with local authority having jurisdiction</li>
+                        <li>Identify climate zone for energy code requirements</li>
+                        <li>Calculate outdoor air ventilation per ASHRAE 62.1</li>
+                        <li>Select equipment meeting minimum efficiency requirements</li>
+                        <li>Design duct and pipe insulation to code minimums</li>
+                        <li>Locate fire and smoke dampers per code requirements</li>
+                        <li>Specify required controls (setback, economizer, etc.)</li>
+                        <li>Size combustion air and venting per code</li>
+                        <li>Verify equipment clearances and access</li>
+                        <li>Plan for testing, balancing, and commissioning</li>
+                    </ul>
+
+                    <h3>Construction Documents:</h3>
+                    <ul class="checklist">
+                        <li>Include code references in specifications</li>
+                        <li>Show fire damper locations on drawings</li>
+                        <li>Specify insulation requirements clearly</li>
+                        <li>Include equipment schedules with efficiency ratings</li>
+                        <li>Detail control sequences of operation</li>
+                        <li>Include testing and commissioning requirements</li>
+                    </ul>
+
+                    <h3>Construction Phase:</h3>
+                    <ul class="checklist">
+                        <li>Verify submittals meet code requirements</li>
+                        <li>Inspect installation for code compliance</li>
+                        <li>Verify equipment ratings and labels</li>
+                        <li>Witness required testing (pressure tests, TAB)</li>
+                        <li>Review commissioning reports</li>
+                        <li>Prepare final compliance documentation for AHJ</li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div class="guide-section">
+                    <h2>Code Resources and References</h2>
+
+                    <div class="code-reference-box">
+                        <h4>Code Organizations</h4>
+                        <ul>
+                            <li><strong>International Code Council (ICC):</strong> IMC, IBC, IECC, IFC - www.iccsafe.org</li>
+                            <li><strong>ASHRAE:</strong> Standards 62.1, 90.1, 15, 34, 55, 189.1 - www.ashrae.org</li>
+                            <li><strong>NFPA:</strong> NFPA 90A, 90B, 54, 96, 92 - www.nfpa.org</li>
+                            <li><strong>IAPMO:</strong> Uniform Mechanical Code (UMC) - www.iapmo.org</li>
+                            <li><strong>SMACNA:</strong> Duct construction standards - www.smacna.org</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-reference-box">
+                        <h4>Additional Resources</h4>
+                        <ul>
+                            <li><strong>Local Building Department:</strong> For jurisdiction-specific amendments and interpretations</li>
+                            <li><strong>ASHRAE Handbooks:</strong> Fundamentals, HVAC Systems and Equipment, HVAC Applications</li>
+                            <li><strong>Code Commentary:</strong> Detailed explanations and examples</li>
+                            <li><strong>Professional Organizations:</strong> ASHRAE, ASPE, ACCA for education and training</li>
+                        </ul>
+                    </div>
+
+                    <h3>Related Tools:</h3>
+                    <div style="margin-top: 1rem;">
+                        <a href="ductulator.html" class="code-link">Duct Sizing Calculator</a>
+                        <a href="pipe_sizing.html" class="code-link">Pipe Sizing Calculator</a>
+                        <a href="psychrometric.html" class="code-link">Psychrometric Chart</a>
+                        <a href="conversions.html" class="code-link">Unit Conversions</a>
+                        <a href="hvac_design_guide.html" class="code-link">HVAC Design Guide</a>
+                        <a href="mechanical_page.html" class="code-link">All Mechanical Tools</a>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This code requirements guide is provided for educational and reference purposes only. Building codes are updated regularly, and local jurisdictions may have specific amendments or interpretations. Always verify current code requirements with your local authority having jurisdiction (AHJ) before finalizing any design. This information should not replace professional engineering judgment or consultation with code officials. All mechanical system designs should be prepared by or under the supervision of a licensed professional engineer. Users are solely responsible for ensuring compliance with all applicable codes and standards.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
