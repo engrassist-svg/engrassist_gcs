@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive HVAC equipment articles covering chillers, boilers, cooling towers, air handlers, and more. Learn about sizing, selection, best practices, and manufacturers.">
+    <meta name="keywords" content="HVAC equipment, chiller guide, boiler guide, cooling tower, air handler, HVAC articles, mechanical equipment, HVAC design">
+    <link rel="canonical" href="https://engrassist.com/articles.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="HVAC Equipment Articles - EngrAssist">
+    <meta property="og:description" content="Comprehensive guides on commercial HVAC and central plant equipment">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/articles.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HVAC Equipment Articles">
+    <meta name="twitter:description" content="Comprehensive guides on commercial HVAC and central plant equipment">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>HVAC Equipment Articles - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Structured Data - Articles -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "HVAC Equipment Articles",
+      "description": "Comprehensive guides on commercial HVAC and central plant equipment",
+      "url": "https://engrassist.com/articles.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "EngrAssist",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://engrassist.com/images/logo_coffee.png"
+        }
+      }
+    }
+    </script>
+
+    <style>
+        .article-search-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .article-search-box input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .article-search-box input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .article-card-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 1.5rem;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .article-card-header h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.4rem;
+        }
+
+        .article-category {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .article-card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .article-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .article-tag {
+            background: #e8f4f8;
+            color: #2980b9;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .category-header h2 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .category-description {
+            color: #7f8c8d;
+            margin: 0;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">HVAC Equipment Articles</h1>
+                <p class="hero-subtitle">Comprehensive guides on commercial HVAC and central plant equipment. Learn about sizing, selection, installation, maintenance, and best practices.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <!-- Search Box -->
+                <div class="article-search-box">
+                    <input type="search"
+                           id="article-search"
+                           placeholder="Search articles by equipment name, type, or topic..."
+                           autocomplete="off">
+                </div>
+
+                <!-- Commercial HVAC Equipment Section -->
+                <div class="category-section" data-category="commercial">
+                    <div class="category-header">
+                        <h2>Commercial HVAC Equipment</h2>
+                        <p class="category-description">Essential equipment for building climate control systems</p>
+                    </div>
+
+                    <div class="articles-grid" id="commercial-grid">
+                        <!-- Chillers - Water-Cooled -->
+                        <a href="articles/water-cooled-chillers.html" class="article-card" data-tags="chiller cooling central-plant water-cooled refrigeration">
+                            <div class="article-card-header">
+                                <h3>Water-Cooled Chillers</h3>
+                                <span class="article-category">Cooling Equipment</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Complete guide to water-cooled chillers including types, sizing, efficiency, configurations, and manufacturer information.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Central Plant</span>
+                                    <span class="article-tag">Cooling</span>
+                                    <span class="article-tag">Water-Cooled</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Chillers - Air-Cooled -->
+                        <a href="articles/air-cooled-chillers.html" class="article-card" data-tags="chiller cooling air-cooled refrigeration">
+                            <div class="article-card-header">
+                                <h3>Air-Cooled Chillers</h3>
+                                <span class="article-category">Cooling Equipment</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Comprehensive overview of air-cooled chillers, their applications, advantages, sizing considerations, and selection criteria.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Cooling</span>
+                                    <span class="article-tag">Air-Cooled</span>
+                                    <span class="article-tag">Packaged Unit</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Boilers -->
+                        <a href="articles/commercial-boilers.html" class="article-card" data-tags="boiler heating hot-water steam central-plant">
+                            <div class="article-card-header">
+                                <h3>Commercial Boilers</h3>
+                                <span class="article-category">Heating Equipment</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Detailed guide on commercial boilers including fire-tube, water-tube, condensing types, sizing, efficiency, and safety considerations.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Heating</span>
+                                    <span class="article-tag">Central Plant</span>
+                                    <span class="article-tag">Hot Water</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Rooftop Units -->
+                        <a href="articles/rooftop-units.html" class="article-card" data-tags="rtu rooftop packaged hvac air-conditioning heating">
+                            <div class="article-card-header">
+                                <h3>Rooftop Units (RTUs)</h3>
+                                <span class="article-category">Packaged HVAC</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Everything you need to know about packaged rooftop units, from selection and sizing to economizers and energy efficiency.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Packaged Unit</span>
+                                    <span class="article-tag">Cooling & Heating</span>
+                                    <span class="article-tag">Rooftop</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Air Handling Units -->
+                        <a href="articles/air-handling-units.html" class="article-card" data-tags="ahu air-handler ventilation fan-coil built-up">
+                            <div class="article-card-header">
+                                <h3>Air Handling Units (AHUs)</h3>
+                                <span class="article-category">Air Distribution</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">In-depth coverage of air handling units including components, configurations, selection criteria, and design best practices.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Air Distribution</span>
+                                    <span class="article-tag">Ventilation</span>
+                                    <span class="article-tag">Custom Built-Up</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- VAV Boxes -->
+                        <a href="articles/vav-boxes.html" class="article-card" data-tags="vav variable-air-volume terminal reheat damper">
+                            <div class="article-card-header">
+                                <h3>VAV Boxes</h3>
+                                <span class="article-category">Air Distribution</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Complete guide to variable air volume boxes including types, controls, sizing, reheat options, and troubleshooting.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Air Distribution</span>
+                                    <span class="article-tag">Terminal Units</span>
+                                    <span class="article-tag">VAV</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Fan Coil Units -->
+                        <a href="articles/fan-coil-units.html" class="article-card" data-tags="fcu fan-coil terminal hydronic">
+                            <div class="article-card-header">
+                                <h3>Fan Coil Units (FCUs)</h3>
+                                <span class="article-category">Terminal Units</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Comprehensive overview of fan coil units, applications, configurations, piping arrangements, and selection guidelines.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Terminal Units</span>
+                                    <span class="article-tag">Hydronic</span>
+                                    <span class="article-tag">Fan Coil</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- VRF Systems -->
+                        <a href="articles/vrf-systems.html" class="article-card" data-tags="vrf vrv variable-refrigerant-flow heat-pump ductless">
+                            <div class="article-card-header">
+                                <h3>VRF/VRV Systems</h3>
+                                <span class="article-category">Ductless HVAC</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Detailed guide on variable refrigerant flow systems including heat pump vs. heat recovery, piping, design considerations.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">VRF</span>
+                                    <span class="article-tag">Ductless</span>
+                                    <span class="article-tag">Heat Pump</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Central Plant Equipment Section -->
+                <div class="category-section" data-category="central-plant">
+                    <div class="category-header">
+                        <h2>Central Plant Equipment</h2>
+                        <p class="category-description">Supporting equipment for efficient HVAC system operation</p>
+                    </div>
+
+                    <div class="articles-grid" id="central-plant-grid">
+                        <!-- Cooling Towers -->
+                        <a href="articles/cooling-towers.html" class="article-card" data-tags="cooling-tower heat-rejection condenser-water evaporative">
+                            <div class="article-card-header">
+                                <h3>Cooling Towers</h3>
+                                <span class="article-category">Heat Rejection</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Complete guide to cooling towers including types, sizing, water treatment, winterization, and maintenance requirements.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Heat Rejection</span>
+                                    <span class="article-tag">Central Plant</span>
+                                    <span class="article-tag">Evaporative</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Pumps -->
+                        <a href="articles/hvac-pumps.html" class="article-card" data-tags="pump centrifugal hydronic chilled-water hot-water">
+                            <div class="article-card-header">
+                                <h3>HVAC Pumps</h3>
+                                <span class="article-category">Hydronic Systems</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">In-depth coverage of HVAC pumps including types, sizing, system curves, NPSH, pump configurations, and VFD applications.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Pumps</span>
+                                    <span class="article-tag">Hydronic</span>
+                                    <span class="article-tag">Central Plant</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Heat Exchangers -->
+                        <a href="articles/heat-exchangers.html" class="article-card" data-tags="heat-exchanger plate-frame shell-tube domestic-hot-water">
+                            <div class="article-card-header">
+                                <h3>Heat Exchangers</h3>
+                                <span class="article-category">Heat Transfer</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Comprehensive guide on heat exchangers including plate-and-frame, shell-and-tube types, sizing, and applications.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Heat Transfer</span>
+                                    <span class="article-tag">Plate-Frame</span>
+                                    <span class="article-tag">DHW</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- VFDs -->
+                        <a href="articles/variable-frequency-drives.html" class="article-card" data-tags="vfd variable-frequency-drive motor-control energy-efficiency">
+                            <div class="article-card-header">
+                                <h3>Variable Frequency Drives</h3>
+                                <span class="article-category">Controls & Efficiency</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Everything about VFDs in HVAC applications including benefits, sizing, harmonic mitigation, and energy savings.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">VFD</span>
+                                    <span class="article-tag">Energy Efficiency</span>
+                                    <span class="article-tag">Motor Control</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Expansion Tanks -->
+                        <a href="articles/expansion-tanks.html" class="article-card" data-tags="expansion-tank compression-tank hydronic bladder">
+                            <div class="article-card-header">
+                                <h3>Expansion Tanks</h3>
+                                <span class="article-category">Hydronic Accessories</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Guide to expansion tanks in hydronic systems including sizing, types, installation, and maintenance.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Hydronic</span>
+                                    <span class="article-tag">Accessories</span>
+                                    <span class="article-tag">Expansion Tank</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Air Separators -->
+                        <a href="articles/air-separators.html" class="article-card" data-tags="air-separator air-elimination hydronic dirt-separator">
+                            <div class="article-card-header">
+                                <h3>Air & Dirt Separators</h3>
+                                <span class="article-category">Hydronic Accessories</span>
+                            </div>
+                            <div class="article-card-body">
+                                <p class="article-description">Overview of air and dirt separation in hydronic systems, types, sizing, and proper installation practices.</p>
+                                <div class="article-tags">
+                                    <span class="article-tag">Hydronic</span>
+                                    <span class="article-tag">Water Quality</span>
+                                    <span class="article-tag">Air Elimination</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div id="no-results" class="no-results" style="display: none;">
+                    No articles found matching your search. Try different keywords.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Article search functionality
+        document.getElementById('article-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const articleCards = document.querySelectorAll('.article-card');
+            const categorySections = document.querySelectorAll('.category-section');
+            let visibleCount = 0;
+
+            articleCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('.article-description').textContent.toLowerCase();
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                const category = card.querySelector('.article-category').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) ||
+                    description.includes(searchTerm) ||
+                    tags.includes(searchTerm) ||
+                    category.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide category sections based on visible cards
+            categorySections.forEach(section => {
+                const visibleCardsInSection = section.querySelectorAll('.article-card[style="display: flex;"]').length;
+                section.style.display = visibleCardsInSection > 0 ? 'block' : 'none';
+            });
+
+            // Show/hide no results message
+            document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

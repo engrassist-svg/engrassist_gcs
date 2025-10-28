@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Complete guide to rooftop units (RTUs): packaged HVAC systems, economizers, sizing, efficiency ratings, controls, and best practices for commercial applications.">
+    <meta name="keywords" content="rooftop unit, RTU, packaged HVAC, economizer, commercial air conditioning, Trane RTU, Carrier rooftop, York RTU, HVAC unit">
+    <link rel="canonical" href="https://engrassist.com/articles/rooftop-units.html">
+
+    <title>Rooftop Units (RTUs): Complete Guide - EngrAssist</title>
+
+    <link rel="preload" href="../header.html" as="fetch" crossorigin>
+    <link rel="preload" href="../footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="../styles.css" as="style">
+    <link rel="preload" href="../scripts.js" as="script">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../scripts.js" defer></script>
+
+    <style>
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .article-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #9b59b6;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #9b59b6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .related-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .related-link {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            border-left: 3px solid #9b59b6;
+        }
+
+        @media (max-width: 768px) {
+            .article-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="article-hero">
+            <div class="container">
+                <h1>Rooftop Units (RTUs)</h1>
+                <p class="article-meta">Packaged HVAC Equipment | Commercial Air Conditioning & Heating</p>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="article-content">
+                    <div class="toc">
+                        <h3>Table of Contents</h3>
+                        <ul>
+                            <li><a href="#overview">Overview</a></li>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#types">Types and Configurations</a></li>
+                            <li><a href="#applications">Applications</a></li>
+                            <li><a href="#components">Key Components</a></li>
+                            <li><a href="#sizing">Sizing Requirements</a></li>
+                            <li><a href="#options">Available Options</a></li>
+                            <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#overlooked">Often Overlooked Considerations</a></li>
+                            <li><a href="#manufacturers">Popular Manufacturers</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="overview">Overview</h2>
+                    <p>Rooftop Units (RTUs) are self-contained, packaged HVAC systems installed on the roof of a building. They contain all major components - compressor, condenser, evaporator, air handler, controls, and often heating elements - in a single weatherproof enclosure. RTUs are the most common HVAC solution for commercial buildings in North America, accounting for approximately 50% of commercial cooling capacity.</p>
+
+                    <p>Their popularity stems from several advantages: lower installation cost compared to central plant systems, ease of zoning (one RTU per zone), simpler maintenance, and the ability to continue partial building operation if one unit fails.</p>
+
+                    <h2 id="how-it-works">How It Works</h2>
+                    <p>RTUs operate on the vapor-compression refrigeration cycle while simultaneously providing ventilation and heating:</p>
+
+                    <div class="info-box">
+                        <h4>The Cooling Cycle</h4>
+                        <ol>
+                            <li><strong>Air Intake:</strong> Return air from the space (and outdoor air for ventilation) enters the unit through the bottom</li>
+                            <li><strong>Filtration:</strong> Air passes through filters to remove particulates</li>
+                            <li><strong>Cooling:</strong> Air flows over the DX evaporator coil where refrigerant absorbs heat, cooling and dehumidifying the air</li>
+                            <li><strong>Supply:</strong> Supply fan pushes cooled air through ductwork to the space</li>
+                            <li><strong>Heat Rejection:</strong> Compressor pumps refrigerant to the condenser coil where outdoor air removes heat</li>
+                        </ol>
+                    </div>
+
+                    <h3>Heating Mode</h3>
+                    <p>Most RTUs include heating capability through one or more methods:</p>
+                    <ul>
+                        <li><strong>Gas Furnace:</strong> Natural gas or propane burners heat air directly (most common)</li>
+                        <li><strong>Electric Heat:</strong> Resistance heating elements (expensive to operate but simple)</li>
+                        <li><strong>Heat Pump:</strong> Reverses refrigeration cycle to extract heat from outdoor air</li>
+                        <li><strong>Hot Water/Steam Coils:</strong> Uses building's central heating system</li>
+                    </ul>
+
+                    <h3>Economizer Operation</h3>
+                    <p>When outdoor conditions are favorable (cool and dry), the economizer brings in 100% outdoor air for "free cooling" instead of running the compressor. This can reduce cooling energy by 20-40% in appropriate climates.</p>
+
+                    <h2 id="types">Types and Configurations</h2>
+
+                    <h3>1. Constant Air Volume (CAV)</h3>
+                    <p>Supply fan runs at constant speed. Simple, reliable, and least expensive.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Lower first cost, simple controls, proven reliability</li>
+                        <li><strong>Disadvantages:</strong> Poor part-load efficiency, less comfort control, wastes fan energy</li>
+                        <li><strong>Applications:</strong> Simple applications, budget-constrained projects, small single-zone spaces</li>
+                    </ul>
+
+                    <h3>2. Variable Air Volume (VAV)</h3>
+                    <p>Supply fan speed varies with load via VFD. More efficient but more complex.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Energy savings of 20-40%, better humidity control, quieter at low load</li>
+                        <li><strong>Disadvantages:</strong> Higher first cost, requires proper commissioning</li>
+                        <li><strong>Applications:</strong> Larger spaces, variable occupancy, energy-conscious projects</li>
+                    </ul>
+
+                    <h3>3. Dedicated Outdoor Air System (DOAS)</h3>
+                    <p>Handles 100% outdoor air for ventilation while separate units handle space cooling.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Superior humidity control, energy recovery potential, simplified zoning</li>
+                        <li><strong>Disadvantages:</strong> Requires coordination with other systems, higher first cost</li>
+                        <li><strong>Applications:</strong> High ventilation requirements, humid climates, buildings with varying internal loads</li>
+                    </ul>
+
+                    <h3>4. Heat Pump RTUs</h3>
+                    <p>Provides both heating and cooling via refrigeration cycle reversal.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> No gas connection required, efficient in mild climates, single system for both modes</li>
+                        <li><strong>Disadvantages:</strong> Reduced heating capacity at low temps, requires auxiliary heat in cold climates</li>
+                        <li><strong>Applications:</strong> Mild climates, electric-only buildings, buildings without gas service</li>
+                    </ul>
+
+                    <h2 id="applications">Applications</h2>
+                    <ul>
+                        <li><strong>Retail:</strong> Big box stores, shopping centers, restaurants (50-80% of installations use RTUs)</li>
+                        <li><strong>Office Buildings:</strong> Small to mid-size office buildings, especially single-story</li>
+                        <li><strong>Schools:</strong> Classrooms, gymnasiums, administrative areas</li>
+                        <li><strong>Warehouses:</strong> Distribution centers, light industrial (with make-up air requirements)</li>
+                        <li><strong>Healthcare:</strong> Outpatient clinics, medical offices (not critical care areas)</li>
+                        <li><strong>Hospitality:</strong> Hotels, motels (guest room areas)</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>Where RTUs Are NOT Ideal</h4>
+                        <ul>
+                            <li>Buildings without suitable roof structure or access</li>
+                            <li>Multi-story buildings (>3-4 floors) - duct shaft space and static pressure become issues</li>
+                            <li>Very large single zones (>30,000 CFM) - consider central plant or multiple smaller units</li>
+                            <li>Critical environments requiring high reliability (hospitals, data centers) - prefer central plant with redundancy</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="components">Key Components</h2>
+
+                    <h3>Compressor</h3>
+                    <ul>
+                        <li><strong>Scroll:</strong> Most common, 3-25 tons, quiet, reliable, good efficiency</li>
+                        <li><strong>Reciprocating:</strong> Older technology, less common in modern RTUs</li>
+                        <li><strong>Screw:</strong> Used in larger units (25+ tons), good part-load efficiency</li>
+                        <li><strong>Staging:</strong> Multiple compressors provide capacity control (33%/66%/100% with 2 compressors)</li>
+                    </ul>
+
+                    <h3>Heat Exchangers</h3>
+                    <ul>
+                        <li><strong>Evaporator Coil:</strong> Copper tubes with aluminum fins, cools and dehumidifies air</li>
+                        <li><strong>Condenser Coil:</strong> Rejects heat to outdoor air, copper or aluminum construction</li>
+                        <li><strong>Coil Coatings:</strong> E-coat or enhanced coatings for corrosive environments (coastal, industrial)</li>
+                    </ul>
+
+                    <h3>Supply Fan</h3>
+                    <ul>
+                        <li><strong>Belt-Drive:</strong> Adjustable speed via pulley change, common on older units</li>
+                        <li><strong>Direct-Drive Plenum (DDP):</strong> Modern standard, more efficient, less maintenance</li>
+                        <li><strong>Forward-Curved vs. Backward-Curved:</strong> BC fans more efficient but require more space</li>
+                        <li><strong>Variable Frequency Drive (VFD):</strong> Critical for VAV operation and energy savings</li>
+                    </ul>
+
+                    <h3>Economizer</h3>
+                    <ul>
+                        <li><strong>Dry-Bulb Control:</strong> Based on outdoor air temperature only (simpler)</li>
+                        <li><strong>Enthalpy Control:</strong> Based on outdoor air heat content (better in humid climates)</li>
+                        <li><strong>Differential Enthalpy:</strong> Compares outdoor vs. return air (most sophisticated)</li>
+                        <li><strong>Dampers:</strong> Modulating outdoor air, return air, and exhaust dampers with actuators</li>
+                    </ul>
+
+                    <h2 id="sizing">Sizing Requirements</h2>
+
+                    <h3>Information Needed for Proper Sizing</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Typical Values/Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cooling Load</td>
+                                <td>Tons or BTU/hr from load calculation</td>
+                            </tr>
+                            <tr>
+                                <td>Heating Load</td>
+                                <td>BTU/hr or MBH from heat loss calculation</td>
+                            </tr>
+                            <tr>
+                                <td>Airflow Requirements</td>
+                                <td>CFM (typically 350-450 CFM/ton cooling)</td>
+                            </tr>
+                            <tr>
+                                <td>Outdoor Air Requirement</td>
+                                <td>CFM per ASHRAE 62.1 or local code</td>
+                            </tr>
+                            <tr>
+                                <td>External Static Pressure</td>
+                                <td>inches w.c. (supply + return duct losses)</td>
+                            </tr>
+                            <tr>
+                                <td>Design Outdoor Temperature</td>
+                                <td>Summer cooling and winter heating design temps</td>
+                            </tr>
+                            <tr>
+                                <td>Indoor Design Conditions</td>
+                                <td>Typically 75°F / 50% RH cooling, 70°F heating</td>
+                            </tr>
+                            <tr>
+                                <td>Available Utilities</td>
+                                <td>Gas, electric voltage (208/230V or 460V 3-phase)</td>
+                            </tr>
+                            <tr>
+                                <td>Roof Structure</td>
+                                <td>Weight capacity, curb size, access</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Sizing Rules and Guidelines</h3>
+                    <ul>
+                        <li><strong>Cooling:</strong> Do NOT use "400 SF/ton" rule - perform proper load calculation per ACCA Manual J or ASHRAE</li>
+                        <li><strong>Airflow:</strong> 400 CFM/ton is typical for standard applications (350 for humid climates, 450 for dry)</li>
+                        <li><strong>Heating:</strong> Size for heating load OR 125% of cooling capacity, whichever is greater</li>
+                        <li><strong>Outdoor Air:</strong> Verify economizer capacity can handle 100% outdoor air without excessive static pressure</li>
+                        <li><strong>Safety Factor:</strong> 5-10% maximum - RTUs are available in standard sizes, pick closest without excessive oversizing</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <h4>Example Sizing Calculation</h4>
+                        <p>Small retail space, 5,000 SF:</p>
+                        <ul>
+                            <li>Calculated cooling load: 100,000 BTU/hr (8.3 tons)</li>
+                            <li>Select: 10-ton RTU (next standard size up)</li>
+                            <li>Airflow required: 10 tons × 400 CFM/ton = 4,000 CFM</li>
+                            <li>Outdoor air: 5,000 SF × 0.06 CFM/SF = 300 CFM minimum</li>
+                            <li>Heating: 10 tons × 12,000 BTU/ton × 1.25 = 150 MBH input</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="options">Available Options</h2>
+
+                    <h3>Efficiency Upgrades</h3>
+                    <ul>
+                        <li><strong>High-Efficiency Compressors:</strong> 14-16 SEER / 11-13 EER vs. standard 13 SEER / 10 EER</li>
+                        <li><strong>Variable-Speed Supply Fan:</strong> 20-30% fan energy savings</li>
+                        <li><strong>Variable-Speed Condenser Fans:</strong> Improved part-load efficiency, quieter operation</li>
+                        <li><strong>Advanced Economizers:</strong> Differential enthalpy control for maximum free cooling</li>
+                        <li><strong>Energy Recovery Ventilator (ERV):</strong> Reduces ventilation air load by 50-70%</li>
+                    </ul>
+
+                    <h3>Comfort Enhancements</h3>
+                    <ul>
+                        <li><strong>Multi-Stage or Modulating Heat:</strong> Better comfort than single-stage</li>
+                        <li><strong>Hot Gas Reheat:</strong> Improves humidity control by allowing lower coil temps</li>
+                        <li><strong>Demand-Controlled Ventilation (DCV):</strong> CO2 sensors modulate outdoor air based on occupancy</li>
+                        <li><strong>Variable Refrigerant Flow (VRF):</strong> Precise capacity control, excellent part-load performance</li>
+                    </ul>
+
+                    <h3>Controls and Integration</h3>
+                    <ul>
+                        <li><strong>Integrated Economizer Control:</strong> Coordinated with DX cooling for maximum efficiency</li>
+                        <li><strong>BMS Integration:</strong> BACnet, Modbus, or LonWorks communication</li>
+                        <li><strong>Advanced Diagnostics:</strong> Predictive maintenance, fault detection</li>
+                        <li><strong>Cloud Connectivity:</strong> Remote monitoring and control</li>
+                    </ul>
+
+                    <h3>Construction Options</h3>
+                    <ul>
+                        <li><strong>Curb Adapter:</strong> Allows replacement without new curb (match existing dimensions)</li>
+                        <li><strong>Seismic Certification:</strong> Required in high-seismic zones (OSHPD in California)</li>
+                        <li><strong>Hail Guards:</strong> Protect condenser coils in hail-prone areas</li>
+                        <li><strong>Enhanced Corrosion Protection:</strong> E-coat coils, stainless fasteners for coastal/industrial</li>
+                        <li><strong>Low-Ambient Kit:</strong> Allows cooling operation to 0°F or lower (data centers, food service)</li>
+                    </ul>
+
+                    <h2 id="best-practices">Best Practices</h2>
+
+                    <h3>Design Phase</h3>
+                    <ul>
+                        <li>Perform room-by-room load calculations - never rely on SF/ton rules</li>
+                        <li>Coordinate curb location with structural engineer - verify roof capacity</li>
+                        <li>Plan duct routing during design - don't leave it to installers to figure out</li>
+                        <li>Size outdoor air for ASHRAE 62.1 or local code, whichever is stricter</li>
+                        <li>Specify economizers in climates with >1,000 hours below 55°F dry-bulb</li>
+                        <li>Include VFDs on supply fans for units >7.5 tons in most energy codes</li>
+                        <li>Don't forget knockout panels for future RTU replacement access</li>
+                    </ul>
+
+                    <h3>Installation</h3>
+                    <ul>
+                        <li>Install RTU on properly constructed curb - level and sealed to prevent leaks</li>
+                        <li>Use spring isolators under curb to minimize vibration transmission</li>
+                        <li>Install flexible duct connectors at supply and return to prevent vibration transmission</li>
+                        <li>Commission economizer operation - verify dampers open/close fully and sequence correctly</li>
+                        <li>Verify refrigerant charge - factory charge is often for standard conditions only</li>
+                        <li>Balance airflow and verify against design - critical for performance</li>
+                        <li>Test all safety controls before turning over to owner</li>
+                    </ul>
+
+                    <h3>Operation & Maintenance</h3>
+                    <ul>
+                        <li><strong>Filters:</strong> Change every 1-3 months depending on environment (most important task)</li>
+                        <li><strong>Coils:</strong> Clean condenser coil annually, evaporator coil every 2-3 years</li>
+                        <li><strong>Economizer:</strong> Verify operation quarterly - economizers fail frequently and waste energy</li>
+                        <li><strong>Belts:</strong> Inspect quarterly, adjust tension, replace when worn (belt-drive units)</li>
+                        <li><strong>Drain Pan:</strong> Clean annually to prevent biological growth and odors</li>
+                        <li><strong>Refrigerant:</strong> Check superheat/subcooling annually, repair leaks promptly</li>
+                        <li><strong>Gas Heat Exchanger:</strong> Inspect annually for cracks (safety critical)</li>
+                    </ul>
+
+                    <h2 id="overlooked">Often Overlooked Considerations</h2>
+
+                    <h3>Physical Dimensions and Weight</h3>
+                    <p>RTUs are larger and heavier than many people expect:</p>
+                    <ul>
+                        <li><strong>10-ton unit:</strong> ~10' L × 5' W × 4' H, 1,500-2,000 lbs</li>
+                        <li><strong>25-ton unit:</strong> ~15' L × 6' W × 5' H, 3,000-4,000 lbs</li>
+                        <li>Verify roof structural capacity including curb and supports</li>
+                        <li>Plan rigging access - how will you get it on the roof?</li>
+                        <li>Consider future replacement - will a crane have access?</li>
+                    </ul>
+
+                    <h3>Static Pressure Capacity</h3>
+                    <p>RTUs have limited fan capacity - high duct losses are problematic:</p>
+                    <ul>
+                        <li><strong>Standard units:</strong> 0.5-1.0" w.c. external static</li>
+                        <li><strong>High-static units:</strong> 1.5-2.5" w.c. external static</li>
+                        <li>Calculate duct pressure drop carefully during design</li>
+                        <li>Long duct runs or restrictive fittings require high-static units</li>
+                        <li>High-static units cost 10-20% more and use more fan energy</li>
+                    </ul>
+
+                    <h3>Noise Levels</h3>
+                    <p>RTUs generate significant noise from compressor and fans:</p>
+                    <ul>
+                        <li><strong>Standard unit:</strong> 70-78 dBA at 10 feet</li>
+                        <li><strong>Low-noise option:</strong> 65-72 dBA at 10 feet (10-20% premium)</li>
+                        <li>Consider location relative to noise-sensitive areas</li>
+                        <li>Sound attenuation curb can reduce transmission to occupied space below</li>
+                        <li>Check local noise ordinances - many limit rooftop equipment noise</li>
+                    </ul>
+
+                    <h3>Typical Pricing (2024)</h3>
+                    <ul>
+                        <li><strong>3-5 tons (13 SEER):</strong> $4,000-7,000</li>
+                        <li><strong>7.5-10 tons (13 SEER):</strong> $7,000-12,000</li>
+                        <li><strong>12.5-15 tons (13 SEER):</strong> $12,000-18,000</li>
+                        <li><strong>20-25 tons (13 SEER):</strong> $20,000-30,000</li>
+                        <li><strong>High-Efficiency Premium:</strong> Add 15-25% for 14-16 SEER</li>
+                        <li><strong>Heat Pump:</strong> Add 20-30% vs. standard gas heat</li>
+                    </ul>
+                    <p><em>Installation typically adds $3,000-8,000 depending on complexity. Budget 3-5% of equipment cost annually for maintenance.</em></p>
+
+                    <h3>Economizer Maintenance</h3>
+                    <p>Studies show 40-60% of economizers don't work properly:</p>
+                    <ul>
+                        <li>Dampers stuck, linkages broken, or actuators failed</li>
+                        <li>Sensors out of calibration or failed</li>
+                        <li>Controls improperly programmed</li>
+                        <li>Result: Either no free cooling (wasting energy) or excessive outdoor air (wasting energy)</li>
+                        <li>Solution: Test economizer operation quarterly as part of routine maintenance</li>
+                    </ul>
+
+                    <h3>Service Access</h3>
+                    <ul>
+                        <li>Technicians need to service units year-round - even in winter</li>
+                        <li>Provide safe roof access with ladder, stairs, or ship's ladder</li>
+                        <li>Consider walkway pads to roof drains and all RTUs</li>
+                        <li>Ensure adequate working space around units per code (36" on service side)</li>
+                        <li>Provide 110V receptacle on roof for tools and test equipment</li>
+                    </ul>
+
+                    <h2 id="manufacturers">Popular Manufacturers and Brands</h2>
+
+                    <div class="manufacturer-grid">
+                        <div class="manufacturer-card">
+                            <h4>Trane</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Voyager rooftop units (3-130 tons)</li>
+                                <li>Precedent series (high efficiency)</li>
+                                <li>Strong service network</li>
+                            </ul>
+                            <p><a href="https://www.trane.com" target="_blank">trane.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Carrier</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>WeatherMaker series</li>
+                                <li>AquaEdge variable-speed</li>
+                                <li>Innovation leader</li>
+                            </ul>
+                            <p><a href="https://www.carrier.com" target="_blank">carrier.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>York (Johnson Controls)</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Sunline series</li>
+                                <li>Predator (high-efficiency)</li>
+                                <li>Wide capacity range</li>
+                            </ul>
+                            <p><a href="https://www.johnsoncontrols.com" target="_blank">johnsoncontrols.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Lennox</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Energence series (ultra-high efficiency)</li>
+                                <li>Landmark series</li>
+                                <li>Focus on efficiency</li>
+                            </ul>
+                            <p><a href="https://www.lennoxcommercial.com" target="_blank">lennoxcommercial.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Daikin (Goodman)</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Rebel rooftop series</li>
+                                <li>Value-oriented solutions</li>
+                                <li>Growing market share</li>
+                            </ul>
+                            <p><a href="https://www.daikincomfort.com" target="_blank">daikincomfort.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Rheem/Ruud</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Renaissance line</li>
+                                <li>Competitive pricing</li>
+                                <li>Reliable performance</li>
+                            </ul>
+                            <p><a href="https://www.rheem.com" target="_blank">rheem.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>Related Articles</h3>
+                        <div class="related-links">
+                            <a href="air-handling-units.html">Air Handling Units</a>
+                            <a href="vav-boxes.html">VAV Boxes</a>
+                            <a href="variable-frequency-drives.html">Variable Frequency Drives</a>
+                            <a href="../ductulator.html">Duct Sizing Calculator</a>
+                            <a href="../load_calculation.html">Load Calculation Tool</a>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin: 3rem 0;">
+                        <a href="../articles.html" class="btn">← Back to All Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
