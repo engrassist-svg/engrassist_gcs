@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Complete guide to VRF/VRV systems: heat pump vs heat recovery, piping design, indoor unit types, sizing, efficiency, and best practices. Features Daikin, Mitsubishi, LG, Samsung.">
+    <meta name="keywords" content="VRF system, VRV system, variable refrigerant flow, Mitsubishi VRF, Daikin VRV, Samsung VRF, LG Multi V, ductless HVAC, heat recovery, heat pump">
+    <link rel="canonical" href="https://engrassist.com/articles/vrf-systems.html">
+
+    <title>VRF/VRV Systems: Complete Guide - EngrAssist</title>
+
+    <link rel="preload" href="../header.html" as="fetch" crossorigin>
+    <link rel="preload" href="../footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="../styles.css" as="style">
+    <link rel="preload" href="../scripts.js" as="script">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../scripts.js" defer></script>
+
+    <style>
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .article-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fadbd8, #f5b7b1);
+            border-left: 4px solid #e74c3c;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .related-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .related-link {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            border-left: 3px solid #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .article-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="article-hero">
+            <div class="container">
+                <h1>VRF/VRV Systems</h1>
+                <p class="article-meta">Ductless HVAC | Variable Refrigerant Flow Systems</p>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="article-content">
+                    <div class="toc">
+                        <h3>Table of Contents</h3>
+                        <ul>
+                            <li><a href="#overview">Overview</a></li>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#types">Heat Pump vs Heat Recovery</a></li>
+                            <li><a href="#indoor-units">Indoor Unit Types</a></li>
+                            <li><a href="#applications">Applications</a></li>
+                            <li><a href="#advantages">Advantages</a></li>
+                            <li><a href="#disadvantages">Disadvantages</a></li>
+                            <li><a href="#sizing">Sizing and Design</a></li>
+                            <li><a href="#piping">Piping Design</a></li>
+                            <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#overlooked">Often Overlooked Considerations</a></li>
+                            <li><a href="#manufacturers">Popular Manufacturers</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="overview">Overview</h2>
+                    <p>Variable Refrigerant Flow (VRF) systems, also known as Variable Refrigerant Volume (VRV - Daikin's trademarked term), are advanced ductless or ducted HVAC systems that use refrigerant as the cooling and heating medium. Unlike traditional chilled water systems, VRF systems connect one or more outdoor units to multiple indoor units via refrigerant piping, allowing individual zone control with exceptional energy efficiency.</p>
+
+                    <p>VRF technology originated in Japan in the 1980s and has become increasingly popular worldwide, especially in commercial buildings where zone-level control and space constraints favor its compact, flexible design.</p>
+
+                    <h2 id="how-it-works">How It Works</h2>
+                    <p>VRF systems use inverter-driven compressors and electronic expansion valves to precisely control refrigerant flow:</p>
+
+                    <div class="info-box">
+                        <h4>Basic VRF Operation</h4>
+                        <ol>
+                            <li><strong>Variable Speed Compressor:</strong> Inverter-driven compressor modulates capacity from 10-100% based on demand</li>
+                            <li><strong>Refrigerant Distribution:</strong> Refrigerant pipes distribute to multiple indoor units (up to 64 units per outdoor unit with some systems)</li>
+                            <li><strong>Electronic Expansion Valves (EEV):</strong> Each indoor unit has an EEV that precisely meters refrigerant flow</li>
+                            <li><strong>Individual Control:</strong> Each zone can be independently controlled for temperature</li>
+                            <li><strong>Heat Pump Operation:</strong> System reverses cycle for heating mode via 4-way valve</li>
+                        </ol>
+                    </div>
+
+                    <h3>Key Technologies</h3>
+                    <ul>
+                        <li><strong>Inverter Technology:</strong> DC inverter compressor provides infinite capacity modulation</li>
+                        <li><strong>Electronic Expansion Valves:</strong> Precise refrigerant metering for each zone</li>
+                        <li><strong>Advanced Controls:</strong> Microprocessor-based controls optimize performance</li>
+                        <li><strong>High-Efficiency Heat Exchangers:</strong> Microchannel or enhanced fin designs</li>
+                    </ul>
+
+                    <h2 id="types">Heat Pump vs Heat Recovery</h2>
+
+                    <h3>2-Pipe Heat Pump Systems</h3>
+                    <p>All indoor units operate in the same mode (all cooling or all heating).</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Lower cost, simpler design</li>
+                        <li><strong>Disadvantages:</strong> No simultaneous heating and cooling</li>
+                        <li><strong>Applications:</strong> Spaces with similar loads, seasonal operation</li>
+                        <li><strong>Typical:</strong> Residential, small commercial, single-exposure buildings</li>
+                    </ul>
+
+                    <h3>3-Pipe Heat Recovery Systems</h3>
+                    <p>Can simultaneously provide heating and cooling to different zones.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Simultaneous heating/cooling, energy recovery from zones in cooling to zones in heating</li>
+                        <li><strong>Disadvantages:</strong> Higher cost, more complex</li>
+                        <li><strong>Applications:</strong> Multi-exposure buildings, spaces with varying loads, year-round operation</li>
+                        <li><strong>Typical:</strong> Commercial offices, hotels, medical facilities</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <h4>Heat Recovery Benefit Example</h4>
+                        <p>Office building in winter:</p>
+                        <ul>
+                            <li>South-facing perimeter offices: Need cooling due to solar gain</li>
+                            <li>North-facing perimeter offices: Need heating</li>
+                            <li>Heat recovery system: Captures heat from south zones, delivers to north zones</li>
+                            <li>Result: "Free" heating from waste heat = Significant energy savings</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="indoor-units">Indoor Unit Types</h2>
+
+                    <h3>1. Wall-Mounted Units</h3>
+                    <ul>
+                        <li>Most common type for small spaces</li>
+                        <li>Capacity: 7,000 - 36,000 BTU/hr</li>
+                        <li>Mounts high on wall, quiet operation</li>
+                        <li>Applications: Private offices, hotel rooms, small retail</li>
+                    </ul>
+
+                    <h3>2. Ceiling Cassettes (4-Way)</h3>
+                    <ul>
+                        <li>Flush mount in ceiling grid</li>
+                        <li>Capacity: 7,000 - 60,000 BTU/hr</li>
+                        <li>360° air distribution pattern</li>
+                        <li>Applications: Open offices, retail, restaurants</li>
+                    </ul>
+
+                    <h3>3. Concealed Ducted Units</h3>
+                    <ul>
+                        <li>Hidden above ceiling with ductwork</li>
+                        <li>Capacity: 7,000 - 60,000 BTU/hr</li>
+                        <li>Can serve multiple diffusers</li>
+                        <li>Applications: Spaces requiring hidden units, zones with ductwork</li>
+                    </ul>
+
+                    <h3>4. Floor-Mounted Units</h3>
+                    <ul>
+                        <li>Installed at floor level or low on wall</li>
+                        <li>Capacity: 7,000 - 18,000 BTU/hr</li>
+                        <li>Good for spaces without ceiling access</li>
+                        <li>Applications: Historic buildings, retrofit applications</li>
+                    </ul>
+
+                    <h3>5. High-Static Ducted Units</h3>
+                    <ul>
+                        <li>Can handle higher duct pressures</li>
+                        <li>Capacity: 18,000 - 72,000 BTU/hr</li>
+                        <li>Serves larger areas via ductwork</li>
+                        <li>Applications: Large open spaces, multiple rooms</li>
+                    </ul>
+
+                    <h2 id="applications">Applications</h2>
+
+                    <h3>Ideal Applications</h3>
+                    <ul>
+                        <li><strong>Tenant Fit-Outs:</strong> Easy to add capacity without major infrastructure changes</li>
+                        <li><strong>Building Additions:</strong> Add HVAC without expanding central plant</li>
+                        <li><strong>Historic Buildings:</strong> Minimal impact on architecture, no ductwork</li>
+                        <li><strong>Server Rooms:</strong> Precise control, year-round cooling capability</li>
+                        <li><strong>Hotels:</strong> Individual room control, quiet operation</li>
+                        <li><strong>Multi-Tenant Buildings:</strong> Separate systems for each tenant</li>
+                        <li><strong>Renovation Projects:</strong> Easier than adding ductwork in existing buildings</li>
+                    </ul>
+
+                    <h3>Less Ideal Applications</h3>
+                    <ul>
+                        <li>Buildings requiring 100% outdoor air (labs, hospitals)</li>
+                        <li>Spaces >10,000 SF with uniform loads (RTUs or central plant more economical)</li>
+                        <li>Very large buildings (>100,000 SF) - cost becomes prohibitive</li>
+                        <li>Industrial spaces with high ventilation requirements</li>
+                    </ul>
+
+                    <h2 id="advantages">Advantages of VRF Systems</h2>
+
+                    <h3>Energy Efficiency</h3>
+                    <ul>
+                        <li>Inverter compressors provide 10-100% modulation (vs. on/off cycling)</li>
+                        <li>Heat recovery systems capture and reuse waste heat</li>
+                        <li>No duct losses (or minimal with ducted units)</li>
+                        <li>Typical EER: 11-14 cooling, COP 3.5-4.5 heating</li>
+                        <li>Energy savings of 20-40% vs. traditional systems</li>
+                    </ul>
+
+                    <h3>Flexibility</h3>
+                    <ul>
+                        <li>Individual zone control (each indoor unit independent)</li>
+                        <li>Mix different indoor unit types on same outdoor unit</li>
+                        <li>Easy to expand - add more indoor units to existing system</li>
+                        <li>Long refrigerant line lengths (500-1,000 feet possible)</li>
+                        <li>Outdoor unit can be remote from indoor units</li>
+                    </ul>
+
+                    <h3>Space Savings</h3>
+                    <ul>
+                        <li>No mechanical room required</li>
+                        <li>No ductwork (or minimal)</li>
+                        <li>Small refrigerant piping (vs. large ducts or hydronic pipes)</li>
+                        <li>Compact indoor units</li>
+                    </ul>
+
+                    <h3>Comfort</h3>
+                    <ul>
+                        <li>Precise temperature control (±0.5°F)</li>
+                        <li>Quiet operation (indoor units 25-40 dBA)</li>
+                        <li>No hot/cold spots</li>
+                        <li>Fast response to load changes</li>
+                    </ul>
+
+                    <h2 id="disadvantages">Disadvantages and Limitations</h2>
+
+                    <h3>First Cost</h3>
+                    <ul>
+                        <li>Higher equipment cost than traditional systems (30-50% more)</li>
+                        <li>Specialized installation requiring factory training</li>
+                        <li>May be cost-prohibitive for very large buildings</li>
+                    </ul>
+
+                    <h3>Ventilation</h3>
+                    <ul>
+                        <li>Limited outdoor air capability</li>
+                        <li>May require separate DOAS for ventilation</li>
+                        <li>Not suitable for high-ventilation applications (labs, kitchens)</li>
+                    </ul>
+
+                    <h3>Service and Maintenance</h3>
+                    <ul>
+                        <li>Requires specialized training</li>
+                        <li>Proprietary controls and components</li>
+                        <li>Must use manufacturer-specific parts</li>
+                        <li>Limited number of qualified contractors in some areas</li>
+                    </ul>
+
+                    <h3>Design Complexity</h3>
+                    <ul>
+                        <li>Requires detailed refrigerant piping design</li>
+                        <li>Elevation differences affect capacity</li>
+                        <li>Oil return concerns with long vertical rises</li>
+                        <li>Pipe sizing critical for performance</li>
+                    </ul>
+
+                    <h2 id="sizing">Sizing and Design</h2>
+
+                    <h3>System Capacity</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Guidelines</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Outdoor Unit Size</td>
+                                <td>6 - 72 tons typical (larger with multiple units)</td>
+                            </tr>
+                            <tr>
+                                <td>Indoor Unit Size</td>
+                                <td>0.5 - 6 tons typical</td>
+                            </tr>
+                            <tr>
+                                <td>Connection Ratio</td>
+                                <td>Total indoor capacity / outdoor capacity</td>
+                            </tr>
+                            <tr>
+                                <td>Max Connection Ratio</td>
+                                <td>100-150% (varies by manufacturer)</td>
+                            </tr>
+                            <tr>
+                                <td>Indoor Units per Outdoor</td>
+                                <td>Up to 64 units (high-end systems)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Sizing Methodology</h3>
+                    <ol>
+                        <li>Calculate cooling/heating load for each zone</li>
+                        <li>Select indoor unit for each zone (match capacity)</li>
+                        <li>Sum total indoor unit capacities</li>
+                        <li>Select outdoor unit (total indoor ÷ diversity factor)</li>
+                        <li>Verify connection ratio within manufacturer limits</li>
+                    </ol>
+
+                    <div class="info-box">
+                        <h4>Example Sizing</h4>
+                        <p>Small office building, 5 zones:</p>
+                        <ul>
+                            <li>Zone 1 (reception): 18,000 BTU/hr → 18K indoor unit</li>
+                            <li>Zone 2-4 (offices): 12,000 each → 12K units (3×)</li>
+                            <li>Zone 5 (conference): 24,000 BTU/hr → 24K indoor unit</li>
+                            <li>Total indoor capacity: 18 + 36 + 24 = 78,000 BTU/hr (6.5 tons)</li>
+                            <li>With 80% diversity: 6.5 tons × 0.8 = 5.2 tons</li>
+                            <li>Select: 6-ton outdoor unit</li>
+                            <li>Connection ratio: 78,000 / 72,000 = 108% ✓</li>
+                        </ul>
+                    </div>
+
+                    <h3>Diversity Factor</h3>
+                    <ul>
+                        <li>Not all zones peak simultaneously</li>
+                        <li>Typical diversity: 70-85% for heat pump, 80-90% for heat recovery</li>
+                        <li>Heat recovery systems have better diversity (simultaneous heating/cooling)</li>
+                    </ul>
+
+                    <h2 id="piping">Piping Design</h2>
+
+                    <h3>Pipe Sizing</h3>
+                    <ul>
+                        <li>Critical for system performance</li>
+                        <li>Sized for refrigerant velocity (suction, liquid, discharge)</li>
+                        <li>Use manufacturer sizing software - don't guess!</li>
+                        <li>Oversizing wastes money, undersizing kills performance</li>
+                    </ul>
+
+                    <h3>Piping Configurations</h3>
+                    <ul>
+                        <li><strong>Home Run:</strong> Separate piping from outdoor unit to each indoor unit</li>
+                        <li><strong>Header System:</strong> Main header with branches to indoor units (more common)</li>
+                        <li><strong>Combination:</strong> Headers with some home runs</li>
+                    </ul>
+
+                    <h3>Key Piping Requirements</h3>
+                    <ul>
+                        <li><strong>Maximum Pipe Length:</strong> Typically 500-1,000 feet equivalent length</li>
+                        <li><strong>Maximum Elevation Difference:</strong> 150-300 feet (varies by system)</li>
+                        <li><strong>Oil Return:</strong> Critical for reliability - proper pipe sizing and traps required</li>
+                        <li><strong>Insulation:</strong> All refrigerant lines must be insulated</li>
+                        <li><strong>Brazing:</strong> Nitrogen purge required during brazing</li>
+                        <li><strong>Evacuation:</strong> Deep vacuum (500 microns minimum) before charging</li>
+                    </ul>
+
+                    <h2 id="best-practices">Best Practices</h2>
+
+                    <h3>Design Phase</h3>
+                    <ul>
+                        <li>Use manufacturer design software for piping</li>
+                        <li>Consider heat recovery systems for buildings with diverse loads</li>
+                        <li>Don't forget outdoor air - may need separate DOAS or ERV</li>
+                        <li>Plan condensate drainage for all indoor units</li>
+                        <li>Verify outdoor unit location allows adequate airflow clearances</li>
+                        <li>Consider noise - outdoor units can be loud (60-70 dBA)</li>
+                        <li>Plan for electrical service to outdoor units</li>
+                    </ul>
+
+                    <h3>Installation</h3>
+                    <ul>
+                        <li>Use factory-certified installers</li>
+                        <li>Follow manufacturer piping guidelines exactly</li>
+                        <li>Use nitrogen purge during all brazing operations</li>
+                        <li>Pressure test before evacuation</li>
+                        <li>Evacuate to 500 microns or better</li>
+                        <li>Use electronic leak detectors - no leaks acceptable</li>
+                        <li>Commission each indoor unit individually</li>
+                    </ul>
+
+                    <h3>Commissioning</h3>
+                    <ul>
+                        <li>Verify refrigerant charge (superheat/subcooling)</li>
+                        <li>Test all indoor units in cooling and heating modes</li>
+                        <li>Verify individual zone control</li>
+                        <li>Check condensate drainage from each unit</li>
+                        <li>Program/verify thermostat setpoints and schedules</li>
+                        <li>Train building operators on system operation</li>
+                    </ul>
+
+                    <h3>Maintenance</h3>
+                    <ul>
+                        <li><strong>Monthly:</strong> Clean indoor unit filters</li>
+                        <li><strong>Quarterly:</strong> Check condensate drains, verify operation</li>
+                        <li><strong>Annually:</strong> Clean indoor unit coils, clean outdoor coil, check refrigerant charge</li>
+                        <li><strong>Every 3 Years:</strong> Inverter compressor inspection</li>
+                    </ul>
+
+                    <h2 id="overlooked">Often Overlooked Considerations</h2>
+
+                    <h3>Condensate Drainage</h3>
+                    <ul>
+                        <li>EVERY indoor unit produces condensate</li>
+                        <li>Must route to drain or provide condensate pumps</li>
+                        <li>Condensate pumps require power and periodic maintenance</li>
+                        <li>Budget: $150-300 per condensate pump</li>
+                    </ul>
+
+                    <h3>Outdoor Air/Ventilation</h3>
+                    <ul>
+                        <li>VRF systems provide little to no outdoor air</li>
+                        <li>Code requires ventilation per ASHRAE 62.1</li>
+                        <li>Options: DOAS, ERV, or ducted indoor units with OA connections</li>
+                        <li>Don't forget this - it's a code compliance issue!</li>
+                    </ul>
+
+                    <h3>Controls Integration</h3>
+                    <ul>
+                        <li>Most VRF systems use proprietary controls</li>
+                        <li>BMS integration possible but often limited</li>
+                        <li>Typically monitor-only or basic control (on/off, setpoint)</li>
+                        <li>Advanced features may require manufacturer's control system</li>
+                    </ul>
+
+                    <h3>Typical Pricing (2024)</h3>
+                    <ul>
+                        <li><strong>Outdoor Unit:</strong> $3,000-6,000 per ton</li>
+                        <li><strong>Wall-Mounted Indoor Unit:</strong> $1,000-1,800 each</li>
+                        <li><strong>Ceiling Cassette:</strong> $1,200-2,200 each</li>
+                        <li><strong>Ducted Unit:</strong> $1,400-2,500 each</li>
+                        <li><strong>Controls/Thermostats:</strong> $200-400 each</li>
+                        <li><strong>Installation:</strong> $2,000-4,000 per ton (higher than traditional systems)</li>
+                        <li><strong>Total System Cost:</strong> $7,000-12,000 per ton installed</li>
+                    </ul>
+                    <p><em>Heat recovery systems add 20-30% to equipment cost. Prices vary significantly with system complexity and local labor rates.</em></p>
+
+                    <h3>Service Life and Replacement</h3>
+                    <ul>
+                        <li>Expected life: 15-20 years</li>
+                        <li>Compressor is heart of system - most expensive component</li>
+                        <li>Replacement parts can be expensive and proprietary</li>
+                        <li>Plan for eventual full system replacement (not piece-by-piece)</li>
+                    </ul>
+
+                    <h2 id="manufacturers">Popular Manufacturers and Brands</h2>
+
+                    <div class="manufacturer-grid">
+                        <div class="manufacturer-card">
+                            <h4>Daikin</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>VRV (Variable Refrigerant Volume) - original VRF</li>
+                                <li>Market leader globally</li>
+                                <li>Extensive product range</li>
+                                <li>VRV IV and VRV 5 series</li>
+                            </ul>
+                            <p><a href="https://www.daikinac.com" target="_blank">daikinac.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Mitsubishi Electric</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>City Multi VRF systems</li>
+                                <li>Excellent reliability</li>
+                                <li>Strong in North America</li>
+                                <li>R2 and S series</li>
+                            </ul>
+                            <p><a href="https://www.mitsubishicomfort.com" target="_blank">mitsubishicomfort.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>LG Electronics</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Multi V series</li>
+                                <li>Innovative features</li>
+                                <li>Competitive pricing</li>
+                                <li>Multi V 5 and IV systems</li>
+                            </ul>
+                            <p><a href="https://www.lg.com/us/business/multi-v" target="_blank">lg.com/multi-v</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Samsung HVAC</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>DVM (Digital Variable Multi) series</li>
+                                <li>Digital scroll compressor technology</li>
+                                <li>Growing market presence</li>
+                                <li>DVM S II system</li>
+                            </ul>
+                            <p><a href="https://www.samsung.com/us/business/hvac/" target="_blank">samsung.com/hvac</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Toshiba</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>SMMS (Super Multi Modular System)</li>
+                                <li>Japanese quality</li>
+                                <li>Strong in international markets</li>
+                                <li>e-SMART series</li>
+                            </ul>
+                            <p><a href="https://www.toshibahvac.com" target="_blank">toshibahvac.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Carrier/Toshiba (Partnership)</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Toshiba equipment, Carrier brand</li>
+                                <li>North American support network</li>
+                                <li>VRF Xpression series</li>
+                            </ul>
+                            <p><a href="https://www.carrier.com" target="_blank">carrier.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>Related Articles</h3>
+                        <div class="related-links">
+                            <a href="fan-coil-units.html">Fan Coil Units</a>
+                            <a href="rooftop-units.html">Rooftop Units</a>
+                            <a href="air-cooled-chillers.html">Air-Cooled Chillers</a>
+                            <a href="variable-frequency-drives.html">Variable Frequency Drives</a>
+                            <a href="../load_calculation.html">Load Calculation Tool</a>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin: 3rem 0;">
+                        <a href="../articles.html" class="btn">← Back to All Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
