@@ -209,6 +209,69 @@
             font-size: 2rem;
             margin: 0.5rem 0;
         }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .design-guide-container {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .step-content {
+                margin-left: 0;
+            }
+
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .step-number {
+                margin-bottom: 0.5rem;
+            }
+
+            .key-activities,
+            .reference-box,
+            .important-note {
+                padding: 0.75rem;
+            }
+
+            .workflow-diagram {
+                padding: 1rem;
+            }
+
+            .workflow-step {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .design-guide-container {
+                padding: 0.5rem;
+            }
+
+            .guide-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .guide-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .guide-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .step-title {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
