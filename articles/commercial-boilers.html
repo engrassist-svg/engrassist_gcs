@@ -184,6 +184,8 @@
                             <li><a href="#sizing">Sizing Requirements</a></li>
                             <li><a href="#options">Available Options</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -455,6 +457,136 @@
                         <li><strong>Water Quality:</strong> Most critical for boiler life - poor water = premature failure</li>
                         <li><strong>Reset Strategy:</strong> Use outdoor reset to improve seasonal efficiency</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO perform accurate heat loss calculations using ASHRAE methods</strong> - Boiler sizing must be based on actual calculated heat loss, not rules of thumb like "30-50 BTU/SF." Rules of thumb can result in 50-200% oversizing, leading to short cycling, poor efficiency, and reduced equipment life. Calculate heat loss room-by-room considering insulation values, window U-factors, infiltration, and design temperatures. Include pickup allowances (10-20%) for piping mass and distribution losses, but don't stack multiple safety factors.</li>
+
+                            <li><strong>DO specify multiple boilers instead of one large boiler</strong> - Installing two or more boilers (rather than a single large unit) dramatically improves part-load efficiency and provides redundancy. Buildings operate at peak load less than 5% of the year. Multiple smaller boilers allow one unit to operate at high-fire (efficient) during mild weather, rather than one oversized boiler cycling on-off or firing at low-fire (inefficient). For example: Instead of one 4,000 MBH boiler, install two 2,000 MBH units or four 1,000 MBH modular boilers. This also provides 50-75% heating capacity if one unit fails.</li>
+
+                            <li><strong>DO implement outdoor reset control from day one</strong> - Outdoor reset adjusts supply water temperature based on outdoor temperature, significantly improving seasonal efficiency. When it's 50°F outside (mild day), the system might only need 140°F supply water, not 180°F design water. This reduces jacket losses, stack losses, and cycling. Outdoor reset is especially effective with condensing boilers (more time in condensing mode) and radiant systems. This control strategy typically saves 10-15% of annual heating energy for minimal additional cost.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T oversize boilers "to be safe"</strong> - Oversizing is one of the most common and damaging mistakes in boiler design. An oversized boiler short-cycles (starts and stops frequently), which causes thermal stress on the heat exchanger, wastes energy during purge cycles, and reduces equipment life by 30-50%. Oversized boilers also operate at low-fire most of the time where combustion efficiency is poorest. Proper sizing based on accurate heat loss calculations will include appropriate pickup allowances - adding extra "safety factor" beyond this is counterproductive.</li>
+
+                            <li><strong>DON'T forget combustion air and venting requirements</strong> - Boilers need substantial combustion air (typically 50 CFM per 100 MBH input) and proper venting. Many installations fail because the mechanical room lacks adequate combustion air, causing poor combustion, nuisance shutdowns, and potentially dangerous backdrafting. Outdoor air must be ducted directly to the boiler room - relying on building infiltration or louvers is often inadequate. Similarly, verify that existing chimneys are properly sized and in good condition before connecting new boilers. Undersized or deteriorated chimneys cause dangerous flue gas spillage.</li>
+
+                            <li><strong>DON'T skip water treatment</strong> - Untreated boiler water will destroy the heat exchanger through scale formation and corrosion, often within 3-5 years. Scale buildup acts as insulation, reducing heat transfer and causing localized overheating and cracking. Dissolved oxygen causes corrosion and pitting. Water treatment is not optional - it's essential. Budget for an automatic chemical feed system ($2,000-5,000), ongoing chemical costs ($1,000-3,000/year), and monthly water testing. This is far cheaper than premature boiler replacement ($25,000-100,000+).</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how boiler system variables interact helps optimize efficiency and troubleshoot performance:</p>
+
+                    <h3>Supply Water Temperature vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Supply Water Temperature</strong><br>(e.g., from 160°F to 180°F)</td>
+                                <td>• Terminal unit capacity (coils, radiators)<br>• System response speed<br>• Boiler stack losses<br>• Boiler jacket losses<br>• NOx emissions (slightly)</td>
+                                <td>• Condensing boiler efficiency<br>• Seasonal efficiency<br>• Equipment life (more thermal stress)<br>• Opportunities for heat recovery</td>
+                                <td><strong>Optimization strategy:</strong> Use outdoor reset to provide just enough temperature to meet load. On mild days (50°F outdoor), 140-150°F supply may be sufficient rather than 180°F design temp. This keeps condensing boilers in condensing mode (>90% efficiency) and reduces losses. Design terminal units for lower temps (140-160°F) when possible.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Return Water Temperature vs. Boiler Efficiency</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Decrease...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Return Water Temperature</strong><br>(e.g., from 160°F to 120°F)</td>
+                                <td>• Condensing boiler efficiency (dramatically)<br>• Heat extraction from flue gases<br>• Boiler capacity (more ΔT available)<br>• System water flow requirement</td>
+                                <td>• Flue gas temperature<br>• Stack losses<br>• Risk of flue gas condensation (non-condensing boilers)</td>
+                                <td><strong>Critical for condensing boilers:</strong> Return temps below 130°F allow water vapor in flue gases to condense, releasing ~1,000 BTU per pound of water condensed. This boosts efficiency from 82-84% to 90-96%. Ideal applications: radiant floor heating (100-110°F return), low-temp baseboards, large heat exchangers. <strong>For non-condensing boilers:</strong> Keep return temps above 140°F to prevent corrosive condensation in heat exchanger.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>System ΔT (Temperature Rise) Trade-offs</h3>
+                    <div class="info-box">
+                        <h4>Temperature Rise Design Considerations</h4>
+                        <p><strong>✓ Larger ΔT (e.g., 40°F instead of 20°F):</strong></p>
+                        <ul>
+                            <li>Lower flow rate required (GPM = MBH ÷ (500 × ΔT))</li>
+                            <li>Smaller pumps and lower pumping energy</li>
+                            <li>Smaller pipe sizes possible</li>
+                            <li>Better for condensing boilers (lower return temp)</li>
+                            <li>Faster warm-up (less water mass in system)</li>
+                        </ul>
+
+                        <p><strong>✗ Larger ΔT downsides:</strong></p>
+                        <ul>
+                            <li>Wider temperature variations at terminal units</li>
+                            <li>May require larger coils or radiators</li>
+                            <li>Less responsive to rapid load changes</li>
+                            <li>Potential comfort issues in poorly controlled systems</li>
+                        </ul>
+
+                        <p><strong>Recommendation:</strong> Standard 20°F ΔT (e.g., 180°F supply / 160°F return) works for most systems. Consider 30-40°F ΔT for condensing boiler systems with outdoor reset to maximize time in condensing mode. Verify terminal units can handle the larger ΔT.</p>
+                    </div>
+
+                    <h3>Number of Boilers vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Single Boiler</strong><br>(e.g., 1 × 4,000 MBH)</td>
+                                <td>• Lowest first cost<br>• Simplest controls<br>• Smallest footprint<br>• Single flue connection<br>• Fewer maintenance points</td>
+                                <td>• No redundancy<br>• Very poor part-load efficiency<br>• Excessive cycling in mild weather<br>• All heating lost if boiler fails<br>• Cannot service during heating season<br>• Typically oversized for 95%+ of operating hours</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Two Boilers</strong><br>(e.g., 2 × 2,000 MBH)<br><em>Each sized for 50-60% of peak load</em></td>
+                                <td>• 50% redundancy<br>• Much better part-load efficiency<br>• One boiler handles mild weather efficiently<br>• Can service one unit while other operates<br>• Good balance of cost and performance<br>• Lead-lag rotation distributes wear</td>
+                                <td>• Higher first cost (+15-25%)<br>• More floor space<br>• Two flue connections<br>• Slightly more complex controls<br>• Dual gas trains and electrical<br>• More maintenance points</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Modular System (4-6 Units)</strong><br>(e.g., 4 × 1,000 MBH)</td>
+                                <td>• Excellent part-load efficiency (best)<br>• Fine capacity control (25% increments)<br>• High redundancy (75% capacity with one unit down)<br>• Can operate single unit in shoulder seasons<br>• Minimal cycling<br>• Phased installation possible<br>• Easier to replace individual units</td>
+                                <td>• Highest first cost (+25-35%)<br>• Most complex controls<br>• Largest footprint<br>• Multiple flues (or manifold required)<br>• Multiple gas trains<br>• Most maintenance points<br>• Header/piping complexity</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Boiler Staging Recommendation</h4>
+                        <p><strong>Best practice for most commercial buildings:</strong> Two boilers, each sized for 50-60% of peak load (100-120% total capacity). This provides:</p>
+                        <ul>
+                            <li>50% redundancy for equipment failure</li>
+                            <li>Efficient operation during mild weather (one unit at high-fire)</li>
+                            <li>Reasonable first cost premium (15-25% more than single boiler)</li>
+                            <li>Ability to perform maintenance without system shutdown</li>
+                        </ul>
+                        <p><strong>Consider modular systems (4-6 small boilers) for:</strong> Buildings with highly variable loads, critical facilities requiring maximum redundancy (hospitals, data centers), or projects prioritizing long-term operating cost savings over first cost.</p>
+                    </div>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 

@@ -185,6 +185,8 @@
                             <li><a href="#sizing">Sizing Requirements</a></li>
                             <li><a href="#options">Available Options</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -511,6 +513,138 @@
                         <li><strong>Economizer Testing:</strong> Test integrated economizer operation seasonally</li>
                         <li><strong>Condensate Drain:</strong> Clean and flush annually to prevent clogs</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO design for face velocity limits on coils and filters</strong> - Exceeding face velocity limits on coils (typically 450-550 FPM for chilled water coils, 600-700 FPM for hot water coils) causes water carryover, noise, and reduced heat transfer effectiveness. Filters must stay below 300-500 FPM depending on type or efficiency drops and pressure increases dramatically. Calculate actual coil and filter face areas based on CFM and maximum velocity. Overspeeding coils by 20% to save first cost is false economy - performance suffers, water droplets enter ductwork causing damage and IAQ issues.</li>
+
+                            <li><strong>DO properly select and sequence heating and cooling coils</strong> - In mixed air AHUs serving variable loads, coil selection and control sequence are critical. Cooling coils should be sized for entering air at mixed air temperature (not return air temperature) - this accounts for hot outdoor air on design day. Use face-and-bypass dampers or control valves with wide authority (20:1+ turndown). Implement proper warm-up and cool-down sequences to prevent simultaneous heating and cooling. Include morning warm-up with 100% return air before introducing outdoor air. Poor sequencing wastes 10-30% of HVAC energy fighting itself.</li>
+
+                            <li><strong>DO design AHU mechanical rooms with full service access from day one</strong> - AHUs require substantial service clearance: minimum 4-6 feet in front of coil sections for tube removal, walk-in filter sections need 5-8 feet of access, fan sections need bearing and belt access. Many installations wedge AHUs into undersized mechanical rooms, then discover coils cannot be removed for cleaning or replacement without cutting piping. During design, model the AHU with dimensions from manufacturer's submittal (not just block dimensions), verify coil pullout space, ensure doorways are wide enough (coils are 6-8' wide), and provide permanent lighting and floor drains.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T underestimate duct connection static pressure losses</strong> - The transition from AHU discharge (often 5-6 feet square) to supply duct system causes substantial pressure losses if poorly designed. Abrupt transitions, sharp turns immediately after discharge, and undersized ductwork create turbulence and pressure loss that reduces airflow. Design gradual transitions (no more than 15° expansion angle), provide at least 3-5 duct diameters of straight duct before first elbow, and use turning vanes in all elbows near AHU. Budget 0.15-0.30" w.c. for properly designed duct connections; poorly designed connections can consume 0.5-1.0" w.c., reducing available system static.</li>
+
+                            <li><strong>DON'T forget about condensate disposal and drain pan geometry</strong> - AHU drain pans must be properly sloped (minimum 1/8" per foot, preferably 1/4" per foot) to a single drain point. Standing water in drain pans breeds bacteria, creates odors, corrodes the pan, and can overflow into ductwork. Trap the condensate line properly (minimum P-trap depth = negative pressure in AHU + 2") or the AHU will draw air through the drain, reducing airflow and causing whistling. Provide cleanouts and ensure drain piping is sized adequately (minimum 1.5" for units up to 20,000 CFM). Include drain pan overflow switches to shut down unit before water overflows into occupied space.</li>
+
+                            <li><strong>DON'T mix indoor and outdoor air without proper controls</strong> - Mixing cold outdoor air with warm return air can cause stratification (layers of different temperatures) if done poorly, resulting in cold coils with warm air bypassing above, or frozen coil detection sensors that shut down the system unnecessarily. Use mixing boxes or airfoil mixing dampers (not opposed-blade dampers) to thoroughly mix airstreams. Locate mixing zone at least 3-5 feet upstream of coils. Install mixed air temperature sensor downstream of mixing point, not in the outdoor or return airstreams. In cold climates, consider preheat coils in outdoor air stream before mixing to prevent freeze-ups.</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how AHU variables interact helps optimize design and diagnose performance issues:</p>
+
+                    <h3>Supply Airflow vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Supply Airflow (CFM)</strong><br>(e.g., from 10,000 to 12,000 CFM)</td>
+                                <td>• Fan power (cube law: 1.2× flow = 1.73× power)<br>• Duct velocity and noise<br>• Filter and coil pressure drop<br>• System first cost (larger equipment)<br>• Throw distance at diffusers</td>
+                                <td>• Supply air temperature rise (ΔT)<br>• Coil face velocity (if coil size increased)<br>• Fan motor life (running harder)<br>• Sound level to occupied space</td>
+                                <td><strong>Optimization strategy:</strong> Design for 350-500 FPM duct velocity (not higher - noise increases rapidly). Use standard CFM/ton ratios: 400 CFM/ton for standard comfort, 350 CFM/ton for better dehumidification, 450 CFM/ton for sensible-only loads. Oversizing airflow "for safety" increases cost and energy with no comfort benefit. Right-size based on actual load and temperature difference required.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Coil Face Velocity vs. Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Coil Face Velocity</strong><br>(e.g., from 450 to 600 FPM)</td>
+                                <td>• Coil pressure drop (quadratic)<br>• Water carryover and moisture in ducts<br>• Noise at coil<br>• Required fan power</td>
+                                <td>• Heat transfer effectiveness<br>• Coil leaving air temperature uniformity<br>• Coil cost (smaller coil face area)<br>• Filter life (moisture carryover fouls filters)</td>
+                                <td><strong>Design guidelines:</strong> Chilled water coils: 450-500 FPM maximum (lower for hospitals, critical spaces). Hot water coils: 600-700 FPM maximum. Steam coils: 700-900 FPM maximum (no liquid carryover). <strong>Consequence of overspeeding:</strong> Water droplets blown off cooling coils cause wet ductwork, rusty diffusers, ceiling stains, and biological growth. Spend $500 more on a larger coil to avoid $10,000+ in duct remediation.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Filter Selection Trade-offs</h3>
+                    <div class="info-box">
+                        <h4>Filter Efficiency vs. Pressure Drop & Cost</h4>
+                        <p><strong>✓ Standard Filters (MERV 8-11):</strong></p>
+                        <ul>
+                            <li>Lower pressure drop (0.3-0.6" w.c. clean, 1.0" final)</li>
+                            <li>Lower first cost ($10-30 per filter)</li>
+                            <li>Adequate for general office, retail applications</li>
+                            <li>Longer filter life (3-6 months typical)</li>
+                            <li>Less fan energy required</li>
+                        </ul>
+
+                        <p><strong>✓ High-Efficiency Filters (MERV 13-14):</strong></p>
+                        <ul>
+                            <li>Higher pressure drop (0.6-1.2" w.c. clean, 2.0" final)</li>
+                            <li>Higher cost ($30-80 per filter)</li>
+                            <li>Required for hospitals, labs, high-IAQ applications</li>
+                            <li>Shorter filter life (1-3 months typical)</li>
+                            <li>Requires higher fan power (20-30% more energy)</li>
+                            <li>Better indoor air quality (captures PM2.5, virus particles)</li>
+                        </ul>
+
+                        <p><strong>Recommendation:</strong> Match filter efficiency to actual IAQ requirements, not higher. Select AHU fan for final filter pressure drop (not clean), and include differential pressure gauges to indicate when to change filters. Over-filtering wastes energy; under-filtering compromises IAQ.</p>
+                    </div>
+
+                    <h3>Fan Type and Drive Configuration</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Plenum Fan (Direct Drive)</strong></td>
+                                <td>• Highest efficiency (no belt losses)<br>• No belt maintenance<br>• Compact (fits in plenum)<br>• Quiet operation<br>• Most reliable long-term</td>
+                                <td>• Not field-adjustable (fixed speed without VFD)<br>• Higher replacement cost<br>• Must be precisely selected<br>• Limited to smaller sizes (< 30,000 CFM typically)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Belt-Drive Airfoil Fan</strong></td>
+                                <td>• Field-adjustable (change sheaves)<br>• Can handle wide range of conditions<br>• Good efficiency (80-85%)<br>• Available in large sizes<br>• Lower motor replacement cost</td>
+                                <td>• Requires belt maintenance (quarterly)<br>• 2-3% efficiency loss from belts<br>• Larger footprint<br>• More noise than direct drive<br>• Alignment critical</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Variable Speed (VFD)</strong></td>
+                                <td>• Dramatic energy savings (30-60% for VAV systems)<br>• Precise airflow control<br>• Soft-start reduces mechanical stress<br>• Can compensate for filter loading<br>• Enables demand-based ventilation</td>
+                                <td>• Higher first cost (+$1,500-5,000)<br>• Requires proper programming<br>• Potential harmonic issues<br>• More complex troubleshooting<br>• Needs minimum speed settings</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Fan Selection Recommendation</h4>
+                        <p><strong>Modern best practice:</strong> Use direct-drive plenum fans with VFDs for most commercial applications. The premium for direct-drive (~10-15%) and VFD (~15-20%) pays back in 3-5 years through reduced energy and maintenance. The combination provides:</p>
+                        <ul>
+                            <li>Maximum efficiency (no belt losses + fan speed optimization)</li>
+                            <li>Minimal maintenance (no belts to inspect or replace)</li>
+                            <li>Precise control for VAV or demand ventilation systems</li>
+                            <li>Quiet operation (lower speeds during part-load)</li>
+                        </ul>
+                        <p><strong>Exception:</strong> Use belt-drive for very large systems (>50,000 CFM), high-static applications, or where field adjustment flexibility is essential.</p>
+                    </div>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 

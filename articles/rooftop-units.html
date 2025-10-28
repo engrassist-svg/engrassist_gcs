@@ -184,6 +184,8 @@
                             <li><a href="#sizing">Sizing Requirements</a></li>
                             <li><a href="#options">Available Options</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -448,6 +450,132 @@
                         <li><strong>Refrigerant:</strong> Check superheat/subcooling annually, repair leaks promptly</li>
                         <li><strong>Gas Heat Exchanger:</strong> Inspect annually for cracks (safety critical)</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO size units based on accurate load calculations, not rules of thumb</strong> - RTUs are frequently oversized using outdated "400 SF/ton" or "1 ton per X-square-feet" rules. Oversized units short-cycle, causing poor dehumidification, uneven temperatures, excessive wear on compressors, and 20-30% higher energy consumption. Perform room-by-room ASHRAE Manual N load calculations considering orientation, glazing, occupancy, lighting, and plug loads. Right-sizing improves comfort, equipment life, and energy efficiency.</li>
+
+                            <li><strong>DO specify and commission economizers in appropriate climates</strong> - Economizers provide "free cooling" by bringing in cool outdoor air instead of running the compressor. In climates with >1,000 hours below 55°F dry-bulb annually, economizers typically save 20-40% of cooling energy. However, studies show 40-60% of installed economizers don't work properly due to poor installation, lack of commissioning, or failed maintenance. Specify integrated economizer controls, commission thoroughly at startup, and include annual functional testing in maintenance contracts. The energy savings justify the effort.</li>
+
+                            <li><strong>DO plan for adequate outdoor air and exhaust air paths</strong> - ASHRAE 62.1 ventilation requirements have increased substantially (15-20 CFM per person in many spaces). Many RTU installations fail to properly account for outdoor air intake, relief air exhaust, and building pressurization. Insufficient outdoor air causes poor indoor air quality and code violations. Excessive outdoor air without proper relief causes over-pressurization, door operability issues, and wasted energy conditioning more air than necessary. Calculate actual ventilation requirements, design relief air paths (powered exhaust or barometric dampers), and commission airflow rates.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T ignore duct static pressure limitations</strong> - Standard RTUs are designed for low static pressure (0.5-1.0" w.c. external static). Designers frequently exceed this by using undersized ducts, excessive duct length, multiple elbows, or restrictive diffusers - then wonder why airflow is insufficient. Calculate total static pressure including duct friction, fittings, coils, filters, and diffusers. If external static exceeds the unit's capacity, specify a high-static model (+10-20% cost), redesign the ductwork, or use multiple smaller units with shorter duct runs. Operating a standard unit against excessive static causes low airflow, poor performance, and premature fan motor failure.</li>
+
+                            <li><strong>DON'T forget about replacement access</strong> - RTUs typically last 15-20 years, then require replacement. Many installations box themselves in with HVAC equipment, skylights, exhaust fans, or other rooftop obstacles placed around the RTU with no consideration for future crane access. When replacement time comes, the only option is costly helicopter lifts or cutting equipment into pieces. During design, identify and protect crane access paths to all RTU locations. Mark these paths on structural drawings and roof plans. Consider providing roof access hatches sized for major components if crane access isn't feasible.</li>
+
+                            <li><strong>DON'T underestimate the importance of proper curb installation</strong> - The roof curb is not an afterthought - it's a critical component that must be properly sized, leveled, sealed, and vibration-isolated. A poorly installed curb causes roof leaks (major damage potential), vibration transmission to occupied spaces (occupant complaints), and RTU performance issues (air leaks reduce efficiency). Coordinate curb dimensions with structural drawings early, specify spring isolators for vibration isolation, detail flashing properly, and inspect curb installation before RTU delivery. Fixing curb problems after the 3,000-lb RTU is installed is expensive and difficult.</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how RTU variables interact helps optimize performance and troubleshoot problems:</p>
+
+                    <h3>Outdoor Air Ventilation vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Outdoor Air Percentage</strong><br>(e.g., from 15% to 30% OA)</td>
+                                <td>• Cooling load (hot/humid outdoor air)<br>• Heating load (cold outdoor air)<br>• Energy consumption<br>• Ventilation effectiveness<br>• Indoor air quality</td>
+                                <td>• Return air percentage<br>• System efficiency<br>• Operating cost<br>• Economizer effectiveness</td>
+                                <td><strong>Optimization strategy:</strong> Provide ASHRAE 62.1 minimum outdoor air, no more. Use demand-controlled ventilation (DCV) with CO₂ sensors in variable-occupancy spaces to reduce OA when occupancy is low. Every 10% reduction in unnecessary outdoor air saves ~5-10% of RTU energy. But don't under-ventilate - IAQ and code compliance are critical. <strong>Typical OA:</strong> 10-25% of supply airflow depending on occupancy density.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Supply Air Temperature vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Decrease...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Supply Air Temperature</strong><br>(e.g., from 58°F to 52°F)</td>
+                                <td>• Dehumidification (colder coil)<br>• Duct condensation risk<br>• Compressor runtime<br>• Energy consumption</td>
+                                <td>• Required airflow (CFM = load ÷ (1.08 × ΔT))<br>• Duct size requirements<br>• Fan energy<br>• Occupant comfort (if air velocity too high)</td>
+                                <td><strong>Trade-off decision:</strong> Lower supply air temp (52-55°F) = smaller ductwork and better dehumidification BUT higher cooling energy and potential comfort issues. Higher supply air temp (58-60°F) = larger ductwork but lower energy and better comfort. <strong>Standard:</strong> 55°F supply air for most applications. Use 52-53°F in humid climates or high-latent-load spaces. Insulate supply ducts in unconditioned spaces to prevent condensation with cold supply air.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Economizer Operation Trade-offs</h3>
+                    <div class="info-box">
+                        <h4>Economizer Control Strategy Considerations</h4>
+                        <p><strong>✓ Dry-Bulb Economizer Control (simpler):</strong></p>
+                        <ul>
+                            <li>Uses outdoor dry-bulb temperature only (e.g., enable when OAT < 55°F)</li>
+                            <li>Simpler, fewer sensors, less maintenance</li>
+                            <li>Works well in dry climates (low humidity)</li>
+                            <li>Can bring in humid air in humid climates (humidity penalty)</li>
+                            <li>Typical energy savings: 15-25% in appropriate climates</li>
+                        </ul>
+
+                        <p><strong>✓ Enthalpy (Differential) Economizer Control (more precise):</strong></p>
+                        <ul>
+                            <li>Compares outdoor air enthalpy to return air enthalpy</li>
+                            <li>Prevents bringing in warm, humid air</li>
+                            <li>Essential in humid climates (Southeast, Gulf Coast, Pacific Northwest)</li>
+                            <li>Requires humidity sensors (higher maintenance)</li>
+                            <li>Typical energy savings: 20-30% in humid climates, optimal in all climates</li>
+                        </ul>
+
+                        <p><strong>Recommendation:</strong> Use enthalpy economizers in humid climates (summer dewpoint >60°F) and dry-bulb economizers in dry climates. Include differential enthalpy logic to prevent bringing in air with higher enthalpy than return air. Budget for annual economizer functional testing - non-functioning economizers waste significant energy.</p>
+                    </div>
+
+                    <h3>RTU Capacity vs. Quantity Trade-offs</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Single Large RTU</strong><br>(e.g., 1 × 25 tons for 25-ton load)</td>
+                                <td>• Lowest equipment cost<br>• Single curb and gas/electrical connection<br>• Simpler controls<br>• Less roof space required<br>• Fewer maintenance points</td>
+                                <td>• No redundancy - total loss if unit fails<br>• No zoning capability (single thermostat)<br>• Poor part-load efficiency<br>• Difficult to phase construction<br>• Large duct mains required<br>• Limited capacity control</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multiple Smaller RTUs</strong><br>(e.g., 3 × 8 tons or 5 × 5 tons)</td>
+                                <td>• Excellent zoning (separate control per area)<br>• Partial operation if one unit fails<br>• Better part-load efficiency<br>• Smaller duct mains (less ceiling space)<br>• Phased installation possible<br>• Better airflow distribution<br>• Easier future replacement (lighter units)</td>
+                                <td>• Higher equipment cost (+15-25%)<br>• Multiple roof curbs and penetrations<br>• More maintenance points<br>• More complex controls<br>• More roof space required<br>• Multiple gas/electrical connections</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>RTU Sizing Recommendation</h4>
+                        <p><strong>Best practice:</strong> Use multiple smaller RTUs rather than one large unit when the load exceeds 15-20 tons. Benefits include:</p>
+                        <ul>
+                            <li>Better zoning and individual space control</li>
+                            <li>Redundancy - building remains partially operational if one unit fails</li>
+                            <li>Improved part-load efficiency (operate fewer units during mild weather)</li>
+                            <li>Easier crane access and replacement (smaller units)</li>
+                        </ul>
+                        <p><strong>Example:</strong> For a 60-ton load, use three 20-ton units or four 15-ton units rather than one 60-ton unit. The equipment premium (15-20%) is justified by improved comfort, reliability, and long-term energy savings.</p>
+                    </div>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 

@@ -186,6 +186,8 @@
                             <li><a href="#options">Available Options</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
                             <li><a href="#troubleshooting">Troubleshooting</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -518,6 +520,143 @@
                         <li><strong>Check:</strong> Seal condition, shaft runout, bearing wear</li>
                         <li><strong>Solution:</strong> Replace seal, address vibration source, replace bearings if needed</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO select pumps based on detailed system head calculations, not assumptions</strong> - Pump selection must be based on accurate system head calculations that include pipe friction losses, coil/equipment pressure drops, valve losses, and elevation changes. Many designers use arbitrary "40-50 feet of head" rules or copy previous projects, resulting in grossly oversized pumps that waste 30-50% of pumping energy and cause control problems. Calculate system head at design flow using actual piping layout, fittings count, equipment schedules, and friction loss charts. Then select a pump that operates at 70-85% of its best efficiency point (BEP) at the calculated design condition. Oversizing "to be safe" is false economy.</li>
+
+                            <li><strong>DO design systems for variable flow with properly applied VFDs</strong> - Modern HVAC systems with control valves (at coils, zone valves, etc.) create variable flow conditions. Operating constant-speed pumps against modulating control valves wastes massive energy - the pump runs at full power while the valves throttle flow. Install variable frequency drives (VFDs) on all pumps >5 HP serving variable load systems. Since pump power follows the cube law (50% speed = 12.5% power), VFDs typically save 30-60% of annual pump energy. Control VFDs based on differential pressure, maintaining just enough pressure to satisfy the most demanding zone. Initial cost premium ($1,500-5,000) pays back in 1-3 years.</li>
+
+                            <li><strong>DO verify and provide adequate NPSH (Net Positive Suction Head)</strong> - NPSH available must exceed NPSH required or the pump will cavitate, causing noise, vibration, impeller damage, and catastrophic failure. Many installations fail because designers didn't verify NPSH, especially for hot water systems (lower NPSH available) or suction lift applications. For each pump: 1) Calculate NPSH available based on system pressure, fluid temperature, vapor pressure, elevation, and suction piping losses, 2) Compare to manufacturer's NPSH required curve, 3) Provide minimum 3-5 feet margin. If NPSH is inadequate, relocate pump lower, increase system pressure (raise expansion tank), reduce suction piping losses, or use booster pump.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T oversize pumps "to be safe" or "for future expansion"</strong> - Oversized pumps are one of the most common and damaging HVAC design mistakes. An oversized pump operates far to the right of its best efficiency point (BEP), causing: excessive energy consumption (30-50% waste), cavitation and vibration (operating in unstable region), premature seal and bearing failure, noise, control valve authority problems (valves spend most time nearly closed), and inability to properly balance the system. If you need capacity for future expansion, install properly sized pumps now and add capacity later when needed. Attempting to serve future loads with day-one oversized pumps guarantees poor performance and high operating costs.</li>
+
+                            <li><strong>DON'T use suction diffusers as a substitute for proper pipe design</strong> - Suction diffusers (flow straighteners installed on pump suction) help eliminate swirl and provide uniform flow to the impeller eye. However, they are NOT a substitute for proper piping practice. Many installers use suction diffusers to excuse installing pumps immediately after elbows, tees, or valves with inadequate straight pipe. Turbulent, swirling flow causes cavitation, vibration, and poor performance even with suction diffusers. Follow the 10-diameter rule: provide minimum 10 pipe diameters of straight run upstream of pump suction inlet. If space is constrained, use long-radius elbows and proper pipe alignment rather than relying on suction diffusers to fix bad piping.</li>
+
+                            <li><strong>DON'T forget to provide adequate pump clearances for maintenance</strong> - Pumps require regular maintenance including seal replacement, coupling service, and potential impeller removal. Many installations squeeze pumps into minimal space, making future service extremely difficult or impossible without cutting piping. During design, ensure: 4-6 feet clearance in front of pump (coupling/seal access), space to pull motor without cutting piping (use couplings that allow motor removal), vertical clearance above pump for head removal (if applicable), floor drains nearby for controlled draining during service. Show these clearances on plans. Technicians who can service pumps efficiently maintain them more frequently and identify problems early.</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding pump affinity laws and system relationships is essential for proper selection and troubleshooting:</p>
+
+                    <h3>Pump Speed vs. Performance (Affinity Laws)</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Change Speed...</th>
+                                <th>Then This Changes...</th>
+                                <th>Relationship</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Reduce Speed to 80%</strong><br>(e.g., 1,750 RPM to 1,400 RPM)</td>
+                                <td>• Flow: 80% of original<br>• Head: 64% of original (speed²)<br>• Power: 51% of original (speed³)<br>• Efficiency: Nearly unchanged</td>
+                                <td><strong>Affinity Laws:</strong><br>Q₂/Q₁ = N₂/N₁<br>H₂/H₁ = (N₂/N₁)²<br>P₂/P₁ = (N₂/N₁)³</td>
+                                <td><strong>Critical implication:</strong> Reducing speed by 20% cuts power by 49%. This is why VFDs save so much energy. <strong>Example:</strong> 30 HP pump at full speed, reduced to 80% speed = 15.3 HP (vs. 30 HP with throttling valve). At $0.12/kWh × 5,000 hrs, this saves $8,214/year. VFD payback is typically 1-3 years.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>System Head vs. Flow Relationship</h3>
+                    <div class="info-box">
+                        <h4>Understanding System Curves</h4>
+                        <p>System head is NOT constant - it varies with flow following the relationship: <strong>H = H_static + K × Q²</strong></p>
+                        <ul>
+                            <li><strong>Static Head (H_static):</strong> Elevation changes, fixed pressures (constant regardless of flow)</li>
+                            <li><strong>Friction Head (K × Q²):</strong> Pipe friction, valve losses, equipment losses (increases with square of flow)</li>
+                        </ul>
+
+                        <p><strong>System Curve Shapes:</strong></p>
+                        <p><strong>✓ Flat System Curve (mostly static head):</strong> Cooling tower, hot water heating with elevation. Little change in head with flow. Pumps operate over wide flow range. VFD savings limited (static head still requires power).</p>
+
+                        <p><strong>✓ Steep System Curve (mostly friction):</strong> Chilled water systems, long piping runs. Head increases dramatically with flow. Pumps very sensitive to flow changes. Excellent VFD savings potential (head drops rapidly with reduced flow).</p>
+
+                        <p><strong>Design implication:</strong> On steep system curves (friction-dominated), oversizing pump by 20% increases energy consumption by 73% (affinity laws). On flat curves (static head dominated), oversizing has less energy penalty but still causes control and reliability problems.</p>
+                    </div>
+
+                    <h3>Piping Size vs. Pump Energy</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase Pipe Size...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pipe Diameter</strong><br>(e.g., from 4" to 5" pipe)</td>
+                                <td>• Pipe material cost<br>• Installation labor<br>• Insulation cost<br>• Hanger/support size<br>• Space requirements</td>
+                                <td>• Friction losses (by ~50% for 1 size increase)<br>• Pump head requirement<br>• Pump energy (15-25% reduction)<br>• Pipe velocity and noise<br>• Erosion and wear</td>
+                                <td><strong>Economic optimization:</strong> Larger pipes cost more initially but save pumping energy forever. <strong>Example:</strong> 300 GPM system, 200 feet of pipe. 3" pipe: 18 ft head loss, 4" pipe: 6 ft head loss. Difference = 12 ft × 300 GPM = 5.5 HP. At 5,000 hrs/year, $0.12/kWh, this is $2,453/year savings. Extra cost for 4" pipe ($1,500-2,000) pays back in <1 year. <strong>Design guideline:</strong> 4-8 ft/100 ft friction loss for most HVAC systems balances first cost and energy.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Primary-Secondary vs. Variable Primary Flow Systems</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Primary-Secondary (Decoupled)</strong></td>
+                                <td>• Guarantees minimum flow through production equipment<br>• Simple control logic<br>• Easy to understand and maintain<br>• Protects chillers/boilers from low flow<br>• Proven, traditional design</td>
+                                <td>• Requires primary pumps running constantly<br>• Primary pumps waste energy (10-20% penalty)<br>• More pumps = more maintenance<br>• Requires hydraulic separator or common pipe<br>• Larger pump room footprint</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Variable Primary Flow (Direct)</strong></td>
+                                <td>• Lower energy (no constant primary pumps)<br>• Fewer pumps = less maintenance<br>• Smaller footprint<br>• Lower first cost (fewer pumps)<br>• Simple piping (no decoupler required)</td>
+                                <td>• Requires careful control to maintain minimum equipment flow<br>• Must ensure adequate flow during all conditions<br>• Equipment bypass may be needed<br>• More sophisticated control logic<br>• Potential for low-flow damage if controls fail</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Piping Configuration Recommendation</h4>
+                        <p><strong>Modern best practice:</strong> Variable primary flow for most new systems, IF controls are properly designed and commissioned:</p>
+                        <ul>
+                            <li>Ensure VFD minimum speed provides equipment minimum flow</li>
+                            <li>Use differential pressure control at furthest point</li>
+                            <li>Include equipment bypass valves for backup protection</li>
+                            <li>Commission thoroughly and verify minimum flows at all operating modes</li>
+                        </ul>
+                        <p><strong>Use primary-secondary when:</strong> Equipment has strict minimum flow requirements (some chillers), existing systems being expanded, or maintenance staff prefers traditional approaches.</p>
+                    </div>
+
+                    <h3>Pump Trim (Impeller Diameter) vs. Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Decrease Impeller Size...</th>
+                                <th>Impact on Performance</th>
+                                <th>When to Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Trim Impeller 10%</strong><br>(e.g., 12" to 10.8" diameter)</td>
+                                <td>• Flow: ~10% reduction<br>• Head: ~19% reduction (diameter²)<br>• Power: ~27% reduction (diameter³)<br>• Efficiency: Slight decrease (moves left on curve)</td>
+                                <td><strong>Use when:</strong> Pump selected is slightly oversized and you want to reduce capacity without changing pump model. <strong>Limitation:</strong> Can typically only trim 10-15% before efficiency drops significantly. Better to select correctly sized pump initially rather than planning to trim. Trimming is a correction tool, not a design strategy.</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 

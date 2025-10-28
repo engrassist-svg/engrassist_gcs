@@ -250,6 +250,8 @@
                             <li><a href="#typical-setups">Typical Setups and Arrangements</a></li>
                             <li><a href="#sizing">Sizing Requirements</a></li>
                             <li><a href="#options">Available Options</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
@@ -447,6 +449,127 @@
                         <li><strong>Seismic Certification:</strong> Required in high-seismic zones</li>
                         <li><strong>Dual Refrigerant Circuits:</strong> Provides 50% redundancy if one circuit fails</li>
                     </ul>
+
+                    <!-- Design Do's and Don'ts -->
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO perform detailed load calculations</strong> - Use ASHRAE methods or building simulation software. Account for actual occupancy, equipment loads, and building envelope. A proper calculation prevents oversizing and ensures efficient operation.</li>
+                            <li><strong>DO coordinate chiller selection with cooling tower and pumps</strong> - The chiller, tower, and pumps work as a system. Optimize entering condenser water temperature (typically 85°F) for best chiller efficiency while ensuring tower can achieve it at design wet-bulb.</li>
+                            <li><strong>DO plan for tube pulling clearance from day one</strong> - Chillers require maintenance access equal to tube bundle length + 3-4 feet. If you don't plan for this, you'll face costly rigging operations or even equipment replacement when tubes need cleaning.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T use "square feet per ton" rules for final sizing</strong> - Rules like "400 SF/ton" are useful for budgeting only. Actual loads vary by 200-800 SF/ton depending on building type, orientation, envelope, and internal loads. Oversizing by 50-100% wastes money and reduces efficiency.</li>
+                            <li><strong>DON'T forget water treatment</strong> - Poor water quality is the #1 cause of chiller failure. Scaling reduces capacity by 10-30% and can destroy a tube bundle ($50K-150K replacement). Budget for treatment system and ongoing maintenance.</li>
+                            <li><strong>DON'T locate chillers in inaccessible locations</strong> - Chillers are large (20'+ long) and heavy (20,000+ lbs). Ensure rigging path exists for installation AND future replacement. Verify doorways, elevators, and mechanical room access before ordering equipment.</li>
+                        </ol>
+                    </div>
+
+                    <!-- System Interactions & Correlations -->
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how system variables interact is critical for optimization:</p>
+
+                    <h3>Chilled Water Flow Rate vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chilled Water Flow (GPM)</td>
+                                <td>• Pump power (cube of flow)<br>• Chiller evaporator pressure drop<br>• Pipe friction losses</td>
+                                <td>• Chilled water ΔT<br>• Pump efficiency (if oversized)</td>
+                                <td>Higher flow = more pumping energy but smaller ΔT. Optimal: 10-14°F ΔT (2.4-3 GPM/ton)</td>
+                            </tr>
+                            <tr>
+                                <td>Condenser Water Flow (GPM)</td>
+                                <td>• Condenser pump power<br>• Cooling tower load</td>
+                                <td>• Chiller lift (better efficiency)<br>• Condenser water ΔT</td>
+                                <td>More flow improves chiller efficiency but increases pump/tower energy. Optimal: 3 GPM/ton with 10°F rise</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Condenser Water Temperature vs. Chiller Efficiency</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Entering Condenser Water Temp</th>
+                                <th>Chiller Efficiency (kW/ton)</th>
+                                <th>Impact on System</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>75°F (cold tower water)</td>
+                                <td>0.45 kW/ton (excellent)</td>
+                                <td>Lower lift = better chiller efficiency BUT larger/more expensive cooling tower required</td>
+                            </tr>
+                            <tr>
+                                <td>85°F (typical design)</td>
+                                <td>0.55 kW/ton (good)</td>
+                                <td>Balanced approach - standard tower size, good chiller efficiency</td>
+                            </tr>
+                            <tr>
+                                <td>95°F (warm tower water)</td>
+                                <td>0.75 kW/ton (poor)</td>
+                                <td>Higher lift = reduced chiller efficiency. May save on tower cost but wastes energy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Chilled Water Supply Temperature vs. Capacity</h3>
+                    <div class="info-box">
+                        <h4>Lower CHW Temperature Trade-offs</h4>
+                        <p><strong>If you decrease supply temp from 44°F to 42°F:</strong></p>
+                        <ul>
+                            <li>✓ Chiller capacity increases 3-5% (colder air from coils)</li>
+                            <li>✓ Better dehumidification (lower coil temp)</li>
+                            <li>✗ Chiller efficiency decreases 3-5% (larger lift)</li>
+                            <li>✗ Condensation risk on piping increases</li>
+                            <li>✗ Energy cost increases $0.02-0.04/ton-hr</li>
+                        </ul>
+                        <p><strong>Best practice:</strong> Use 44°F unless dehumidification requires colder (humid climates, hospitals, labs)</p>
+                    </div>
+
+                    <h3>Number of Chillers vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Single Chiller</strong><br>(e.g., 1 × 500 tons)</td>
+                                <td>• Lowest first cost<br>• Simplest controls<br>• Less floor space<br>• Fewer points of maintenance</td>
+                                <td>• No redundancy<br>• Poor part-load efficiency<br>• All cooling lost if chiller fails<br>• No maintenance flexibility</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Two Equal Chillers</strong><br>(e.g., 2 × 250 tons)</td>
+                                <td>• 50% redundancy<br>• Better part-load efficiency<br>• Can service one while other runs<br>• Reduced in-rush current</td>
+                                <td>• Higher first cost (+15-20%)<br>• More complex controls<br>• More floor space<br>• More maintenance points</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multiple Chillers</strong><br>(e.g., 4 × 125 tons)</td>
+                                <td>• Excellent part-load efficiency<br>• Maximum redundancy<br>• Phased capacity addition<br>• Optimal staging flexibility</td>
+                                <td>• Highest first cost (+25-35%)<br>• Most complex controls<br>• Maximum floor space<br>• Most maintenance burden</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <!-- Best Practices -->
                     <h2 id="best-practices">Best Practices</h2>

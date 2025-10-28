@@ -185,6 +185,8 @@
                             <li><a href="#options">Available Options</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
                             <li><a href="#troubleshooting">Troubleshooting</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -481,6 +483,133 @@
                         <li><strong>Check:</strong> Inlet static pressure, damper position cycling</li>
                         <li><strong>Solution:</strong> Add acoustic liner, increase minimum position to prevent flutter, balance system static</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO size VAV boxes for actual zone loads, not duct sizes or "standard" quantities</strong> - VAV boxes are frequently sized based on available duct sizes ("we have 12" duct, so use a 12" box") or arbitrary quantities rather than calculated zone loads. This results in oversized boxes that cannot modulate properly at low loads, causing poor control and comfort problems. Calculate the zone's design maximum CFM based on heating and cooling loads, add 10-15% for safety, and select the box size that operates in the middle of its range at design conditions. A properly sized box should modulate between minimum (typically 30% of maximum) and maximum under normal operation.</li>
+
+                            <li><strong>DO provide adequate inlet static pressure at all operating conditions</strong> - VAV boxes require minimum inlet static pressure (typically 0.5-1.5" w.c. depending on type) to modulate properly and maintain accurate flow measurement. Systems with inadequate static pressure cause boxes to "starve," unable to deliver required airflow even at full-open damper. This is especially problematic at end-of-run boxes or during morning warm-up when many zones demand full flow simultaneously. Design duct systems for 0.75-1.5" w.c. static at furthest box under all conditions. Consider static pressure reset based on box damper positions to save fan energy while maintaining minimum required pressure.</li>
+
+                            <li><strong>DO coordinate VAV box locations with ceiling and access requirements early</strong> - VAV boxes are large (24-48" long for typical 500-2,000 CFM boxes) and require regular access for calibration, filter changes (fan-powered), and troubleshooting. Many installations place boxes above hard ceilings, in tight soffits, or in locations requiring ladders and removing multiple ceiling tiles. During design coordination, show VAV box locations on reflected ceiling plans, verify ceiling types allow access, coordinate with lights and other ceiling elements, and provide permanent access panels nearby. Installers should not be determining box locations in the field - this leads to poor access and maintenance problems.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T specify pneumatic controls on new installations</strong> - Pneumatic VAV controls were standard for decades but are obsolete technology. They require compressed air systems (compressors, dryers, piping), drift out of calibration frequently, provide poor control accuracy, and cannot integrate with modern building management systems. Parts availability is declining and technicians familiar with pneumatics are retiring. For new construction, always specify DDC (Direct Digital Control) VAV boxes with electronic damper actuators. Yes, DDC costs more initially (+$200-500 per box), but provides superior control, BAS integration, remote troubleshooting, and lower long-term maintenance costs.</li>
+
+                            <li><strong>DON'T use reheat boxes without considering energy codes and alternatives</strong> - VAV boxes with electric or hot water reheat provide excellent comfort control by allowing cooling air supply temperatures while adding heat as needed for perimeter zones or precise control. However, energy codes (ASHRAE 90.1, IECC) severely restrict reheat use due to the inefficiency of simultaneously cooling and heating air. Maximum reheat limits are typically 30-50% of minimum airflow, and some codes ban reheat entirely. Before specifying reheat boxes, verify code compliance, explore alternatives (dual-duct, fan-powered mixing heated return air, radiant heating), and document compliance strategy. Specifying reheat boxes that violate code wastes design time and causes redesign during permitting.</li>
+
+                            <li><strong>DON'T forget about minimum ventilation requirements with VAV systems</strong> - VAV systems reduce airflow at part-load for energy savings, but ASHRAE 62.1 requires minimum outdoor air ventilation regardless of load. Simply setting VAV box minimums to 30% doesn't ensure code-compliant ventilation. Proper VAV ventilation design requires: 1) Calculate zone outdoor air requirements (Voz), 2) Select control strategy (single-path with OA tracking, or multi-zone VAV equations), 3) Program boxes or AHU controls to maintain ventilation as boxes modulate, 4) Commission and verify ventilation is maintained. Failure to properly address ventilation causes either code violations (insufficient OA) or wasted energy (excessive OA).</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how VAV box variables interact helps optimize system performance:</p>
+
+                    <h3>VAV Box Minimum Airflow Setting vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Minimum Airflow Setting</strong><br>(e.g., from 30% to 50%)</td>
+                                <td>• Average system airflow<br>• Fan energy consumption<br>• Heating/cooling energy (more air to condition)<br>• Ventilation effectiveness<br>• Air changes per hour</td>
+                                <td>• Turndown ratio<br>• Energy savings potential<br>• Control authority<br>• Part-load efficiency</td>
+                                <td><strong>Optimization:</strong> Set minimums as low as possible while meeting ventilation requirements and avoiding dead spots. <strong>Typical minimums:</strong> Interior zones: 20-30% (ventilation only), Perimeter zones: 30-40% (ventilation + heating/cooling response). Higher minimums improve air circulation but waste significant fan energy. Calculate actual minimum CFM needed for ventilation per ASHRAE 62.1, don't use arbitrary percentages.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Supply Air Temperature vs. VAV System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Supply Air Temperature</strong><br>(e.g., from 55°F to 60°F)</td>
+                                <td>• Required airflow (CFM = Load ÷ (1.08 × ΔT))<br>• VAV box positions (more open)<br>• Box noise (higher flow velocity)<br>• Duct sizes (more CFM required)<br>• Perimeter zone heating loads</td>
+                                <td>• Dehumidification capability<br>• Chiller energy (less cooling per CFM)<br>• Core zone overcooling<br>• Temperature stratification</td>
+                                <td><strong>Trade-off:</strong> Lower supply temp (52-55°F) = better dehumidification and smaller duct systems BUT more reheat energy at perimeters and risk of cold drafts. Higher supply temp (58-60°F) = less reheat and better comfort BUT larger ductwork and poor humidity control. <strong>Standard:</strong> 55°F for most climates. Use 52-53°F in humid climates. Consider supply air temperature reset (increase SAT during mild weather) to reduce reheat and improve efficiency.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>VAV Box Type Selection Trade-offs</h3>
+                    <div class="info-box">
+                        <h4>Single-Duct vs. Fan-Powered VAV Boxes</h4>
+                        <p><strong>✓ Single-Duct Cooling-Only Boxes (lower cost, simpler):</strong></p>
+                        <ul>
+                            <li>Lower first cost ($400-800 per box)</li>
+                            <li>No moving parts except damper (high reliability)</li>
+                            <li>Lower maintenance (no filters or fans to service)</li>
+                            <li>Smaller physical size (easier to install)</li>
+                            <li>No electrical power required at box location</li>
+                            <li><strong>Best for:</strong> Interior zones with cooling-only loads, budget-conscious projects, simple applications</li>
+                        </ul>
+
+                        <p><strong>✓ Fan-Powered (Parallel or Series) Boxes (higher performance):</strong></p>
+                        <ul>
+                            <li>Can provide heating by mixing primary air with plenum air</li>
+                            <li>Better air distribution at low primary airflow</li>
+                            <li>Maintains air circulation when primary air is minimal</li>
+                            <li>Reduced stratification in cooling mode</li>
+                            <li><strong>Negatives:</strong> Higher cost ($1,200-2,000), requires electrical power at each box, filters to change, fan maintenance, fan energy consumption</li>
+                            <li><strong>Best for:</strong> Perimeter zones requiring heating, spaces with high ceilings, areas needing constant air circulation</li>
+                        </ul>
+
+                        <p><strong>Recommendation:</strong> Use single-duct boxes for interior zones and fan-powered boxes only where needed (perimeters, high ceilings, heating requirements). Many designs over-apply fan-powered boxes, wasting first cost and increasing long-term maintenance. Run life-cycle cost analysis comparing fan-powered boxes + lower reheat energy vs. single-duct boxes + higher reheat energy.</p>
+                    </div>
+
+                    <h3>Inlet Static Pressure vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Inlet Static Pressure</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Low Static (0.5-0.75" w.c.)</strong></td>
+                                <td>• Lower fan energy (20-40% savings vs. high static)<br>• Reduced duct leakage<br>• Less fan noise<br>• Lower first cost (smaller fan, motor, VFD)</td>
+                                <td>• May not reach design airflow if dampers undersized<br>• Less margin for filter loading<br>• Boxes at end of run may starve<br>• Requires excellent duct design</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Moderate Static (1.0-1.5" w.c.)</strong></td>
+                                <td>• Good compromise for most systems<br>• Adequate flow control authority<br>• Margin for filter loading<br>• Reasonable energy consumption<br>• Handles typical duct losses well</td>
+                                <td>• Moderate fan energy<br>• Some noise at boxes during high flow<br>• More duct leakage than low static</td>
+                            </tr>
+                            <tr>
+                                <td><strong>High Static (2.0+ " w.c.)</strong></td>
+                                <td>• Guaranteed flow delivery<br>• Can overcome poor duct design<br>• Strong control authority at all conditions</td>
+                                <td>• Excessive fan energy (wasted 30-50%)<br>• High noise levels (especially at VAV boxes)<br>• Increased duct leakage<br>• Boxes may need inlet pressure limiters<br>• False sense of security for poor design</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Static Pressure Design Recommendation</h4>
+                        <p><strong>Target 1.0-1.5" w.c. inlet static at most distant box under design conditions.</strong> This provides adequate control authority with reasonable fan energy. Implement static pressure reset: as VAV dampers open (indicating need for more airflow), the AHU increases static pressure setpoint. As dampers close (low demand), reduce static. This can save 30-50% of fan energy compared to fixed static setpoints.</p>
+                        <p><strong>Warning:</strong> Don't use excessive static pressure to compensate for poor duct design, undersized ducts, or lazy layout. Fix the root cause instead.</p>
+                    </div>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 

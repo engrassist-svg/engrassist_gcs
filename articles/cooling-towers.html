@@ -189,6 +189,8 @@
                             <li><a href="#sizing">Sizing Requirements</a></li>
                             <li><a href="#options">Available Options</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -424,6 +426,129 @@
                         <li><strong>Nozzles:</strong> Clean or replace clogged spray nozzles</li>
                         <li><strong>Winterization:</strong> Drain completely if shut down in freezing weather, or maintain flow and heat trace</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO size towers based on actual chiller heat rejection</strong> - The cooling tower must handle the full chiller load PLUS the compressor heat. This is typically 1.25× the chiller cooling capacity. Using just the chiller tonnage will result in an undersized tower, elevated condenser water temperatures, and reduced chiller efficiency. Always coordinate tower selection with the actual chiller model selected.</li>
+
+                            <li><strong>DO specify VFDs on tower fans from day one</strong> - Variable frequency drives on cooling tower fans are one of the highest ROI energy efficiency measures available. Towers typically operate at part-load 80-90% of the time. Since fan power varies with the cube of speed, reducing fan speed by 50% cuts energy by 87.5%. VFD payback is typically 2-3 years, and they enable optimal condenser water temperature control.</li>
+
+                            <li><strong>DO implement a comprehensive water treatment program before startup</strong> - Water treatment is not optional. Untreated cooling tower water will cause scale formation (reducing heat transfer), corrosion (shortening equipment life), biological growth (reducing efficiency and creating health hazards), and fouling (clogging distribution nozzles). Establish water treatment with a qualified vendor, test water weekly minimum, and budget for ongoing chemical costs. This is far cheaper than replacing a corroded chiller condenser.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T forget structural considerations</strong> - Cooling towers are deceptively heavy when filled with water. A 500-ton tower can weigh 50,000+ pounds operating. Many rooftop installations have failed because the structural engineer wasn't provided accurate tower weights early in design. Provide tower dimensions and operating weight during structural design, not as an afterthought. Include weight of piping, water in piping, and maintenance access platforms.</li>
+
+                            <li><strong>DON'T ignore noise impacts</strong> - Cooling towers generate 65-80 dBA of noise at 50 feet from fans and falling water. This creates complaints from neighbors, tenants, and outdoor spaces. Check local noise ordinances before specifying location. Many municipalities limit noise at property lines to 55-65 dBA. Options include low-noise fans (+10-15% cost), sound attenuators (+$5,000-15,000), or acoustic barriers. Much cheaper to address during design than after installation.</li>
+
+                            <li><strong>DON'T locate towers near air intakes or occupied outdoor spaces</strong> - Cooling tower discharge contains water droplets (drift) that can carry bacteria including Legionella. Locate towers minimum 25 feet from building air intakes, preferably downwind of prevailing winds. Avoid locating near outdoor dining areas, balconies, or pedestrian walkways. The warm, humid discharge plume also creates discomfort and fog. Consider drift, noise, aesthetics, and service access when siting towers - not just "where will it fit."</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how cooling tower variables interact helps optimize system design and troubleshoot performance issues:</p>
+
+                    <h3>Condenser Water Flow Rate vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Increase...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Condenser Water Flow (GPM)</strong></td>
+                                <td>• Pump power (cube of flow)<br>• Tower and chiller pressure drop<br>• Pipe erosion and noise<br>• Pump capital cost</td>
+                                <td>• Condenser water ΔT (range)<br>• Chiller condenser approach<br>• Chiller lift (slight improvement)</td>
+                                <td><strong>Optimal range:</strong> 2.5-3.0 GPM/ton for 10°F ΔT. Higher flow improves chiller efficiency slightly but increases pump energy significantly. Law of diminishing returns applies - going from 2.5 to 4.0 GPM/ton increases pump power by 4× but improves chiller efficiency by only 2-3%.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Tower Approach vs. System Economics</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>If You Decrease...</th>
+                                <th>Then This Increases ↑</th>
+                                <th>And This Decreases ↓</th>
+                                <th>System Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tower Approach</strong><br>(e.g., from 10°F to 7°F)</td>
+                                <td>• Tower capital cost (~40% larger)<br>• Tower footprint and weight<br>• Chiller efficiency (3-5%)<br>• Annual chiller energy savings</td>
+                                <td>• Condenser water temperature<br>• Chiller power consumption<br>• Tower operating cost (larger fan)</td>
+                                <td><strong>Economic optimization:</strong> Smaller approach = colder water = more efficient chiller BUT larger/more expensive tower. Run life-cycle cost analysis. In hot climates or high-runtime facilities, 7°F approach often justified. In moderate climates with low runtime, 10°F approach typically optimal.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Design Wet-Bulb Temperature Selection</h3>
+                    <div class="info-box">
+                        <h4>Trade-offs in Wet-Bulb Selection</h4>
+                        <p><strong>✓ Using Higher Design WB (e.g., ASHRAE 1% vs 0.4%):</strong></p>
+                        <ul>
+                            <li>Smaller, less expensive tower (conditions exceeded only 1% of hours)</li>
+                            <li>Lower first cost and footprint</li>
+                            <li>Slightly elevated condenser water temp during peak conditions</li>
+                            <li>Chiller may need brief capacity reduction on extreme days</li>
+                        </ul>
+
+                        <p><strong>✗ Using Lower Design WB (e.g., ASHRAE 0.4% extreme):</strong></p>
+                        <ul>
+                            <li>Larger, more expensive tower (~20-30% bigger)</li>
+                            <li>Higher capital cost for marginal benefit</li>
+                            <li>Overcapacity 99%+ of operating hours</li>
+                            <li>May never reach design conditions in typical year</li>
+                        </ul>
+
+                        <p><strong>Recommendation:</strong> Use ASHRAE 1% or 2% design wet-bulb for most commercial applications. The tower will meet or exceed performance 99% of the time, and the chiller can handle brief periods of elevated condenser water. Using extreme conditions (0.4%) typically cannot be justified economically.</p>
+                    </div>
+
+                    <h3>Number of Tower Cells vs. System Performance</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Positives</th>
+                                <th>Negatives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Single Cell Tower</strong><br>(e.g., 1 × 500 tons)</td>
+                                <td>• Lowest first cost ($40K-60K)<br>• Simplest piping and controls<br>• Smallest footprint<br>• Single electrical connection<br>• Fewer maintenance points</td>
+                                <td>• No redundancy - system down if tower fails<br>• No capacity control (fan cycles or VFD only)<br>• Cannot service without system shutdown<br>• Poor part-load efficiency (oversized fan)<br>• All-or-nothing operation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Two-Cell Tower</strong><br>(e.g., 2 × 250 tons)</td>
+                                <td>• 50% redundancy for critical systems<br>• Better capacity control (staging)<br>• Can service one cell while operating<br>• Improved part-load efficiency<br>• Phased installation possible<br>• Smaller crane for installation</td>
+                                <td>• Higher first cost (+20-30%)<br>• More complex piping and valves<br>• Slightly larger footprint<br>• Two electrical connections<br>• More maintenance points (2 fans, 2 basins)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multiple Cells (3+)</strong><br>(e.g., 4 × 125 tons)</td>
+                                <td>• Excellent redundancy<br>• Fine capacity control (25% increments)<br>• Best part-load efficiency<br>• Maximum operational flexibility<br>• Can lose a cell with minimal impact<br>• Optimal VFD staging opportunity</td>
+                                <td>• Highest first cost (+30-40%)<br>• Most complex controls and piping<br>• Largest footprint<br>• Multiple electrical feeds<br>• Highest maintenance complexity<br>• More potential failure points</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Cell Staging Recommendation</h4>
+                        <p>For most commercial buildings, <strong>two-cell towers with VFDs offer the best balance</strong> of first cost, efficiency, and redundancy. The ability to operate one cell during low-load periods (spring/fall) while having a backup for maintenance or failures justifies the 20-30% cost premium over single cells.</p>
+                        <p>For critical facilities (data centers, hospitals), consider N+1 redundancy: if you need 500 tons, install 3 × 250-ton cells. Any two cells can handle full load.</p>
+                    </div>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 

@@ -186,6 +186,8 @@
                             <li><a href="#programming">Programming and Setup</a></li>
                             <li><a href="#best-practices">Best Practices</a></li>
                             <li><a href="#troubleshooting">Troubleshooting</a></li>
+                            <li><a href="#design-dos-donts">Design Do's and Don'ts</a></li>
+                            <li><a href="#system-correlations">System Interactions & Correlations</a></li>
                             <li><a href="#overlooked">Often Overlooked Considerations</a></li>
                             <li><a href="#manufacturers">Popular Manufacturers</a></li>
                         </ul>
@@ -553,6 +555,143 @@
                         <li><strong>Check:</strong> Operating speed, motor ventilation, carrier frequency</li>
                         <li><strong>Solution:</strong> Add external cooling, reduce carrier frequency, don't operate at very low speeds continuously</li>
                     </ul>
+
+                    <h2 id="design-dos-donts">Design Do's and Don'ts</h2>
+
+                    <div class="info-box">
+                        <h4>✓ DO's - Critical for Success</h4>
+                        <ol>
+                            <li><strong>DO specify VFDs on all variable-load fans and pumps >5 HP</strong> - The energy savings from VFDs on variable-load applications are so substantial (typically 30-70%) that VFDs should be the default design choice, not an "upgrade." Since fan and pump power follows the cube law (50% speed = 12.5% power), VFDs provide massive energy reductions whenever loads vary. With 2-4 year payback on most installations, VFDs are justified on virtually all HVAC fans and pumps serving variable loads. Include VFDs in base building scope - don't make them optional value engineering targets. Modern energy codes (ASHRAE 90.1, IECC) require VFDs on most HVAC fans and pumps anyway.</li>
+
+                            <li><strong>DO install line reactors or filters to protect VFDs and motors</strong> - VFDs are sensitive to power quality issues and also create power quality problems of their own. Install 3-5% line reactors on VFD input to protect against voltage spikes, transients, and poor power factor from utility. Install load reactors or du/dt filters on VFD output for motor cable runs >50-75 feet to protect motor from voltage spikes caused by cable capacitance and reflected waves. These components add $300-1,000 to VFD cost but dramatically reduce nuisance trips, motor bearing failures, and VFD damage. Insurance against expensive repairs and downtime.</li>
+
+                            <li><strong>DO properly program minimum and maximum speed limits</strong> - VFDs can run motors at any speed from 0-100%+, but HVAC systems have operating limits that must be respected. Always program: minimum speed (typically 30-40% for fans, 20-30% for pumps) to prevent motor overheating, stalling, and system instability; maximum speed (typically 100% or slightly higher 105-110% for future capacity); minimum and maximum frequency limits to protect equipment; ramp rates appropriate for the application (slow ramp for pumps to prevent water hammer, faster for fans). Never leave VFD at factory default settings - they are not optimized for HVAC.</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>✗ DON'Ts - Avoid These Common Mistakes</h4>
+                        <ol>
+                            <li><strong>DON'T oversize VFDs beyond reasonable margins</strong> - While VFDs should be sized with some margin for motor starting current and service factor, extreme oversizing wastes money and can cause problems. A VFD rated at 2× motor FLA is excessive - the VFD will never operate in its efficient range and costs substantially more. Proper sizing: VFD rated for 110-125% of motor nameplate FLA. This handles motor service factor (typically 1.15) and allows for future sheave adjustment if needed. Exception: if high-altitude operation (>3,000 feet) or high ambient temperatures (>104°F), additional derating may be required per manufacturer.</li>
+
+                            <li><strong>DON'T run multiple motors from a single VFD without proper consideration</strong> - While technically possible to run multiple small motors from one VFD, this creates control and protection problems. If motors are identical and mechanically coupled (like dual fans in an AHU), one VFD can work. However, if motors are independent (separate pumps or fans), problems arise: all motors run at same speed (no independent control), difficult to provide individual motor overload protection, if one motor fails you cannot isolate it, and troubleshooting becomes complex. Best practice: one VFD per motor for independent loads. Use multiple VFDs with separate motors rather than one oversized VFD.</li>
+
+                            <li><strong>DON'T ignore motor nameplate and VFD compatibility</strong> - Not all motors are suitable for VFD operation without precautions. Standard "inverter-duty" motors are designed for VFD operation with insulation rated for voltage spikes and bearings designed for VFD-induced shaft currents. If using existing or non-inverter-duty motors with VFDs: verify motor insulation is rated for VFD operation (minimum 1,600V spikes), install output filters if motor cable is long (>50 feet), do not operate motor continuously at very low speeds (<30%) without auxiliary cooling, consider shaft grounding for motors >100 HP. Failure to address compatibility causes premature motor bearing failures and winding insulation breakdown.</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="system-correlations">System Interactions & Correlations</h2>
+                    <p>Understanding how VFDs interact with HVAC system variables is essential for optimal energy savings:</p>
+
+                    <h3>Motor Speed vs. Power Consumption (Affinity Laws)</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Speed Reduction</th>
+                                <th>Flow/Pressure Change</th>
+                                <th>Power Change</th>
+                                <th>Energy Savings Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>100% → 80% Speed</strong></td>
+                                <td>• Flow: 80% of original<br>• Pressure: 64% of original</td>
+                                <td><strong>Power: 51% of original</strong><br>(80%³ = 0.512)</td>
+                                <td><strong>49% energy reduction!</strong> This is why VFDs are so effective. Example: 25 HP fan at 100% speed = 25 HP. At 80% speed = 12.8 HP. Annual savings at $0.12/kWh, 5,000 hrs = $5,457/year.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>100% → 60% Speed</strong></td>
+                                <td>• Flow: 60% of original<br>• Pressure: 36% of original</td>
+                                <td><strong>Power: 22% of original</strong><br>(60%³ = 0.216)</td>
+                                <td><strong>78% energy reduction!</strong> During mild weather when loads are reduced, VFDs provide dramatic savings. This is why buildings with VFDs on all fans/pumps use 40-60% less HVAC energy than constant-speed systems.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Critical Understanding: The Cube Law</h4>
+                        <p>The cube law relationship (Power ∝ Speed³) means small speed reductions create large energy savings:</p>
+                        <ul>
+                            <li>90% speed = 73% power (27% savings)</li>
+                            <li>80% speed = 51% power (49% savings)</li>
+                            <li>70% speed = 34% power (66% savings)</li>
+                            <li>60% speed = 22% power (78% savings)</li>
+                            <li>50% speed = 13% power (87% savings)</li>
+                        </ul>
+                        <p><strong>Real-world application:</strong> VAV systems operate at 60-80% airflow most of the time. VFD fan arrays in these systems typically save 40-60% of annual fan energy compared to constant-speed operation with inlet vanes or outlet dampers.</p>
+                    </div>
+
+                    <h3>Control Strategy vs. Energy Savings</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Control Method</th>
+                                <th>How It Works</th>
+                                <th>Energy Efficiency</th>
+                                <th>Applications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Static Pressure Reset (Best)</strong></td>
+                                <td>VFD modulates to maintain just enough static pressure to satisfy most demanding zone. As zones close dampers, static setpoint is lowered, reducing fan speed and energy.</td>
+                                <td><strong>Highest savings: 40-60%</strong><br>Continuously optimizes fan speed to actual demand</td>
+                                <td>VAV systems, any variable load application. Requires pressure sensors at critical zones and intelligent controls.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fixed Static Pressure</strong></td>
+                                <td>VFD modulates to maintain constant static pressure setpoint regardless of load. As zones close dampers, fan speed reduces to maintain pressure.</td>
+                                <td><strong>Good savings: 30-45%</strong><br>Better than constant speed, but not optimized</td>
+                                <td>Simple VAV systems, retrofit applications. Easy to implement but leaves energy on the table.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Manual Speed Control</strong></td>
+                                <td>Operator manually adjusts VFD speed based on season or observation. Fan runs at constant speed until manually changed.</td>
+                                <td><strong>Limited savings: 10-25%</strong><br>Depends on operator diligence</td>
+                                <td>Small systems, simple applications, operators who actively manage equipment. Often forgotten and left at one speed.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box">
+                        <h4>Control Strategy Recommendation</h4>
+                        <p><strong>Always implement automatic control with pressure feedback</strong> - never rely on manual speed adjustment. The incremental cost of pressure sensors and controls ($1,000-3,000) is repaid many times over through optimized operation and energy savings.</p>
+                        <p>For VAV systems, use static pressure reset with trim-and-respond logic: gradually reduce static pressure setpoint until a zone cannot maintain temperature, then increase slightly. This ensures minimum comfortable static pressure while maximizing energy savings.</p>
+                    </div>
+
+                    <h3>VFD Application Trade-offs</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Application Type</th>
+                                <th>VFD Benefits</th>
+                                <th>Limitations/Considerations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>VAV System Fans</strong></td>
+                                <td>• Dramatic energy savings (40-60%)<br>• Reduced noise at part-load<br>• Better humidity control<br>• Softer starts reduce mechanical stress<br>• Required by most energy codes</td>
+                                <td>• Must maintain minimum flow for ventilation<br>• Requires proper static pressure control<br>• More complex programming<br>• Payback: 1-3 years (excellent)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chilled/Hot Water Pumps</strong></td>
+                                <td>• Major energy savings (30-50%)<br>• Eliminates bypass flow in primary-secondary systems<br>• Enables variable primary flow<br>• Reduces water hammer<br>• Payback: 2-4 years</td>
+                                <td>• Must maintain minimum flow through equipment<br>• Requires differential pressure sensor<br>• Consider NPSH at reduced speeds<br>• Coordinate with equipment minimum flow requirements</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Condenser Water Pumps</strong></td>
+                                <td>• Moderate savings (20-35%)<br>• Tracks chiller load<br>• Reduces cooling tower fan cycling<br>• Payback: 3-5 years</td>
+                                <td>• Limited savings (often static-head dominated system)<br>• Maintain minimum flow through chiller condenser<br>• May need minimum speed lockout</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cooling Tower Fans</strong></td>
+                                <td>• Excellent savings (40-70%)<br>• Precise condenser water temp control<br>• Reduced noise at part-load<br>• Payback: 2-4 years</td>
+                                <td>• Must handle outdoor environment (temp extremes, weather)<br>• NEMA 3R enclosure required<br>• Consider bypass for very cold weather<br>• High ROI application</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <h2 id="overlooked">Often Overlooked Considerations</h2>
 
