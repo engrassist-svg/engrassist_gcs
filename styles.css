@@ -650,6 +650,11 @@ nav {
     padding: 0 0.5rem; /* Slight padding for readability */
 }
 
+/* Article content paragraphs - improved readability */
+.article-content p {
+    margin-bottom: 1.5rem; /* More space between paragraphs */
+}
+
 /* Specific styling for definition lists and legal content */
 .section-content strong {
     color: #2c3e50;
