@@ -3496,3 +3496,340 @@ body {
     }
 }
 
+/* ============================================
+   ARTICLE PAGES STYLES
+   ============================================ */
+
+/* Article theme color variables - set on body with article-specific classes */
+body.article-boilers,
+body.article-vrf {
+    --article-primary: #e74c3c;
+    --article-primary-dark: #c0392b;
+}
+
+body.article-ahu,
+body.article-chillers {
+    --article-primary: #3498db;
+    --article-primary-dark: #2980b9;
+}
+
+body.article-pumps {
+    --article-primary: #2980b9;
+    --article-primary-dark: #2471a3;
+}
+
+body.article-towers,
+body.article-vav {
+    --article-primary: #16a085;
+    --article-primary-dark: #138d75;
+}
+
+body.article-rtu {
+    --article-primary: #9b59b6;
+    --article-primary-dark: #8e44ad;
+}
+
+body.article-vfd {
+    --article-primary: #8e44ad;
+    --article-primary-dark: #7d3c98;
+}
+
+/* Article Content Layout */
+.article-content {
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Article Hero Section */
+.article-hero {
+    background: linear-gradient(135deg, var(--article-primary, #3498db), var(--article-primary-dark, #2980b9));
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.article-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Table of Contents */
+.toc {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid var(--article-primary, #3498db);
+    margin: 2rem 0;
+}
+
+.toc h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin: 0.75rem 0;
+}
+
+.toc a {
+    color: var(--article-primary, #3498db);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.toc a:hover {
+    text-decoration: underline;
+}
+
+/* Info and Warning Boxes */
+.info-box {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border-left: 4px solid #f39c12;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.info-box h4 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.warning-box {
+    background: #f8d7da;
+    border-left: 4px solid #dc3545;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.warning-box h4 {
+    color: #721c24;
+    margin-top: 0;
+}
+
+/* Spec Table Wrapper (for article tables) */
+.spec-table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.spec-table-wrapper::-webkit-scrollbar {
+    height: 12px;
+}
+
+.spec-table-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.spec-table-wrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    margin: 0;
+    background: white;
+}
+
+.spec-table th,
+.spec-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.spec-table th {
+    background: linear-gradient(135deg, var(--article-primary, #3498db), var(--article-primary-dark, #2980b9));
+    color: white;
+    font-weight: 600;
+}
+
+.spec-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Manufacturer Grid */
+.manufacturer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.manufacturer-card {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #f39c12;
+}
+
+/* Related Articles Section */
+.related-articles {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 3rem 0;
+}
+
+.related-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.related-link {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    border-left: 3px solid var(--article-primary, #3498db);
+    transition: all 0.3s ease;
+}
+
+.related-link:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Topic Section Containers */
+.topic-section {
+    margin: 3rem 0;
+    padding: 2.5rem 0;
+    border-top: 2px solid #e9ecef;
+}
+
+.topic-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* Type Cards - Individual equipment types */
+.type-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid var(--article-primary, #3498db);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.type-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.type-card h3 {
+    color: var(--article-primary, #3498db);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.type-card h4 {
+    color: var(--article-primary-dark, #2980b9);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.type-card p:first-of-type {
+    color: #7f8c8d;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.type-card ul {
+    margin: 1rem 0;
+}
+
+.type-card li {
+    margin: 0.5rem 0;
+}
+
+/* Configuration Cards */
+.config-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #3498db;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.config-card h3 {
+    color: #2980b9;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* Applications List */
+.applications-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.application-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #27ae60;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.application-item strong {
+    color: #27ae60;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Article Mobile Responsiveness */
+@media (max-width: 768px) {
+    .article-hero h1 {
+        font-size: 2rem;
+    }
+
+    .article-content {
+        padding: 0 1rem;
+    }
+
+    .toc {
+        padding: 1.5rem;
+    }
+
+    .applications-list {
+        grid-template-columns: 1fr;
+    }
+
+    .manufacturer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .related-links {
+        grid-template-columns: 1fr;
+    }
+}
