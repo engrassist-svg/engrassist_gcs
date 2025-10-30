@@ -86,14 +86,37 @@
             margin: 2rem 0;
         }
 
+        .spec-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
         .spec-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2rem 0;
+            min-width: 600px;
+            margin: 0;
             background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .spec-table th,
@@ -319,6 +342,7 @@
                     <h2 id="sizing">Sizing Requirements</h2>
 
                     <h3>Information Needed for Proper Sizing</h3>
+                    <div class="spec-table-wrapper">
                     <table class="spec-table">
                         <thead>
                             <tr>
@@ -365,6 +389,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
 
                     <h3>Sizing Rules and Guidelines</h3>
                     <ul>
