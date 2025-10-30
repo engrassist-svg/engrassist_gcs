@@ -27,14 +27,18 @@ function loadTemplate(elementId, templateFile) {
 
 // Initialize templates and page
 function initializeTemplates() {
+    // Determine the correct path prefix based on current page location
+    const path = window.location.pathname;
+    const pathPrefix = path.includes('/articles/') ? '../' : '';
+
     // Load both templates in parallel for speed
     Promise.all([
-        loadTemplate('header-placeholder', 'header.html'),
-        loadTemplate('footer-placeholder', 'footer.html')
+        loadTemplate('header-placeholder', pathPrefix + 'header.html'),
+        loadTemplate('footer-placeholder', pathPrefix + 'footer.html')
     ]).then(() => {
         // Templates loaded - show page with fade-in
         document.body.classList.add('templates-loaded');
-        
+
         // Hide loading spinner if present
         const loader = document.querySelector('.page-loading');
         if (loader) {
@@ -43,10 +47,10 @@ function initializeTemplates() {
                 setTimeout(() => loader.remove(), 300);
             }, 100);
         }
-        
+
         // Highlight current page in navigation
         highlightCurrentPage();
-        
+
         // Initialize all other functionality
         initializeAllFeatures();
     });
