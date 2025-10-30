@@ -1611,7 +1611,8 @@ nav {
     background: white;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .reference-table h3 {
@@ -1625,6 +1626,7 @@ nav {
 .reference-table table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 600px;
 }
 
 .reference-table th,
@@ -2530,6 +2532,29 @@ footer {
     border-radius: 50%;
     display: inline-block;
     border: 2px solid white;
+}
+
+/* Scrollbar styling for tables */
+.reference-table::-webkit-scrollbar,
+.results-table::-webkit-scrollbar {
+    height: 12px;
+}
+
+.reference-table::-webkit-scrollbar-track,
+.results-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.reference-table::-webkit-scrollbar-thumb,
+.results-table::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.reference-table::-webkit-scrollbar-thumb:hover,
+.results-table::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Points List */

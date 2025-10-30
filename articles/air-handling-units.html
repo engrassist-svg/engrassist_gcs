@@ -86,14 +86,37 @@
             margin: 2rem 0;
         }
 
+        .spec-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
         .spec-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2rem 0;
+            min-width: 600px;
+            margin: 0;
             background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .spec-table th,
@@ -379,56 +402,58 @@
                     <h2 id="sizing">Sizing Requirements</h2>
 
                     <h3>Information Needed for Proper Sizing</h3>
-                    <table class="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Parameter</th>
-                                <th>Typical Values/Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Airflow</td>
-                                <td>CFM - from zone-by-zone load calculation</td>
-                            </tr>
-                            <tr>
-                                <td>Sensible Cooling Load</td>
-                                <td>BTU/hr or tons - determines coil size</td>
-                            </tr>
-                            <tr>
-                                <td>Latent Cooling Load</td>
-                                <td>BTU/hr - impacts coil depth and face velocity</td>
-                            </tr>
-                            <tr>
-                                <td>Heating Load</td>
-                                <td>BTU/hr or MBH - determines heating coil size</td>
-                            </tr>
-                            <tr>
-                                <td>Outdoor Air Requirement</td>
-                                <td>CFM per ASHRAE 62.1 or local code</td>
-                            </tr>
-                            <tr>
-                                <td>Supply Air Temperature</td>
-                                <td>55-65°F typical (55°F standard for VAV)</td>
-                            </tr>
-                            <tr>
-                                <td>External Static Pressure</td>
-                                <td>Total system resistance (ductwork + terminals)</td>
-                            </tr>
-                            <tr>
-                                <td>Filter Efficiency</td>
-                                <td>MERV rating - affects pressure drop</td>
-                            </tr>
-                            <tr>
-                                <td>Space Constraints</td>
-                                <td>Available floor space and ceiling height</td>
-                            </tr>
-                            <tr>
-                                <td>Sound Requirements</td>
-                                <td>NC/RC rating for occupied spaces</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="spec-table-wrapper">
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Typical Values/Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Airflow</td>
+                                    <td>CFM - from zone-by-zone load calculation</td>
+                                </tr>
+                                <tr>
+                                    <td>Sensible Cooling Load</td>
+                                    <td>BTU/hr or tons - determines coil size</td>
+                                </tr>
+                                <tr>
+                                    <td>Latent Cooling Load</td>
+                                    <td>BTU/hr - impacts coil depth and face velocity</td>
+                                </tr>
+                                <tr>
+                                    <td>Heating Load</td>
+                                    <td>BTU/hr or MBH - determines heating coil size</td>
+                                </tr>
+                                <tr>
+                                    <td>Outdoor Air Requirement</td>
+                                    <td>CFM per ASHRAE 62.1 or local code</td>
+                                </tr>
+                                <tr>
+                                    <td>Supply Air Temperature</td>
+                                    <td>55-65°F typical (55°F standard for VAV)</td>
+                                </tr>
+                                <tr>
+                                    <td>External Static Pressure</td>
+                                    <td>Total system resistance (ductwork + terminals)</td>
+                                </tr>
+                                <tr>
+                                    <td>Filter Efficiency</td>
+                                    <td>MERV rating - affects pressure drop</td>
+                                </tr>
+                                <tr>
+                                    <td>Space Constraints</td>
+                                    <td>Available floor space and ceiling height</td>
+                                </tr>
+                                <tr>
+                                    <td>Sound Requirements</td>
+                                    <td>NC/RC rating for occupied spaces</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <h3>Sizing Guidelines</h3>
                     <ul>
