@@ -141,7 +141,16 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="pipeMaterial">Pipe Material (C-Factor)</label>
+                                <label for="pipeType">Pipe Type</label>
+                                <select id="pipeType" onchange="updatePipeMaterialOptions()">
+                                    <option value="copper">Copper Type L</option>
+                                    <option value="steel">Steel Schedule 40</option>
+                                    <option value="pex">PEX (SDR-9)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pipeMaterial">Pipe Condition (C-Factor)</label>
                                 <select id="pipeMaterial">
                                     <option value="150">Copper / PEX (C=150)</option>
                                     <option value="140">Steel - New (C=140)</option>
@@ -150,10 +159,17 @@
                                     <option value="100">Steel - Old (C=100)</option>
                                 </select>
                             </div>
+                        </div>
 
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="tempDiff">Temperature Difference (°F) - Optional</label>
                                 <input type="number" id="tempDiff" step="0.1" min="0" placeholder="For load calculations">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fittingLength">Equivalent Fitting Length (ft) - Optional</label>
+                                <input type="number" id="fittingLength" step="1" min="0" value="0" placeholder="0">
                             </div>
                         </div>
 
@@ -266,6 +282,30 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="reference-table" style="margin-top: 2rem;">
+                        <h3>PEX Pipe Dimensions (SDR-9)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nominal Size</th>
+                                    <th>Outside Diameter (in)</th>
+                                    <th>Inside Diameter (in)</th>
+                                    <th>Wall Thickness (in)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1/2"</td><td>0.625</td><td>0.475</td><td>0.075</td></tr>
+                                <tr><td>5/8"</td><td>0.750</td><td>0.574</td><td>0.088</td></tr>
+                                <tr><td>3/4"</td><td>0.875</td><td>0.671</td><td>0.102</td></tr>
+                                <tr><td>1"</td><td>1.125</td><td>0.875</td><td>0.125</td></tr>
+                                <tr><td>1-1/4"</td><td>1.375</td><td>1.108</td><td>0.134</td></tr>
+                                <tr><td>1-1/2"</td><td>1.625</td><td>1.321</td><td>0.152</td></tr>
+                                <tr><td>2"</td><td>2.125</td><td>1.748</td><td>0.189</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 1rem;"><em>Note: PEX is typically used for smaller hydronic systems (radiant heating, residential applications). Sizes above 2" are less common.</em></p>
+                    </div>
                 </div>
 
                 <!-- Fluid Properties -->
@@ -299,6 +339,49 @@
                             <li>Heat transfer capacity (0.85x to 0.95x reduction)</li>
                             <li>Pump power requirements (1.25x to 1.5x increase)</li>
                         </ul>
+                    </div>
+                </div>
+
+                <!-- Equivalent Length Calculator Guide -->
+                <div class="mechanical-section">
+                    <h2 class="section-title">Equivalent Fitting Lengths (Scale 4)</h2>
+
+                    <div class="info-box">
+                        <h4>What are Equivalent Lengths?</h4>
+                        <p>Fittings, valves, and equipment cause additional pressure drop beyond straight pipe friction. The equivalent length method converts these losses into an equivalent length of straight pipe. Add this to your actual pipe length for accurate total head calculations.</p>
+                    </div>
+
+                    <div class="reference-table">
+                        <h3>Typical Equivalent Lengths for Fittings (feet of straight pipe)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fitting Type</th>
+                                    <th>1/2"-3/4"</th>
+                                    <th>1"-1.5"</th>
+                                    <th>2"-3"</th>
+                                    <th>4"-6"</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>90° Elbow (std.)</td><td>2</td><td>2.5</td><td>3.5</td><td>5</td></tr>
+                                <tr><td>45° Elbow</td><td>1</td><td>1.5</td><td>2</td><td>3</td></tr>
+                                <tr><td>Tee (flow through run)</td><td>1</td><td>1.5</td><td>2</td><td>3</td></tr>
+                                <tr><td>Tee (flow through branch)</td><td>4</td><td>5</td><td>7</td><td>10</td></tr>
+                                <tr><td>Gate Valve (open)</td><td>0.5</td><td>1</td><td>1.5</td><td>2</td></tr>
+                                <tr><td>Globe Valve (open)</td><td>15</td><td>20</td><td>25</td><td>35</td></tr>
+                                <tr><td>Ball Valve (open)</td><td>1</td><td>1.5</td><td>2</td><td>3</td></tr>
+                                <tr><td>Check Valve (swing)</td><td>4</td><td>5</td><td>7</td><td>10</td></tr>
+                                <tr><td>Balancing Valve</td><td>3</td><td>4</td><td>6</td><td>8</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 1rem;">
+                        <h4>Example Calculation:</h4>
+                        <p>100 ft of 2" pipe with: (4) 90° elbows, (2) tees (run), (1) gate valve, (1) ball valve</p>
+                        <p><strong>Equivalent Length:</strong> 4×3.5 + 2×2 + 1×1.5 + 1×2 = 21.5 ft</p>
+                        <p><strong>Total Equivalent Length:</strong> 100 + 21.5 = 121.5 ft (enter 22 in fitting length field)</p>
                     </div>
                 </div>
 
@@ -374,25 +457,143 @@
             { nominal: '12"', id: 11.617, od: 12.125 }
         ];
 
-        // Glycol correction factors (approximate values)
-        const glycolFactors = {
-            'water': { viscosity: 1.0, density: 1.0, specificHeat: 1.0 },
-            'pg-20': { viscosity: 1.2, density: 1.01, specificHeat: 0.98 },
-            'pg-30': { viscosity: 1.35, density: 1.015, specificHeat: 0.95 },
-            'pg-40': { viscosity: 1.5, density: 1.02, specificHeat: 0.92 },
-            'pg-50': { viscosity: 1.65, density: 1.025, specificHeat: 0.88 },
-            'eg-20': { viscosity: 1.15, density: 1.015, specificHeat: 0.98 },
-            'eg-30': { viscosity: 1.25, density: 1.025, specificHeat: 0.95 },
-            'eg-40': { viscosity: 1.4, density: 1.03, specificHeat: 0.92 },
-            'eg-50': { viscosity: 1.55, density: 1.04, specificHeat: 0.88 }
-        };
+        // Steel pipe data - Schedule 40
+        const steelPipes = [
+            { nominal: '1/2"', id: 0.622, od: 0.840 },
+            { nominal: '3/4"', id: 0.824, od: 1.050 },
+            { nominal: '1"', id: 1.049, od: 1.315 },
+            { nominal: '1-1/4"', id: 1.380, od: 1.660 },
+            { nominal: '1-1/2"', id: 1.610, od: 1.900 },
+            { nominal: '2"', id: 2.067, od: 2.375 },
+            { nominal: '2-1/2"', id: 2.469, od: 2.875 },
+            { nominal: '3"', id: 3.068, od: 3.500 },
+            { nominal: '4"', id: 4.026, od: 4.500 },
+            { nominal: '5"', id: 5.047, od: 5.563 },
+            { nominal: '6"', id: 6.065, od: 6.625 },
+            { nominal: '8"', id: 7.981, od: 8.625 },
+            { nominal: '10"', id: 10.020, od: 10.750 },
+            { nominal: '12"', id: 11.938, od: 12.750 }
+        ];
+
+        // PEX pipe data - SDR-9 (common for hydronic systems)
+        const pexPipes = [
+            { nominal: '1/2"', id: 0.475, od: 0.625 },
+            { nominal: '5/8"', id: 0.574, od: 0.750 },
+            { nominal: '3/4"', id: 0.671, od: 0.875 },
+            { nominal: '1"', id: 0.875, od: 1.125 },
+            { nominal: '1-1/4"', id: 1.108, od: 1.375 },
+            { nominal: '1-1/2"', id: 1.321, od: 1.625 },
+            { nominal: '2"', id: 1.748, od: 2.125 }
+        ];
+
+        // Temperature-dependent fluid properties
+        // Water viscosity in cP at different temperatures
+        function getWaterViscosity(tempF) {
+            // Interpolated values for water viscosity
+            const viscosityData = [
+                {temp: 32, visc: 1.79}, {temp: 40, visc: 1.55}, {temp: 50, visc: 1.31},
+                {temp: 60, visc: 1.12}, {temp: 70, visc: 0.98}, {temp: 80, visc: 0.86},
+                {temp: 90, visc: 0.76}, {temp: 100, visc: 0.68}, {temp: 120, visc: 0.56},
+                {temp: 140, visc: 0.47}, {temp: 160, visc: 0.40}, {temp: 180, visc: 0.35},
+                {temp: 200, visc: 0.31}, {temp: 212, visc: 0.28}, {temp: 250, visc: 0.22}
+            ];
+
+            // Linear interpolation
+            for (let i = 0; i < viscosityData.length - 1; i++) {
+                if (tempF >= viscosityData[i].temp && tempF <= viscosityData[i + 1].temp) {
+                    const t1 = viscosityData[i].temp;
+                    const t2 = viscosityData[i + 1].temp;
+                    const v1 = viscosityData[i].visc;
+                    const v2 = viscosityData[i + 1].visc;
+                    return v1 + (v2 - v1) * (tempF - t1) / (t2 - t1);
+                }
+            }
+            // Return closest value if out of range
+            if (tempF <= 32) return 1.79;
+            if (tempF >= 250) return 0.22;
+            return 1.12; // Default to 60°F
+        }
+
+        // Temperature and concentration-dependent glycol properties
+        function getGlycolProperties(fluidType, tempF) {
+            const waterVisc = getWaterViscosity(tempF);
+
+            // Glycol viscosity multipliers (relative to water at same temperature)
+            const glycolMultipliers = {
+                'water': { viscMult: 1.0, density: 1.0, specificHeat: 1.0 },
+                'pg-20': {
+                    viscMult: tempF < 50 ? 1.5 : (tempF < 100 ? 1.3 : 1.2),
+                    density: 1.01,
+                    specificHeat: 0.98
+                },
+                'pg-30': {
+                    viscMult: tempF < 50 ? 1.9 : (tempF < 100 ? 1.5 : 1.35),
+                    density: 1.015,
+                    specificHeat: 0.95
+                },
+                'pg-40': {
+                    viscMult: tempF < 50 ? 2.5 : (tempF < 100 ? 1.8 : 1.5),
+                    density: 1.02,
+                    specificHeat: 0.92
+                },
+                'pg-50': {
+                    viscMult: tempF < 50 ? 3.5 : (tempF < 100 ? 2.2 : 1.65),
+                    density: 1.025,
+                    specificHeat: 0.88
+                },
+                'eg-20': {
+                    viscMult: tempF < 50 ? 1.4 : (tempF < 100 ? 1.25 : 1.15),
+                    density: 1.015,
+                    specificHeat: 0.98
+                },
+                'eg-30': {
+                    viscMult: tempF < 50 ? 1.7 : (tempF < 100 ? 1.4 : 1.25),
+                    density: 1.025,
+                    specificHeat: 0.95
+                },
+                'eg-40': {
+                    viscMult: tempF < 50 ? 2.2 : (tempF < 100 ? 1.7 : 1.4),
+                    density: 1.03,
+                    specificHeat: 0.92
+                },
+                'eg-50': {
+                    viscMult: tempF < 50 ? 3.0 : (tempF < 100 ? 2.0 : 1.55),
+                    density: 1.04,
+                    specificHeat: 0.88
+                }
+            };
+
+            const props = glycolMultipliers[fluidType] || glycolMultipliers['water'];
+
+            return {
+                viscosity: waterVisc * props.viscMult,
+                viscosityMultiplier: props.viscMult,
+                density: props.density,
+                specificHeat: props.specificHeat
+            };
+        }
+
+        // Update pipe material options based on pipe type
+        function updatePipeMaterialOptions() {
+            const pipeType = document.getElementById('pipeType').value;
+            const pipeMaterial = document.getElementById('pipeMaterial');
+
+            if (pipeType === 'copper' || pipeType === 'pex') {
+                pipeMaterial.value = '150';
+                pipeMaterial.disabled = true;
+            } else {
+                pipeMaterial.disabled = false;
+            }
+        }
 
         function calculatePipeSizing() {
             // Get inputs
             const flowRate = parseFloat(document.getElementById('flowRate').value);
             const pipeLength = parseFloat(document.getElementById('pipeLength').value);
+            const fittingLength = parseFloat(document.getElementById('fittingLength').value) || 0;
             const fluidType = document.getElementById('fluidType').value;
             const fluidTemp = parseFloat(document.getElementById('fluidTemp').value);
+            const pipeType = document.getElementById('pipeType').value;
             const cFactor = parseFloat(document.getElementById('pipeMaterial').value);
             const systemType = document.getElementById('systemType').value;
             const operatingHours = document.getElementById('operatingHours').value;
@@ -409,88 +610,126 @@
                 return;
             }
 
-            // Get glycol factors
-            const glycol = glycolFactors[fluidType];
+            // Select pipe database based on type
+            let pipes;
+            let pipeTypeName;
+            if (pipeType === 'steel') {
+                pipes = steelPipes;
+                pipeTypeName = 'Steel Schedule 40';
+            } else if (pipeType === 'pex') {
+                pipes = pexPipes;
+                pipeTypeName = 'PEX SDR-9';
+            } else {
+                pipes = copperPipes;
+                pipeTypeName = 'Copper Type L';
+            }
+
+            // Get temperature-dependent fluid properties
+            const glycol = getGlycolProperties(fluidType, fluidTemp);
+            const totalEquivLength = pipeLength + fittingLength;
 
             // Calculate heat transfer (if temp difference provided)
+            // Scale 1: Load ↔ GPM ↔ ΔT relationship
             let heatLoad = 0;
+            let calculatedFlow = 0;
             if (tempDiff > 0) {
                 // Q (BTU/hr) = GPM × 500 × ΔT × specific heat correction
                 heatLoad = flowRate * 500 * tempDiff * glycol.specificHeat;
+                calculatedFlow = flowRate;
             }
 
             // Display system info
             let systemInfoHTML = `
                 <strong>System Parameters:</strong><br>
                 Flow Rate: ${flowRate.toFixed(1)} GPM |
-                Fluid: ${document.getElementById('fluidType').options[document.getElementById('fluidType').selectedIndex].text} |
-                Temperature: ${fluidTemp}°F |
-                Pipe Length: ${pipeLength} ft
+                Fluid: ${document.getElementById('fluidType').options[document.getElementById('fluidType').selectedIndex].text} @ ${fluidTemp}°F |
+                Pipe Type: ${pipeTypeName}<br>
+                Pipe Length: ${pipeLength} ft |
+                Fitting Equiv. Length: ${fittingLength} ft |
+                Total Equiv. Length: ${totalEquivLength} ft
             `;
             if (heatLoad > 0) {
-                systemInfoHTML += `<br><strong>Calculated Load:</strong> ${heatLoad.toLocaleString()} BTU/hr (${(heatLoad / 12000).toFixed(2)} tons)`;
+                systemInfoHTML += `<br><strong>Calculated Load (Scale 1):</strong> ${heatLoad.toLocaleString()} BTU/hr (${(heatLoad / 12000).toFixed(2)} tons) at ΔT=${tempDiff}°F`;
             }
+            systemInfoHTML += `<br><strong>Fluid Properties:</strong> Viscosity=${glycol.viscosity.toFixed(3)} cP (${glycol.viscosityMultiplier.toFixed(2)}× water), Sp. Heat=${glycol.specificHeat.toFixed(2)}`;
             document.getElementById('systemInfo').innerHTML = systemInfoHTML;
 
-            // Calculate for each pipe size
+            // Calculate for each pipe size (Scale 2-5)
             let resultsHTML = '';
 
-            copperPipes.forEach(pipe => {
-                // Calculate velocity (fps) = (GPM × 0.408) / (ID²)
+            pipes.forEach(pipe => {
+                // Scale 3: Calculate velocity (fps) = (GPM × 0.408) / (ID²)
                 const velocity = (flowRate * 0.408) / (pipe.id * pipe.id);
 
-                // Hazen-Williams formula for pressure drop
-                // hf (ft/100ft) = 10.67 × Q^1.85 / (C^1.85 × D^4.87) × 100
-                // Adjusted for glycol viscosity
+                // Scale 2: Hazen-Williams formula for friction rate
+                // hf (ft/100ft) = 10.67 × Q^1.85 / (C^1.85 × D^4.87)
+                // Using actual viscosity instead of just multiplier
+                const baseViscosity = 1.12; // Water at 60°F
+                const viscosityRatio = glycol.viscosity / baseViscosity;
+
                 let pressureDrop100 = (10.67 * Math.pow(flowRate, 1.85)) /
                                       (Math.pow(cFactor, 1.85) * Math.pow(pipe.id, 4.87));
 
-                // Apply glycol correction
-                pressureDrop100 *= glycol.viscosity;
+                // Apply viscosity correction for glycol
+                pressureDrop100 *= Math.pow(viscosityRatio, 0.25); // More accurate correction factor
 
-                // Total pressure drop
-                const totalPressureDrop = pressureDrop100 * (pipeLength / 100);
+                // Scale 4: Total pressure drop including fittings
+                const totalPressureDrop = pressureDrop100 * (totalEquivLength / 100);
+                const totalPressurePSI = totalPressureDrop * 0.433; // Convert ft to PSI
 
-                // Calculate Reynolds number (approximate)
-                const reynolds = (3160 * flowRate) / (pipe.id * glycol.viscosity);
+                // Calculate Reynolds number
+                const reynolds = (3160 * flowRate) / (pipe.id * viscosityRatio);
 
                 // Determine if size is acceptable
                 let status = 'acceptable';
                 let statusColor = '#27ae60';
                 let reasons = [];
 
-                // Check velocity limits
-                if (velocity > 8) {
+                // Check velocity limits (Scale 3 criteria)
+                if (velocity > 10) {
                     status = 'not-recommended';
                     statusColor = '#e74c3c';
-                    reasons.push('Velocity exceeds 8 fps (erosion risk)');
+                    reasons.push('Velocity exceeds 10 fps (severe erosion risk)');
+                } else if (velocity > 8) {
+                    if (status !== 'not-recommended') {
+                        status = 'caution';
+                        statusColor = '#f39c12';
+                    }
+                    reasons.push('Velocity exceeds 8 fps (erosion risk, noise)');
                 } else if (velocity > 4 && parseFloat(pipe.id) <= 2) {
                     status = 'caution';
                     statusColor = '#f39c12';
-                    reasons.push('Velocity > 4 fps for pipe ≤ 2"');
-                } else if (velocity < 2) {
-                    status = 'caution';
-                    statusColor = '#f39c12';
-                    reasons.push('Low velocity (< 2 fps) - consider smaller pipe');
+                    reasons.push('Velocity > 4 fps for pipe ≤ 2" (traditional limit)');
+                } else if (velocity < 1.5) {
+                    if (status === 'acceptable') {
+                        status = 'oversized';
+                        statusColor = '#3498db';
+                    }
+                    reasons.push('Low velocity (< 1.5 fps) - may be oversized, poor air removal');
                 }
 
-                // Check pressure drop limits
+                // Check pressure drop limits (Scale 2 criteria)
                 if (pressureDrop100 > 8) {
                     status = 'not-recommended';
                     statusColor = '#e74c3c';
-                    reasons.push('Pressure drop too high (> 8 ft/100 ft)');
+                    reasons.push('Pressure drop too high (> 8 ft/100 ft) - excessive pumping cost');
                 } else if (pressureDrop100 > 4) {
                     if (status !== 'not-recommended') {
                         status = 'caution';
                         statusColor = '#f39c12';
                     }
-                    reasons.push('Pressure drop > 4 ft/100 ft (high pumping cost)');
-                } else if (pressureDrop100 < 1) {
+                    reasons.push('Pressure drop > 4 ft/100 ft (traditional limit exceeded)');
+                } else if (pressureDrop100 < 0.5) {
                     if (status === 'acceptable') {
                         status = 'oversized';
                         statusColor = '#3498db';
-                        reasons.push('Low pressure drop - pipe may be oversized');
+                        reasons.push('Very low pressure drop - pipe likely oversized');
                     }
+                }
+
+                // Reynolds number check
+                if (reynolds < 4000) {
+                    reasons.push('⚠ Laminar/transitional flow (Re < 4000) - Hazen-Williams may be inaccurate');
                 }
 
                 // ASHRAE 90.1 compliance check for variable flow systems
@@ -500,13 +739,18 @@
                             status = 'caution';
                             statusColor = '#f39c12';
                         }
-                        reasons.push('May exceed ASHRAE 90.1 limits for variable flow > 4400 hrs');
+                        reasons.push('May exceed ASHRAE 90.1-2010+ limits for variable flow > 4400 hrs');
                     }
+                }
+
+                // Glycol system warning
+                if (fluidType !== 'water' && pressureDrop100 > 3) {
+                    reasons.push('Note: Glycol system requires higher pumping power than water');
                 }
 
                 // Recommendation badge
                 let badge = '';
-                if (status === 'acceptable' && velocity >= 2 && velocity <= 4 && pressureDrop100 >= 1.5 && pressureDrop100 <= 3) {
+                if (status === 'acceptable' && velocity >= 2 && velocity <= 6 && pressureDrop100 >= 1 && pressureDrop100 <= 3) {
                     badge = '<span class="fan-badge recommended">✓ RECOMMENDED</span>';
                 } else if (status === 'acceptable' || status === 'oversized') {
                     badge = '<span class="fan-badge alternative">⚠ ACCEPTABLE</span>';
@@ -519,25 +763,25 @@
                 resultsHTML += `
                     <div class="fan-recommendation-card ${status}" style="border-left-color: ${statusColor}">
                         <div class="fan-recommendation-header">
-                            <h4>${pipe.nominal} Copper Type L (ID: ${pipe.id}")</h4>
+                            <h4>${pipe.nominal} ${pipeTypeName} (ID: ${pipe.id}")</h4>
                             ${badge}
                         </div>
                         <div class="fan-recommendation-details">
                             <div class="fan-detail-item">
-                                <strong>Velocity</strong>
-                                <span style="color: ${velocity > 4 ? '#e74c3c' : '#27ae60'}">${velocity.toFixed(2)} fps</span>
+                                <strong>Velocity (Scale 3)</strong>
+                                <span style="color: ${velocity > 6 ? '#e74c3c' : (velocity > 4 ? '#f39c12' : '#27ae60')}">${velocity.toFixed(2)} fps</span>
                             </div>
                             <div class="fan-detail-item">
-                                <strong>Pressure Drop</strong>
-                                <span style="color: ${pressureDrop100 > 4 ? '#e74c3c' : '#27ae60'}">${pressureDrop100.toFixed(2)} ft/100 ft</span>
+                                <strong>Friction Rate (Scale 2)</strong>
+                                <span style="color: ${pressureDrop100 > 4 ? '#e74c3c' : (pressureDrop100 > 3 ? '#f39c12' : '#27ae60')}">${pressureDrop100.toFixed(2)} ft/100 ft</span>
                             </div>
                             <div class="fan-detail-item">
-                                <strong>Total Head Loss</strong>
-                                <span>${totalPressureDrop.toFixed(2)} ft</span>
+                                <strong>Total Head (Scale 4)</strong>
+                                <span>${totalPressureDrop.toFixed(2)} ft (${totalPressurePSI.toFixed(2)} PSI)</span>
                             </div>
                             <div class="fan-detail-item">
                                 <strong>Reynolds Number</strong>
-                                <span>${reynolds.toFixed(0)}</span>
+                                <span style="color: ${reynolds < 4000 ? '#f39c12' : '#27ae60'}">${reynolds.toFixed(0)}</span>
                             </div>
                         </div>
                         ${reasons.length > 0 ? `
@@ -562,13 +806,16 @@
         function resetPipeSizing() {
             document.getElementById('flowRate').value = '';
             document.getElementById('pipeLength').value = '100';
+            document.getElementById('fittingLength').value = '0';
             document.getElementById('fluidType').value = 'water';
             document.getElementById('fluidTemp').value = '60';
+            document.getElementById('pipeType').value = 'copper';
             document.getElementById('systemType').value = 'variable';
             document.getElementById('operatingHours').value = 'high';
             document.getElementById('pipeMaterial').value = '150';
             document.getElementById('tempDiff').value = '';
             document.getElementById('resultsSection').style.display = 'none';
+            updatePipeMaterialOptions();
         }
     </script>
 </body>
