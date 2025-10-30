@@ -1831,13 +1831,24 @@ function calculateRectEquivalents(roundDiameter, airflow) {
     // Calculate velocities (same for all since same area)
     const velocity = (airflow / roundArea).toFixed(0);
     
-    // Calculate flat oval dimensions (using SMACNA equivalent diameter formula)
-    // For flat oval: major axis ≈ width, minor axis ≈ height
-    const oval_2_1_major = width_2_1;
-    const oval_2_1_minor = height_2_1;
-    
-    const oval_3_1_major = width_3_1;
-    const oval_3_1_minor = height_3_1;
+    // Calculate flat oval dimensions using ASHRAE/SMACNA equivalent diameter formula
+    // De = 1.55 × [(a × b)^0.625] / [(a + b)^0.25]
+    // Where a = major axis, b = minor axis
+    // Solving for dimensions that give equivalent diameter = roundDiameter
+
+    // For 2:1 aspect ratio (a = 2b)
+    // De = 1.55 × [(2b²)^0.625] / [(3b)^0.25]
+    // Solving for b: b = De × (3)^0.25 / (1.55 × 2^0.625)
+    const ratio_2_1 = 2;
+    const oval_2_1_minor = roundDiameter * Math.pow(ratio_2_1 + 1, 0.25) / (1.55 * Math.pow(ratio_2_1, 0.625));
+    const oval_2_1_major = ratio_2_1 * oval_2_1_minor;
+
+    // For 3:1 aspect ratio (a = 3b)
+    // De = 1.55 × [(3b²)^0.625] / [(4b)^0.25]
+    // Solving for b: b = De × (4)^0.25 / (1.55 × 3^0.625)
+    const ratio_3_1 = 3;
+    const oval_3_1_minor = roundDiameter * Math.pow(ratio_3_1 + 1, 0.25) / (1.55 * Math.pow(ratio_3_1, 0.625));
+    const oval_3_1_major = ratio_3_1 * oval_3_1_minor;
     
     return {
         rect_1_1_width: side_1_1.toFixed(1),
