@@ -170,6 +170,90 @@
             border-left: 3px solid #e74c3c;
         }
 
+        /* Topic section containers for better visual separation */
+        .topic-section {
+            margin: 3rem 0;
+            padding: 2.5rem 0;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .topic-section:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        /* Individual type/item cards for clear separation */
+        .type-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid var(--accent-color, #3498db);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .type-card h3 {
+            color: var(--accent-color, #3498db);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .type-card ul {
+            margin: 1rem 0;
+        }
+
+        .type-card li {
+            margin: 0.5rem 0;
+        }
+
+        /* Configuration cards */
+        .config-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid #3498db;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .config-card h3 {
+            color: #2980b9;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Applications list styling */
+        .applications-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .application-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid #27ae60;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .application-item strong {
+            color: #27ae60;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .article-hero h1 {
                 font-size: 2rem;
