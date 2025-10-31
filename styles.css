@@ -756,6 +756,31 @@ nav {
     margin: 0;
 }
 
+.key-activities {
+    background: #e3f2fd;
+    border-left: 4px solid #1976d2;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.key-activities h4 {
+    color: #1565c0;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.key-activities ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.key-activities li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
 .acceptance-box {
     background: #d1ecf1;
     border: 1px solid #bee5eb;

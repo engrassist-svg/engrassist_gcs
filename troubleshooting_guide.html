@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive HVAC troubleshooting guide for mechanical engineers. Learn diagnostic procedures, common problems, and solutions for chillers, boilers, air handlers, pumps, and control systems.">
+    <meta name="keywords" content="HVAC troubleshooting, mechanical systems, chiller problems, boiler diagnostics, air handler issues, pump troubleshooting, control system diagnostics, HVAC maintenance, mechanical engineering">
+    <link rel="canonical" href="https://engrassist.com/troubleshooting_guide.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="HVAC Troubleshooting Guide for Mechanical Systems - EngrAssist">
+    <meta property="og:description" content="Expert troubleshooting procedures and diagnostic techniques for common HVAC equipment problems and system failures.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/troubleshooting_guide.html">
+    <meta property="og:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HVAC Troubleshooting Guide for Mechanical Systems - EngrAssist">
+    <meta name="twitter:description" content="Expert troubleshooting procedures and diagnostic techniques for HVAC equipment.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <title>HVAC Troubleshooting Guide for Mechanical Systems - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">HVAC Troubleshooting Guide</h1>
+                <p class="hero-subtitle">Systematic diagnostic procedures and proven solutions for identifying and resolving common mechanical system problems in commercial HVAC applications.</p>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="content-section">
+            <div class="container">
+
+                <!-- Introduction -->
+                <div class="energy-section">
+                    <h2 class="section-title">Introduction to HVAC Troubleshooting</h2>
+                    <div class="energy-content">
+                        <p>Effective troubleshooting requires a systematic approach that combines technical knowledge, diagnostic tools, and logical problem-solving. This guide provides structured procedures for diagnosing and resolving common issues in commercial HVAC systems.</p>
+                        <p>Always follow these fundamental principles:</p>
+                        <ul>
+                            <li>Safety first - lockout/tagout procedures, PPE, and proper training</li>
+                            <li>Gather information - review system documentation, talk to operators, check history</li>
+                            <li>Verify the problem - confirm symptoms before making changes</li>
+                            <li>Use a systematic approach - eliminate possibilities methodically</li>
+                            <li>Document findings - record all observations and actions taken</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- General Troubleshooting Process -->
+                <div class="energy-section">
+                    <h2 class="section-title">General Troubleshooting Process</h2>
+                    <div class="energy-content">
+                        <div class="strategy-item">
+                            <h3>Step 1: Define the Problem</h3>
+                            <ul>
+                                <li>What is the specific symptom or complaint?</li>
+                                <li>When did the problem start?</li>
+                                <li>Has anything changed recently (setpoints, equipment, weather)?</li>
+                                <li>Is the problem continuous or intermittent?</li>
+                                <li>Which zones or systems are affected?</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Step 2: Gather Data</h3>
+                            <ul>
+                                <li>Review BMS/BAS trending data and alarms</li>
+                                <li>Check equipment status indicators and gauges</li>
+                                <li>Measure temperatures, pressures, flows, and electrical parameters</li>
+                                <li>Review maintenance records and equipment logs</li>
+                                <li>Obtain design documents and sequence of operations</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Step 3: Analyze and Diagnose</h3>
+                            <ul>
+                                <li>Compare actual values to design values</li>
+                                <li>Identify which systems/components are functioning correctly</li>
+                                <li>Isolate the problem to a specific subsystem or component</li>
+                                <li>Develop hypotheses for root cause</li>
+                                <li>Test each hypothesis systematically</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Step 4: Implement Solution</h3>
+                            <ul>
+                                <li>Develop corrective action plan</li>
+                                <li>Obtain necessary parts and tools</li>
+                                <li>Make repairs or adjustments</li>
+                                <li>Verify the fix resolves the original problem</li>
+                                <li>Monitor system performance after repair</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Step 5: Document and Follow Up</h3>
+                            <ul>
+                                <li>Record problem description, diagnosis, and solution</li>
+                                <li>Update maintenance records</li>
+                                <li>Notify affected parties of resolution</li>
+                                <li>Monitor for recurrence</li>
+                                <li>Consider preventive measures to avoid future issues</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chiller Troubleshooting -->
+                <div class="energy-section">
+                    <h2 class="section-title">Chiller Troubleshooting</h2>
+                    <div class="energy-content">
+
+                        <div class="troubleshooting-table">
+                            <h3>Common Chiller Problems</h3>
+                            <table class="efficiency-table">
+                                <thead>
+                                    <tr>
+                                        <th>Symptom</th>
+                                        <th>Possible Causes</th>
+                                        <th>Diagnostic Steps</th>
+                                        <th>Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Low Leaving Water Temperature</strong></td>
+                                        <td>Fouled tubes, low flow, low load, refrigerant undercharge</td>
+                                        <td>Check approach temperature, measure flow rate, inspect tubes, verify refrigerant charge</td>
+                                        <td>Clean tubes, repair flow issues, adjust load, recharge refrigerant</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>High Discharge Pressure</strong></td>
+                                        <td>Fouled condenser, high condenser water temp, non-condensables, refrigerant overcharge</td>
+                                        <td>Check condenser approach, inspect tubes, check cooling tower, purge air</td>
+                                        <td>Clean condenser, repair cooling tower, purge system, recover excess refrigerant</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Low Suction Pressure</strong></td>
+                                        <td>Low load, refrigerant undercharge, expansion valve issue, evaporator fouling</td>
+                                        <td>Check building load, verify charge, test TXV/EXV, inspect evaporator</td>
+                                        <td>Recharge system, replace valve, clean evaporator</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>High Amp Draw</strong></td>
+                                        <td>High head pressure, mechanical issues, electrical problems</td>
+                                        <td>Check all pressures, listen for abnormal sounds, verify voltage/phase balance</td>
+                                        <td>Address pressure issues, repair mechanical problems, fix electrical supply</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Frequent Starts/Stops</strong></td>
+                                        <td>Oversized unit, low load, control issues, flow switch issues</td>
+                                        <td>Review load calculations, check minimum run timers, verify flow rates</td>
+                                        <td>Adjust controls, add thermal storage, repair flow issues</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Oil Level Issues</strong></td>
+                                        <td>Oil migration, oil foaming, refrigerant in oil, oil return problems</td>
+                                        <td>Check sight glass, measure oil temperature, verify oil separator operation</td>
+                                        <td>Add oil, repair oil return system, reduce refrigerant migration</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="key-activities">
+                            <h4>Critical Chiller Measurements</h4>
+                            <ul>
+                                <li><strong>Evaporator Approach:</strong> Leaving water temp - refrigerant evaporating temp (typically 2-4°F)</li>
+                                <li><strong>Condenser Approach:</strong> Refrigerant condensing temp - entering water temp (typically 2-6°F)</li>
+                                <li><strong>Superheat:</strong> Suction temp - evaporating temp (typically 8-12°F)</li>
+                                <li><strong>Subcooling:</strong> Condensing temp - liquid line temp (typically 5-10°F)</li>
+                                <li><strong>Delta T:</strong> Entering - leaving water temp (typically 10-12°F design)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boiler Troubleshooting -->
+                <div class="energy-section">
+                    <h2 class="section-title">Boiler Troubleshooting</h2>
+                    <div class="energy-content">
+
+                        <div class="troubleshooting-table">
+                            <h3>Common Boiler Problems</h3>
+                            <table class="efficiency-table">
+                                <thead>
+                                    <tr>
+                                        <th>Symptom</th>
+                                        <th>Possible Causes</th>
+                                        <th>Diagnostic Steps</th>
+                                        <th>Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Boiler Won't Fire</strong></td>
+                                        <td>No power, safety lockout, no fuel, ignition failure, flame sensor issue</td>
+                                        <td>Check power supply, verify fuel pressure, inspect flame sensor, check error codes</td>
+                                        <td>Restore power, reset safety, fix fuel supply, clean/replace flame sensor, repair ignition</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Short Cycling</strong></td>
+                                        <td>Oversized boiler, low system volume, control issues, circulation problems</td>
+                                        <td>Check firing rate vs. load, measure system volume, verify pump operation</td>
+                                        <td>Add buffer tank, adjust firing rate, repair controls, fix circulation</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Low Efficiency</strong></td>
+                                        <td>Dirty heat exchanger, excess air, poor combustion, flue gas condensation in non-condensing boiler</td>
+                                        <td>Perform combustion test, inspect heat exchanger, check stack temperature</td>
+                                        <td>Clean heat exchanger, adjust air/fuel ratio, repair dampers</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Water Leaks</strong></td>
+                                        <td>Failed gaskets, corroded sections, pressure relief valve, expansion issues</td>
+                                        <td>Inspect all connections, pressure test system, check relief valve, verify expansion tank</td>
+                                        <td>Replace gaskets, repair/replace sections, replace relief valve, fix expansion system</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>High Stack Temperature</strong></td>
+                                        <td>Dirty heat exchanger, excess air, air in fuel, undersized boiler</td>
+                                        <td>Measure O₂ and CO, inspect heat exchanger, check firing rate vs. load</td>
+                                        <td>Clean heat exchanger, adjust combustion air, bleed fuel line</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Noisy Operation</strong></td>
+                                        <td>Kettling (scale buildup), air in system, water hammer, combustion noise</td>
+                                        <td>Listen to location of noise, check water treatment, verify venting</td>
+                                        <td>Descale heat exchanger, purge air, fix piping issues, adjust burner</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Combustion Analysis Parameters</h4>
+                            <p><strong>Target Values for Natural Gas Boilers:</strong></p>
+                            <ul>
+                                <li><strong>Oxygen (O₂):</strong> 4-6% for optimal efficiency</li>
+                                <li><strong>Carbon Dioxide (CO₂):</strong> 9-10% (inversely related to O₂)</li>
+                                <li><strong>Carbon Monoxide (CO):</strong> &lt;100 ppm (400 ppm max)</li>
+                                <li><strong>Stack Temperature:</strong> 300-450°F for non-condensing, 100-140°F for condensing</li>
+                                <li><strong>Excess Air:</strong> 20-40% for atmospheric burners, 10-20% for power burners</li>
+                                <li><strong>Combustion Efficiency:</strong> 78-82% for non-condensing, 88-95% for condensing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Air Handler Troubleshooting -->
+                <div class="energy-section">
+                    <h2 class="section-title">Air Handler Troubleshooting</h2>
+                    <div class="energy-content">
+
+                        <div class="troubleshooting-table">
+                            <h3>Common Air Handler Problems</h3>
+                            <table class="efficiency-table">
+                                <thead>
+                                    <tr>
+                                        <th>Symptom</th>
+                                        <th>Possible Causes</th>
+                                        <th>Diagnostic Steps</th>
+                                        <th>Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Low Airflow</strong></td>
+                                        <td>Dirty filter, closed dampers, belt slipping, fan issue, duct obstruction</td>
+                                        <td>Check filter ΔP, inspect dampers, verify fan speed, measure static pressures</td>
+                                        <td>Replace filter, open dampers, adjust belt, repair fan, clear obstruction</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>High Static Pressure</strong></td>
+                                        <td>Dirty coil, dirty filter, closed dampers, undersized ductwork</td>
+                                        <td>Measure pressure drops across components, inspect coils and filters</td>
+                                        <td>Clean coils, replace filter, open dampers, modify ductwork</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Inadequate Heating/Cooling</strong></td>
+                                        <td>Low airflow, water flow issues, valve problems, coil fouling, control issues</td>
+                                        <td>Measure airflow, check water temps and flow, verify valve operation</td>
+                                        <td>Fix airflow issues, repair water flow, replace valve, clean coils</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Water Dripping from Unit</strong></td>
+                                        <td>Clogged drain, improper slope, drain trap issues, excessive condensate</td>
+                                        <td>Check drain line, verify trap depth, inspect drain pan, check coil entering temp</td>
+                                        <td>Clear drain, adjust slope, repair trap, reduce coil load</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Excessive Vibration/Noise</strong></td>
+                                        <td>Unbalanced fan, loose components, bad bearings, resonance, loose belt</td>
+                                        <td>Inspect fan wheel, check all fasteners, listen to bearings, check belt tension</td>
+                                        <td>Balance fan, tighten components, replace bearings, adjust speed, tension belt</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Frozen Coil</strong></td>
+                                        <td>Low airflow, low load, low water temp, faulty valve, control issue</td>
+                                        <td>Measure airflow, check entering water temp, verify valve operation, check control sequence</td>
+                                        <td>Fix airflow, adjust water temp, repair valve, reprogram controls</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="key-activities">
+                            <h4>Air Handler Diagnostic Measurements</h4>
+                            <ul>
+                                <li><strong>Total Static Pressure:</strong> Supply + return static (fan discharge - fan suction)</li>
+                                <li><strong>Filter ΔP:</strong> Clean: 0.1-0.2" w.g., Replace at: 0.5-1.0" w.g.</li>
+                                <li><strong>Coil ΔP:</strong> Typical: 0.5-1.5" w.g. air-side, 5-15 psi water-side</li>
+                                <li><strong>Fan Speed:</strong> Measure with tachometer, compare to design RPM</li>
+                                <li><strong>Motor Amps:</strong> Should be ≤ nameplate FLA, typically 80-90% at design</li>
+                                <li><strong>Supply Air Temperature:</strong> Cooling: 55-58°F, Heating: 95-120°F</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pump Troubleshooting -->
+                <div class="energy-section">
+                    <h2 class="section-title">Pump Troubleshooting</h2>
+                    <div class="energy-content">
+
+                        <div class="troubleshooting-table">
+                            <h3>Common Pump Problems</h3>
+                            <table class="efficiency-table">
+                                <thead>
+                                    <tr>
+                                        <th>Symptom</th>
+                                        <th>Possible Causes</th>
+                                        <th>Diagnostic Steps</th>
+                                        <th>Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Pump Won't Start</strong></td>
+                                        <td>No power, tripped breaker, motor failure, seized bearings, mechanical failure</td>
+                                        <td>Check power and voltage, test motor continuity, try manual rotation</td>
+                                        <td>Restore power, replace motor, repair/replace bearings, replace pump</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Low Flow</strong></td>
+                                        <td>Cavitation, air in system, closed valves, impeller damage, wrong rotation</td>
+                                        <td>Check suction pressure, verify rotation direction, inspect impeller, check valve positions</td>
+                                        <td>Fix suction issues, purge air, open valves, replace impeller, correct rotation</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Low Discharge Pressure</strong></td>
+                                        <td>Worn impeller, wrong rotation, recirculation, bypass open, air in system</td>
+                                        <td>Measure flow vs. curve, verify rotation, check for air, inspect valves</td>
+                                        <td>Replace impeller, correct rotation, purge air, close bypass</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>High Vibration</strong></td>
+                                        <td>Cavitation, misalignment, bad bearings, unbalanced impeller, piping strain</td>
+                                        <td>Check NPSH, inspect alignment, listen to bearings, measure vibration levels</td>
+                                        <td>Fix suction issues, align pump, replace bearings, balance impeller, support piping</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Seal Leakage</strong></td>
+                                        <td>Worn seal, incorrect installation, dry running, chemical attack, misalignment</td>
+                                        <td>Inspect seal, check for proper lubrication, verify alignment</td>
+                                        <td>Replace seal, ensure proper installation, align pump, check water quality</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Overheating</strong></td>
+                                        <td>Operating at shutoff, recirculation, bearing failure, insufficient cooling</td>
+                                        <td>Measure flow, check bearing temperature, verify cooling water flow</td>
+                                        <td>Open discharge valve, repair system, replace bearings, restore cooling</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cavitation</strong></td>
+                                        <td>Insufficient NPSH, clogged strainer, high suction lift, closed suction valve</td>
+                                        <td>Calculate NPSH available vs. required, check suction pressure, inspect strainer</td>
+                                        <td>Raise water level, clean strainer, open valves, relocate pump lower</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Pump Performance Verification</h4>
+                            <p><strong>To verify pump is operating on its curve:</strong></p>
+                            <ol>
+                                <li>Measure discharge pressure (psig)</li>
+                                <li>Measure suction pressure (psig)</li>
+                                <li>Calculate head: H (ft) = (P_discharge - P_suction) × 2.31 / SG</li>
+                                <li>Measure flow rate (GPM) using flow meter or balance valve</li>
+                                <li>Plot point on pump curve - should fall on or near the curve</li>
+                                <li>If operating off curve: check impeller diameter, verify speed, look for recirculation</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cooling Tower Troubleshooting -->
+                <div class="energy-section">
+                    <h2 class="section-title">Cooling Tower Troubleshooting</h2>
+                    <div class="energy-content">
+
+                        <div class="troubleshooting-table">
+                            <h3>Common Cooling Tower Problems</h3>
+                            <table class="efficiency-table">
+                                <thead>
+                                    <tr>
+                                        <th>Symptom</th>
+                                        <th>Possible Causes</th>
+                                        <th>Diagnostic Steps</th>
+                                        <th>Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>High Leaving Water Temperature</strong></td>
+                                        <td>Fouled fill, low airflow, high load, inadequate water flow, poor distribution</td>
+                                        <td>Check approach to wet-bulb, inspect fill, verify fan operation, check distribution</td>
+                                        <td>Clean fill, repair fan, increase water flow, fix distribution nozzles</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Excessive Water Loss</strong></td>
+                                        <td>Drift eliminators damaged, excessive blowdown, high winds, splashing</td>
+                                        <td>Inspect drift eliminators, check blowdown rate, measure cycles of concentration</td>
+                                        <td>Repair/replace eliminators, adjust blowdown, add wind screens</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Scale/Fouling</strong></td>
+                                        <td>Poor water treatment, high TDS, inadequate blowdown, biological growth</td>
+                                        <td>Test water chemistry, check cycles of concentration, inspect fill</td>
+                                        <td>Improve water treatment, increase blowdown, clean fill, add biocide</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Fan Motor Failure</strong></td>
+                                        <td>Moisture intrusion, overload, bearing failure, electrical issues</td>
+                                        <td>Check amp draw, inspect for water intrusion, test motor windings</td>
+                                        <td>Replace motor, improve weather protection, repair electrical supply</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Legionella Concerns</strong></td>
+                                        <td>Inadequate biocide, low circulation, dead legs, temperature issues</td>
+                                        <td>Test for Legionella, review water treatment program, inspect system</td>
+                                        <td>Hyperchlorinate, improve treatment program, eliminate dead legs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="key-activities">
+                            <h4>Cooling Tower Performance Metrics</h4>
+                            <ul>
+                                <li><strong>Approach:</strong> Leaving water temp - wet-bulb temp (typically 7-10°F)</li>
+                                <li><strong>Range:</strong> Entering water temp - leaving water temp (typically 10-15°F)</li>
+                                <li><strong>Effectiveness:</strong> Range / (Entering temp - wet-bulb) × 100%</li>
+                                <li><strong>Cycles of Concentration:</strong> Makeup conductivity / blowdown conductivity (target 3-6)</li>
+                                <li><strong>Blowdown Rate:</strong> Evaporation rate / (Cycles - 1)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Control System Troubleshooting -->
+                <div class="energy-section">
+                    <h2 class="section-title">Control System Troubleshooting</h2>
+                    <div class="energy-content">
+
+                        <div class="strategy-item">
+                            <h3>Temperature Control Issues</h3>
+                            <div class="troubleshooting-table">
+                                <table class="efficiency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symptom</th>
+                                            <th>Possible Causes</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Space too hot/cold</td>
+                                            <td>Sensor calibration, wrong setpoint, valve/damper stuck, control logic error</td>
+                                            <td>Calibrate sensor, verify setpoint, check actuator, review sequence</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Temperature swings</td>
+                                            <td>PID tuning, slow response, sensor location, simultaneous heating/cooling</td>
+                                            <td>Tune PID, adjust deadband, relocate sensor, add lockouts</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Control hunting</td>
+                                            <td>Improper PID tuning, loose linkage, too small deadband</td>
+                                            <td>Retune PID, tighten linkage, increase deadband</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Sensor Troubleshooting</h3>
+                            <ul>
+                                <li><strong>Verify Reading:</strong> Compare to calibrated reference instrument</li>
+                                <li><strong>Check Wiring:</strong> Verify connections, look for shorts/opens, test resistance</li>
+                                <li><strong>Inspect Location:</strong> Ensure proper placement, avoid drafts/radiation/vibration</li>
+                                <li><strong>Test Signal:</strong> Measure voltage/current output, verify input to controller</li>
+                                <li><strong>Calibrate:</strong> Follow manufacturer procedure for offset and span adjustment</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Actuator Troubleshooting</h3>
+                            <ul>
+                                <li><strong>Manual Override:</strong> Test if valve/damper can be moved manually</li>
+                                <li><strong>Power Check:</strong> Verify correct voltage at actuator</li>
+                                <li><strong>Signal Verification:</strong> Measure control signal (0-10V, 4-20mA, etc.)</li>
+                                <li><strong>Stroke Test:</strong> Command full open and full closed, verify travel</li>
+                                <li><strong>Spring Return:</strong> On loss of power, verify fail-safe position</li>
+                                <li><strong>Linkage:</strong> Check for binding, proper attachment, correct rotation</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>PID Control Tuning Basics</h4>
+                            <p><strong>Start with these typical values and adjust:</strong></p>
+                            <ul>
+                                <li><strong>Proportional Band:</strong> Start at 10-20% for temperature, 20-40% for pressure</li>
+                                <li><strong>Integral Time:</strong> Start at 5-10 minutes, increase if hunting, decrease if slow response</li>
+                                <li><strong>Derivative Time:</strong> Often not needed in HVAC, use sparingly (0.5-2 min if needed)</li>
+                                <li><strong>Tuning Method:</strong> Make small adjustments, allow system to stabilize between changes</li>
+                                <li><strong>Signs of Poor Tuning:</strong> Oscillation (reduce P or I), slow response (increase P or reduce I), overshoot (reduce P, increase D)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagnostic Tools -->
+                <div class="energy-section">
+                    <h2 class="section-title">Essential Diagnostic Tools</h2>
+                    <div class="energy-content">
+                        <div class="requirements-grid">
+                            <div class="requirement-card">
+                                <h4>Electrical Measurements</h4>
+                                <ul>
+                                    <li>Multimeter (voltage, current, resistance)</li>
+                                    <li>Clamp meter (current without breaking circuit)</li>
+                                    <li>Phase rotation meter</li>
+                                    <li>Megohmmeter (insulation testing)</li>
+                                    <li>Power quality analyzer</li>
+                                </ul>
+                            </div>
+                            <div class="requirement-card">
+                                <h4>Pressure/Temperature</h4>
+                                <ul>
+                                    <li>Pressure gauges (various ranges)</li>
+                                    <li>Manometer (low pressure, draft)</li>
+                                    <li>Thermometers (contact and IR)</li>
+                                    <li>Psychrometer (humidity)</li>
+                                    <li>Data logger (trending)</li>
+                                </ul>
+                            </div>
+                            <div class="requirement-card">
+                                <h4>Flow Measurements</h4>
+                                <ul>
+                                    <li>Pitot tube and manometer (air)</li>
+                                    <li>Hot wire anemometer (air velocity)</li>
+                                    <li>Ultrasonic flow meter (water)</li>
+                                    <li>Balance valve with gauge ports</li>
+                                    <li>Venturi/orifice calculator</li>
+                                </ul>
+                            </div>
+                            <div class="requirement-card">
+                                <h4>Specialized Tools</h4>
+                                <ul>
+                                    <li>Combustion analyzer</li>
+                                    <li>Refrigerant gauges and scales</li>
+                                    <li>Vibration analyzer</li>
+                                    <li>Ultrasonic leak detector</li>
+                                    <li>Thermal imaging camera</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety Considerations -->
+                <div class="energy-section">
+                    <h2 class="section-title">Safety Considerations</h2>
+                    <div class="energy-content">
+                        <div class="warning-box" style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; margin: 1rem 0;">
+                            <h4 style="color: #856404; margin-top: 0;">DANGER - Safety Requirements</h4>
+                            <p style="color: #856404;"><strong>Always follow these safety procedures when troubleshooting HVAC equipment:</strong></p>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Lockout/Tagout (LOTO)</h3>
+                            <ul>
+                                <li>Identify all energy sources (electrical, mechanical, thermal, pressure)</li>
+                                <li>Notify affected personnel of lockout</li>
+                                <li>Shut down equipment using normal procedures</li>
+                                <li>Isolate all energy sources</li>
+                                <li>Apply locks and tags to all isolation points</li>
+                                <li>Release stored energy (capacitors, springs, pressure, elevated components)</li>
+                                <li>Verify zero energy state before beginning work</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Personal Protective Equipment (PPE)</h3>
+                            <ul>
+                                <li><strong>Always Required:</strong> Safety glasses, work boots</li>
+                                <li><strong>Electrical Work:</strong> Arc flash rated clothing, insulated gloves, face shield</li>
+                                <li><strong>Refrigerant Work:</strong> Safety goggles, gloves, ventilation</li>
+                                <li><strong>Confined Spaces:</strong> Harness, respirator, gas monitor, retrieval system</li>
+                                <li><strong>Chemical Handling:</strong> Chemical resistant gloves, goggles, apron</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Specific Hazards</h3>
+                            <ul>
+                                <li><strong>Electrical:</strong> Assume all circuits are live until verified, maintain approach distances, use proper tools</li>
+                                <li><strong>High Pressure:</strong> Relieve pressure before opening systems, use pressure relief valves</li>
+                                <li><strong>Hot Surfaces:</strong> Allow equipment to cool, use heat-resistant gloves, post warnings</li>
+                                <li><strong>Rotating Equipment:</strong> Ensure lockout, keep loose clothing away, use guards</li>
+                                <li><strong>Refrigerants:</strong> Work in ventilated areas, avoid skin contact, proper recovery procedures</li>
+                                <li><strong>Chemicals:</strong> Read SDS sheets, use proper PPE, ensure ventilation, have eyewash/shower available</li>
+                                <li><strong>Heights:</strong> Use proper ladders/scaffolds, wear fall protection above 6 feet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preventive Maintenance -->
+                <div class="energy-section">
+                    <h2 class="section-title">Preventive Maintenance Best Practices</h2>
+                    <div class="energy-content">
+                        <p>Most troubleshooting can be avoided through proper preventive maintenance:</p>
+
+                        <div class="strategy-item">
+                            <h3>Monthly Tasks</h3>
+                            <ul>
+                                <li>Inspect and change filters as needed</li>
+                                <li>Check belt condition and tension</li>
+                                <li>Verify control operation and setpoints</li>
+                                <li>Check for unusual noise, vibration, or leaks</li>
+                                <li>Review BAS alarms and trending</li>
+                                <li>Test drain pans and condensate drains</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Quarterly Tasks</h3>
+                            <ul>
+                                <li>Lubricate motors and bearings per manufacturer schedule</li>
+                                <li>Test safety controls and interlocks</li>
+                                <li>Inspect coils for cleanliness</li>
+                                <li>Check refrigerant charge and pressures</li>
+                                <li>Test water treatment and adjust chemicals</li>
+                                <li>Verify economizer operation (if seasonal)</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-item">
+                            <h3>Annual Tasks</h3>
+                            <ul>
+                                <li>Clean coils (evaporator, condenser, heating)</li>
+                                <li>Perform combustion analysis on boilers</li>
+                                <li>Megger test motors</li>
+                                <li>Vibration analysis on rotating equipment</li>
+                                <li>Calibrate sensors and control devices</li>
+                                <li>Inspect and clean cooling tower</li>
+                                <li>Test and exercise all valves</li>
+                                <li>Perform infrared scan of electrical connections</li>
+                                <li>Full system commissioning check</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Documentation is Critical</h4>
+                            <p>Maintain detailed records of all maintenance activities:</p>
+                            <ul>
+                                <li>Date, technician, and equipment identification</li>
+                                <li>All measurements and observations</li>
+                                <li>Parts replaced and adjustments made</li>
+                                <li>Any issues found and corrective actions taken</li>
+                                <li>Recommendations for future work</li>
+                                <li>Photo documentation of conditions</li>
+                            </ul>
+                            <p>These records are invaluable for identifying trends, planning budgets, and troubleshooting recurring issues.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This troubleshooting guide provides general information for mechanical system diagnostics and repair.
+                        All work must be performed by qualified, licensed technicians in accordance with applicable codes,
+                        manufacturer instructions, and safety regulations. Always follow proper lockout/tagout procedures and
+                        use appropriate personal protective equipment. Consult with licensed professionals for specific equipment
+                        issues and verify all procedures independently before implementation.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
