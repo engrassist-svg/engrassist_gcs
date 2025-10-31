@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="description" content="Comprehensive mechanical engineering calculations reference guide. Essential HVAC formulas, airflow calculations, heat transfer, psychrometrics, fluid mechanics, and thermodynamics for engineers.">
+    <meta name="keywords" content="engineering calculations, HVAC formulas, mechanical engineering, heat transfer, airflow calculations, psychrometric calculations, fluid mechanics, thermodynamics, BTU calculations, CFM calculations">
+    <link rel="canonical" href="https://engrassist.com/engineering_calculations.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Engineering Calculations Reference - EngrAssist">
+    <meta property="og:description" content="Comprehensive mechanical engineering calculations reference guide with essential HVAC formulas, examples, and interactive calculators.">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+    <meta property="og:url" content="https://engrassist.com/engineering_calculations.html">
+    <meta property="og:type" content="article">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Engineering Calculations Reference - EngrAssist">
+    <meta name="twitter:description" content="Comprehensive mechanical engineering calculations reference guide with essential HVAC formulas and examples.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <title>Engineering Calculations Reference - EngrAssist</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318" crossorigin="anonymous"></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Engineering Calculations Reference Guide",
+        "description": "Comprehensive mechanical engineering calculations reference guide with essential HVAC formulas, examples, and practical applications.",
+        "author": {
+            "@type": "Organization",
+            "name": "EngrAssist"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "EngrAssist",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://engrassist.com/images/logo_coffee.png"
+            }
+        },
+        "datePublished": "2025-10-31",
+        "dateModified": "2025-10-31"
+    }
+    </script>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section engineering-calc-hero">
+            <div class="container">
+                <h1>Engineering Calculations Reference</h1>
+                <p>Essential mechanical engineering formulas, calculations, and examples for HVAC design professionals</p>
+            </div>
+        </section>
+
+        <!-- Table of Contents -->
+        <section class="content-section">
+            <div class="container">
+                <div class="calc-toc">
+                    <h2>Quick Navigation</h2>
+                    <ul>
+                        <li><a href="#airflow">Airflow Calculations</a></li>
+                        <li><a href="#heat-transfer">Heat Transfer</a></li>
+                        <li><a href="#psychrometrics">Psychrometric Calculations</a></li>
+                        <li><a href="#fluid-mechanics">Fluid Mechanics</a></li>
+                        <li><a href="#thermodynamics">Thermodynamics</a></li>
+                        <li><a href="#load-calculations">Load Calculations</a></li>
+                        <li><a href="#duct-sizing">Duct Sizing</a></li>
+                        <li><a href="#pipe-sizing">Pipe Sizing</a></li>
+                        <li><a href="#pump-power">Pump & Fan Power</a></li>
+                        <li><a href="#conversions">Common Conversions</a></li>
+                        <li><a href="#interactive-calcs">Interactive Calculators</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Airflow Calculations -->
+        <section id="airflow" class="content-section calc-section">
+            <div class="container">
+                <h2>Airflow Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Volumetric Flow Rate</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = A × V</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Volumetric flow rate (CFM or ft³/min)</li>
+                                <li>A = Cross-sectional area (ft²)</li>
+                                <li>V = Velocity (ft/min or FPM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate airflow through a 24" × 18" duct with air velocity of 1200 FPM:</p>
+                        <ul>
+                            <li>Area = (24/12) × (18/12) = 2 ft × 1.5 ft = 3 ft²</li>
+                            <li>Q = 3 ft² × 1200 FPM = 3,600 CFM</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Air Changes Per Hour (ACH)</h3>
+                    <div class="formula-box">
+                        <p class="formula">ACH = (CFM × 60) / Room Volume</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>CFM = Airflow rate (cubic feet per minute)</li>
+                                <li>60 = Minutes per hour</li>
+                                <li>Room Volume = Length × Width × Height (ft³)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate ACH for a 20' × 15' × 10' room with 500 CFM supply:</p>
+                        <ul>
+                            <li>Volume = 20 × 15 × 10 = 3,000 ft³</li>
+                            <li>ACH = (500 × 60) / 3,000 = 10 air changes per hour</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Mass Flow Rate</h3>
+                    <div class="formula-box">
+                        <p class="formula">ṁ = ρ × Q</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>ṁ = Mass flow rate (lb/min)</li>
+                                <li>ρ = Air density (lb/ft³, typically 0.075 lb/ft³ at standard conditions)</li>
+                                <li>Q = Volumetric flow rate (CFM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate mass flow for 5,000 CFM at standard conditions:</p>
+                        <ul>
+                            <li>ṁ = 0.075 lb/ft³ × 5,000 CFM = 375 lb/min</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Heat Transfer -->
+        <section id="heat-transfer" class="content-section calc-section">
+            <div class="container">
+                <h2>Heat Transfer Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Sensible Heat Transfer</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q<sub>s</sub> = 1.08 × CFM × ΔT</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q<sub>s</sub> = Sensible heat (BTU/hr)</li>
+                                <li>1.08 = Constant (0.24 BTU/lb·°F × 60 min/hr × 0.075 lb/ft³)</li>
+                                <li>CFM = Airflow rate (ft³/min)</li>
+                                <li>ΔT = Temperature difference (°F)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate sensible cooling for 2,000 CFM with 20°F temperature drop:</p>
+                        <ul>
+                            <li>Q<sub>s</sub> = 1.08 × 2,000 × 20 = 43,200 BTU/hr = 3.6 tons</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Latent Heat Transfer</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q<sub>l</sub> = 0.68 × CFM × Δω</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q<sub>l</sub> = Latent heat (BTU/hr)</li>
+                                <li>0.68 = Constant (1,061 BTU/lb × 60 min/hr × 0.075 lb/ft³ / 7,000 grains/lb)</li>
+                                <li>CFM = Airflow rate (ft³/min)</li>
+                                <li>Δω = Humidity ratio difference (grains/lb)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate latent cooling for 2,000 CFM removing 30 grains/lb moisture:</p>
+                        <ul>
+                            <li>Q<sub>l</sub> = 0.68 × 2,000 × 30 = 40,800 BTU/hr = 3.4 tons</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Total Heat Transfer</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q<sub>t</sub> = 4.5 × CFM × Δh</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q<sub>t</sub> = Total heat (BTU/hr)</li>
+                                <li>4.5 = Constant (60 min/hr × 0.075 lb/ft³)</li>
+                                <li>CFM = Airflow rate (ft³/min)</li>
+                                <li>Δh = Enthalpy difference (BTU/lb)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate total cooling for 3,000 CFM with 8 BTU/lb enthalpy change:</p>
+                        <ul>
+                            <li>Q<sub>t</sub> = 4.5 × 3,000 × 8 = 108,000 BTU/hr = 9 tons</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Conduction Heat Transfer</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = U × A × ΔT</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Heat transfer rate (BTU/hr)</li>
+                                <li>U = Overall heat transfer coefficient (BTU/hr·ft²·°F)</li>
+                                <li>A = Surface area (ft²)</li>
+                                <li>ΔT = Temperature difference (°F)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate heat loss through 500 ft² wall with U=0.08, ΔT=40°F:</p>
+                        <ul>
+                            <li>Q = 0.08 × 500 × 40 = 1,600 BTU/hr</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Psychrometric Calculations -->
+        <section id="psychrometrics" class="content-section calc-section">
+            <div class="container">
+                <h2>Psychrometric Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Relative Humidity from Wet Bulb & Dry Bulb</h3>
+                    <div class="formula-box">
+                        <p class="formula">RH ≈ 100 × (P<sub>ws,wb</sub> - (P<sub>atm</sub> × (T<sub>db</sub> - T<sub>wb</sub>) / 1800)) / P<sub>ws,db</sub></p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>RH = Relative humidity (%)</li>
+                                <li>T<sub>db</sub> = Dry bulb temperature (°F)</li>
+                                <li>T<sub>wb</sub> = Wet bulb temperature (°F)</li>
+                                <li>P<sub>ws</sub> = Saturation vapor pressure</li>
+                                <li>P<sub>atm</sub> = Atmospheric pressure (psia)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> For precise calculations, use psychrometric charts or tables. This approximation is valid for typical HVAC conditions.</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Humidity Ratio</h3>
+                    <div class="formula-box">
+                        <p class="formula">ω = 0.622 × (P<sub>v</sub> / (P<sub>atm</sub> - P<sub>v</sub>))</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>ω = Humidity ratio (lb water/lb dry air)</li>
+                                <li>0.622 = Ratio of molecular weights (water/air)</li>
+                                <li>P<sub>v</sub> = Partial pressure of water vapor (psia)</li>
+                                <li>P<sub>atm</sub> = Atmospheric pressure (psia, typically 14.696 at sea level)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Conversion:</strong> To convert to grains/lb, multiply by 7,000 (grains per pound)</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Dew Point Temperature</h3>
+                    <div class="formula-box">
+                        <p class="formula">T<sub>dp</sub> = T<sub>db</sub> - ((100 - RH) / 5)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>T<sub>dp</sub> = Dew point temperature (°F, approximate)</li>
+                                <li>T<sub>db</sub> = Dry bulb temperature (°F)</li>
+                                <li>RH = Relative humidity (%)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> This is a simplified approximation. For precise calculations, use psychrometric charts or the Magnus-Tetens formula.</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Enthalpy of Moist Air</h3>
+                    <div class="formula-box">
+                        <p class="formula">h = 0.24 × T<sub>db</sub> + ω × (1,061 + 0.444 × T<sub>db</sub>)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>h = Enthalpy (BTU/lb dry air)</li>
+                                <li>0.24 = Specific heat of dry air (BTU/lb·°F)</li>
+                                <li>T<sub>db</sub> = Dry bulb temperature (°F)</li>
+                                <li>ω = Humidity ratio (lb water/lb dry air)</li>
+                                <li>1,061 = Latent heat of vaporization at 32°F (BTU/lb)</li>
+                                <li>0.444 = Specific heat of water vapor (BTU/lb·°F)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fluid Mechanics -->
+        <section id="fluid-mechanics" class="content-section calc-section">
+            <div class="container">
+                <h2>Fluid Mechanics Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Water Flow Rate</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = V × A</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Flow rate (GPM)</li>
+                                <li>V = Velocity (ft/s)</li>
+                                <li>A = Cross-sectional area (ft²)</li>
+                                <li>Conversion: GPM = (ft³/s) × 448.83</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate flow in 4" pipe (ID = 4.026") at 6 ft/s velocity:</p>
+                        <ul>
+                            <li>Area = π × (4.026/12)² / 4 = 0.0884 ft²</li>
+                            <li>Q = 6 × 0.0884 × 448.83 = 238 GPM</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Pressure Drop in Pipes (Darcy-Weisbach)</h3>
+                    <div class="formula-box">
+                        <p class="formula">ΔP = f × (L/D) × (ρV²/2)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>ΔP = Pressure drop (psf)</li>
+                                <li>f = Friction factor (dimensionless)</li>
+                                <li>L = Pipe length (ft)</li>
+                                <li>D = Pipe diameter (ft)</li>
+                                <li>ρ = Fluid density (lb/ft³)</li>
+                                <li>V = Velocity (ft/s)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Simplified for water:</strong> ΔP (ft of head) = f × (L/D) × (V²/2g), where g = 32.2 ft/s²</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Reynolds Number</h3>
+                    <div class="formula-box">
+                        <p class="formula">Re = ρVD / μ = VD / ν</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Re = Reynolds number (dimensionless)</li>
+                                <li>ρ = Density (lb/ft³)</li>
+                                <li>V = Velocity (ft/s)</li>
+                                <li>D = Diameter (ft)</li>
+                                <li>μ = Dynamic viscosity (lb/ft·s)</li>
+                                <li>ν = Kinematic viscosity (ft²/s)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Flow Regimes:</strong></p>
+                        <ul>
+                            <li>Laminar: Re < 2,300</li>
+                            <li>Transitional: 2,300 < Re < 4,000</li>
+                            <li>Turbulent: Re > 4,000</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Bernoulli's Equation</h3>
+                    <div class="formula-box">
+                        <p class="formula">P₁/ρ + V₁²/2 + gz₁ = P₂/ρ + V₂²/2 + gz₂</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>P = Pressure (psf)</li>
+                                <li>ρ = Density (lb/ft³)</li>
+                                <li>V = Velocity (ft/s)</li>
+                                <li>g = Gravitational acceleration (32.2 ft/s²)</li>
+                                <li>z = Elevation (ft)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> Assumes incompressible, inviscid flow along a streamline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thermodynamics -->
+        <section id="thermodynamics" class="content-section calc-section">
+            <div class="container">
+                <h2>Thermodynamic Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Coefficient of Performance (COP) - Cooling</h3>
+                    <div class="formula-box">
+                        <p class="formula">COP<sub>cooling</sub> = Q<sub>c</sub> / W</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>COP = Coefficient of performance (dimensionless)</li>
+                                <li>Q<sub>c</sub> = Cooling capacity (BTU/hr)</li>
+                                <li>W = Power input (BTU/hr)</li>
+                                <li>Note: 1 kW = 3,412 BTU/hr</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate COP for 120,000 BTU/hr chiller using 12 kW:</p>
+                        <ul>
+                            <li>W = 12 kW × 3,412 = 40,944 BTU/hr</li>
+                            <li>COP = 120,000 / 40,944 = 2.93</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Energy Efficiency Ratio (EER)</h3>
+                    <div class="formula-box">
+                        <p class="formula">EER = Q<sub>c</sub> (BTU/hr) / W (watts)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>EER = Energy efficiency ratio (BTU/hr per watt)</li>
+                                <li>Q<sub>c</sub> = Cooling capacity (BTU/hr)</li>
+                                <li>W = Power input (watts)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Relationship to COP:</strong> EER = COP × 3.412</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Carnot Efficiency</h3>
+                    <div class="formula-box">
+                        <p class="formula">η<sub>Carnot</sub> = 1 - (T<sub>L</sub> / T<sub>H</sub>)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>η = Efficiency (dimensionless)</li>
+                                <li>T<sub>L</sub> = Low temperature reservoir (°R = °F + 459.67)</li>
+                                <li>T<sub>H</sub> = High temperature reservoir (°R)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> Carnot efficiency represents the theoretical maximum efficiency. Real systems are always less efficient.</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Specific Heat Capacity</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = m × c<sub>p</sub> × ΔT</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Heat transfer (BTU)</li>
+                                <li>m = Mass (lb)</li>
+                                <li>c<sub>p</sub> = Specific heat (BTU/lb·°F)</li>
+                                <li>ΔT = Temperature change (°F)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Common values:</strong></p>
+                        <ul>
+                            <li>Water: c<sub>p</sub> = 1.0 BTU/lb·°F</li>
+                            <li>Air: c<sub>p</sub> = 0.24 BTU/lb·°F</li>
+                            <li>Glycol (50%): c<sub>p</sub> ≈ 0.85 BTU/lb·°F</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Load Calculations -->
+        <section id="load-calculations" class="content-section calc-section">
+            <div class="container">
+                <h2>Load Calculation Formulas</h2>
+
+                <div class="calc-card">
+                    <h3>Cooling Load from Occupants</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = N × (Q<sub>s</sub> + Q<sub>l</sub>)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Total heat from occupants (BTU/hr)</li>
+                                <li>N = Number of occupants</li>
+                                <li>Q<sub>s</sub> = Sensible heat per person (BTU/hr)</li>
+                                <li>Q<sub>l</sub> = Latent heat per person (BTU/hr)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Typical values at 75°F:</strong></p>
+                        <ul>
+                            <li>Seated, light work: 245 sensible, 205 latent</li>
+                            <li>Office work: 250 sensible, 200 latent</li>
+                            <li>Light assembly: 275 sensible, 275 latent</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Cooling Load from Lights</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = 3.41 × W × FU × SA</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Heat gain from lights (BTU/hr)</li>
+                                <li>3.41 = Conversion factor (BTU/hr per watt)</li>
+                                <li>W = Installed lighting watts</li>
+                                <li>FU = Usage factor (typically 1.0)</li>
+                                <li>SA = Special allowance (typically 1.0, or 1.2 for recessed fixtures)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate heat from 5,000 watts of recessed LED lighting:</p>
+                        <ul>
+                            <li>Q = 3.41 × 5,000 × 1.0 × 1.2 = 20,460 BTU/hr</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Solar Heat Gain through Glass</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q = A × SHGC × SC × CLF</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q = Solar heat gain (BTU/hr)</li>
+                                <li>A = Glass area (ft²)</li>
+                                <li>SHGC = Solar heat gain coefficient</li>
+                                <li>SC = Shading coefficient</li>
+                                <li>CLF = Cooling load factor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> SHGC ranges from 0 to 1. Lower values indicate better solar control. Typical values: clear glass 0.7-0.8, low-e glass 0.2-0.4</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Ventilation Load</h3>
+                    <div class="formula-box">
+                        <p class="formula">Q<sub>s</sub> = 1.08 × CFM × ΔT</p>
+                        <p class="formula">Q<sub>l</sub> = 0.68 × CFM × Δω</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>Q<sub>s</sub> = Sensible ventilation load (BTU/hr)</li>
+                                <li>Q<sub>l</sub> = Latent ventilation load (BTU/hr)</li>
+                                <li>CFM = Outdoor air ventilation rate</li>
+                                <li>ΔT = Temperature difference (outdoor - indoor)</li>
+                                <li>Δω = Humidity ratio difference (grains/lb)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Duct Sizing -->
+        <section id="duct-sizing" class="content-section calc-section">
+            <div class="container">
+                <h2>Duct Sizing Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Equal Friction Method</h3>
+                    <div class="formula-box">
+                        <p class="formula">D = 1.3 × (Q / V)<sup>0.625</sup></p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>D = Duct diameter (inches)</li>
+                                <li>Q = Airflow rate (CFM)</li>
+                                <li>V = Velocity (FPM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Recommended velocities:</strong></p>
+                        <ul>
+                            <li>Main ducts: 800-1,200 FPM</li>
+                            <li>Branch ducts: 600-900 FPM</li>
+                            <li>Final branches: 400-600 FPM</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Rectangular to Round Equivalent Diameter</h3>
+                    <div class="formula-box">
+                        <p class="formula">D<sub>eq</sub> = 1.3 × (a × b)<sup>0.625</sup> / (a + b)<sup>0.25</sup></p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>D<sub>eq</sub> = Equivalent round diameter (inches)</li>
+                                <li>a = Duct width (inches)</li>
+                                <li>b = Duct height (inches)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Find equivalent diameter for 24" × 18" duct:</p>
+                        <ul>
+                            <li>D<sub>eq</sub> = 1.3 × (24 × 18)<sup>0.625</sup> / (24 + 18)<sup>0.25</sup> = 23.6 inches</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Pressure Loss in Ducts</h3>
+                    <div class="formula-box">
+                        <p class="formula">ΔP = (f × L × V²) / (2 × D × 4,005)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>ΔP = Pressure loss (in. w.g. per 100 ft)</li>
+                                <li>f = Friction factor</li>
+                                <li>L = Length (ft)</li>
+                                <li>V = Velocity (FPM)</li>
+                                <li>D = Diameter (inches)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> Use duct calculators or friction charts for practical design. Typical friction: 0.08-0.15 in. w.g. per 100 ft.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pipe Sizing -->
+        <section id="pipe-sizing" class="content-section calc-section">
+            <div class="container">
+                <h2>Pipe Sizing Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Pipe Size from Flow Rate</h3>
+                    <div class="formula-box">
+                        <p class="formula">D = √(4Q / (πV × 448.83))</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>D = Inside diameter (ft)</li>
+                                <li>Q = Flow rate (GPM)</li>
+                                <li>V = Velocity (ft/s)</li>
+                                <li>448.83 = Conversion factor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Recommended velocities:</strong></p>
+                        <ul>
+                            <li>Chilled water: 4-10 ft/s</li>
+                            <li>Hot water: 4-8 ft/s</li>
+                            <li>Condenser water: 5-12 ft/s</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Hazen-Williams Formula</h3>
+                    <div class="formula-box">
+                        <p class="formula">V = 1.318 × C × R<sup>0.63</sup> × S<sup>0.54</sup></p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>V = Velocity (ft/s)</li>
+                                <li>C = Roughness coefficient (150 for steel, 130 for older pipes)</li>
+                                <li>R = Hydraulic radius (ft)</li>
+                                <li>S = Slope of energy grade line (ft/ft)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Pressure Drop (Simplified)</h3>
+                    <div class="formula-box">
+                        <p class="formula">ΔP = (4 × f × L × V²) / (2 × g × D)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>ΔP = Pressure drop (ft of head)</li>
+                                <li>f = Friction factor</li>
+                                <li>L = Pipe length (ft)</li>
+                                <li>V = Velocity (ft/s)</li>
+                                <li>g = Gravity (32.2 ft/s²)</li>
+                                <li>D = Inside diameter (ft)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> For water systems, typical design: 4 ft head/100 ft pipe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pump & Fan Power -->
+        <section id="pump-power" class="content-section calc-section">
+            <div class="container">
+                <h2>Pump & Fan Power Calculations</h2>
+
+                <div class="calc-card">
+                    <h3>Pump Hydraulic Power</h3>
+                    <div class="formula-box">
+                        <p class="formula">HP = (GPM × Head × SG) / (3,960 × η)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>HP = Horsepower</li>
+                                <li>GPM = Flow rate (gallons per minute)</li>
+                                <li>Head = Total head (feet)</li>
+                                <li>SG = Specific gravity (1.0 for water)</li>
+                                <li>η = Pump efficiency (decimal, typically 0.70-0.85)</li>
+                                <li>3,960 = Constant</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate HP for 500 GPM pump, 80 ft head, 75% efficiency:</p>
+                        <ul>
+                            <li>HP = (500 × 80 × 1.0) / (3,960 × 0.75) = 13.5 HP</li>
+                            <li>Select 15 HP motor</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Fan Power (Airside)</h3>
+                    <div class="formula-box">
+                        <p class="formula">HP = (CFM × SP) / (6,356 × η)</p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>HP = Horsepower</li>
+                                <li>CFM = Airflow rate (cubic feet per minute)</li>
+                                <li>SP = Static pressure (in. w.g.)</li>
+                                <li>η = Fan efficiency (decimal, typically 0.60-0.75)</li>
+                                <li>6,356 = Constant</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>Example:</h4>
+                        <p>Calculate fan HP for 20,000 CFM, 4" w.g., 65% efficiency:</p>
+                        <ul>
+                            <li>HP = (20,000 × 4) / (6,356 × 0.65) = 19.4 HP</li>
+                            <li>Select 20 HP motor</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Total Head (Pumps)</h3>
+                    <div class="formula-box">
+                        <p class="formula">H<sub>total</sub> = H<sub>static</sub> + H<sub>friction</sub> + H<sub>equipment</sub></p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>H<sub>total</sub> = Total head (ft)</li>
+                                <li>H<sub>static</sub> = Elevation difference (ft)</li>
+                                <li>H<sub>friction</sub> = Pipe friction losses (ft)</li>
+                                <li>H<sub>equipment</sub> = Equipment pressure drops (ft)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Note:</strong> Convert equipment pressure drops: PSI × 2.31 = ft of water head</p>
+                    </div>
+                </div>
+
+                <div class="calc-card">
+                    <h3>Motor Power Consumption</h3>
+                    <div class="formula-box">
+                        <p class="formula">kW = HP × 0.746 / η<sub>motor</sub></p>
+                        <div class="formula-where">
+                            <p><strong>Where:</strong></p>
+                            <ul>
+                                <li>kW = Electrical power consumption</li>
+                                <li>HP = Motor horsepower</li>
+                                <li>0.746 = Conversion factor (kW per HP)</li>
+                                <li>η<sub>motor</sub> = Motor efficiency (typically 0.90-0.95)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Conversions -->
+        <section id="conversions" class="content-section calc-section">
+            <div class="container">
+                <h2>Common Unit Conversions</h2>
+
+                <div class="conversion-grid">
+                    <div class="calc-card">
+                        <h3>Energy & Power</h3>
+                        <ul class="conversion-list">
+                            <li>1 ton = 12,000 BTU/hr</li>
+                            <li>1 kW = 3,412 BTU/hr</li>
+                            <li>1 HP = 2,545 BTU/hr</li>
+                            <li>1 HP = 0.746 kW</li>
+                            <li>1 BTU = 1,055 Joules</li>
+                            <li>1 kWh = 3,412 BTU</li>
+                        </ul>
+                    </div>
+
+                    <div class="calc-card">
+                        <h3>Pressure</h3>
+                        <ul class="conversion-list">
+                            <li>1 PSI = 2.31 ft H₂O</li>
+                            <li>1 PSI = 27.7 in. H₂O</li>
+                            <li>1 PSI = 6,895 Pa</li>
+                            <li>1 in. w.g. = 0.036 PSI</li>
+                            <li>1 in. w.g. = 249 Pa</li>
+                            <li>1 atm = 14.696 PSI</li>
+                        </ul>
+                    </div>
+
+                    <div class="calc-card">
+                        <h3>Flow Rates</h3>
+                        <ul class="conversion-list">
+                            <li>1 GPM = 0.002228 ft³/s</li>
+                            <li>1 GPM = 0.0631 L/s</li>
+                            <li>1 CFM = 0.4719 L/s</li>
+                            <li>1 CFM = 1.699 m³/hr</li>
+                            <li>500 GPM ≈ 1 ft³/s</li>
+                            <li>448.83 GPM = 1 ft³/s</li>
+                        </ul>
+                    </div>
+
+                    <div class="calc-card">
+                        <h3>Temperature</h3>
+                        <ul class="conversion-list">
+                            <li>°F = (°C × 9/5) + 32</li>
+                            <li>°C = (°F - 32) × 5/9</li>
+                            <li>°R = °F + 459.67</li>
+                            <li>K = °C + 273.15</li>
+                            <li>ΔT (°F) = ΔT (°C) × 1.8</li>
+                        </ul>
+                    </div>
+
+                    <div class="calc-card">
+                        <h3>Length & Area</h3>
+                        <ul class="conversion-list">
+                            <li>1 inch = 25.4 mm</li>
+                            <li>1 foot = 0.3048 m</li>
+                            <li>1 ft² = 0.0929 m²</li>
+                            <li>1 ft² = 144 in²</li>
+                            <li>1 acre = 43,560 ft²</li>
+                        </ul>
+                    </div>
+
+                    <div class="calc-card">
+                        <h3>Density & Specific Heat</h3>
+                        <ul class="conversion-list">
+                            <li>Air: 0.075 lb/ft³ @ STP</li>
+                            <li>Water: 62.4 lb/ft³ @ 60°F</li>
+                            <li>Water: 8.34 lb/gal</li>
+                            <li>Air c<sub>p</sub>: 0.24 BTU/lb·°F</li>
+                            <li>Water c<sub>p</sub>: 1.0 BTU/lb·°F</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Calculators -->
+        <section id="interactive-calcs" class="content-section calc-section">
+            <div class="container">
+                <h2>Interactive Quick Calculators</h2>
+                <p class="section-intro">Use these calculators for quick on-the-fly calculations</p>
+
+                <!-- Sensible Heat Calculator -->
+                <div class="calc-card interactive-calc">
+                    <h3>Sensible Heat Calculator</h3>
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="sensible-cfm">Airflow (CFM):</label>
+                            <input type="number" id="sensible-cfm" placeholder="2000" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="sensible-dt">Temperature Difference (°F):</label>
+                            <input type="number" id="sensible-dt" placeholder="20" step="0.1">
+                        </div>
+                        <button class="calc-button" onclick="calculateSensibleHeat()">Calculate</button>
+                    </div>
+                    <div class="calc-result" id="sensible-result"></div>
+                </div>
+
+                <!-- Latent Heat Calculator -->
+                <div class="calc-card interactive-calc">
+                    <h3>Latent Heat Calculator</h3>
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="latent-cfm">Airflow (CFM):</label>
+                            <input type="number" id="latent-cfm" placeholder="2000" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="latent-dw">Humidity Difference (grains/lb):</label>
+                            <input type="number" id="latent-dw" placeholder="30" step="0.1">
+                        </div>
+                        <button class="calc-button" onclick="calculateLatentHeat()">Calculate</button>
+                    </div>
+                    <div class="calc-result" id="latent-result"></div>
+                </div>
+
+                <!-- CFM Calculator -->
+                <div class="calc-card interactive-calc">
+                    <h3>CFM from Area & Velocity</h3>
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="cfm-width">Width (inches):</label>
+                            <input type="number" id="cfm-width" placeholder="24" min="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="cfm-height">Height (inches):</label>
+                            <input type="number" id="cfm-height" placeholder="18" min="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="cfm-velocity">Velocity (FPM):</label>
+                            <input type="number" id="cfm-velocity" placeholder="1200" min="0">
+                        </div>
+                        <button class="calc-button" onclick="calculateCFM()">Calculate</button>
+                    </div>
+                    <div class="calc-result" id="cfm-result"></div>
+                </div>
+
+                <!-- Pump Power Calculator -->
+                <div class="calc-card interactive-calc">
+                    <h3>Pump Power Calculator</h3>
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="pump-gpm">Flow Rate (GPM):</label>
+                            <input type="number" id="pump-gpm" placeholder="500" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="pump-head">Total Head (feet):</label>
+                            <input type="number" id="pump-head" placeholder="80" min="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="pump-eff">Pump Efficiency (%):</label>
+                            <input type="number" id="pump-eff" placeholder="75" min="0" max="100" step="0.1">
+                        </div>
+                        <button class="calc-button" onclick="calculatePumpPower()">Calculate</button>
+                    </div>
+                    <div class="calc-result" id="pump-result"></div>
+                </div>
+
+                <!-- Temperature Converter -->
+                <div class="calc-card interactive-calc">
+                    <h3>Temperature Converter</h3>
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="temp-value">Temperature:</label>
+                            <input type="number" id="temp-value" placeholder="75" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="temp-from">Convert from:</label>
+                            <select id="temp-from">
+                                <option value="F">Fahrenheit</option>
+                                <option value="C">Celsius</option>
+                                <option value="K">Kelvin</option>
+                                <option value="R">Rankine</option>
+                            </select>
+                        </div>
+                        <button class="calc-button" onclick="convertTemperature()">Convert</button>
+                    </div>
+                    <div class="calc-result" id="temp-result"></div>
+                </div>
+
+                <!-- Tons to BTU/hr Converter -->
+                <div class="calc-card interactive-calc">
+                    <h3>Tons ↔ BTU/hr ↔ kW Converter</h3>
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="capacity-value">Value:</label>
+                            <input type="number" id="capacity-value" placeholder="10" min="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="capacity-unit">Unit:</label>
+                            <select id="capacity-unit">
+                                <option value="tons">Tons (Refrigeration)</option>
+                                <option value="btu">BTU/hr</option>
+                                <option value="kw">kW (Cooling)</option>
+                            </select>
+                        </div>
+                        <button class="calc-button" onclick="convertCapacity()">Convert</button>
+                    </div>
+                    <div class="calc-result" id="capacity-result"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Tools Section -->
+        <section class="content-section tools-cta">
+            <div class="container">
+                <h2>Related Engineering Tools</h2>
+                <div class="tools-grid">
+                    <a href="ductulator.html" class="tool-cta-card">
+                        <h3>Duct Sizing Calculator</h3>
+                        <p>Professional duct sizing with equal friction method</p>
+                    </a>
+                    <a href="psychrometric.html" class="tool-cta-card">
+                        <h3>Psychrometric Chart</h3>
+                        <p>Interactive psychrometric analysis tool</p>
+                    </a>
+                    <a href="load_calculation.html" class="tool-cta-card">
+                        <h3>Load Calculator</h3>
+                        <p>Complete HVAC load calculation tool</p>
+                    </a>
+                    <a href="pump_sizing.html" class="tool-cta-card">
+                        <h3>Pump Sizing</h3>
+                        <p>Hydronic pump selection and sizing</p>
+                    </a>
+                    <a href="pipe_sizing.html" class="tool-cta-card">
+                        <h3>Pipe Sizing</h3>
+                        <p>Hydronic piping design calculator</p>
+                    </a>
+                    <a href="conversions.html" class="tool-cta-card">
+                        <h3>Unit Conversions</h3>
+                        <p>Comprehensive engineering unit converter</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <section class="content-section disclaimer-section">
+            <div class="container">
+                <div class="disclaimer-box">
+                    <h3>⚠️ Professional Engineering Disclaimer</h3>
+                    <p>The calculations and formulas provided on this page are for reference and educational purposes only. All engineering calculations should be verified by a licensed professional engineer. This tool does not replace professional engineering judgment, code compliance review, or detailed design analysis. Always consult applicable building codes, standards (ASHRAE, SMACNA, etc.), and manufacturer data for final design decisions.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
