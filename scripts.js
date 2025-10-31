@@ -1816,20 +1816,34 @@ function calculateSizeFriction() {
 // Helper function to calculate equivalent rectangular and oval sizes
 function calculateRectEquivalents(roundDiameter, airflow) {
     const roundArea = Math.PI * Math.pow(roundDiameter / 12, 2) / 4;
-    
-    // 1:1 ratio (square) - equal area
-    const side_1_1 = Math.sqrt(roundArea) * 12;
-    
-    // 2:1 ratio - equal area
-    const height_2_1 = Math.sqrt(roundArea / 2) * 12;
-    const width_2_1 = height_2_1 * 2;
-    
-    // 3:1 ratio - equal area
-    const height_3_1 = Math.sqrt(roundArea / 3) * 12;
-    const width_3_1 = height_3_1 * 3;
-    
-    // Calculate velocities (same for all since same area)
-    const velocity = (airflow / roundArea).toFixed(0);
+
+    // Calculate equivalent rectangular dimensions using ASHRAE/SMACNA formula
+    // De = 1.30 × [(a × b)^0.625] / [(a + b)^0.25]
+    // Solving for dimensions where De equals the round diameter
+
+    // 1:1 ratio (square) - For a = b:
+    // De = 1.30 × [b²]^0.625 / [2b]^0.25 = 1.30 × b^1.25 / (2^0.25 × b^0.25) = 1.30 × b / 2^0.25
+    // b = De × 2^0.25 / 1.30
+    const side_1_1 = roundDiameter * Math.pow(2, 0.25) / 1.30;
+
+    // 2:1 ratio - For a = 2b:
+    // De = 1.30 × [(2b²)^0.625] / [(3b)^0.25]
+    // Solving for b: b = De × (3)^0.25 / (1.30 × 2^0.625)
+    const ratio_2_1 = 2;
+    const height_2_1 = roundDiameter * Math.pow(ratio_2_1 + 1, 0.25) / (1.30 * Math.pow(ratio_2_1, 0.625));
+    const width_2_1 = ratio_2_1 * height_2_1;
+
+    // 3:1 ratio - For a = 3b:
+    // De = 1.30 × [(3b²)^0.625] / [(4b)^0.25]
+    // Solving for b: b = De × (4)^0.25 / (1.30 × 3^0.625)
+    const ratio_3_1 = 3;
+    const height_3_1 = roundDiameter * Math.pow(ratio_3_1 + 1, 0.25) / (1.30 * Math.pow(ratio_3_1, 0.625));
+    const width_3_1 = ratio_3_1 * height_3_1;
+
+    // Calculate velocities for each rectangular duct (will be different since areas are different)
+    const velocity_1_1 = (airflow / ((side_1_1 * side_1_1) / 144)).toFixed(0);
+    const velocity_2_1 = (airflow / ((width_2_1 * height_2_1) / 144)).toFixed(0);
+    const velocity_3_1 = (airflow / ((width_3_1 * height_3_1) / 144)).toFixed(0);
     
     // Calculate flat oval dimensions using ASHRAE/SMACNA equivalent diameter formula
     // De = 1.55 × [(a × b)^0.625] / [(a + b)^0.25]
@@ -1853,13 +1867,13 @@ function calculateRectEquivalents(roundDiameter, airflow) {
     return {
         rect_1_1_width: side_1_1.toFixed(1),
         rect_1_1_height: side_1_1.toFixed(1),
-        rect_1_1_velocity: velocity,
+        rect_1_1_velocity: velocity_1_1,
         rect_2_1_width: width_2_1.toFixed(1),
         rect_2_1_height: height_2_1.toFixed(1),
-        rect_2_1_velocity: velocity,
+        rect_2_1_velocity: velocity_2_1,
         rect_3_1_width: width_3_1.toFixed(1),
         rect_3_1_height: height_3_1.toFixed(1),
-        rect_3_1_velocity: velocity,
+        rect_3_1_velocity: velocity_3_1,
         oval_2_1_major: oval_2_1_major.toFixed(1),
         oval_2_1_minor: oval_2_1_minor.toFixed(1),
         oval_3_1_major: oval_3_1_major.toFixed(1),
