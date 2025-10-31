@@ -3496,3 +3496,401 @@ body {
     }
 }
 
+/* ========================================
+   ENERGY EFFICIENCY PAGE STYLES
+   ======================================== */
+
+.energy-section {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.energy-content {
+    color: #2c3e50;
+    line-height: 1.8;
+}
+
+.energy-content h3 {
+    color: #34495e;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.energy-content h4 {
+    color: #2c3e50;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+}
+
+.energy-content p {
+    margin-bottom: 1rem;
+}
+
+.energy-content ul {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.energy-content ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Requirements Grid */
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.requirement-card {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+.requirement-card h4 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.requirement-card ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.requirement-card li {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+/* Efficiency Table */
+.efficiency-table-container {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.efficiency-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.efficiency-table thead {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.efficiency-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.efficiency-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.efficiency-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.efficiency-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.efficiency-note {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    color: #856404;
+}
+
+/* Strategy Items */
+.strategy-item {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.strategy-item:last-child {
+    border-bottom: none;
+}
+
+.strategy-item h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.strategy-item ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+/* Calculator Boxes */
+.calculator-box {
+    background: #f8f9fa;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.calculator-box h4 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.calc-input-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.calc-input-group label {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.calc-input-group input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.calc-input-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.calc-button {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.calc-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.calc-button:active {
+    transform: translateY(0);
+}
+
+.calc-results {
+    margin-top: 1.5rem;
+}
+
+.results-section h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.result-row:last-child {
+    border-bottom: none;
+}
+
+.result-row.highlight {
+    background: #e3f2fd;
+    font-weight: 600;
+    border-left: 4px solid #3498db;
+}
+
+.result-label {
+    color: #555;
+}
+
+.result-value {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.result-details {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #e0e0e0;
+}
+
+.result-details p {
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+/* Certification Grid */
+.certification-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.certification-card {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+}
+
+.certification-card:hover {
+    border-color: #3498db;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+    transform: translateY(-2px);
+}
+
+.certification-card h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.certification-card ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+/* Resources Grid */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.resource-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.resource-item h4 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.resource-item ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.resource-item li {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+/* Checklist Styles */
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.checklist-column h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+}
+
+.checklist {
+    list-style: none;
+    padding: 0;
+}
+
+.checklist li {
+    padding: 0.5rem 0;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+/* Mobile Responsiveness for Energy Efficiency Page */
+@media (max-width: 768px) {
+    .energy-section {
+        padding: 1.25rem;
+    }
+
+    .requirements-grid,
+    .certification-grid,
+    .resources-grid,
+    .checklist-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .efficiency-table {
+        font-size: 0.9rem;
+    }
+
+    .efficiency-table th,
+    .efficiency-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .calc-input-group {
+        margin-bottom: 1rem;
+    }
+
+    .result-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .result-value {
+        text-align: left;
+    }
+
+    .calculator-box {
+        padding: 1rem;
+    }
+}
+
