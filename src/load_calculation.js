@@ -180,13 +180,72 @@ const colorFactors = {
 };
 
 // People heat gain (BTU/hr per person)
-// Values per ASHRAE Handbook Fundamentals, Chapter 28, Table 3
+// Values per ASHRAE Handbook Fundamentals, Chapter 18, Table 1
 const peopleHeatGain = {
-    seated: { sensible: 250, latent: 200 },     // Seated, very light work
-    standing: { sensible: 250, latent: 250 },   // Walking, standing - CORRECTED from 300/250
-    moderate: { sensible: 250, latent: 250 },   // Moderately active office work - CORRECTED from 350/300
-    heavy: { sensible: 450, latent: 550 }       // Heavy work/exercise
+    seated: { sensible: 250, latent: 200 },     // Seated, very light work (450 total)
+    standing: { sensible: 250, latent: 250 },   // Standing, light work/slow walking (500 total)
+    moderate: { sensible: 295, latent: 355 },   // Moderate activity/work (650 total)
+    heavy: { sensible: 450, latent: 550 }       // Heavy work/exercise (1000 total)
 };
+
+// ====================================
+// PSYCHROMETRIC HELPER FUNCTIONS
+// ====================================
+
+/**
+ * Calculate saturation pressure (psia) from temperature (°F)
+ * Using Antoine equation approximation
+ */
+function saturationPressure(tempF) {
+    const tempC = (tempF - 32) / 1.8;
+    // Antoine equation for water (valid 0-100°C)
+    const logP = 8.07131 - (1730.63 / (tempC + 233.426));
+    const pressureMMHg = Math.pow(10, logP);
+    const pressurePSIA = pressureMMHg / 51.715; // Convert mmHg to psia
+    return pressurePSIA;
+}
+
+/**
+ * Calculate humidity ratio (lb water/lb dry air) from dry bulb temp and relative humidity
+ * @param {number} dryBulbF - Dry bulb temperature (°F)
+ * @param {number} relativeHumidity - Relative humidity (0-100%)
+ * @returns {number} Humidity ratio (lb water/lb dry air)
+ */
+function humidityRatioFromRH(dryBulbF, relativeHumidity) {
+    const atmosphericPressure = 14.696; // psia at sea level
+    const psat = saturationPressure(dryBulbF);
+    const RH = relativeHumidity / 100; // Convert to decimal
+    const partialPressure = RH * psat;
+
+    // W = 0.622 × (Pw / (P - Pw))
+    const W = 0.622 * (partialPressure / (atmosphericPressure - partialPressure));
+    return W;
+}
+
+/**
+ * Estimate humidity ratio from dry bulb and wet bulb temperatures
+ * Uses simplified psychrometric relationship
+ * @param {number} dryBulbF - Dry bulb temperature (°F)
+ * @param {number} wetBulbF - Wet bulb temperature (°F)
+ * @returns {number} Humidity ratio (lb water/lb dry air)
+ */
+function humidityRatioFromWB(dryBulbF, wetBulbF) {
+    const atmosphericPressure = 14.696; // psia at sea level
+
+    // Get saturation pressure at wet bulb
+    const psatWB = saturationPressure(wetBulbF);
+
+    // Get saturation humidity ratio at wet bulb
+    const WsatWB = 0.622 * (psatWB / (atmosphericPressure - psatWB));
+
+    // Psychrometric constant approximation: W = Wsat(WB) - (1093 - 0.556*WB) * (DB - WB) / (hfg * 1000)
+    // Simplified for typical HVAC conditions:
+    // W ≈ Wsat(WB) - 0.00024 * (DB - WB)
+    const W = WsatWB - 0.00024 * (dryBulbF - wetBulbF);
+
+    // Ensure non-negative
+    return Math.max(0, W);
+}
 
 // Main calculation function
 function calculateLoads() {
@@ -389,19 +448,21 @@ function calculateCoolingLoads(inputs) {
     // Sensible: Q = 1.08 × CFM × ΔT
     loads.infiltrationSensible = 1.08 * infiltrationCFM * deltaT;
 
-    // Latent: Estimate based on humidity difference
-    // Assume outdoor = 0.0120 lb H2O/lb air, indoor = 0.0093 (50% RH @ 75°F)
+    // Latent: Calculate based on actual humidity difference from user inputs
     // Q = 0.68 × CFM × ΔW (in grains/lb)
-    const outdoorW = 0.0120 * 7000; // Convert to grains
-    const indoorW = 0.0093 * 7000;
-    const deltaW = outdoorW - indoorW;
+    // Calculate outdoor humidity ratio from wet bulb temperature
+    const outdoorW = humidityRatioFromWB(inputs.outdoorSummerDB, inputs.outdoorSummerWB);
+    // Calculate indoor humidity ratio from RH
+    const indoorW = humidityRatioFromRH(inputs.indoorSummerDB, inputs.indoorSummerRH);
+    // Convert to grains (1 lb = 7000 grains)
+    const deltaW = (outdoorW - indoorW) * 7000;
     loads.infiltrationLatent = 0.68 * infiltrationCFM * deltaW;
 
     // 9. VENTILATION
     // Sensible
     loads.ventilationSensible = 1.08 * inputs.ventilationCFM * deltaT;
 
-    // Latent
+    // Latent (use same humidity difference as infiltration)
     loads.ventilationLatent = 0.68 * inputs.ventilationCFM * deltaW;
 
     // TOTALS
@@ -483,9 +544,13 @@ function calculateHeatingLoads(inputs) {
 
     // Adjust for floor type
     if (inputs.floorType === 'slab') {
-        // Use perimeter method for slab on grade
+        // Use perimeter method for slab on grade (ASHRAE method)
+        // F-factor = heat loss per linear foot of perimeter per °F
+        // Typical values: 0.5-0.75 BTU/hr·ft·°F for uninsulated
+        //                 0.2-0.3 BTU/hr·ft·°F for R-10 perimeter insulation
         const perimeter = 2 * (inputs.roomLength + inputs.roomWidth);
-        loads.floor = perimeter * 0.5 * deltaT; // Simplified perimeter heat loss
+        const slabFfactor = 0.5; // Conservative value for typical uninsulated slab
+        loads.floor = perimeter * slabFfactor * deltaT;
     } else if (inputs.floorType === 'basement') {
         floorDeltaT = deltaT * 0.3; // Basement warmer than outside
         loads.floor = floorU * inputs.floorArea * floorDeltaT;
