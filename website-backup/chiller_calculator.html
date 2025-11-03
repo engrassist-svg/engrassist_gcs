@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free commercial chiller sizing calculator for cooling systems. Calculate chiller capacity, tonnage, efficiency, and load requirements based on building parameters and ASHRAE standards.">
+    <meta name="keywords" content="chiller sizing, chiller calculator, cooling load, commercial chiller, HVAC, tonnage calculation, cooling system design, York chiller, Trane chiller, Carrier chiller">
+    <link rel="canonical" href="https://engrassist.com/chiller_calculator.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Commercial Chiller Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Free commercial chiller sizing calculator for cooling systems based on ASHRAE standards.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/chiller_calculator.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Commercial Chiller Sizing Calculator">
+    <meta name="twitter:description" content="Free commercial chiller sizing calculator for cooling systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Commercial Chiller Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Commercial Chiller Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate the appropriate chiller capacity for your commercial or industrial cooling application using industry-standard methods and fluid flow calculations</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">System Requirements</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="chiller-sqft">Square Footage:</label>
+                        <input type="number" id="chiller-sqft" placeholder="Enter square footage" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="chiller-sqftPerTon">Square Feet per Ton:</label>
+                        <input type="number" id="chiller-sqftPerTon" placeholder="Enter sq ft/ton" value="400" min="0" step="0.1" required>
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            <strong>Common values:</strong><br>
+                            Office: 400-600 | Retail: 300-400 | Restaurant: 200-300<br>
+                            Hospital: 250-350 | Data Center: 100-200 | Warehouse: 800-1200
+                        </small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="chiller-safetyFactor">Safety Factor (%):</label>
+                        <input type="number" id="chiller-safetyFactor" placeholder="0-50%" value="20" min="0" max="100" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="chiller-fluidType">Fluid Type:</label>
+                        <select id="chiller-fluidType" onchange="toggleChillerGlycolMix()">
+                            <option value="water" selected>Water</option>
+                            <option value="propylene">Propylene Glycol Mix</option>
+                            <option value="ethylene">Ethylene Glycol Mix</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="chiller-glycolMixInput" class="form-group" style="display: none;">
+                    <label for="chiller-glycolPercent">Glycol Percentage (%):</label>
+                    <input type="number" id="chiller-glycolPercent" placeholder="0-50%" value="30" min="0" max="50" step="1">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="chiller-enterTemp">Entering Fluid Temperature (°F):</label>
+                        <input type="number" id="chiller-enterTemp" placeholder="Enter temperature" value="54" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical return water temperature
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="chiller-leaveTemp">Leaving Fluid Temperature (°F):</label>
+                        <input type="number" id="chiller-leaveTemp" placeholder="Leave temperature" value="44" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical supply water temperature
+                        </small>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculateChillerSystem()">Calculate System Requirements</button>
+
+                <div id="chiller-systemResults" class="boiler-results-section">
+                    <h3>System Requirements Results</h3>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Base Cooling Load:</span>
+                        <span class="result-value" id="chiller-coolingLoad">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Required Capacity (with safety factor):</span>
+                        <span class="result-value" id="chiller-requiredBTU">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Required Tonnage:</span>
+                        <span class="result-value" id="chiller-requiredTons">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Temperature Difference (ΔT):</span>
+                        <span class="result-value" id="chiller-deltaT">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Fluid Specific Heat:</span>
+                        <span class="result-value" id="chiller-specificHeat">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Fluid Density:</span>
+                        <span class="result-value" id="chiller-density">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Estimated System Flow:</span>
+                        <span class="result-value" id="chiller-systemFlow">--</span>
+                    </div>
+                </div>
+
+                <!-- Selected System Section - Always Visible -->
+                <div class="selected-system-section">
+                    <h2 class="section-title">Selected System</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chiller-quantity">Number of Chillers:</label>
+                            <input type="number" id="chiller-quantity" placeholder="Enter quantity" min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="chiller-capacity">Chiller Capacity (Tons per chiller):</label>
+                            <input type="number" id="chiller-capacity" placeholder="Enter capacity in tons" min="0" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chiller-efficiency">Chiller Efficiency (EER or kW/Ton):</label>
+                            <select id="chiller-efficiencyType" onchange="updateChillerEfficiencyLabel()">
+                                <option value="eer" selected>EER (Energy Efficiency Ratio)</option>
+                                <option value="kwton">kW/Ton</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="chiller-efficiencyValue" id="chiller-efficiencyLabel">EER Value:</label>
+                            <input type="number" id="chiller-efficiencyValue" placeholder="12-20 for EER" value="14" min="0" step="0.1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                <span id="chiller-efficiencyHint">Typical air-cooled: 10-12 EER, water-cooled: 14-20 EER</span>
+                            </small>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateChillerSelectedSystem()">Calculate Selected System</button>
+
+                    <div id="chiller-selectedResults" class="boiler-results-section">
+                        <h3>Selected System Results</h3>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Capacity per Chiller:</span>
+                            <span class="result-value" id="chiller-capacityPerChiller">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Total System Capacity:</span>
+                            <span class="result-value" id="chiller-totalCapacity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Actual Safety Factor:</span>
+                            <span class="result-value" id="chiller-actualSafety">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Power Consumption per Chiller:</span>
+                            <span class="result-value" id="chiller-powerPerChiller">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Total System Power:</span>
+                            <span class="result-value" id="chiller-totalPower">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Fluid Flow per Chiller:</span>
+                            <span class="result-value" id="chiller-flowPerChiller">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Total System Flow:</span>
+                            <span class="result-value" id="chiller-totalFlow">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reference Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Sizing Guidelines & Rules of Thumb</h2>
+
+                <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Commercial Building Cooling Load (Square Feet per Ton)</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Office Buildings:</strong> 400-600 sq ft/ton (light occupancy and equipment)</li>
+                    <li><strong>Retail Stores:</strong> 300-400 sq ft/ton (moderate occupancy)</li>
+                    <li><strong>Restaurants:</strong> 200-300 sq ft/ton (high occupancy and cooking equipment)</li>
+                    <li><strong>Hotels/Residential:</strong> 400-600 sq ft/ton (similar to office spaces)</li>
+                    <li><strong>Data Centers:</strong> 100-200 sq ft/ton (very high heat loads from servers)</li>
+                    <li><strong>Hospitals:</strong> 250-350 sq ft/ton (high ventilation requirements)</li>
+                    <li><strong>Warehouses (conditioned):</strong> 800-1200 sq ft/ton (minimal occupancy)</li>
+                    <li><strong>Schools/Classrooms:</strong> 350-500 sq ft/ton (moderate to high occupancy)</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Safety Factors</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Replacement Systems:</strong> 10-15%</li>
+                    <li><strong>New Construction:</strong> 15-20%</li>
+                    <li><strong>Future Expansion:</strong> 20-30%</li>
+                    <li><strong>Variable Speed Chillers:</strong> Can size closer to actual load due to part-load efficiency</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Chiller Temperature Guidelines</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Standard Chilled Water:</strong> 44°F supply / 54°F return (10°F ΔT)</li>
+                    <li><strong>Low Temperature Applications:</strong> 38-42°F supply (process cooling)</li>
+                    <li><strong>High ΔT Systems:</strong> 42°F supply / 58°F return (16°F ΔT) - reduced flow, smaller pipes</li>
+                    <li><strong>Glycol Systems:</strong> Typically 20-30% glycol for freeze protection</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Leading Commercial Chiller Manufacturers</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">❄️</div>
+                        <h4 class="feature-title">Trane</h4>
+                        <p>Air-cooled & water-cooled chillers 20-4000 tons. Centrifugal & screw compressors. EER up to 20+. Extensive controls integration.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏢</div>
+                        <h4 class="feature-title">Carrier</h4>
+                        <p>AquaEdge and AquaForce series. 80-4000 tons. Magnetic bearing centrifugal technology. Industry-leading efficiency.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h4 class="feature-title">York (Johnson Controls)</h4>
+                        <p>YVAA, YLAA air-cooled. YMC2, YZ magnetic bearing chillers. 20-5000 tons. Variable speed drives standard.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌡️</div>
+                        <h4 class="feature-title">Daikin Applied</h4>
+                        <p>Magnitude & Pathfinder series. Air & water-cooled. 10-3500 tons. Oil-free centrifugal technology available.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔧</div>
+                        <h4 class="feature-title">Johnson Controls</h4>
+                        <p>York YVAA air-cooled, YZ centrifugal. 50-4000+ tons. Advanced controls and building integration. High part-load efficiency.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💡</div>
+                        <h4 class="feature-title">McQuay (Daikin)</h4>
+                        <p>Water & air-cooled screw and centrifugal. 20-1500 tons. Known for reliability in institutional applications.</p>
+                    </div>
+                </div>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Chiller Efficiency Reference</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Air-Cooled Chillers:</strong> 9-12 EER (0.8-1.2 kW/ton) - easier installation, lower initial cost</li>
+                    <li><strong>Water-Cooled Screw:</strong> 11-15 EER (0.6-0.9 kW/ton) - good efficiency, moderate maintenance</li>
+                    <li><strong>Water-Cooled Centrifugal:</strong> 14-20+ EER (0.45-0.7 kW/ton) - highest efficiency, best for large loads</li>
+                    <li><strong>Magnetic Bearing Centrifugal:</strong> 18-25+ EER (0.35-0.5 kW/ton) - premium efficiency, oil-free operation</li>
+                    <li><strong>Variable Speed Drive (VSD):</strong> Improves part-load efficiency by 30-50%</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>⚠️ Important Disclaimer</h4>
+                    <p>These calculations provide estimates for preliminary sizing only. Always conduct a proper cooling load calculation per ASHRAE standards and consult with a licensed professional engineer or chiller manufacturer for final sizing. Factors such as humidity loads, ventilation requirements, solar gains, internal loads, equipment heat rejection, piping losses, altitude, and specific application requirements must be considered. EngrAssist is not responsible for equipment selection based on these estimates.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

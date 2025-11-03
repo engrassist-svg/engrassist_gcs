@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<style> text { font-family: Arial, Helvetica, sans-serif; font-size:12px; } .axis { stroke:#333; stroke-width:1 } .grid { stroke:#ddd; stroke-width:0.8 } .rh { stroke:#1f77b4; stroke-width:1; fill:none; opacity:0.7 } .sat { stroke:#d62728; stroke-width:2; fill:none } .enth { stroke:#2ca02c; stroke-width:0.8; stroke-dasharray:3 3; fill:none; opacity:0.8 } </style>
+<rect x="0" y="0" width="1200" height="700" fill="white"/>
+<!-- vertical/horizontal grid and ticks -->
+<!-- Grid & X tick labels (Temps) -->
+<line class="grid" x1="80.00" y1="40" x2="1120.00" y2="40" />
+<line class="grid" x1="192.00" y1="40" x2="192.00" y2="660" />
+<line class="grid" x1="256.00" y1="40" x2="256.00" y2="660" />
+<line class="grid" x1="320.00" y1="40" x2="320.00" y2="660" />
+<line class="grid" x1="384.00" y1="40" x2="384.00" y2="660" />
+<line class="grid" x1="448.00" y1="40" x2="448.00" y2="660" />
+<line class="grid" x1="512.00" y1="40" x2="512.00" y2="660" />
+<line class="grid" x1="576.00" y1="40" x2="576.00" y2="660" />
+<line class="grid" x1="640.00" y1="40" x2="640.00" y2="660" />
+<line class="grid" x1="704.00" y1="40" x2="704.00" y2="660" />
+<line class="grid" x1="768.00" y1="40" x2="768.00" y2="660" />
+<line class="grid" x1="832.00" y1="40" x2="832.00" y2="660" />
+<line class="grid" x1="896.00" y1="40" x2="896.00" y2="660" />
+<line class="grid" x1="960.00" y1="40" x2="960.00" y2="660" />
+<line class="grid" x1="1024.00" y1="40" x2="1024.00" y2="660" />
+<line class="grid" x1="1088.00" y1="40" x2="1088.00" y2="660" />
+<text x="80.00" y="660" text-anchor="middle">32°F</text>
+<text x="120.00" y="660" text-anchor="middle">35°F</text>
+<text x="160.00" y="660" text-anchor="middle">38°F</text>
+<text x="200.00" y="660" text-anchor="middle">41°F</text>
+<text x="240.00" y="660" text-anchor="middle">44°F</text>
+<text x="280.00" y="660" text-anchor="middle">47°F</text>
+<text x="320.00" y="660" text-anchor="middle">50°F</text>
+<text x="360.00" y="660" text-anchor="middle">53°F</text>
+<text x="400.00" y="660" text-anchor="middle">56°F</text>
+<text x="440.00" y="660" text-anchor="middle">59°F</text>
+<text x="480.00" y="660" text-anchor="middle">62°F</text>
+<text x="520.00" y="660" text-anchor="middle">65°F</text>
+<text x="560.00" y="660" text-anchor="middle">68°F</text>
+<text x="600.00" y="660" text-anchor="middle">71°F</text>
+<text x="640.00" y="660" text-anchor="middle">74°F</text>
+<text x="680.00" y="660" text-anchor="middle">77°F</text>
+<text x="720.00" y="660" text-anchor="middle">80°F</text>
+<text x="760.00" y="660" text-anchor="middle">83°F</text>
+<text x="800.00" y="660" text-anchor="middle">86°F</text>
+<text x="840.00" y="660" text-anchor="middle">89°F</text>
+<text x="880.00" y="660" text-anchor="middle">92°F</text>
+<text x="920.00" y="660" text-anchor="middle">95°F</text>
+<text x="960.00" y="660" text-anchor="middle">98°F</text>
+<text x="1000.00" y="660" text-anchor="middle">101°F</text>
+<text x="1040.00" y="660" text-anchor="middle">104°F</text>
+<text x="1080.00" y="660" text-anchor="middle">107°F</text>
+<text x="1120.00" y="660" text-anchor="middle">110°F</text>
+<text x="1160.00" y="660" text-anchor="middle">113°F</text>
+<text x="1200.00" y="660" text-anchor="middle">116°F</text>
+<!-- Y grid & ticks (humidity ratio) -->
+<line class="grid" x1="80" y1="40.00" x2="1120" y2="40.00" />
+<line class="grid" x1="80" y1="140.10" x2="1120" y2="140.10" />
+<text x="70" y="44.00" text-anchor="end">0.000</text>
+<text x="70" y="144.10" text-anchor="end">0.010</text>
+<line class="grid" x1="80" y1="240.20" x2="1120" y2="240.20" />
+<text x="70" y="244.20" text-anchor="end">0.020</text>
+<line class="grid" x1="80" y1="340.30" x2="1120" y2="340.30" />
+<text x="70" y="344.30" text-anchor="end">0.030</text>
+<line class="grid" x1="80" y1="440.41" x2="1120" y2="440.41" />
+<text x="70" y="444.41" text-anchor="end">0.040</text>
+<line class="grid" x1="80" y1="540.52" x2="1120" y2="540.52" />
+<text x="70" y="544.52" text-anchor="end">0.050</text>
+<line class="grid" x1="80" y1="640.63" x2="1120" y2="640.63" />
+<text x="70" y="644.63" text-anchor="end">0.060</text>
+
+<!-- Relative humidity curves (10%..90%, 99%,100%) with labels -->
+<path class="rh" d="M 80.00 452.41 L 92.00 450.67 L 104.00 448.76 L 116.00 446.67 L 128.00 444.38 L 140.00 441.88 L 152.00 439.15 L 164.00 436.17 L 176.00 432.92 L 188.00 429.37 L 200.00 425.49 L 212.00 421.27 L 224.00 416.67 L 236.00 411.66 L 248.00 406.21 L 260.00 400.29 L 272.00 393.87 L 284.00 386.90 L 296.00 379.34 L 308.00 371.14 L 320.00 362.25 L 332.00 352.61 L 344.00 342.18 L 356.00 330.89 L 368.00 318.66 L 380.00 305.39 L 392.00 290.95 L 404.00 275.20 L 416.00 257.99 L 428.00 239.12 L 440.00 218.34 L 452.00 195.34 L 464.00 169.73 L 476.00 141.02 L 488.00 109.53 L 500.00 74.44 L 512.00 35.75 L 524.00 1.26 L 536.00 1.26 L 548.00 1.26 L 560.00 1.26 L 572.00 1.26 L 584.00 1.26 L 596.00 1.26 L 608.00 1.26 L 620.00 1.26 L 632.00 1.26 L 644.00 1.26 L 656.00 1.26 L 668.00 1.26 L 680.00 1.26 L 692.00 1.26 L 704.00 1.26 L 716.00 1.26 L 728.00 1.26 L 740.00 1.26 L 752.00 1.26 L 764.00 1.26 L 776.00 1.26 L 788.00 1.26 L 800.00 1.26 L 812.00 1.26 L 824.00 1.26 L 836.00 1.26 L 848.00 1.26 L 860.00 1.26 L 872.00 1.26 L 884.00 1.26 L 896.00 1.26 L 908.00 1.26 L 920.00 1.26 L 932.00 1.26 L 944.00 1.26 L 956.00 1.26 L 968.00 1.26 L 980.00 1.26 L 992.00 1.26 L 1004.00 1.26 L 1016.00 1.26 L 1028.00 1.26 L 1040.00 1.26 L 1052.00 1.26 L 1064.00 1.26 L 1076.00 1.26 L 1088.00 1.26 L 1100.00 1.26 L 1112.00 1.26 L 1124.00 1.26 L 1136.00 1.26 L 1148.00 1.26 L 1160.00 1.26 L 1172.00 1.26 L 1184.00 1.26 L 1196.00 1.26" />
+<!-- (Additional RH curves are drawn similarly; labels placed near T=110°F) -->
+<text x="1100.00" y="151.71" font-size="10">10%</text>
+<text x="1100.00" y="128.97" font-size="10">20%</text>
+<text x="1100.00" y="107.17" font-size="10">30%</text>
+<text x="1100.00" y="86.62" font-size="10">40%</text>
+<text x="1100.00" y="67.43" font-size="10">50%</text>
+<text x="1100.00" y="49.64" font-size="10">60%</text>
+<text x="1100.00" y="33.21" font-size="10">70%</text>
+<text x="1100.00" y="18.08" font-size="10">80%</text>
+<text x="1100.00" y="4.18" font-size="10">90%</text>
+
+<!-- Saturation curve (100% RH) -->
+<path class="sat" d="M 80.00 452.41 L 92.00 450.02 L 104.00 447.42 L 116.00 444.61 L 128.00 441.57 L 140.00 438.28 L 152.00 434.73 L 164.00 430.90 L 176.00 426.76 L 188.00 422.27 L 200.00 417.40 L 212.00 412.10 L 224.00 406.32 L 236.00 400.02 L 248.00 393.14 L 260.00 385.62 L 272.00 377.41 L 284.00 368.45 L 296.00 358.68 L 308.00 348.04 L 320.00 336.47 L 332.00 323.92 L 344.00 310.32 L 356.00 295.60 L 368.00 279.66 L 380.00 262.41 L 392.00 243.72 L 404.00 223.44 L 416.00 201.36 L 428.00 177.24 L 440.00 150.78 L 452.00 121.61 L 464.00 89.29 L 476.00 53.26 L 488.00 12.92 L 500.00 12.92 L 512.00 12.92 L 524.00 12.92 L 536.00 12.92 L 548.00 12.92 L 560.00 12.92 L 572.00 12.92 L 584.00 12.92 L 596.00 12.92 L 608.00 12.92 L 620.00 12.92 L 632.00 12.92 L 644.00 12.92 L 656.00 12.92 L 668.00 12.92 L 680.00 12.92 L 692.00 12.92 L 704.00 12.92 L 716.00 12.92 L 728.00 12.92 L 740.00 12.92 L 752.00 12.92 L 764.00 12.92 L 776.00 12.92 L 788.00 12.92 L 800.00 12.92 L 812.00 12.92 L 824.00 12.92 L 836.00 12.92 L 848.00 12.92 L 860.00 12.92 L 872.00 12.92 L 884.00 12.92 L 896.00 12.92 L 908.00 12.92 L 920.00 12.92 L 932.00 12.92 L 944.00 12.92 L 956.00 12.92 L 968.00 12.92 L 980.00 12.92 L 992.00 12.92 L 1004.00 12.92 L 1016.00 12.92 L 1028.00 12.92 L 1040.00 12.92 L 1052.00 12.92 L 1064.00 12.92 L 1076.00 12.92 L 1088.00 12.92 L 1100.00 12.92 L 1112.00 12.92 L 1124.00 12.92 L 1136.00 12.92 L 1148.00 12.92 L 1160.00 12.92 L 1172.00 12.92 L 1184.00 12.92 L 1196.00 12.92" />
+<text x="1064.00" y="16.25" fill="#d62728" font-weight="bold">Saturation (100% RH)</text>
+
+<!-- Enthalpy lines (dashed, labelled) -->
+<path class="enth" d="M 140.00 439.88 L 152.00 438.00 L 164.00 435.78 L 176.00 433.19 L 188.00 430.19 L 200.00 426.73 L 212.00 422.78 L 224.00 418.28 L 236.00 413.19 L 248.00 407.45 L 260.00 401.01 L 272.00 393.83 L 284.00 385.84 L 296.00 376.98 L 308.00 367.19 L 320.00 356.43 L 332.00 344.64 L 344.00 331.76 L 356.00 317.71 L 368.00 302.43 L 380.00 285.87 L 392.00 267.97 L 404.00 248.66 L 416.00 227.87 L 428.00 205.51 L 440.00 181.49 L 452.00 155.74 L 464.00 128.15 L 476.00 98.60 L 488.00 66.97 L 500.00 33.12" />
+<text x="1116.00" y="160.00" font-size="10">20 Btu/lb</text>
+<path class="enth" d="M 152.00 436.88 L 164.00 435.00 L 176.00 432.78 L 188.00 430.19 L 200.00 427.23 L 212.00 423.84 L 224.00 419.99 L 236.00 415.61 L 248.00 410.67 L 260.00 405.12 L 272.00 398.90 L 284.00 391.98 L 296.00 384.31 L 308.00 375.83 L 320.00 366.49 L 332.00 356.22 L 344.00 344.96 L 356.00 332.65 L 368.00 319.24 L 380.00 304.67 L 392.00 288.87 L 404.00 271.78 L 416.00 253.31 L 428.00 233.39 L 440.00 211.92 L 452.00 188.81 L 464.00 163.96 L 476.00 137.27 L 488.00 108.60 L 500.00 77.76" />
+<text x="1116.00" y="175.00" font-size="10">30 Btu/lb</text>
+
+<!-- axes -->
+<line class="axis" x1="80" y1="40" x2="1120" y2="40" />
+<line class="axis" x1="80" y1="40" x2="80" y2="660" />
+<text x="600" y="684" text-anchor="middle" font-size="14">Dry-Bulb Temperature (°F)</text>
+<text x="20" y="350" transform="rotate(-90 20,350)" text-anchor="middle" font-size="14">Humidity Ratio (lb water / lb dry air)</text>
+
+<text x="1190" y="694" text-anchor="end" font-size="11">Sea level (14.696 psi) — Imperial units — Reference: Trane-style psychrometric chart</text>
+</svg>

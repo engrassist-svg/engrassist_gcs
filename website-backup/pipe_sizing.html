@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Professional hydronic pipe sizing calculator. Calculate pipe sizes, flow velocities, pressure drops, and Reynolds numbers for water and glycol systems following ASHRAE standards.">
+    <meta name="keywords" content="pipe sizing, hydronic piping, HVAC, pressure drop, flow velocity, ASHRAE, Bell and Gossett, Syzer, glycol piping">
+    <link rel="canonical" href="https://engrassist.com/pipe_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Pipe Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Professional hydronic pipe sizing calculator following ASHRAE standards.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/pipe_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pipe Sizing Calculator - EngrAssist">
+    <meta name="twitter:description" content="Professional hydronic pipe sizing calculator.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <title>Pipe Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Hydronic Pipe Sizing Calculator</h1>
+                <p class="page-subtitle">Professional pipe sizing tool based on ASHRAE standards and Bell & Gossett Syzer methodology</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+
+                <!-- Pipe Sizing Calculator -->
+                <div class="conversion-calculator">
+                    <h2 class="section-title">Pipe Sizing Calculator</h2>
+
+                    <!-- Input Panel -->
+                    <div class="input-panel">
+                        <h3 class="subsection-title">System Parameters</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="flowRate">Flow Rate (GPM)</label>
+                                <input type="number" id="flowRate" step="0.1" min="0" placeholder="Enter flow rate">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pipeLength">Pipe Length (ft)</label>
+                                <input type="number" id="pipeLength" step="1" min="0" value="100" placeholder="100">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fluidType">Fluid Type</label>
+                                <select id="fluidType">
+                                    <option value="water">Water</option>
+                                    <option value="pg-20">20% Propylene Glycol</option>
+                                    <option value="pg-30">30% Propylene Glycol</option>
+                                    <option value="pg-40">40% Propylene Glycol</option>
+                                    <option value="pg-50">50% Propylene Glycol</option>
+                                    <option value="eg-20">20% Ethylene Glycol</option>
+                                    <option value="eg-30">30% Ethylene Glycol</option>
+                                    <option value="eg-40">40% Ethylene Glycol</option>
+                                    <option value="eg-50">50% Ethylene Glycol</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fluidTemp">Fluid Temperature (°F)</label>
+                                <input type="number" id="fluidTemp" step="1" min="32" max="250" value="60" placeholder="60">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="systemType">System Type</label>
+                                <select id="systemType">
+                                    <option value="variable">Variable Flow / Variable Speed</option>
+                                    <option value="constant">Constant Flow / Constant Speed</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="operatingHours">Annual Operating Hours</label>
+                                <select id="operatingHours">
+                                    <option value="low">< 2000 hours</option>
+                                    <option value="medium">2000-4400 hours</option>
+                                    <option value="high">> 4400 hours</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pipeType">Pipe Type</label>
+                                <select id="pipeType" onchange="updatePipeMaterialOptions()">
+                                    <option value="copper">Copper Type L</option>
+                                    <option value="steel">Steel Schedule 40</option>
+                                    <option value="pex">PEX (SDR-9)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pipeMaterial">Pipe Condition (C-Factor)</label>
+                                <select id="pipeMaterial">
+                                    <option value="150">Copper / PEX (C=150)</option>
+                                    <option value="140">Steel - New (C=140)</option>
+                                    <option value="130">Steel - Average (C=130)</option>
+                                    <option value="120">Steel - Used (C=120)</option>
+                                    <option value="100">Steel - Old (C=100)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tempDiff">Temperature Difference (°F) - Optional</label>
+                                <input type="number" id="tempDiff" step="0.1" min="0" placeholder="For load calculations">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fittingLength">Equivalent Fitting Length (ft) - Optional</label>
+                                <input type="number" id="fittingLength" step="1" min="0" value="0" placeholder="0">
+                            </div>
+                        </div>
+
+                        <div class="converter-buttons">
+                            <button class="btn" onclick="calculatePipeSizing()">Calculate</button>
+                            <button class="btn-secondary" onclick="resetPipeSizing()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="resultsSection" style="display: none;">
+                    <div class="fan-results-panel">
+                        <h3>Pipe Sizing Results</h3>
+                        <div id="systemInfo" class="info-box" style="margin-bottom: 2rem;"></div>
+                        <div id="pipeSizingResults"></div>
+                    </div>
+                </div>
+
+                <!-- ASHRAE Standards Section -->
+                <div class="mechanical-section">
+                    <h2 class="section-title">ASHRAE Pipe Sizing Standards</h2>
+
+                    <div class="info-box">
+                        <h4>ASHRAE 90.1 Requirements</h4>
+                        <p><strong>Modern Standards (2010+):</strong> ASHRAE 90.1-2010 and later require engineers to calculate and document the expected pressure drop through each pipe segment in the critical circuit at design conditions. Maximum allowable velocities and pressure drops vary based on system type, operating hours, and pipe size.</p>
+                    </div>
+
+                    <div class="guide-grid">
+                        <div class="guide-card">
+                            <div class="guide-icon">📏</div>
+                            <h4>Traditional Sizing Criteria</h4>
+                            <p><strong>Velocity Limit:</strong> 4 fps for pipes 2" and under</p>
+                            <p><strong>Pressure Drop:</strong> 4 ft per 100 ft for pipes over 2"</p>
+                            <p>These were the common guidelines before ASHRAE 90.1-2010</p>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">⚡</div>
+                            <h4>Variable Flow Systems</h4>
+                            <p><strong>High Usage (>4400 hrs):</strong> Lower pressure drops required</p>
+                            <p><strong>Energy Efficiency:</strong> Reduced pumping costs over time</p>
+                            <p>Larger pipe sizes may be required to meet code</p>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">🔄</div>
+                            <h4>Glycol Systems</h4>
+                            <p><strong>Viscosity Impact:</strong> 25-50% increase in friction loss</p>
+                            <p><strong>Temperature Dependent:</strong> Corrections vary with temperature</p>
+                            <p>Higher concentrations require larger pipes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipe Sizing Charts -->
+                <div class="mechanical-section">
+                    <h2 class="section-title">Standard Pipe Sizes & Properties</h2>
+
+                    <div class="reference-table">
+                        <h3>Copper Pipe Dimensions (Type L)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nominal Size</th>
+                                    <th>Outside Diameter (in)</th>
+                                    <th>Inside Diameter (in)</th>
+                                    <th>Wall Thickness (in)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1/2"</td><td>0.625</td><td>0.545</td><td>0.040</td></tr>
+                                <tr><td>3/4"</td><td>0.875</td><td>0.785</td><td>0.045</td></tr>
+                                <tr><td>1"</td><td>1.125</td><td>1.025</td><td>0.050</td></tr>
+                                <tr><td>1-1/4"</td><td>1.375</td><td>1.265</td><td>0.055</td></tr>
+                                <tr><td>1-1/2"</td><td>1.625</td><td>1.505</td><td>0.060</td></tr>
+                                <tr><td>2"</td><td>2.125</td><td>1.985</td><td>0.070</td></tr>
+                                <tr><td>2-1/2"</td><td>2.625</td><td>2.465</td><td>0.080</td></tr>
+                                <tr><td>3"</td><td>3.125</td><td>2.945</td><td>0.090</td></tr>
+                                <tr><td>4"</td><td>4.125</td><td>3.905</td><td>0.110</td></tr>
+                                <tr><td>5"</td><td>5.125</td><td>4.875</td><td>0.125</td></tr>
+                                <tr><td>6"</td><td>6.125</td><td>5.845</td><td>0.140</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="reference-table" style="margin-top: 2rem;">
+                        <h3>Steel Pipe Dimensions (Schedule 40)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nominal Size</th>
+                                    <th>Outside Diameter (in)</th>
+                                    <th>Inside Diameter (in)</th>
+                                    <th>Wall Thickness (in)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1/2"</td><td>0.840</td><td>0.622</td><td>0.109</td></tr>
+                                <tr><td>3/4"</td><td>1.050</td><td>0.824</td><td>0.113</td></tr>
+                                <tr><td>1"</td><td>1.315</td><td>1.049</td><td>0.133</td></tr>
+                                <tr><td>1-1/4"</td><td>1.660</td><td>1.380</td><td>0.140</td></tr>
+                                <tr><td>1-1/2"</td><td>1.900</td><td>1.610</td><td>0.145</td></tr>
+                                <tr><td>2"</td><td>2.375</td><td>2.067</td><td>0.154</td></tr>
+                                <tr><td>2-1/2"</td><td>2.875</td><td>2.469</td><td>0.203</td></tr>
+                                <tr><td>3"</td><td>3.500</td><td>3.068</td><td>0.216</td></tr>
+                                <tr><td>4"</td><td>4.500</td><td>4.026</td><td>0.237</td></tr>
+                                <tr><td>5"</td><td>5.563</td><td>5.047</td><td>0.258</td></tr>
+                                <tr><td>6"</td><td>6.625</td><td>6.065</td><td>0.280</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="reference-table" style="margin-top: 2rem;">
+                        <h3>PEX Pipe Dimensions (SDR-9)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nominal Size</th>
+                                    <th>Outside Diameter (in)</th>
+                                    <th>Inside Diameter (in)</th>
+                                    <th>Wall Thickness (in)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1/2"</td><td>0.625</td><td>0.475</td><td>0.075</td></tr>
+                                <tr><td>5/8"</td><td>0.750</td><td>0.574</td><td>0.088</td></tr>
+                                <tr><td>3/4"</td><td>0.875</td><td>0.671</td><td>0.102</td></tr>
+                                <tr><td>1"</td><td>1.125</td><td>0.875</td><td>0.125</td></tr>
+                                <tr><td>1-1/4"</td><td>1.375</td><td>1.108</td><td>0.134</td></tr>
+                                <tr><td>1-1/2"</td><td>1.625</td><td>1.321</td><td>0.152</td></tr>
+                                <tr><td>2"</td><td>2.125</td><td>1.748</td><td>0.189</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 1rem;"><em>Note: PEX is typically used for smaller hydronic systems (radiant heating, residential applications). Sizes above 2" are less common.</em></p>
+                    </div>
+                </div>
+
+                <!-- Fluid Properties -->
+                <div class="mechanical-section">
+                    <h2 class="section-title">Fluid Properties Reference</h2>
+
+                    <div class="constants-grid">
+                        <div class="constant-card">
+                            <h4>Water Density</h4>
+                            <p>62.4 lb/ft³ @ 60°F</p>
+                        </div>
+                        <div class="constant-card">
+                            <h4>Water Viscosity</h4>
+                            <p>1.12 cP @ 60°F</p>
+                        </div>
+                        <div class="constant-card">
+                            <h4>Water Specific Heat</h4>
+                            <p>1.0 BTU/lb-°F</p>
+                        </div>
+                        <div class="constant-card">
+                            <h4>Standard Gravity</h4>
+                            <p>32.2 ft/s²</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Glycol System Considerations</h4>
+                        <p>Glycol solutions have higher viscosity and lower heat capacity than water. Always apply appropriate correction factors for:</p>
+                        <ul>
+                            <li>Pressure drop (1.2x to 1.5x for typical concentrations)</li>
+                            <li>Heat transfer capacity (0.85x to 0.95x reduction)</li>
+                            <li>Pump power requirements (1.25x to 1.5x increase)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Equivalent Length Calculator Guide -->
+                <div class="mechanical-section">
+                    <h2 class="section-title">Equivalent Fitting Lengths (Scale 4)</h2>
+
+                    <div class="info-box">
+                        <h4>What are Equivalent Lengths?</h4>
+                        <p>Fittings, valves, and equipment cause additional pressure drop beyond straight pipe friction. The equivalent length method converts these losses into an equivalent length of straight pipe. Add this to your actual pipe length for accurate total head calculations.</p>
+                    </div>
+
+                    <div class="reference-table">
+                        <h3>Typical Equivalent Lengths for Fittings (feet of straight pipe)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fitting Type</th>
+                                    <th>1/2"-3/4"</th>
+                                    <th>1"-1.5"</th>
+                                    <th>2"-3"</th>
+                                    <th>4"-6"</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>90° Elbow (std.)</td><td>2</td><td>2.5</td><td>3.5</td><td>5</td></tr>
+                                <tr><td>45° Elbow</td><td>1</td><td>1.5</td><td>2</td><td>3</td></tr>
+                                <tr><td>Tee (flow through run)</td><td>1</td><td>1.5</td><td>2</td><td>3</td></tr>
+                                <tr><td>Tee (flow through branch)</td><td>4</td><td>5</td><td>7</td><td>10</td></tr>
+                                <tr><td>Gate Valve (open)</td><td>0.5</td><td>1</td><td>1.5</td><td>2</td></tr>
+                                <tr><td>Globe Valve (open)</td><td>15</td><td>20</td><td>25</td><td>35</td></tr>
+                                <tr><td>Ball Valve (open)</td><td>1</td><td>1.5</td><td>2</td><td>3</td></tr>
+                                <tr><td>Check Valve (swing)</td><td>4</td><td>5</td><td>7</td><td>10</td></tr>
+                                <tr><td>Balancing Valve</td><td>3</td><td>4</td><td>6</td><td>8</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 1rem;">
+                        <h4>Example Calculation:</h4>
+                        <p>100 ft of 2" pipe with: (4) 90° elbows, (2) tees (run), (1) gate valve, (1) ball valve</p>
+                        <p><strong>Equivalent Length:</strong> 4×3.5 + 2×2 + 1×1.5 + 1×2 = 21.5 ft</p>
+                        <p><strong>Total Equivalent Length:</strong> 100 + 21.5 = 121.5 ft (enter 22 in fitting length field)</p>
+                    </div>
+                </div>
+
+                <!-- Quick Reference -->
+                <div class="mechanical-section">
+                    <h2 class="section-title">Design Guidelines</h2>
+
+                    <div class="guide-grid">
+                        <div class="guide-card">
+                            <div class="guide-icon">💧</div>
+                            <h4>Recommended Velocity Ranges</h4>
+                            <p><strong>Heating Water:</strong> 2-4 fps</p>
+                            <p><strong>Chilled Water:</strong> 3-8 fps</p>
+                            <p><strong>Condenser Water:</strong> 3-10 fps</p>
+                            <p>Higher velocities may cause noise and erosion</p>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">📊</div>
+                            <h4>Pressure Drop Guidelines</h4>
+                            <p><strong>Standard Range:</strong> 1-4 ft/100 ft</p>
+                            <p><strong>Optimal for Pumping:</strong> 2-2.5 ft/100 ft</p>
+                            <p><strong>Maximum (Variable Flow):</strong> Varies by code</p>
+                            <p>Lower drops reduce energy costs</p>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">🎯</div>
+                            <h4>Selection Strategy</h4>
+                            <p><strong>First Choice:</strong> Meet velocity limits</p>
+                            <p><strong>Second:</strong> Check pressure drop</p>
+                            <p><strong>Third:</strong> Verify code compliance</p>
+                            <p>Balance cost vs. energy efficiency</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This calculator is provided for educational and preliminary design purposes only.
+                        All calculations should be verified by a licensed professional engineer and must comply with local codes and standards.
+                        Results are based on the Hazen-Williams equation with standard assumptions for hydronic systems.
+                        Actual system performance may vary based on pipe condition, fittings, elevation changes, and other factors.
+                        Always consult manufacturer data and applicable codes for final design.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Pipe sizing data - Copper Type L (standard for HVAC)
+        const copperPipes = [
+            { nominal: '1/2"', id: 0.545, od: 0.625 },
+            { nominal: '3/4"', id: 0.785, od: 0.875 },
+            { nominal: '1"', id: 1.025, od: 1.125 },
+            { nominal: '1-1/4"', id: 1.265, od: 1.375 },
+            { nominal: '1-1/2"', id: 1.505, od: 1.625 },
+            { nominal: '2"', id: 1.985, od: 2.125 },
+            { nominal: '2-1/2"', id: 2.465, od: 2.625 },
+            { nominal: '3"', id: 2.945, od: 3.125 },
+            { nominal: '4"', id: 3.905, od: 4.125 },
+            { nominal: '5"', id: 4.875, od: 5.125 },
+            { nominal: '6"', id: 5.845, od: 6.125 },
+            { nominal: '8"', id: 7.785, od: 8.125 },
+            { nominal: '10"', id: 9.701, od: 10.125 },
+            { nominal: '12"', id: 11.617, od: 12.125 }
+        ];
+
+        // Steel pipe data - Schedule 40
+        const steelPipes = [
+            { nominal: '1/2"', id: 0.622, od: 0.840 },
+            { nominal: '3/4"', id: 0.824, od: 1.050 },
+            { nominal: '1"', id: 1.049, od: 1.315 },
+            { nominal: '1-1/4"', id: 1.380, od: 1.660 },
+            { nominal: '1-1/2"', id: 1.610, od: 1.900 },
+            { nominal: '2"', id: 2.067, od: 2.375 },
+            { nominal: '2-1/2"', id: 2.469, od: 2.875 },
+            { nominal: '3"', id: 3.068, od: 3.500 },
+            { nominal: '4"', id: 4.026, od: 4.500 },
+            { nominal: '5"', id: 5.047, od: 5.563 },
+            { nominal: '6"', id: 6.065, od: 6.625 },
+            { nominal: '8"', id: 7.981, od: 8.625 },
+            { nominal: '10"', id: 10.020, od: 10.750 },
+            { nominal: '12"', id: 11.938, od: 12.750 }
+        ];
+
+        // PEX pipe data - SDR-9 (common for hydronic systems)
+        const pexPipes = [
+            { nominal: '1/2"', id: 0.475, od: 0.625 },
+            { nominal: '5/8"', id: 0.574, od: 0.750 },
+            { nominal: '3/4"', id: 0.671, od: 0.875 },
+            { nominal: '1"', id: 0.875, od: 1.125 },
+            { nominal: '1-1/4"', id: 1.108, od: 1.375 },
+            { nominal: '1-1/2"', id: 1.321, od: 1.625 },
+            { nominal: '2"', id: 1.748, od: 2.125 }
+        ];
+
+        // Temperature-dependent fluid properties
+        // Water viscosity in cP at different temperatures
+        function getWaterViscosity(tempF) {
+            // Interpolated values for water viscosity
+            const viscosityData = [
+                {temp: 32, visc: 1.79}, {temp: 40, visc: 1.55}, {temp: 50, visc: 1.31},
+                {temp: 60, visc: 1.12}, {temp: 70, visc: 0.98}, {temp: 80, visc: 0.86},
+                {temp: 90, visc: 0.76}, {temp: 100, visc: 0.68}, {temp: 120, visc: 0.56},
+                {temp: 140, visc: 0.47}, {temp: 160, visc: 0.40}, {temp: 180, visc: 0.35},
+                {temp: 200, visc: 0.31}, {temp: 212, visc: 0.28}, {temp: 250, visc: 0.22}
+            ];
+
+            // Linear interpolation
+            for (let i = 0; i < viscosityData.length - 1; i++) {
+                if (tempF >= viscosityData[i].temp && tempF <= viscosityData[i + 1].temp) {
+                    const t1 = viscosityData[i].temp;
+                    const t2 = viscosityData[i + 1].temp;
+                    const v1 = viscosityData[i].visc;
+                    const v2 = viscosityData[i + 1].visc;
+                    return v1 + (v2 - v1) * (tempF - t1) / (t2 - t1);
+                }
+            }
+            // Return closest value if out of range
+            if (tempF <= 32) return 1.79;
+            if (tempF >= 250) return 0.22;
+            return 1.12; // Default to 60°F
+        }
+
+        // Temperature and concentration-dependent glycol properties
+        function getGlycolProperties(fluidType, tempF) {
+            const waterVisc = getWaterViscosity(tempF);
+
+            // Glycol viscosity multipliers (relative to water at same temperature)
+            const glycolMultipliers = {
+                'water': { viscMult: 1.0, density: 1.0, specificHeat: 1.0 },
+                'pg-20': {
+                    viscMult: tempF < 50 ? 1.5 : (tempF < 100 ? 1.3 : 1.2),
+                    density: 1.01,
+                    specificHeat: 0.98
+                },
+                'pg-30': {
+                    viscMult: tempF < 50 ? 1.9 : (tempF < 100 ? 1.5 : 1.35),
+                    density: 1.015,
+                    specificHeat: 0.95
+                },
+                'pg-40': {
+                    viscMult: tempF < 50 ? 2.5 : (tempF < 100 ? 1.8 : 1.5),
+                    density: 1.02,
+                    specificHeat: 0.92
+                },
+                'pg-50': {
+                    viscMult: tempF < 50 ? 3.5 : (tempF < 100 ? 2.2 : 1.65),
+                    density: 1.025,
+                    specificHeat: 0.88
+                },
+                'eg-20': {
+                    viscMult: tempF < 50 ? 1.4 : (tempF < 100 ? 1.25 : 1.15),
+                    density: 1.015,
+                    specificHeat: 0.98
+                },
+                'eg-30': {
+                    viscMult: tempF < 50 ? 1.7 : (tempF < 100 ? 1.4 : 1.25),
+                    density: 1.025,
+                    specificHeat: 0.95
+                },
+                'eg-40': {
+                    viscMult: tempF < 50 ? 2.2 : (tempF < 100 ? 1.7 : 1.4),
+                    density: 1.03,
+                    specificHeat: 0.92
+                },
+                'eg-50': {
+                    viscMult: tempF < 50 ? 3.0 : (tempF < 100 ? 2.0 : 1.55),
+                    density: 1.04,
+                    specificHeat: 0.88
+                }
+            };
+
+            const props = glycolMultipliers[fluidType] || glycolMultipliers['water'];
+
+            return {
+                viscosity: waterVisc * props.viscMult,
+                viscosityMultiplier: props.viscMult,
+                density: props.density,
+                specificHeat: props.specificHeat
+            };
+        }
+
+        // Update pipe material options based on pipe type
+        function updatePipeMaterialOptions() {
+            const pipeType = document.getElementById('pipeType').value;
+            const pipeMaterial = document.getElementById('pipeMaterial');
+
+            if (pipeType === 'copper' || pipeType === 'pex') {
+                pipeMaterial.value = '150';
+                pipeMaterial.disabled = true;
+            } else {
+                pipeMaterial.disabled = false;
+            }
+        }
+
+        function calculatePipeSizing() {
+            // Get inputs
+            const flowRate = parseFloat(document.getElementById('flowRate').value);
+            const pipeLength = parseFloat(document.getElementById('pipeLength').value);
+            const fittingLength = parseFloat(document.getElementById('fittingLength').value) || 0;
+            const fluidType = document.getElementById('fluidType').value;
+            const fluidTemp = parseFloat(document.getElementById('fluidTemp').value);
+            const pipeType = document.getElementById('pipeType').value;
+            const cFactor = parseFloat(document.getElementById('pipeMaterial').value);
+            const systemType = document.getElementById('systemType').value;
+            const operatingHours = document.getElementById('operatingHours').value;
+            const tempDiff = parseFloat(document.getElementById('tempDiff').value) || 0;
+
+            // Validate inputs
+            if (!flowRate || flowRate <= 0) {
+                alert('Please enter a valid flow rate');
+                return;
+            }
+
+            if (!pipeLength || pipeLength <= 0) {
+                alert('Please enter a valid pipe length');
+                return;
+            }
+
+            // Select pipe database based on type
+            let pipes;
+            let pipeTypeName;
+            if (pipeType === 'steel') {
+                pipes = steelPipes;
+                pipeTypeName = 'Steel Schedule 40';
+            } else if (pipeType === 'pex') {
+                pipes = pexPipes;
+                pipeTypeName = 'PEX SDR-9';
+            } else {
+                pipes = copperPipes;
+                pipeTypeName = 'Copper Type L';
+            }
+
+            // Get temperature-dependent fluid properties
+            const glycol = getGlycolProperties(fluidType, fluidTemp);
+            const totalEquivLength = pipeLength + fittingLength;
+
+            // Calculate heat transfer (if temp difference provided)
+            // Scale 1: Load ↔ GPM ↔ ΔT relationship
+            let heatLoad = 0;
+            let calculatedFlow = 0;
+            if (tempDiff > 0) {
+                // Q (BTU/hr) = GPM × 500 × ΔT × specific heat correction
+                heatLoad = flowRate * 500 * tempDiff * glycol.specificHeat;
+                calculatedFlow = flowRate;
+            }
+
+            // Display system info
+            let systemInfoHTML = `
+                <strong>System Parameters:</strong><br>
+                Flow Rate: ${flowRate.toFixed(1)} GPM |
+                Fluid: ${document.getElementById('fluidType').options[document.getElementById('fluidType').selectedIndex].text} @ ${fluidTemp}°F |
+                Pipe Type: ${pipeTypeName}<br>
+                Pipe Length: ${pipeLength} ft |
+                Fitting Equiv. Length: ${fittingLength} ft |
+                Total Equiv. Length: ${totalEquivLength} ft
+            `;
+            if (heatLoad > 0) {
+                systemInfoHTML += `<br><strong>Calculated Load (Scale 1):</strong> ${heatLoad.toLocaleString()} BTU/hr (${(heatLoad / 12000).toFixed(2)} tons) at ΔT=${tempDiff}°F`;
+            }
+            systemInfoHTML += `<br><strong>Fluid Properties:</strong> Viscosity=${glycol.viscosity.toFixed(3)} cP (${glycol.viscosityMultiplier.toFixed(2)}× water), Sp. Heat=${glycol.specificHeat.toFixed(2)}`;
+            document.getElementById('systemInfo').innerHTML = systemInfoHTML;
+
+            // Calculate for each pipe size (Scale 2-5)
+            let resultsHTML = '';
+
+            pipes.forEach(pipe => {
+                // Scale 3: Calculate velocity (fps) = (GPM × 0.408) / (ID²)
+                const velocity = (flowRate * 0.408) / (pipe.id * pipe.id);
+
+                // Scale 2: Hazen-Williams formula for friction rate
+                // hf (ft/100ft) = 10.67 × Q^1.85 / (C^1.85 × D^4.87)
+                // Using actual viscosity instead of just multiplier
+                const baseViscosity = 1.12; // Water at 60°F
+                const viscosityRatio = glycol.viscosity / baseViscosity;
+
+                let pressureDrop100 = (10.67 * Math.pow(flowRate, 1.85)) /
+                                      (Math.pow(cFactor, 1.85) * Math.pow(pipe.id, 4.87));
+
+                // Apply viscosity correction for glycol
+                pressureDrop100 *= Math.pow(viscosityRatio, 0.25); // More accurate correction factor
+
+                // Scale 4: Total pressure drop including fittings
+                const totalPressureDrop = pressureDrop100 * (totalEquivLength / 100);
+                const totalPressurePSI = totalPressureDrop * 0.433; // Convert ft to PSI
+
+                // Calculate Reynolds number
+                const reynolds = (3160 * flowRate) / (pipe.id * viscosityRatio);
+
+                // Determine if size is acceptable
+                let status = 'acceptable';
+                let statusColor = '#27ae60';
+                let reasons = [];
+
+                // Check velocity limits (Scale 3 criteria)
+                if (velocity > 10) {
+                    status = 'not-recommended';
+                    statusColor = '#e74c3c';
+                    reasons.push('Velocity exceeds 10 fps (severe erosion risk)');
+                } else if (velocity > 8) {
+                    if (status !== 'not-recommended') {
+                        status = 'caution';
+                        statusColor = '#f39c12';
+                    }
+                    reasons.push('Velocity exceeds 8 fps (erosion risk, noise)');
+                } else if (velocity > 4 && parseFloat(pipe.id) <= 2) {
+                    status = 'caution';
+                    statusColor = '#f39c12';
+                    reasons.push('Velocity > 4 fps for pipe ≤ 2" (traditional limit)');
+                } else if (velocity < 1.5) {
+                    if (status === 'acceptable') {
+                        status = 'oversized';
+                        statusColor = '#3498db';
+                    }
+                    reasons.push('Low velocity (< 1.5 fps) - may be oversized, poor air removal');
+                }
+
+                // Check pressure drop limits (Scale 2 criteria)
+                if (pressureDrop100 > 8) {
+                    status = 'not-recommended';
+                    statusColor = '#e74c3c';
+                    reasons.push('Pressure drop too high (> 8 ft/100 ft) - excessive pumping cost');
+                } else if (pressureDrop100 > 4) {
+                    if (status !== 'not-recommended') {
+                        status = 'caution';
+                        statusColor = '#f39c12';
+                    }
+                    reasons.push('Pressure drop > 4 ft/100 ft (traditional limit exceeded)');
+                } else if (pressureDrop100 < 0.5) {
+                    if (status === 'acceptable') {
+                        status = 'oversized';
+                        statusColor = '#3498db';
+                        reasons.push('Very low pressure drop - pipe likely oversized');
+                    }
+                }
+
+                // Reynolds number check
+                if (reynolds < 4000) {
+                    reasons.push('⚠ Laminar/transitional flow (Re < 4000) - Hazen-Williams may be inaccurate');
+                }
+
+                // ASHRAE 90.1 compliance check for variable flow systems
+                if (systemType === 'variable' && operatingHours === 'high') {
+                    if (parseFloat(pipe.id) > 2 && pressureDrop100 > 3) {
+                        if (status === 'acceptable') {
+                            status = 'caution';
+                            statusColor = '#f39c12';
+                        }
+                        reasons.push('May exceed ASHRAE 90.1-2010+ limits for variable flow > 4400 hrs');
+                    }
+                }
+
+                // Glycol system warning
+                if (fluidType !== 'water' && pressureDrop100 > 3) {
+                    reasons.push('Note: Glycol system requires higher pumping power than water');
+                }
+
+                // Recommendation badge
+                let badge = '';
+                if (status === 'acceptable' && velocity >= 2 && velocity <= 6 && pressureDrop100 >= 1 && pressureDrop100 <= 3) {
+                    badge = '<span class="fan-badge recommended">✓ RECOMMENDED</span>';
+                } else if (status === 'acceptable' || status === 'oversized') {
+                    badge = '<span class="fan-badge alternative">⚠ ACCEPTABLE</span>';
+                } else if (status === 'caution') {
+                    badge = '<span class="fan-badge" style="background: #f39c12;">⚠ CAUTION</span>';
+                } else {
+                    badge = '<span class="fan-badge not-recommended">✗ NOT RECOMMENDED</span>';
+                }
+
+                resultsHTML += `
+                    <div class="fan-recommendation-card ${status}" style="border-left-color: ${statusColor}">
+                        <div class="fan-recommendation-header">
+                            <h4>${pipe.nominal} ${pipeTypeName} (ID: ${pipe.id}")</h4>
+                            ${badge}
+                        </div>
+                        <div class="fan-recommendation-details">
+                            <div class="fan-detail-item">
+                                <strong>Velocity (Scale 3)</strong>
+                                <span style="color: ${velocity > 6 ? '#e74c3c' : (velocity > 4 ? '#f39c12' : '#27ae60')}">${velocity.toFixed(2)} fps</span>
+                            </div>
+                            <div class="fan-detail-item">
+                                <strong>Friction Rate (Scale 2)</strong>
+                                <span style="color: ${pressureDrop100 > 4 ? '#e74c3c' : (pressureDrop100 > 3 ? '#f39c12' : '#27ae60')}">${pressureDrop100.toFixed(2)} ft/100 ft</span>
+                            </div>
+                            <div class="fan-detail-item">
+                                <strong>Total Head (Scale 4)</strong>
+                                <span>${totalPressureDrop.toFixed(2)} ft (${totalPressurePSI.toFixed(2)} PSI)</span>
+                            </div>
+                            <div class="fan-detail-item">
+                                <strong>Reynolds Number</strong>
+                                <span style="color: ${reynolds < 4000 ? '#f39c12' : '#27ae60'}">${reynolds.toFixed(0)}</span>
+                            </div>
+                        </div>
+                        ${reasons.length > 0 ? `
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(0,0,0,0.05); border-radius: 8px;">
+                                <strong>Notes:</strong>
+                                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                                    ${reasons.map(r => `<li>${r}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            document.getElementById('pipeSizingResults').innerHTML = resultsHTML;
+            document.getElementById('resultsSection').style.display = 'block';
+
+            // Scroll to results
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetPipeSizing() {
+            document.getElementById('flowRate').value = '';
+            document.getElementById('pipeLength').value = '100';
+            document.getElementById('fittingLength').value = '0';
+            document.getElementById('fluidType').value = 'water';
+            document.getElementById('fluidTemp').value = '60';
+            document.getElementById('pipeType').value = 'copper';
+            document.getElementById('systemType').value = 'variable';
+            document.getElementById('operatingHours').value = 'high';
+            document.getElementById('pipeMaterial').value = '150';
+            document.getElementById('tempDiff').value = '';
+            document.getElementById('resultsSection').style.display = 'none';
+            updatePipeMaterialOptions();
+        }
+    </script>
+</body>
+</html>

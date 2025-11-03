@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive step-by-step guide to HVAC system design for buildings. Learn the proper sequence from load calculations to equipment selection following ASHRAE and ACCA standards.">
+    <meta name="keywords" content="HVAC design, system design guide, load calculations, Manual J, ASHRAE, ACCA, building design, mechanical engineering">
+    <link rel="canonical" href="https://engrassist.com/hvac_design_guide.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="HVAC System Design Guide - EngrAssist">
+    <meta property="og:description" content="Step-by-step guide to designing HVAC systems for buildings following industry standards.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/hvac_design_guide.html">
+    <meta property="og:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HVAC System Design Guide - EngrAssist">
+    <meta name="twitter:description" content="Step-by-step guide to designing HVAC systems for buildings.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <title>HVAC System Design Guide - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+
+    <style>
+        .design-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .guide-section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .step-content {
+            margin-left: 56px;
+        }
+
+        .key-activities {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .key-activities h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .key-activities ul {
+            margin-bottom: 0;
+        }
+
+        .key-activities li {
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-box {
+            background: #e8f4f8;
+            border: 1px solid #b8dde8;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .reference-box h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .reference-box h4::before {
+            content: "📚";
+            margin-right: 0.5rem;
+        }
+
+        .important-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .important-note h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .tool-reference {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .tool-reference:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .workflow-diagram {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .workflow-step {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem auto;
+            max-width: 600px;
+        }
+
+        .workflow-arrow {
+            color: #3498db;
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .design-guide-container {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .step-content {
+                margin-left: 0;
+            }
+
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .step-number {
+                margin-bottom: 0.5rem;
+            }
+
+            .key-activities,
+            .reference-box,
+            .important-note {
+                padding: 0.75rem;
+            }
+
+            .workflow-diagram {
+                padding: 1rem;
+            }
+
+            .workflow-step {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .design-guide-container {
+                padding: 0.5rem;
+            }
+
+            .guide-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .guide-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .guide-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .step-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">HVAC System Design Guide</h1>
+                <p class="hero-subtitle">A comprehensive step-by-step guide to designing HVAC systems for buildings. Follow industry-standard procedures from ASHRAE and ACCA to create efficient, reliable mechanical systems.</p>
+            </div>
+        </section>
+
+        <!-- Design Guide Content -->
+        <section class="content-section">
+            <div class="design-guide-container">
+
+                <!-- Introduction -->
+                <div class="guide-section">
+                    <h2>Introduction to HVAC System Design</h2>
+                    <p>HVAC system design is a systematic process that requires careful analysis, calculation, and decision-making at each step. This guide follows industry-standard practices established by the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE) and the Air Conditioning Contractors of America (ACCA).</p>
+
+                    <p>The design process is iterative and sequential - each step builds upon the previous one. Skipping steps or performing them out of order can result in inefficient systems, comfort problems, or equipment failure.</p>
+
+                    <div class="reference-box">
+                        <h4>Key Standards Referenced</h4>
+                        <ul>
+                            <li><strong>ACCA Manual J:</strong> Residential Load Calculation</li>
+                            <li><strong>ACCA Manual S:</strong> Residential Equipment Selection</li>
+                            <li><strong>ACCA Manual D:</strong> Residential Duct System Design</li>
+                            <li><strong>ASHRAE Handbooks:</strong> Fundamentals, HVAC Systems and Equipment, HVAC Applications</li>
+                            <li><strong>ASHRAE Standard 62.1:</strong> Ventilation for Acceptable Indoor Air Quality</li>
+                            <li><strong>ASHRAE Standard 90.1:</strong> Energy Standard for Buildings</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Design Workflow Overview -->
+                <div class="guide-section">
+                    <h2>Design Workflow Overview</h2>
+                    <p>The HVAC design process typically follows this sequence:</p>
+
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <strong>1. Project Understanding & Requirements</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>2. Load Calculations</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>3. System Selection & Zoning</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>4. Equipment Selection & Sizing</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>5. Distribution System Design</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>6. Control System Design</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>7. Energy Analysis & Optimization</strong>
+                        </div>
+                        <div class="workflow-arrow">↓</div>
+                        <div class="workflow-step">
+                            <strong>8. Documentation & Specifications</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Project Understanding -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">1</span>
+                        <h2 class="step-title">Project Understanding & Requirements</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Before beginning any calculations or system design, thoroughly understand the project requirements and constraints. This foundational step sets the direction for the entire design process.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Review architectural drawings and building layout</li>
+                                <li>Understand building occupancy type and usage patterns</li>
+                                <li>Identify climate zone and local weather data</li>
+                                <li>Review applicable building codes and standards</li>
+                                <li>Determine owner requirements and preferences</li>
+                                <li>Identify space constraints and equipment locations</li>
+                                <li>Establish budget and energy efficiency goals</li>
+                                <li>Coordinate with other disciplines (electrical, plumbing, structural)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Information to Gather:</h3>
+                        <ul class="checklist">
+                            <li>Building location and orientation</li>
+                            <li>Building envelope characteristics (walls, roof, windows, insulation)</li>
+                            <li>Occupancy schedules and density</li>
+                            <li>Internal heat gains (lighting, equipment, process loads)</li>
+                            <li>Ventilation requirements per code</li>
+                            <li>Special requirements (humidity control, pressurization, filtration)</li>
+                            <li>Utility availability (gas, electric, district systems)</li>
+                            <li>Existing systems (for renovation projects)</li>
+                        </ul>
+
+                        <div class="important-note">
+                            <h4>Important Note:</h4>
+                            <p>Time spent in this phase understanding the project will save significant time later. Misunderstandings or missing information discovered late in the design process can require extensive rework.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Load Calculations -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">2</span>
+                        <h2 class="step-title">Load Calculations</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Load calculations determine the amount of heating and cooling required for each space. This is the most critical step - all subsequent design decisions depend on accurate load calculations.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Perform room-by-room heating load calculations</li>
+                                <li>Perform room-by-room cooling load calculations</li>
+                                <li>Calculate ventilation air requirements per ASHRAE 62.1</li>
+                                <li>Determine design conditions (indoor and outdoor)</li>
+                                <li>Account for all heat gain/loss sources</li>
+                                <li>Calculate block loads for equipment sizing</li>
+                                <li>Document all assumptions and sources</li>
+                            </ul>
+                        </div>
+
+                        <h3>Load Calculation Components:</h3>
+
+                        <h4>Heat Gains (Cooling):</h4>
+                        <ul>
+                            <li><strong>Solar gain:</strong> Through windows and roof based on orientation and time of day</li>
+                            <li><strong>Transmission:</strong> Heat conducted through walls, roof, windows, and floors</li>
+                            <li><strong>Infiltration:</strong> Outside air leaking into the building</li>
+                            <li><strong>Ventilation:</strong> Required outdoor air for occupants</li>
+                            <li><strong>Occupants:</strong> Sensible and latent heat from people</li>
+                            <li><strong>Lighting:</strong> Heat from light fixtures</li>
+                            <li><strong>Equipment:</strong> Computers, appliances, machinery</li>
+                            <li><strong>Process loads:</strong> Cooking, manufacturing, etc.</li>
+                        </ul>
+
+                        <h4>Heat Losses (Heating):</h4>
+                        <ul>
+                            <li><strong>Transmission:</strong> Heat loss through building envelope</li>
+                            <li><strong>Infiltration:</strong> Heat loss from air leakage</li>
+                            <li><strong>Ventilation:</strong> Heat loss from outdoor air</li>
+                        </ul>
+
+                        <div class="reference-box">
+                            <h4>Calculation Methods:</h4>
+                            <ul>
+                                <li><strong>Residential:</strong> ACCA Manual J (room-by-room loads)</li>
+                                <li><strong>Commercial:</strong> ASHRAE Heat Balance Method, Radiant Time Series (RTS)</li>
+                                <li><strong>Software:</strong> Use approved load calculation software to ensure accuracy</li>
+                            </ul>
+                        </div>
+
+                        <div class="important-note">
+                            <h4>Common Mistakes to Avoid:</h4>
+                            <ul>
+                                <li>Using rules of thumb (sq ft per ton) instead of detailed calculations</li>
+                                <li>Oversizing equipment "to be safe" - leads to short cycling and poor humidity control</li>
+                                <li>Ignoring internal heat gains or ventilation loads</li>
+                                <li>Not accounting for diversity in simultaneous loads</li>
+                                <li>Using incorrect design temperatures for the climate zone</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: System Selection -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">3</span>
+                        <h2 class="step-title">System Selection & Zoning</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Select the appropriate HVAC system type and establish zoning based on building characteristics, load patterns, and occupancy requirements.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Evaluate system types for suitability</li>
+                                <li>Define thermal zones based on loads and usage</li>
+                                <li>Determine air-side vs. water-side distribution</li>
+                                <li>Consider first cost vs. operating cost</li>
+                                <li>Evaluate space requirements and architectural constraints</li>
+                                <li>Consider maintenance requirements and accessibility</li>
+                            </ul>
+                        </div>
+
+                        <h3>Common System Types:</h3>
+
+                        <h4>All-Air Systems:</h4>
+                        <ul>
+                            <li><strong>Single-Zone Systems:</strong> One zone per air handler, simple control</li>
+                            <li><strong>Multi-Zone Systems:</strong> Multiple zones from one unit with zone dampers</li>
+                            <li><strong>Variable Air Volume (VAV):</strong> Modulate airflow to match loads, energy efficient</li>
+                            <li><strong>Constant Air Volume (CAV):</strong> Fixed airflow, vary temperature</li>
+                            <li><strong>Dual-Duct Systems:</strong> Separate hot and cold ducts mixed at zones</li>
+                        </ul>
+
+                        <h4>Air-Water Systems:</h4>
+                        <ul>
+                            <li><strong>Fan Coil Units:</strong> Water to coil, local fan</li>
+                            <li><strong>Chilled Beams:</strong> Passive or active cooling via chilled water</li>
+                            <li><strong>Radiant Panels:</strong> Hydronic heating/cooling in ceiling or floor</li>
+                        </ul>
+
+                        <h4>Refrigerant-Based Systems:</h4>
+                        <ul>
+                            <li><strong>Split Systems:</strong> Separate indoor and outdoor units</li>
+                            <li><strong>Packaged Units:</strong> All components in one cabinet</li>
+                            <li><strong>Variable Refrigerant Flow (VRF):</strong> One outdoor unit serves multiple indoor units</li>
+                            <li><strong>Heat Pumps:</strong> Reversible refrigeration for heating and cooling</li>
+                        </ul>
+
+                        <h3>Zoning Considerations:</h3>
+                        <ul>
+                            <li>Orient zones by exposure (north, south, east, west)</li>
+                            <li>Separate perimeter and interior spaces</li>
+                            <li>Group spaces with similar occupancy schedules</li>
+                            <li>Consider spaces with unique requirements (server rooms, kitchens)</li>
+                            <li>Limit zone size to maintain good control</li>
+                            <li>Account for after-hours operation needs</li>
+                        </ul>
+
+                        <div class="important-note">
+                            <h4>System Selection Factors:</h4>
+                            <ul>
+                                <li><strong>Climate:</strong> Heating vs. cooling dominated, humidity levels</li>
+                                <li><strong>Building type:</strong> Residential, office, retail, industrial</li>
+                                <li><strong>First cost:</strong> Installation and equipment costs</li>
+                                <li><strong>Operating cost:</strong> Energy efficiency and utility costs</li>
+                                <li><strong>Maintenance:</strong> Complexity and service requirements</li>
+                                <li><strong>Flexibility:</strong> Ability to accommodate future changes</li>
+                                <li><strong>Acoustics:</strong> Noise levels acceptable for occupancy type</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Equipment Selection -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">4</span>
+                        <h2 class="step-title">Equipment Selection & Sizing</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Select and size specific equipment based on calculated loads and selected system type. Proper equipment selection ensures efficiency, reliability, and occupant comfort.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Size primary heating equipment (boilers, furnaces, heat pumps)</li>
+                                <li>Size primary cooling equipment (chillers, condensers, DX units)</li>
+                                <li>Select air handling units and fan coil units</li>
+                                <li>Size pumps for hydronic systems</li>
+                                <li>Select fans for ventilation and exhaust</li>
+                                <li>Size terminal units (VAV boxes, fan coils, diffusers)</li>
+                                <li>Verify equipment will fit in allocated spaces</li>
+                                <li>Confirm utility requirements (electrical, gas, water)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Equipment Sizing Guidelines:</h3>
+
+                        <h4>General Principles:</h4>
+                        <ul>
+                            <li>Size equipment based on calculated loads, not rules of thumb</li>
+                            <li>For residential: follow ACCA Manual S (15-25% oversizing max)</li>
+                            <li>For commercial: match equipment capacity to design loads</li>
+                            <li>Consider part-load performance, not just full-load efficiency</li>
+                            <li>Account for altitude and extreme conditions</li>
+                            <li>Plan for future expansion if required</li>
+                        </ul>
+
+                        <h4>Primary Equipment:</h4>
+                        <ul>
+                            <li><strong>Boilers:</strong> Size for design heating load plus piping losses and pickup
+                                <a href="boiler_calculator.html" class="tool-reference">Boiler Sizing Tool</a>
+                            </li>
+                            <li><strong>Chillers:</strong> Size for design cooling load, consider diversity
+                                <a href="chiller_calculator.html" class="tool-reference">Chiller Sizing Tool</a>
+                            </li>
+                            <li><strong>Air Handlers:</strong> Size for airflow requirements and coil loads
+                                <a href="fan_selection.html" class="tool-reference">Fan Selection Tool</a>
+                            </li>
+                            <li><strong>Pumps:</strong> Size for flow rate and total head
+                                <a href="pump_sizing.html" class="tool-reference">Pump Sizing Tool</a>
+                            </li>
+                        </ul>
+
+                        <h4>Performance Criteria:</h4>
+                        <ul>
+                            <li><strong>Efficiency:</strong> Meet or exceed ASHRAE 90.1 or local energy codes</li>
+                            <li><strong>Capacity:</strong> Adequate at design conditions</li>
+                            <li><strong>Turndown:</strong> Ability to operate efficiently at part load</li>
+                            <li><strong>Redundancy:</strong> Consider backup for critical applications</li>
+                            <li><strong>Acoustics:</strong> Sound ratings appropriate for application</li>
+                        </ul>
+
+                        <div class="reference-box">
+                            <h4>Selection Resources:</h4>
+                            <ul>
+                                <li>Manufacturer selection software and catalogs</li>
+                                <li>ACCA Manual S for residential equipment</li>
+                                <li>AHRI (Air-Conditioning, Heating, and Refrigeration Institute) certified ratings</li>
+                                <li>Equipment performance data at design conditions</li>
+                            </ul>
+                        </div>
+
+                        <div class="important-note">
+                            <h4>Avoid These Equipment Sizing Errors:</h4>
+                            <ul>
+                                <li>Oversizing "to be safe" - causes short cycling, poor efficiency, humidity problems</li>
+                                <li>Applying excessive safety factors on top of conservative loads</li>
+                                <li>Ignoring part-load performance in equipment comparison</li>
+                                <li>Selecting equipment based solely on first cost</li>
+                                <li>Not verifying equipment dimensions and clearances</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Distribution System Design -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">5</span>
+                        <h2 class="step-title">Distribution System Design</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Design the ductwork, piping, or refrigerant distribution systems to deliver heating and cooling to each space. Proper distribution system design is essential for delivering the right amount of conditioned air or water to each zone.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Layout ductwork or piping on building plans</li>
+                                <li>Size ducts or pipes for proper flow and pressure drop</li>
+                                <li>Account for physical constraints (structure, other trades)</li>
+                                <li>Design air distribution (grilles, diffusers, registers)</li>
+                                <li>Size insulation for energy efficiency and condensation control</li>
+                                <li>Plan for access doors and service access</li>
+                                <li>Coordinate routing with architectural and structural elements</li>
+                            </ul>
+                        </div>
+
+                        <h3>Ductwork Design (Air Systems):</h3>
+
+                        <h4>Design Methods:</h4>
+                        <ul>
+                            <li><strong>Equal Friction Method:</strong> Maintain constant pressure drop per foot</li>
+                            <li><strong>Static Regain Method:</strong> Convert velocity pressure to static at fittings</li>
+                            <li><strong>Velocity Method:</strong> Limit maximum velocities for noise control</li>
+                        </ul>
+
+                        <h4>Design Process:</h4>
+                        <ul>
+                            <li>Determine airflow requirements for each room/zone</li>
+                            <li>Layout duct routing considering shortest paths and minimal fittings</li>
+                            <li>Size ducts using ACCA Manual D (residential) or ASHRAE methods (commercial)
+                                <a href="ductulator.html" class="tool-reference">Duct Sizing Tool</a>
+                            </li>
+                            <li>Calculate total pressure drop through longest run</li>
+                            <li>Select supply and return grilles/diffusers for proper distribution</li>
+                            <li>Size return air paths adequately (often undersized)</li>
+                            <li>Plan for balancing dampers at branches</li>
+                        </ul>
+
+                        <h4>Key Considerations:</h4>
+                        <ul>
+                            <li><strong>Velocity limits:</strong>
+                                <ul>
+                                    <li>Residences: 600-900 FPM in branches, up to 1200 FPM in mains</li>
+                                    <li>Commercial: 1000-2000 FPM depending on application and noise limits</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pressure drop:</strong> Typically 0.1 in. w.g. per 100 ft for low-pressure systems</li>
+                            <li><strong>Aspect ratio:</strong> Keep rectangular ducts within 4:1 ratio for efficiency</li>
+                            <li><strong>Duct leakage:</strong> Seal classes per SMACNA standards</li>
+                        </ul>
+
+                        <h3>Piping Design (Hydronic Systems):</h3>
+
+                        <h4>Piping Layouts:</h4>
+                        <ul>
+                            <li><strong>Direct Return:</strong> Simple, but can cause balancing issues</li>
+                            <li><strong>Reverse Return:</strong> Self-balancing, longer piping runs</li>
+                            <li><strong>Primary-Secondary:</strong> Decouples production from distribution</li>
+                        </ul>
+
+                        <h4>Design Process:</h4>
+                        <ul>
+                            <li>Calculate flow rates based on loads and temperature differential</li>
+                            <li>Layout piping routing for minimal length and fittings</li>
+                            <li>Size pipes for proper velocity and pressure drop
+                                <a href="pipe_sizing.html" class="tool-reference">Pipe Sizing Tool</a>
+                            </li>
+                            <li>Calculate total head loss for pump sizing</li>
+                            <li>Plan for expansion compensation</li>
+                            <li>Include air elimination and drain points</li>
+                            <li>Size insulation thickness for energy code compliance</li>
+                        </ul>
+
+                        <h4>Key Considerations:</h4>
+                        <ul>
+                            <li><strong>Velocity limits:</strong> 4-8 FPS for general service (lower for noise-sensitive areas)</li>
+                            <li><strong>Pressure drop:</strong> Typically 4 ft head per 100 ft of pipe equivalent length</li>
+                            <li><strong>Pipe material:</strong> Steel, copper, or plastic based on temperature and pressure</li>
+                            <li><strong>Expansion:</strong> Allow for thermal expansion with loops or expansion joints</li>
+                        </ul>
+
+                        <h3>Terminal Devices:</h3>
+                        <ul>
+                            <li><strong>Supply diffusers:</strong> Select for throw, spread, and noise criteria</li>
+                            <li><strong>Return grilles:</strong> Size for low velocity and noise</li>
+                            <li><strong>VAV boxes:</strong> Size for maximum and minimum airflow</li>
+                            <li><strong>Reheat coils:</strong> Size for heating load at minimum airflow
+                                <a href="coil_selection.html" class="tool-reference">Coil Selection Tool</a>
+                            </li>
+                        </ul>
+
+                        <div class="important-note">
+                            <h4>Common Distribution System Mistakes:</h4>
+                            <ul>
+                                <li>Undersizing return air paths (should have minimal pressure drop)</li>
+                                <li>Excessive duct velocities causing noise problems</li>
+                                <li>Not accounting for fitting losses in pressure drop calculations</li>
+                                <li>Poor coordination with structure leading to conflicts</li>
+                                <li>Inadequate insulation thickness</li>
+                                <li>No provision for balancing or commissioning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Control System Design -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">6</span>
+                        <h2 class="step-title">Control System Design</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Design the control strategy and systems to operate the HVAC equipment efficiently while maintaining comfort. Modern building control systems integrate HVAC, lighting, and other systems for optimal performance.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Define control sequences for all equipment</li>
+                                <li>Select control system architecture (DDC, pneumatic, etc.)</li>
+                                <li>Specify sensors, controllers, and actuators</li>
+                                <li>Design zone control strategy</li>
+                                <li>Plan energy management sequences</li>
+                                <li>Integrate with building automation system (BAS)</li>
+                                <li>Design user interfaces and override capabilities</li>
+                            </ul>
+                        </div>
+
+                        <h3>Control System Components:</h3>
+
+                        <h4>Sensors:</h4>
+                        <ul>
+                            <li><strong>Temperature:</strong> Zone thermostats, outdoor air, supply/return air</li>
+                            <li><strong>Humidity:</strong> Space and outdoor relative humidity</li>
+                            <li><strong>Pressure:</strong> Duct static pressure, differential pressure, building pressure</li>
+                            <li><strong>Flow:</strong> Water flow, air flow measurement</li>
+                            <li><strong>Air quality:</strong> CO2, VOC, particulate sensors</li>
+                        </ul>
+
+                        <h4>Controllers:</h4>
+                        <ul>
+                            <li><strong>Zone controllers:</strong> Room temperature/humidity control</li>
+                            <li><strong>Equipment controllers:</strong> AHU, boiler, chiller controllers</li>
+                            <li><strong>Central controllers:</strong> Building automation system head-end</li>
+                        </ul>
+
+                        <h4>Actuators:</h4>
+                        <ul>
+                            <li><strong>Dampers:</strong> Modulating or two-position for airflow control</li>
+                            <li><strong>Valves:</strong> Two-way or three-way for water flow control</li>
+                            <li><strong>VFDs:</strong> Variable frequency drives for fan and pump speed control</li>
+                        </ul>
+
+                        <h3>Common Control Sequences:</h3>
+
+                        <h4>Single Zone System:</h4>
+                        <ul>
+                            <li>Thermostat calls for heating or cooling</li>
+                            <li>Fan operation (continuous or auto)</li>
+                            <li>Economizer operation when outdoor conditions permit</li>
+                            <li>Ventilation air control</li>
+                        </ul>
+
+                        <h4>VAV System:</h4>
+                        <ul>
+                            <li>Static pressure reset based on most-open VAV box</li>
+                            <li>Supply air temperature reset based on zone demands</li>
+                            <li>Economizer with integrated control</li>
+                            <li>Zone VAV boxes modulate to maintain space temperature</li>
+                            <li>Reheat energizes when cooling demand is satisfied</li>
+                        </ul>
+
+                        <h4>Energy Management:</h4>
+                        <ul>
+                            <li>Optimal start/stop for pre-heating/cooling</li>
+                            <li>Night setback/setup temperatures</li>
+                            <li>Demand limiting for peak load management</li>
+                            <li>Free cooling when outdoor conditions allow</li>
+                            <li>Load shedding during high-demand periods</li>
+                        </ul>
+
+                        <div class="reference-box">
+                            <h4>Control Standards:</h4>
+                            <ul>
+                                <li><strong>ASHRAE Guideline 36:</strong> High Performance Sequences of Operation for HVAC Systems</li>
+                                <li><strong>BACnet:</strong> Communication protocol for building automation</li>
+                                <li><strong>ASHRAE 90.1:</strong> Mandatory control requirements for energy compliance</li>
+                            </ul>
+                        </div>
+
+                        <div class="important-note">
+                            <h4>Control System Best Practices:</h4>
+                            <ul>
+                                <li>Use direct digital controls (DDC) for precision and flexibility</li>
+                                <li>Implement reset strategies to save energy (supply air temp, static pressure)</li>
+                                <li>Provide manual overrides for maintenance and troubleshooting</li>
+                                <li>Document sequences of operation clearly</li>
+                                <li>Plan for commissioning and verification of control sequences</li>
+                                <li>Consider cybersecurity for network-connected systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 7: Energy Analysis -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">7</span>
+                        <h2 class="step-title">Energy Analysis & Optimization</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Evaluate the system's energy performance and optimize for efficiency while maintaining comfort and code compliance. Energy analysis helps make informed decisions about equipment and system selections.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Perform annual energy simulation</li>
+                                <li>Compare system alternatives for energy use</li>
+                                <li>Verify compliance with energy codes (ASHRAE 90.1, IECC)</li>
+                                <li>Evaluate energy efficiency measures</li>
+                                <li>Calculate lifecycle costs (first cost + operating costs)</li>
+                                <li>Document energy modeling assumptions</li>
+                                <li>Optimize system for both energy and comfort</li>
+                            </ul>
+                        </div>
+
+                        <h3>Energy Modeling Tools:</h3>
+                        <ul>
+                            <li><strong>DOE-2 / eQuest:</strong> Detailed hourly simulation</li>
+                            <li><strong>EnergyPlus:</strong> Advanced building energy simulation</li>
+                            <li><strong>TRACE:</strong> Commercial software with comprehensive libraries</li>
+                            <li><strong>IES-VE:</strong> Integrated environmental solutions</li>
+                        </ul>
+
+                        <h3>Key Energy Metrics:</h3>
+                        <ul>
+                            <li><strong>EUI (Energy Use Intensity):</strong> kBtu/sq ft/year or kWh/m²/year</li>
+                            <li><strong>Peak demand:</strong> Maximum kW demand for utility sizing</li>
+                            <li><strong>Equipment efficiency:</strong> COP, EER, SEER, AFUE ratings</li>
+                            <li><strong>System efficiency:</strong> Overall plant efficiency including distribution losses</li>
+                        </ul>
+
+                        <h3>Energy Efficiency Strategies:</h3>
+
+                        <h4>Equipment Efficiency:</h4>
+                        <ul>
+                            <li>High-efficiency chillers, boilers, and air handlers</li>
+                            <li>Variable speed drives on fans and pumps</li>
+                            <li>Heat recovery systems (energy recovery ventilators)</li>
+                            <li>Premium efficiency motors</li>
+                        </ul>
+
+                        <h4>System Optimization:</h4>
+                        <ul>
+                            <li>Right-size equipment to avoid oversizing penalties</li>
+                            <li>Economizer operation for free cooling</li>
+                            <li>Demand-controlled ventilation based on occupancy</li>
+                            <li>Temperature and pressure reset strategies</li>
+                            <li>Heat recovery from exhaust air or process equipment</li>
+                        </ul>
+
+                        <h4>Envelope Improvements:</h4>
+                        <ul>
+                            <li>Enhanced insulation beyond code minimum</li>
+                            <li>High-performance windows (low-e, low U-factor)</li>
+                            <li>Reduced infiltration through air sealing</li>
+                            <li>Shading devices for solar control</li>
+                        </ul>
+
+                        <div class="reference-box">
+                            <h4>Energy Code Compliance:</h4>
+                            <ul>
+                                <li><strong>ASHRAE 90.1:</strong> Commercial building energy standard</li>
+                                <li><strong>IECC:</strong> International Energy Conservation Code</li>
+                                <li><strong>Local amendments:</strong> May be more stringent than base codes</li>
+                                <li><strong>Compliance paths:</strong> Prescriptive, performance, or energy cost budget</li>
+                            </ul>
+                        </div>
+
+                        <div class="important-note">
+                            <h4>Optimization Considerations:</h4>
+                            <ul>
+                                <li>Balance first cost with lifecycle cost - sometimes higher efficiency pays back quickly</li>
+                                <li>Consider utility rate structures (demand charges, time-of-use rates)</li>
+                                <li>Document energy savings for incentive programs or green building certifications</li>
+                                <li>Don't sacrifice comfort or indoor air quality for energy savings</li>
+                                <li>Plan for measurement and verification to confirm predicted savings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 8: Documentation -->
+                <div class="guide-section">
+                    <div class="step-header">
+                        <span class="step-number">8</span>
+                        <h2 class="step-title">Documentation & Specifications</h2>
+                    </div>
+
+                    <div class="step-content">
+                        <p>Prepare comprehensive construction documents and specifications that communicate the design intent to contractors and ensure proper installation and operation.</p>
+
+                        <div class="key-activities">
+                            <h4>Key Activities:</h4>
+                            <ul>
+                                <li>Prepare mechanical drawings (plans, sections, details)</li>
+                                <li>Write technical specifications</li>
+                                <li>Create equipment schedules</li>
+                                <li>Document sequences of operation</li>
+                                <li>Prepare basis of design narrative</li>
+                                <li>Create commissioning plan</li>
+                                <li>Coordinate with other disciplines</li>
+                            </ul>
+                        </div>
+
+                        <h3>Drawing Requirements:</h3>
+
+                        <h4>Mechanical Plans:</h4>
+                        <ul>
+                            <li>Equipment locations and dimensions</li>
+                            <li>Ductwork and piping layouts with sizes</li>
+                            <li>Diffuser and grille locations</li>
+                            <li>Control devices and sensor locations</li>
+                            <li>Legend and symbol key</li>
+                            <li>Coordination with architectural and structural elements</li>
+                        </ul>
+
+                        <h4>Sections and Details:</h4>
+                        <ul>
+                            <li>Mechanical room layouts and equipment elevations</li>
+                            <li>Typical duct and pipe penetrations through structure</li>
+                            <li>Equipment mounting details</li>
+                            <li>Vibration isolation details</li>
+                            <li>Insulation requirements</li>
+                        </ul>
+
+                        <h4>Schedules:</h4>
+                        <ul>
+                            <li>Equipment schedules (air handlers, boilers, chillers, etc.)</li>
+                            <li>Pump and fan schedules with performance data</li>
+                            <li>Diffuser and grille schedules</li>
+                            <li>Control device schedules</li>
+                        </ul>
+
+                        <h3>Specification Requirements:</h3>
+
+                        <h4>Division 23 - HVAC (CSI MasterFormat):</h4>
+                        <ul>
+                            <li>23 05 00 - Common Work Results for HVAC</li>
+                            <li>23 07 00 - HVAC Insulation</li>
+                            <li>23 09 00 - Instrumentation and Control for HVAC</li>
+                            <li>23 30 00 - HVAC Air Distribution</li>
+                            <li>23 40 00 - HVAC Air Cleaning Devices</li>
+                            <li>23 50 00 - Central Heating Equipment</li>
+                            <li>23 60 00 - Central Cooling Equipment</li>
+                            <li>23 70 00 - Central HVAC Equipment</li>
+                            <li>23 80 00 - Decentralized HVAC Equipment</li>
+                        </ul>
+
+                        <h4>Specification Content:</h4>
+                        <ul>
+                            <li>Product requirements and acceptable manufacturers</li>
+                            <li>Performance criteria and testing requirements</li>
+                            <li>Installation requirements</li>
+                            <li>Quality assurance and quality control</li>
+                            <li>Warranty requirements</li>
+                            <li>Submittals required (shop drawings, product data, etc.)</li>
+                        </ul>
+
+                        <h3>Additional Documentation:</h3>
+                        <ul>
+                            <li><strong>Basis of Design:</strong> Summary of design criteria, assumptions, and key decisions</li>
+                            <li><strong>Calculation Package:</strong> Load calculations, equipment sizing, duct/pipe sizing</li>
+                            <li><strong>Sequences of Operation:</strong> Detailed control narratives for all systems</li>
+                            <li><strong>Commissioning Plan:</strong> Testing procedures and acceptance criteria</li>
+                            <li><strong>Energy Analysis Report:</strong> Compliance documentation and energy modeling results</li>
+                            <li><strong>O&M Manuals:</strong> Operating and maintenance instructions for building staff</li>
+                        </ul>
+
+                        <div class="important-note">
+                            <h4>Documentation Best Practices:</h4>
+                            <ul>
+                                <li>Use standard symbols and abbreviations (ASHRAE, ASME)</li>
+                                <li>Coordinate thoroughly with architectural, electrical, and plumbing plans</li>
+                                <li>Include clear, detailed notes on drawings to avoid ambiguity</li>
+                                <li>Reference specifications from drawings for complete information</li>
+                                <li>Provide adequate details for proper installation</li>
+                                <li>Include commissioning requirements in specifications</li>
+                                <li>Review and check drawings multiple times before issuing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <div class="guide-section">
+                    <h2>Conclusion</h2>
+                    <p>HVAC system design is a comprehensive process that requires attention to detail at every step. By following this systematic approach - from understanding project requirements through documentation - you can create efficient, reliable systems that provide comfort and meet all code requirements.</p>
+
+                    <h3>Key Takeaways:</h3>
+                    <ul class="checklist">
+                        <li>Follow the proper sequence - each step builds on the previous one</li>
+                        <li>Use industry-standard methods and tools (ASHRAE, ACCA)</li>
+                        <li>Perform detailed calculations rather than relying on rules of thumb</li>
+                        <li>Right-size equipment based on loads, not safety factors</li>
+                        <li>Design for both comfort and energy efficiency</li>
+                        <li>Document the design thoroughly for successful construction</li>
+                        <li>Coordinate with other disciplines throughout the process</li>
+                        <li>Plan for commissioning to verify proper installation and operation</li>
+                    </ul>
+
+                    <h3>Continue Learning:</h3>
+                    <p>Use the tools available on EngrAssist to support your HVAC design work:</p>
+                    <div style="margin-top: 1rem;">
+                        <a href="ductulator.html" class="tool-reference">Duct Sizing Calculator</a>
+                        <a href="pipe_sizing.html" class="tool-reference">Pipe Sizing Calculator</a>
+                        <a href="psychrometric.html" class="tool-reference">Psychrometric Chart</a>
+                        <a href="boiler_calculator.html" class="tool-reference">Boiler Sizing</a>
+                        <a href="chiller_calculator.html" class="tool-reference">Chiller Sizing</a>
+                        <a href="pump_sizing.html" class="tool-reference">Pump Selection</a>
+                        <a href="fan_selection.html" class="tool-reference">Fan Selection</a>
+                        <a href="coil_selection.html" class="tool-reference">Coil Selection</a>
+                        <a href="air_balance.html" class="tool-reference">Air Balance</a>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This guide is provided for educational purposes only and should not replace professional engineering judgment or local code requirements. All HVAC system designs should be prepared by or under the supervision of a licensed professional engineer. Verify all calculations, selections, and designs according to applicable codes and standards. The information presented here is based on industry-standard practices but may not be appropriate for all applications.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

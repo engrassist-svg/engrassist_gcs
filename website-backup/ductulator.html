@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free professional HVAC duct sizing calculator with friction loss calculations. Supports round, rectangular, and oval ducts. Based on ASHRAE standards with roughness reference tables.">
+    <meta name="keywords" content="ductulator, duct sizing, HVAC calculator, friction loss, duct design, ASHRAE, equal friction method, air velocity">
+    <link rel="canonical" href="https://engrassist.com/ductulator.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Professional Ductulator - HVAC Duct Sizing Calculator">
+    <meta property="og:description" content="Free professional HVAC duct sizing calculator with friction loss calculations. Supports round, rectangular, and oval ducts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/ductulator.html">
+    <meta property="og:image" content="https://engrassist.com/images/Ductulator.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Professional Ductulator - HVAC Duct Sizing Calculator">
+    <meta name="twitter:description" content="Free HVAC duct sizing calculator with friction loss calculations based on ASHRAE standards.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Ductulator.png">
+
+    <title>Professional Ductulator - EngrAssist</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+
+    <!-- Structured Data - SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Professional Ductulator",
+      "applicationCategory": "EngineeringApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free professional HVAC duct sizing calculator with friction loss calculations. Supports round, rectangular, and oval ducts based on ASHRAE standards.",
+      "url": "https://engrassist.com/ductulator.html",
+      "screenshot": "https://engrassist.com/images/Ductulator.png",
+      "featureList": [
+        "Duct sizing for given friction rate",
+        "Friction loss calculation",
+        "Airflow rate determination",
+        "Multiple duct shapes: round, rectangular, oval",
+        "Duct roughness material reference tables",
+        "ASHRAE and SMACNA design guidelines"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Professional Duct Sizer</h1>
+            <p class="hero-subtitle">Advanced HVAC duct design calculator for friction loss, sizing, and airflow calculations. Built with professional engineering standards and comprehensive material properties.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Duct Design Calculator</h2>
+                
+                <div class="ductulator-grid">
+                    <!-- Input Panel -->
+                    <div class="input-panel">
+                        <h3 class="subsection-title">Calculation Options</h3>
+                        
+                        <div class="form-group">
+                            <label for="calculation-type">Calculation Type</label>
+                            <select id="calculation-type" onchange="updateInputFields()">
+                                <option value="size-friction">Determine Sizes for Given Friction Rate</option>
+                                <option value="friction-loss">Calculate Friction Loss</option>
+                                <option value="airflow-rate">Determine Airflow Rate for Given Size and Friction</option>
+                                <option value="size-velocity-friction">Determine Sizes for Given Velocity and Friction Rate</option>
+                                <option value="size-velocity">Determine Sizes for Given Velocity</option>
+                                <option value="convert-shape">Convert Duct Shape or Size to Another</option>
+                            </select>
+                        </div>
+
+                        <h3 class="subsection-title">Design Conditions</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calculation-type">Standard Conditions</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="std-yes" name="standard-conditions" value="yes" checked onchange="toggleAdvancedConditions()">
+                                        <label for="std-yes">Yes</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="std-no" name="standard-conditions" value="no" onchange="toggleAdvancedConditions()">
+                                        <label for="std-no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Duct Length Units</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="feet" name="length-units" value="feet" checked>
+                                        <label for="feet">Feet</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="inches" name="length-units" value="inches">
+                                        <label for="inches">Inches</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="length">Length - Optional</label>
+                                <input type="number" id="length" min="0" step="0.1">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="duct-roughness">Duct Roughness (ft)</label>
+                                <input type="number" id="duct-roughness" step="0.000001" value="0.0005" min="0.00001" required>
+                                <small style="color: #7f8c8d; font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+                                    See reference table below for common materials
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="original-shape">Original Duct Shape</label>
+                                <select id="original-shape" onchange="updateShapeFields()">
+                                    <option value="round" selected>Round</option>
+                                    <option value="rectangular">Rectangular</option>
+                                    <option value="oval">Oval</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Dynamic input fields -->
+                        <div id="dynamic-inputs">
+                            <!-- Input fields will be generated here by JavaScript -->
+                        </div>
+                        
+                        <!-- Advanced conditions (hidden by default) -->
+                        <div id="advanced-conditions" style="display: none;">
+                            <h3 class="subsection-title">Advanced Conditions</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="temp">Dry Bulb Temperature (°F)</label>
+                                    <input type="number" id="temp" value="70" step="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="humidity">Relative Humidity (%)</label>
+                                    <input type="number" id="humidity" value="0" min="0" max="100" step="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="elevation">Elevation (ft)</label>
+                                    <input type="number" id="elevation" value="0" step="1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="density">Density (lb/ft³)</label>
+                                    <input type="number" id="density" value="0.075" step="0.001" readonly style="background: #f8f9fa;">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-full" onclick="calculateResults()">Calculate Results</button>
+                        <button class="btn-secondary btn-full" onclick="clearInputs()">Clear All</button>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-panel">
+                        <h3 class="subsection-title">Results</h3>
+                        
+                        <div id="results-container">
+                            <div class="info-box">
+                                <h4>Ready to Calculate</h4>
+                                <p>Enter your duct parameters and click "Calculate Results" to see the HVAC calculations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-section" style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 15px;">
+                    <h2 class="section-title">Duct Material Roughness Reference</h2>
+                    
+                    <p style="color: #7f8c8d; margin-bottom: 2rem;">
+                        Use this table to determine the appropriate roughness value for your duct material. 
+                        Roughness values are based on ASHRAE Fundamentals and affect friction loss calculations.
+                    </p>
+
+                    <div style="overflow-x: auto;">
+                        <table class="reference-table" style="width: 100%; margin: 0 auto;">
+                            <thead>
+                                <tr>
+                                    <th>Roughness Category</th>
+                                    <th>Material</th>
+                                    <th>Roughness (ft)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Smooth Category -->
+                                <tr style="background: #e8f5e9;">
+                                    <td rowspan="3" style="vertical-align: middle; font-weight: 600; color: #27ae60;">Smooth</td>
+                                    <td>PVC Pipe</td>
+                                    <td>0.00015</td>
+                                </tr>
+                                <tr style="background: #e8f5e9;">
+                                    <td>Commercial Steel</td>
+                                    <td>0.00015</td>
+                                </tr>
+                                <tr style="background: #e8f5e9;">
+                                    <td>Aluminum Duct, Round</td>
+                                    <td>0.0002</td>
+                                </tr>
+
+                                <!-- Medium Category -->
+                                <tr style="background: #fff3cd;">
+                                    <td rowspan="3" style="vertical-align: middle; font-weight: 600; color: #f39c12;">Medium</td>
+                                    <td>Galvanized Steel, Round, Longitudinal Seams</td>
+                                    <td>0.00032</td>
+                                </tr>
+                                <tr style="background: #fff3cd;">
+                                    <td>Galvanized Steel, Round, Spiral</td>
+                                    <td>0.0004</td>
+                                </tr>
+                                <tr style="background: #fff3cd;">
+                                    <td>Galvanized Steel, Rectangular</td>
+                                    <td>0.0005</td>
+                                </tr>
+
+                                <!-- Rough Category -->
+                                <tr style="background: #ffeaa7;">
+                                    <td rowspan="4" style="vertical-align: middle; font-weight: 600; color: #e67e22;">Rough</td>
+                                    <td>Flexible Duct, Fabric and Wire, Uncompressed</td>
+                                    <td>0.003</td>
+                                </tr>
+                                <tr style="background: #ffeaa7;">
+                                    <td>Galvanized Steel, Round, Spiral, Corrugated</td>
+                                    <td>0.003</td>
+                                </tr>
+                                <tr style="background: #ffeaa7;">
+                                    <td>Fibrous Glass Duct, Rigid</td>
+                                    <td>0.003</td>
+                                </tr>
+                                <tr style="background: #ffeaa7;">
+                                    <td>Duct Liner, Fibrous Glass, Air Side w/ Facing</td>
+                                    <td>0.005</td>
+                                </tr>
+
+                                <!-- Very Rough Category -->
+                                <tr style="background: #fadbd8;">
+                                    <td rowspan="2" style="vertical-align: middle; font-weight: 600; color: #c0392b;">Very Rough</td>
+                                    <td>Concrete</td>
+                                    <td>0.01</td>
+                                </tr>
+                                <tr style="background: #fadbd8;">
+                                    <td>Duct Liner, Fibrous Glass, Spray Coated</td>
+                                    <td>0.015</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 2rem;">
+                        <h4>📘 Understanding Roughness Categories</h4>
+                        <ul style="margin-left: 2rem; line-height: 1.8;">
+                            <li><strong>Smooth (0.00015-0.0002 ft):</strong> Lowest friction loss, best for long duct runs and energy efficiency</li>
+                            <li><strong>Medium (0.00032-0.0005 ft):</strong> Standard commercial ductwork, good balance of cost and performance</li>
+                            <li><strong>Rough (0.003-0.005 ft):</strong> Higher friction loss, requires more fan power</li>
+                            <li><strong>Very Rough (0.01-0.015 ft):</strong> Highest friction loss, typically avoided in HVAC design when possible</li>
+                        </ul>
+                    </div>
+
+                <!-- ASHRAE and SMACNA Design Guidelines -->
+                <div class="content-section" style="margin-top: 2rem; background: #f8f9fa;">
+                    <h3 class="subsection-title">Design Guidelines & Recommendations</h3>
+                    
+                    <div class="ductulator-grid">
+                        <div class="info-box">
+                            <h4>ASHRAE Design Criteria</h4>
+                            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                                <li><strong>Velocity Limits:</strong> Supply ducts 500-900 fpm, return ducts 500-700 fpm, main ducts up to 1200 fpm</li>
+                                <li><strong>Friction Rate:</strong> Typically 0.0067-0.0125 ft/100 ft for energy efficiency</li>
+                                <li><strong>Aspect Ratio:</strong> Rectangular ducts should not exceed 4:1 (preferably 3:1 or less)</li>
+                                <li><strong>Minimum Sizes:</strong> 6" minimum dimension for supply, 8" for return ducts</li>
+                                <li><strong>Noise Control:</strong> Lower velocities in noise-sensitive areas (400-600 fpm)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>SMACNA Design Considerations</h4>
+                            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                                <li><strong>Pressure Classes:</strong> Select appropriate ductwork pressure class based on system operating pressure</li>
+                                <li><strong>Sealing Requirements:</strong> Consider leakage class requirements (Seal Class A, B, or C)</li>
+                                <li><strong>Support Spacing:</strong> Adequate structural support per SMACNA guidelines</li>
+                                <li><strong>Insulation:</strong> Account for external insulation thickness in space planning</li>
+                                <li><strong>Access:</strong> Provide access doors for cleaning and maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>Additional Considerations:</strong> Always account for pressure losses through fittings, transitions, dampers, and equipment. Total system pressure drop includes ductwork friction plus all components. Consider acoustical requirements, energy efficiency, constructability, and maintenance access in final design.
+                    </div>
+</div>
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Engineering Disclaimer</div>
+                    <div class="disclaimer-text">
+                        <strong>Educational and Preliminary Design Use Only:</strong> This ductulator tool is provided for educational and preliminary design purposes only. 
+                        All calculations and designs must be verified by a licensed professional engineer before implementation.
+                        <br><br>
+                        <strong>Code Compliance:</strong> Users are solely responsible for ensuring compliance with local building codes, mechanical codes, and applicable standards including but not limited to ASHRAE standards, SMACNA guidelines, IMC, UMC, and local amendments. Code requirements vary by jurisdiction and project type.
+                        <br><br>
+                        <strong>Calculation Limitations:</strong> This tool uses standard HVAC engineering formulas and may not account for all site-specific conditions including: elevation effects beyond standard calculations, complex system interactions, equipment-specific pressure drops, fittings and transitions, non-standard operating conditions, or specialized applications.
+                        <br><br>
+                        <strong>Professional Responsibility:</strong> Licensed professional engineers must review, modify, and seal all designs for construction. This tool does not replace engineering judgment, experience, or professional liability insurance requirements.
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
+
+
+
+
+
+
+

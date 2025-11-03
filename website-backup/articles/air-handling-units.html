@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Complete guide to air handling units (AHUs): components, configurations, selection criteria, fan types, coils, filters, and best practices for commercial HVAC systems.">
+    <meta name="keywords" content="air handling unit, AHU, HVAC air handler, built-up air handler, fan coil, makeup air unit, Trane AHU, Carrier air handler, custom AHU">
+    <link rel="canonical" href="https://engrassist.com/articles/air-handling-units.html">
+
+    <title>Air Handling Units (AHUs): Complete Guide - EngrAssist</title>
+
+    <link rel="preload" href="../header.html" as="fetch" crossorigin>
+    <link rel="preload" href="../footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="../styles.css" as="style">
+    <link rel="preload" href="../scripts.js" as="script">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../scripts.js" defer></script>
+
+    <style>
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .article-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #3498db;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            margin: 0;
+            background: white;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .related-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .related-link {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            border-left: 3px solid #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .article-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+</head>
+
+<body>
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="article-hero">
+            <div class="container">
+                <h1>Air Handling Units (AHUs)</h1>
+                <p class="article-meta">Air Distribution Equipment | Commercial HVAC Systems</p>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="article-content">
+                    <div class="toc">
+                        <h3>Table of Contents</h3>
+                        <ul>
+                            <li><a href="#overview">Overview</a></li>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#types">Types of Air Handling Units</a></li>
+                            <li><a href="#components">Key Components</a></li>
+                            <li><a href="#applications">Applications</a></li>
+                            <li><a href="#configurations">Common Configurations</a></li>
+                            <li><a href="#sizing">Sizing Requirements</a></li>
+                            <li><a href="#options">Available Options</a></li>
+                            <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#overlooked">Often Overlooked Considerations</a></li>
+                            <li><a href="#manufacturers">Popular Manufacturers</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="overview">Overview</h2>
+                    <p>Air Handling Units (AHUs) are large assemblies used to condition and circulate air as part of a building's HVAC system. Unlike packaged rooftop units that contain refrigeration equipment, AHUs typically consist of a blower/fan, heating and cooling coils, filters, dampers, and controls housed in a modular metal enclosure. They receive chilled water and hot water from a central plant to provide heating and cooling to building zones.</p>
+
+                    <p>AHUs range from small units serving a single floor (~2,000 CFM) to massive custom-built units serving entire buildings (100,000+ CFM). They offer design flexibility, energy efficiency, and precise control that make them ideal for large commercial buildings, hospitals, laboratories, and other applications requiring sophisticated air handling.</p>
+
+                    <h2 id="how-it-works">How It Works</h2>
+                    <p>Air handling units condition and distribute air through the following process:</p>
+
+                    <div class="info-box">
+                        <h4>The Air Handling Process</h4>
+                        <ol>
+                            <li><strong>Air Intake:</strong> Return air from the building and outdoor air for ventilation enter through dampered intakes</li>
+                            <li><strong>Mixing:</strong> Return and outdoor air mix in proportions controlled by economizer dampers</li>
+                            <li><strong>Filtration:</strong> Mixed air passes through filters (typically MERV 8-16) to remove particulates</li>
+                            <li><strong>Heating/Cooling:</strong> Air flows over chilled water coils (summer) or hot water/steam coils (winter)</li>
+                            <li><strong>Humidification:</strong> Steam or spray humidifiers add moisture if required (winter operation)</li>
+                            <li><strong>Supply Fan:</strong> Pressurizes and distributes conditioned air through ductwork to VAV boxes or diffusers</li>
+                            <li><strong>Return:</strong> Return air comes back to the AHU or exhausts to atmosphere via return fan</li>
+                        </ol>
+                    </div>
+
+                    <h3>Control Sequences</h3>
+                    <p>Modern AHUs employ sophisticated control strategies:</p>
+                    <ul>
+                        <li><strong>Supply Air Temperature Reset:</strong> Adjusts supply temp based on zone demand to minimize energy</li>
+                        <li><strong>Static Pressure Reset:</strong> Reduces fan speed when VAV boxes aren't calling for maximum airflow</li>
+                        <li><strong>Economizer Control:</strong> Maximizes free cooling when outdoor conditions permit</li>
+                        <li><strong>Demand-Controlled Ventilation:</strong> Modulates outdoor air based on CO2 levels or occupancy</li>
+                    </ul>
+
+                    <h2 id="types">Types of Air Handling Units</h2>
+
+                    <h3>1. Draw-Through AHUs</h3>
+                    <p>Fan is located downstream of coils, "pulling" air through the unit.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> More uniform airflow over coils, better coil performance, easier to add humidification</li>
+                        <li><strong>Disadvantages:</strong> Fan operates in conditioned air stream (heat gain), slightly larger footprint</li>
+                        <li><strong>Applications:</strong> Most common configuration, preferred for critical applications</li>
+                    </ul>
+
+                    <h3>2. Blow-Through AHUs</h3>
+                    <p>Fan is located upstream of coils, "pushing" air through the unit.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> More compact, better for high static pressure applications</li>
+                        <li><strong>Disadvantages:</strong> Less uniform airflow over coils, potential for turbulence</li>
+                        <li><strong>Applications:</strong> Space-constrained applications, makeup air units</li>
+                    </ul>
+
+                    <h3>3. Packaged vs. Built-Up</h3>
+                    <p><strong>Packaged (Modular):</strong> Factory-assembled sections that bolt together on site. Standard sizes, faster delivery.</p>
+                    <ul>
+                        <li>Capacity: 1,000 - 50,000 CFM typical</li>
+                        <li>Lower cost, faster installation</li>
+                        <li>Limited customization</li>
+                    </ul>
+
+                    <p><strong>Built-Up (Custom):</strong> Custom-designed and fabricated for specific project requirements.</p>
+                    <ul>
+                        <li>Capacity: Any size, commonly 20,000 - 200,000+ CFM</li>
+                        <li>Fully customizable</li>
+                        <li>Higher cost, longer lead time</li>
+                        <li>Ideal for unique applications (labs, hospitals, industrial)</li>
+                    </ul>
+
+                    <h3>4. Dedicated Outdoor Air Systems (DOAS)</h3>
+                    <p>Specialized AHUs designed to handle 100% outdoor air for ventilation.</p>
+                    <ul>
+                        <li>Often includes energy recovery (ERV) to reduce loads</li>
+                        <li>Can provide neutral, warm, or cool supply air</li>
+                        <li>Works with separate sensible cooling systems</li>
+                        <li>Superior humidity control compared to traditional systems</li>
+                    </ul>
+
+                    <h3>5. Makeup Air Units (MAUs)</h3>
+                    <p>Handle 100% outdoor air for spaces with high exhaust requirements (kitchens, labs, manufacturing).</p>
+                    <ul>
+                        <li>Temper outdoor air to acceptable temperature</li>
+                        <li>Often gas-fired for direct heating</li>
+                        <li>May include energy recovery from exhaust</li>
+                        <li>Typically blow-through configuration</li>
+                    </ul>
+
+                    <h2 id="components">Key Components</h2>
+
+                    <h3>Supply Fan</h3>
+                    <ul>
+                        <li><strong>Centrifugal (Forward-Curved):</strong> Compact, quiet, lower efficiency, common in smaller units</li>
+                        <li><strong>Centrifugal (Backward-Curved/Airfoil):</strong> More efficient, better for larger units, steeper performance curve</li>
+                        <li><strong>Plenum Fan:</strong> Direct-drive, no belts, very reliable, common in modern AHUs</li>
+                        <li><strong>Variable Frequency Drive (VFD):</strong> Standard on units >5,000 CFM, provides energy savings of 30-60%</li>
+                    </ul>
+
+                    <h3>Heating and Cooling Coils</h3>
+                    <p><strong>Chilled Water Coil:</strong></p>
+                    <ul>
+                        <li>Copper tubes with aluminum fins most common</li>
+                        <li>Typically 6-12 rows deep for comfort cooling, 8-16 rows for dehumidification</li>
+                        <li>Face velocity: 400-600 FPM for standard applications</li>
+                        <li>Fin spacing: 8-12 fins per inch (FPI) standard, 6-8 FPI for outdoor air coils</li>
+                    </ul>
+
+                    <p><strong>Heating Coil:</strong></p>
+                    <ul>
+                        <li>Hot water coils: 2-6 rows, 180°F typical</li>
+                        <li>Steam coils: 1-4 rows, non-freeze design critical</li>
+                        <li>Electric heat: Resistance elements, expensive to operate</li>
+                    </ul>
+
+                    <h3>Filters</h3>
+                    <ul>
+                        <li><strong>Pre-Filters (MERV 8-11):</strong> Protect coils, extend final filter life</li>
+                        <li><strong>Final Filters (MERV 13-16):</strong> IAQ improvement, required for many healthcare applications</li>
+                        <li><strong>HEPA Filters (MERV 17-20):</strong> Cleanrooms, surgical suites, pharmaceutical manufacturing</li>
+                        <li>Budget for higher pressure drop with higher MERV ratings</li>
+                    </ul>
+
+                    <h3>Dampers</h3>
+                    <ul>
+                        <li><strong>Outdoor Air Damper:</strong> Modulates outdoor air intake</li>
+                        <li><strong>Return Air Damper:</strong> Modulates return air (works opposite of OA damper)</li>
+                        <li><strong>Relief/Exhaust Damper:</strong> Relieves excess pressure when economizing</li>
+                        <li><strong>Opposed-Blade vs. Parallel-Blade:</strong> Opposed blade for modulating, parallel blade for shutoff</li>
+                    </ul>
+
+                    <h3>Humidifiers (Optional)</h3>
+                    <ul>
+                        <li><strong>Steam Grid:</strong> Most common, very responsive, requires steam source</li>
+                        <li><strong>Electrode Steam Generators:</strong> Generate steam electrically</li>
+                        <li><strong>Ultrasonic:</strong> Efficient, potential for white dust with untreated water</li>
+                        <li>Locate after heating coil to prevent condensation in duct</li>
+                    </ul>
+
+                    <h2 id="applications">Applications</h2>
+                    <ul>
+                        <li><strong>Office Buildings:</strong> Constant volume or VAV systems serving multiple floors</li>
+                        <li><strong>Hospitals:</strong> Critical air handling with HEPA filtration, 100% outdoor air in some areas</li>
+                        <li><strong>Laboratories:</strong> High outdoor air requirements (8-10 ACH minimum), energy recovery</li>
+                        <li><strong>Schools/Universities:</strong> Large air volumes, economizer savings, DCV for variable occupancy</li>
+                        <li><strong>Manufacturing:</strong> Makeup air for process exhaust, specialized filtration</li>
+                        <li><strong>Data Centers:</strong> Precise temperature/humidity control, N+1 redundancy</li>
+                        <li><strong>Clean Rooms:</strong> HEPA filtration, pressure control, very high air change rates</li>
+                    </ul>
+
+                    <h2 id="configurations">Common Configurations</h2>
+
+                    <h3>Single-Zone Constant Volume</h3>
+                    <ul>
+                        <li>Simplest configuration</li>
+                        <li>AHU controls space temperature directly</li>
+                        <li>Best for spaces with uniform loads</li>
+                        <li>Less energy-efficient than VAV</li>
+                    </ul>
+
+                    <h3>Multi-Zone VAV</h3>
+                    <ul>
+                        <li>Most common in modern commercial buildings</li>
+                        <li>AHU supplies constant temperature air</li>
+                        <li>VAV boxes modulate airflow to each zone</li>
+                        <li>Excellent energy efficiency with proper controls</li>
+                    </ul>
+
+                    <h3>Dual-Duct System</h3>
+                    <ul>
+                        <li>AHU supplies both hot and cold air streams</li>
+                        <li>Terminal boxes mix to achieve zone setpoint</li>
+                        <li>Excellent comfort but energy-intensive</li>
+                        <li>Rare in new construction, seen in renovations of older buildings</li>
+                    </ul>
+
+                    <h3>DOAS + Radiant</h3>
+                    <ul>
+                        <li>DOAS handles ventilation and humidity</li>
+                        <li>Radiant panels or chilled beams handle sensible loads</li>
+                        <li>Superior comfort and energy efficiency</li>
+                        <li>Growing in popularity for commercial offices</li>
+                    </ul>
+
+                    <h2 id="sizing">Sizing Requirements</h2>
+
+                    <h3>Information Needed for Proper Sizing</h3>
+                    <div class="spec-table-wrapper">
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Typical Values/Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Airflow</td>
+                                    <td>CFM - from zone-by-zone load calculation</td>
+                                </tr>
+                                <tr>
+                                    <td>Sensible Cooling Load</td>
+                                    <td>BTU/hr or tons - determines coil size</td>
+                                </tr>
+                                <tr>
+                                    <td>Latent Cooling Load</td>
+                                    <td>BTU/hr - impacts coil depth and face velocity</td>
+                                </tr>
+                                <tr>
+                                    <td>Heating Load</td>
+                                    <td>BTU/hr or MBH - determines heating coil size</td>
+                                </tr>
+                                <tr>
+                                    <td>Outdoor Air Requirement</td>
+                                    <td>CFM per ASHRAE 62.1 or local code</td>
+                                </tr>
+                                <tr>
+                                    <td>Supply Air Temperature</td>
+                                    <td>55-65°F typical (55°F standard for VAV)</td>
+                                </tr>
+                                <tr>
+                                    <td>External Static Pressure</td>
+                                    <td>Total system resistance (ductwork + terminals)</td>
+                                </tr>
+                                <tr>
+                                    <td>Filter Efficiency</td>
+                                    <td>MERV rating - affects pressure drop</td>
+                                </tr>
+                                <tr>
+                                    <td>Space Constraints</td>
+                                    <td>Available floor space and ceiling height</td>
+                                </tr>
+                                <tr>
+                                    <td>Sound Requirements</td>
+                                    <td>NC/RC rating for occupied spaces</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Sizing Guidelines</h3>
+                    <ul>
+                        <li><strong>Cooling Coil Face Velocity:</strong> 400-500 FPM for good dehumidification, up to 600 FPM for sensible-only</li>
+                        <li><strong>Filter Face Velocity:</strong> 300-500 FPM depending on filter type and MERV rating</li>
+                        <li><strong>Coil Rows:</strong> 6-8 rows typical for comfort cooling, 10-12 for high latent loads</li>
+                        <li><strong>Fan Speed:</strong> 1,200-1,800 RPM optimal for efficiency and noise</li>
+                        <li><strong>Casing Velocity:</strong> Keep under 800-1,000 FPM to minimize turbulence</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <h4>Example AHU Selection</h4>
+                        <p>Office building floor, 20,000 SF:</p>
+                        <ul>
+                            <li>Calculated airflow: 16,000 CFM (400 CFM per 1,000 SF typical)</li>
+                            <li>Cooling load: 200,000 BTU/hr (16.7 tons)</li>
+                            <li>Outdoor air: 3,200 CFM (20% of total)</li>
+                            <li>External static: 2.5" w.c. (ductwork + VAV boxes)</li>
+                            <li>Select: 16,000 CFM AHU with 6-row CHW coil, 4-row HW coil, MERV 13 filters, 40 HP supply fan with VFD</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="options">Available Options</h2>
+
+                    <h3>Energy Efficiency Features</h3>
+                    <ul>
+                        <li><strong>Energy Recovery Ventilator (ERV):</strong> Recovers 60-80% of energy from exhaust air</li>
+                        <li><strong>VFD on Supply and Return Fans:</strong> 30-60% fan energy savings</li>
+                        <li><strong>Demand-Controlled Ventilation:</strong> CO2 sensors reduce OA during low occupancy</li>
+                        <li><strong>Premium Efficiency Motors:</strong> NEMA Premium or IE3/IE4 standard in modern units</li>
+                        <li><strong>Low-Leakage Construction:</strong> AMCA Class 1 or better to prevent air leakage</li>
+                    </ul>
+
+                    <h3>Filtration Upgrades</h3>
+                    <ul>
+                        <li><strong>MERV 13-16 Filters:</strong> Improved IAQ, captures smaller particles including many viruses</li>
+                        <li><strong>UV-C Lights:</strong> Germicidal treatment of coils and airstream</li>
+                        <li><strong>Photocatalytic Oxidation (PCO):</strong> Advanced air treatment for VOCs</li>
+                        <li><strong>Carbon Filters:</strong> Odor and VOC removal</li>
+                    </ul>
+
+                    <h3>Sound Attenuation</h3>
+                    <ul>
+                        <li><strong>Acoustic Panels:</strong> Installed in mixing and discharge sections</li>
+                        <li><strong>Vibration Isolation:</strong> Spring or neoprene isolators to prevent structure-borne noise</li>
+                        <li><strong>Flexible Connections:</strong> Canvas or neoprene duct connections</li>
+                        <li><strong>Low-Noise Fans:</strong> Oversized fans running at lower speeds</li>
+                    </ul>
+
+                    <h3>Controls and Monitoring</h3>
+                    <ul>
+                        <li><strong>DDC Controls:</strong> Direct digital controls for precise operation</li>
+                        <li><strong>VFD Integration:</strong> Coordinated fan speed with damper position</li>
+                        <li><strong>Differential Pressure Sensors:</strong> Monitor filter loading</li>
+                        <li><strong>Airflow Measuring Stations:</strong> Accurate outdoor air measurement</li>
+                    </ul>
+
+                    <h2 id="best-practices">Best Practices</h2>
+
+                    <h3>Design Phase</h3>
+                    <ul>
+                        <li>Locate AHUs in dedicated mechanical rooms with adequate service access</li>
+                        <li>Size mechanical room for unit removal/replacement (length + 5-10 feet)</li>
+                        <li>Plan for filter replacement access - 36" clearance minimum</li>
+                        <li>Coordinate coil connections with piping routing early</li>
+                        <li>Don't skimp on filtration - higher MERV is worth the cost</li>
+                        <li>Include VFDs from day one - simple payback typically 2-4 years</li>
+                        <li>Consider energy recovery for systems with >40% outdoor air</li>
+                    </ul>
+
+                    <h3>Installation</h3>
+                    <ul>
+                        <li>Level unit properly - critical for drain pan drainage</li>
+                        <li>Install vibration isolation under entire unit</li>
+                        <li>Use flexible duct connections at supply and return</li>
+                        <li>Pipe coils for counter-flow operation (coolest water to coldest air)</li>
+                        <li>Install balancing valves on all coil circuits</li>
+                        <li>Verify condensate drain trap is properly sized and primed</li>
+                        <li>Commission controls thoroughly - economizers often don't work as designed</li>
+                    </ul>
+
+                    <h3>Operation & Maintenance</h3>
+                    <ul>
+                        <li><strong>Filter Replacement:</strong> Monitor differential pressure, replace at design pressure drop</li>
+                        <li><strong>Coil Cleaning:</strong> Clean annually or when airflow drops significantly</li>
+                        <li><strong>Belt Inspection:</strong> Check tension quarterly (belt-drive fans)</li>
+                        <li><strong>Bearing Lubrication:</strong> Per manufacturer schedule, typically semi-annually</li>
+                        <li><strong>Damper Operation:</strong> Verify full open and closed positions quarterly</li>
+                        <li><strong>Economizer Testing:</strong> Test integrated economizer operation seasonally</li>
+                        <li><strong>Condensate Drain:</strong> Clean and flush annually to prevent clogs</li>
+                    </ul>
+
+                    <h2 id="overlooked">Often Overlooked Considerations</h2>
+
+                    <h3>Physical Dimensions and Access</h3>
+                    <p>AHUs are large and require substantial space:</p>
+                    <ul>
+                        <li><strong>15,000 CFM unit:</strong> ~20' L × 7' W × 8' H</li>
+                        <li><strong>50,000 CFM unit:</strong> ~40' L × 10' W × 12' H</li>
+                        <li>Plan mechanical room for unit + 5-10 feet for coil removal</li>
+                        <li>Ensure doorways and corridors allow rigging path</li>
+                        <li>Provide permanent access for filter changes (many units have walk-in sections)</li>
+                    </ul>
+
+                    <h3>Static Pressure Budget</h3>
+                    <p>Account for all pressure drops in system design:</p>
+                    <ul>
+                        <li><strong>Filters:</strong> 0.3-1.0" w.c. (increases as filters load)</li>
+                        <li><strong>Coils:</strong> 0.2-0.8" w.c. each</li>
+                        <li><strong>Dampers:</strong> 0.1-0.3" w.c.</li>
+                        <li><strong>Internal AHU losses:</strong> 0.3-0.5" w.c.</li>
+                        <li><strong>Ductwork + terminals:</strong> Varies, commonly 1.5-3.0" w.c.</li>
+                        <li><strong>Total:</strong> 3-6" w.c. typical for VAV systems</li>
+                    </ul>
+
+                    <h3>Condensate Disposal</h3>
+                    <ul>
+                        <li>Cooling coils produce condensate - plan for drainage</li>
+                        <li>Trap must be deep enough to overcome unit pressure (1" trap per 1" w.c. negative pressure)</li>
+                        <li>Provide condensate pump if gravity drainage isn't possible</li>
+                        <li>Include overflow switch to prevent damage from clogged drains</li>
+                        <li>Route to sanitary drain, not storm (many jurisdictions)</li>
+                    </ul>
+
+                    <h3>Typical Pricing (2024)</h3>
+                    <ul>
+                        <li><strong>5,000 CFM Packaged:</strong> $15,000-25,000</li>
+                        <li><strong>15,000 CFM Packaged:</strong> $40,000-70,000</li>
+                        <li><strong>30,000 CFM Built-Up:</strong> $100,000-180,000</li>
+                        <li><strong>100,000 CFM Custom:</strong> $400,000-700,000+</li>
+                        <li><strong>Add for ERV:</strong> 30-50% premium</li>
+                        <li><strong>Add for HEPA filtration:</strong> 20-40% premium</li>
+                    </ul>
+                    <p><em>Installation costs typically equal or exceed equipment cost. Budget 2-4% of capital cost annually for maintenance.</em></p>
+
+                    <h3>Energy Costs</h3>
+                    <p>Fan energy is often underestimated:</p>
+                    <ul>
+                        <li>15,000 CFM at 3" static = ~22 HP = 16 kW continuous</li>
+                        <li>6,000 hours/year operation × $0.12/kWh = $11,500/year</li>
+                        <li>VFD reduces average to 40-50% speed = 10-15% of full power = $1,000-1,500/year savings</li>
+                        <li>Simple payback on VFD typically 2-3 years</li>
+                    </ul>
+
+                    <h2 id="manufacturers">Popular Manufacturers and Brands</h2>
+
+                    <div class="manufacturer-grid">
+                        <div class="manufacturer-card">
+                            <h4>Trane</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Climate Changer® air handlers</li>
+                                <li>Wide range of standard and custom units</li>
+                                <li>Strong engineering support</li>
+                            </ul>
+                            <p><a href="https://www.trane.com" target="_blank">trane.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Carrier</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Comfort™ series AHUs</li>
+                                <li>Modular and built-up options</li>
+                                <li>Extensive customization</li>
+                            </ul>
+                            <p><a href="https://www.carrier.com" target="_blank">carrier.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Daikin (AAF / McQuay)</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Templifier modular AHUs</li>
+                                <li>Vision built-up systems</li>
+                                <li>Innovation in controls</li>
+                            </ul>
+                            <p><a href="https://www.daikinapplied.com" target="_blank">daikinapplied.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Johnson Controls (York)</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>D-Series modular AHUs</li>
+                                <li>Custom built-up capabilities</li>
+                                <li>Integrated building controls</li>
+                            </ul>
+                            <p><a href="https://www.johnsoncontrols.com" target="_blank">johnsoncontrols.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Greenheck</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Energy Recovery products</li>
+                                <li>DOAS specialists</li>
+                                <li>Makeup air units</li>
+                            </ul>
+                            <p><a href="https://www.greenheck.com" target="_blank">greenheck.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Price Industries</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Modular AHU systems</li>
+                                <li>DOAS and ERV focus</li>
+                                <li>Compact designs</li>
+                            </ul>
+                            <p><a href="https://www.priceindustries.com" target="_blank">priceindustries.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>Related Articles</h3>
+                        <div class="related-links">
+                            <a href="vav-boxes.html">VAV Boxes</a>
+                            <a href="variable-frequency-drives.html">Variable Frequency Drives</a>
+                            <a href="water-cooled-chillers.html">Water-Cooled Chillers</a>
+                            <a href="../fan_selection.html">Fan Selection Tool</a>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin: 3rem 0;">
+                        <a href="../articles.html" class="btn">← Back to All Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

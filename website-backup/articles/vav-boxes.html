@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Complete guide to VAV boxes (Variable Air Volume terminal units): types, controls, sizing, reheat options, troubleshooting, and best practices for commercial HVAC systems.">
+    <meta name="keywords" content="VAV box, variable air volume, terminal unit, VAV reheat, pressure dependent VAV, pressure independent VAV, Titus VAV, Nailor, Price VAV">
+    <link rel="canonical" href="https://engrassist.com/articles/vav-boxes.html">
+
+    <title>VAV Boxes: Complete Guide - EngrAssist</title>
+
+    <link rel="preload" href="../header.html" as="fetch" crossorigin>
+    <link rel="preload" href="../footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="../styles.css" as="style">
+    <link rel="preload" href="../scripts.js" as="script">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../scripts.js" defer></script>
+
+    <style>
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, #16a085, #138d75);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .article-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #16a085;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #16a085;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8ff);
+            border-left: 4px solid #27ae60;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            margin: 0;
+            background: white;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #16a085, #138d75);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .related-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .related-link {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            border-left: 3px solid #16a085;
+        }
+
+        @media (max-width: 768px) {
+            .article-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+</head>
+
+<body>
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="article-hero">
+            <div class="container">
+                <h1>VAV Boxes</h1>
+                <p class="article-meta">Terminal Units | Air Distribution Equipment</p>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="article-content">
+                    <div class="toc">
+                        <h3>Table of Contents</h3>
+                        <ul>
+                            <li><a href="#overview">Overview</a></li>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#types">Types of VAV Boxes</a></li>
+                            <li><a href="#controls">Control Types</a></li>
+                            <li><a href="#applications">Applications</a></li>
+                            <li><a href="#sizing">Sizing Requirements</a></li>
+                            <li><a href="#options">Available Options</a></li>
+                            <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#troubleshooting">Troubleshooting</a></li>
+                            <li><a href="#overlooked">Often Overlooked Considerations</a></li>
+                            <li><a href="#manufacturers">Popular Manufacturers</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="overview">Overview</h2>
+                    <p>Variable Air Volume (VAV) boxes, also called VAV terminal units or VAV dampers, are zone-level air distribution devices that regulate airflow to maintain comfortable conditions in individual spaces. They are the workhorses of modern commercial HVAC systems, providing independent temperature control for each zone while allowing the central air handling unit to operate more efficiently by reducing airflow during part-load conditions.</p>
+
+                    <p>A typical VAV system might have dozens or even hundreds of VAV boxes, each serving a single zone (conference room, private office, open office area, etc.). Together, they create a flexible, energy-efficient HVAC system that adapts to changing loads throughout the building.</p>
+
+                    <h2 id="how-it-works">How It Works</h2>
+                    <p>VAV boxes receive constant-temperature supply air (typically 55°F) from the central AHU and modulate the airflow to each zone based on cooling demand:</p>
+
+                    <div class="info-box">
+                        <h4>Basic VAV Operation</h4>
+                        <ol>
+                            <li><strong>Cooling Mode:</strong> Zone thermostat calls for cooling → VAV box damper opens → More cold air flows into space → Space cools down</li>
+                            <li><strong>Satisfied:</strong> Zone reaches setpoint → Damper modulates to minimum position → Minimum airflow maintains ventilation</li>
+                            <li><strong>Heating Mode (with Reheat):</strong> Zone calls for heat → Damper goes to minimum → Reheat coil activates → Warm air delivered to space</li>
+                        </ol>
+                    </div>
+
+                    <h3>System Interaction</h3>
+                    <p>VAV boxes work in concert with the AHU:</p>
+                    <ul>
+                        <li>As VAV boxes close, duct static pressure increases</li>
+                        <li>Static pressure sensor signals AHU to slow supply fan (via VFD)</li>
+                        <li>Fan energy reduces proportionally to cube of speed reduction</li>
+                        <li>Result: Significant energy savings compared to constant volume systems (30-50% fan energy reduction typical)</li>
+                    </ul>
+
+                    <h2 id="types">Types of VAV Boxes</h2>
+
+                    <h3>1. Cooling-Only (Single-Duct)</h3>
+                    <p>Most basic type - provides cooling only, no heating capability.</p>
+                    <ul>
+                        <li><strong>Use:</strong> Interior zones with consistent cooling loads, mild climates</li>
+                        <li><strong>Operation:</strong> Modulates from minimum (ventilation) to maximum (cooling) airflow</li>
+                        <li><strong>Cost:</strong> Lowest first cost</li>
+                        <li><strong>Typical Min/Max:</strong> 30% minimum, 100% maximum</li>
+                    </ul>
+
+                    <h3>2. VAV Reheat (Hot Water)</h3>
+                    <p>Includes hot water heating coil downstream of damper for heating mode.</p>
+                    <ul>
+                        <li><strong>Use:</strong> Perimeter zones, spaces requiring year-round temperature control</li>
+                        <li><strong>Operation:</strong> Damper to minimum, then reheat coil activates for heating</li>
+                        <li><strong>Cost:</strong> Mid-range, requires hot water piping to each box</li>
+                        <li><strong>Typical Coil:</strong> 1-2 rows, 180°F hot water</li>
+                    </ul>
+
+                    <h3>3. VAV Reheat (Electric)</h3>
+                    <p>Uses electric resistance heating elements instead of hot water coil.</p>
+                    <ul>
+                        <li><strong>Use:</strong> When hot water isn't available, small heating loads</li>
+                        <li><strong>Advantages:</strong> No piping required, simple installation, precise control</li>
+                        <li><strong>Disadvantages:</strong> Expensive to operate, high electrical demand</li>
+                        <li><strong>Typical Capacity:</strong> 1-20 kW</li>
+                    </ul>
+
+                    <h3>4. Series Fan-Powered VAV</h3>
+                    <p>Includes small fan that runs continuously, mixes return plenum air with primary air.</p>
+                    <ul>
+                        <li><strong>Use:</strong> Perimeter zones, long duct runs, better air distribution</li>
+                        <li><strong>Operation:</strong> Fan runs continuously; as primary damper closes, fan draws more return air</li>
+                        <li><strong>Advantages:</strong> Better air circulation, reduced primary air requirements</li>
+                        <li><strong>Disadvantages:</strong> Fan energy, noise, more maintenance</li>
+                    </ul>
+
+                    <h3>5. Parallel Fan-Powered VAV</h3>
+                    <p>Fan operates only during heating mode or when primary airflow is insufficient.</p>
+                    <ul>
+                        <li><strong>Use:</strong> When continuous fan operation isn't needed</li>
+                        <li><strong>Operation:</strong> Primary air during cooling; fan + reheat during heating</li>
+                        <li><strong>Advantages:</strong> Lower fan energy than series, maintains air circulation during heating</li>
+                        <li><strong>Disadvantages:</strong> More complex controls</li>
+                    </ul>
+
+                    <h3>6. Dual-Duct VAV</h3>
+                    <p>Two dampers mix hot and cold air streams to achieve setpoint.</p>
+                    <ul>
+                        <li><strong>Use:</strong> Existing dual-duct systems, spaces requiring immediate mode changes</li>
+                        <li><strong>Operation:</strong> Modulates hot and cold dampers to mix air to desired temperature</li>
+                        <li><strong>Disadvantages:</strong> Energy-intensive, rare in new construction</li>
+                    </ul>
+
+                    <h2 id="controls">Control Types</h2>
+
+                    <h3>Pressure Dependent (Mechanical)</h3>
+                    <p>Damper position directly controlled by thermostat - airflow varies with duct pressure.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Simple, low cost, reliable</li>
+                        <li><strong>Disadvantages:</strong> Airflow not precisely controlled, affected by system pressure changes</li>
+                        <li><strong>Use:</strong> Small systems, low-budget projects, simple applications</li>
+                    </ul>
+
+                    <h3>Pressure Independent (DDC)</h3>
+                    <p>Measures actual airflow and modulates damper to maintain setpoint regardless of pressure.</p>
+                    <ul>
+                        <li><strong>Advantages:</strong> Precise airflow control, better comfort, easier balancing</li>
+                        <li><strong>Disadvantages:</strong> Higher cost, requires airflow sensor and controller</li>
+                        <li><strong>Use:</strong> Most modern commercial buildings, critical applications</li>
+                        <li><strong>Note:</strong> Now standard on most projects</li>
+                    </ul>
+
+                    <h3>BMS Integration</h3>
+                    <p>Modern VAV boxes communicate with Building Management Systems:</p>
+                    <ul>
+                        <li><strong>Protocols:</strong> BACnet, Modbus, LonWorks</li>
+                        <li><strong>Points Monitored:</strong> Airflow, temperature, damper position, reheat output</li>
+                        <li><strong>Benefits:</strong> Remote monitoring, trend logging, fault detection, optimization</li>
+                    </ul>
+
+                    <h2 id="applications">Applications</h2>
+                    <ul>
+                        <li><strong>Office Buildings:</strong> Individual offices, conference rooms, open areas - ideal application</li>
+                        <li><strong>Schools:</strong> Classrooms, libraries, administrative areas</li>
+                        <li><strong>Hospitals:</strong> Patient rooms, offices, administrative (not critical care areas)</li>
+                        <li><strong>Retail:</strong> Individual shops in mall, different departments in department store</li>
+                        <li><strong>Hotels:</strong> Meeting rooms, back-of-house areas (guest rooms typically use FCUs or PTACs)</li>
+                        <li><strong>Laboratories:</strong> Office areas, non-critical lab spaces</li>
+                    </ul>
+
+                    <h2 id="sizing">Sizing Requirements</h2>
+
+                    <h3>Information Needed for Proper Sizing</h3>
+                    <div class="spec-table-wrapper">
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Typical Values/Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Zone Cooling Load</td>
+                                <td>BTU/hr or CFM from load calculation</td>
+                            </tr>
+                            <tr>
+                                <td>Zone Heating Load</td>
+                                <td>BTU/hr (if reheat equipped)</td>
+                            </tr>
+                            <tr>
+                                <td>Minimum Airflow</td>
+                                <td>CFM for ventilation per ASHRAE 62.1</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Airflow</td>
+                                <td>CFM for peak cooling (typically 1 CFM per SF for offices)</td>
+                            </tr>
+                            <tr>
+                                <td>Supply Air Temperature</td>
+                                <td>Typically 55°F from AHU</td>
+                            </tr>
+                            <tr>
+                                <td>Inlet Static Pressure</td>
+                                <td>Available pressure at box inlet (0.5-2.0" w.c. typical)</td>
+                            </tr>
+                            <tr>
+                                <td>Sound Requirements</td>
+                                <td>NC rating for space (NC 35-40 typical offices)</td>
+                            </tr>
+                            <tr>
+                                <td>Duct Size</td>
+                                <td>Round or rectangular dimensions</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <h3>Sizing Guidelines</h3>
+                    <ul>
+                        <li><strong>Maximum CFM:</strong> Size for calculated cooling load, don't just use area × 1 CFM/SF</li>
+                        <li><strong>Minimum CFM:</strong> Greater of:
+                            <ul>
+                                <li>Ventilation requirement per ASHRAE 62.1</li>
+                                <li>30% of maximum for air circulation</li>
+                                <li>Minimum needed to maintain duct velocity (prevent stratification)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Turndown Ratio:</strong> Typical 3:1 to 5:1 (300-500 CFM max = 100 CFM min)</li>
+                        <li><strong>Sizing Tip:</strong> Don't oversize! Oversized boxes have poor control at low loads</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <h4>Example VAV Box Selection</h4>
+                        <p>Private office, 150 SF:</p>
+                        <ul>
+                            <li>Cooling load: 1,500 BTU/hr</li>
+                            <li>Max CFM: 1,500 BTU/hr ÷ (1.08 × 20°F ΔT) = 69 CFM</li>
+                            <li>Ventilation requirement: 150 SF × 0.06 CFM/SF = 9 CFM (very low for office)</li>
+                            <li>Min CFM: 69 × 0.30 = 21 CFM (use 30% rule)</li>
+                            <li>Select: 70 CFM max VAV with HW reheat, 21 CFM minimum</li>
+                            <li>Reheat coil: 150 SF × 35 BTU/hr/SF = 5,250 BTU/hr = select 1-row HW coil @ 180°F</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="options">Available Options</h2>
+
+                    <h3>Damper Options</h3>
+                    <ul>
+                        <li><strong>Single-Blade:</strong> Standard, economical</li>
+                        <li><strong>Opposed-Blade:</strong> Better control at partial loads, more expensive</li>
+                        <li><strong>Round vs. Rectangular:</strong> Round more common, rectangular for tight ceiling spaces</li>
+                    </ul>
+
+                    <h3>Control Options</h3>
+                    <ul>
+                        <li><strong>Airflow Sensor Type:</strong> Hot wire, differential pressure, averaging pitot</li>
+                        <li><strong>Actuator:</strong> Electric (24V, 120V) or pneumatic (increasingly rare)</li>
+                        <li><strong>Controller Features:</strong> Occupancy override, CO2-based DCV, scheduling</li>
+                    </ul>
+
+                    <h3>Reheat Options</h3>
+                    <ul>
+                        <li><strong>Hot Water Coil:</strong> 1-2 rows, various capacities</li>
+                        <li><strong>Electric Heat:</strong> Staged (multiple elements) or SCR modulating</li>
+                        <li><strong>No Reheat:</strong> Cooling-only applications</li>
+                    </ul>
+
+                    <h3>Sound Attenuation</h3>
+                    <ul>
+                        <li><strong>Acoustic Liner:</strong> Reduces generated noise by 5-10 NC</li>
+                        <li><strong>Flex Duct:</strong> 3-6 feet of flex from box to diffuser helps reduce noise transmission</li>
+                        <li><strong>Discharge Silencer:</strong> For very noise-sensitive spaces</li>
+                    </ul>
+
+                    <h2 id="best-practices">Best Practices</h2>
+
+                    <h3>Design Phase</h3>
+                    <ul>
+                        <li>Size VAV boxes based on actual load calculations, not rules of thumb</li>
+                        <li>Specify pressure-independent controls for all but the simplest systems</li>
+                        <li>Locate boxes in accessible ceiling spaces - NOT above inaccessible areas</li>
+                        <li>Avoid locating boxes directly above occupied workstations (noise)</li>
+                        <li>Specify acoustic liner for boxes serving noise-sensitive spaces (conference rooms, private offices)</li>
+                        <li>Don't forget to size reheat for actual heating load, not just "throw in a coil"</li>
+                        <li>Plan for ceiling access panels at each VAV box for service</li>
+                    </ul>
+
+                    <h3>Installation</h3>
+                    <ul>
+                        <li>Install box level and support from structure (not ductwork)</li>
+                        <li>Follow manufacturer's straight duct requirements (typically 3-5 diameters upstream)</li>
+                        <li>Use flex duct connections to prevent vibration transmission</li>
+                        <li>Wire controls before installing ceiling - easier access</li>
+                        <li>Label each box clearly with zone number/name</li>
+                        <li>Commission each box individually - verify min/max flows</li>
+                    </ul>
+
+                    <h3>Commissioning</h3>
+                    <ul>
+                        <li>Calibrate airflow sensors per manufacturer instructions</li>
+                        <li>Verify minimum and maximum airflow setpoints</li>
+                        <li>Test full heating and cooling sequences</li>
+                        <li>Verify static pressure control with VAV boxes modulating</li>
+                        <li>Check sound levels in occupied spaces</li>
+                        <li>Train operators on system operation and troubleshooting</li>
+                    </ul>
+
+                    <h3>Maintenance</h3>
+                    <ul>
+                        <li><strong>Quarterly:</strong> Verify operation, check for stuck dampers</li>
+                        <li><strong>Annually:</strong> Clean airflow sensors, calibrate if needed</li>
+                        <li><strong>Every 2-3 Years:</strong> Replace filters on fan-powered boxes</li>
+                        <li><strong>As Needed:</strong> Lubricate damper bearings (older units)</li>
+                    </ul>
+
+                    <h2 id="troubleshooting">Common Problems and Solutions</h2>
+
+                    <h3>Zone Too Cold</h3>
+                    <ul>
+                        <li><strong>Possible Causes:</strong> Minimum airflow set too high, damper stuck open, supply air too cold, reheat not working</li>
+                        <li><strong>Check:</strong> Actual airflow vs. setpoint, damper position, reheat output</li>
+                        <li><strong>Solution:</strong> Adjust minimum flow, repair damper, check reheat valve/element</li>
+                    </ul>
+
+                    <h3>Zone Too Warm</h3>
+                    <ul>
+                        <li><strong>Possible Causes:</strong> Damper stuck closed, maximum flow too low, airflow sensor miscalibrated, supply air not cold enough</li>
+                        <li><strong>Check:</strong> Damper position at full demand, actual vs. displayed airflow</li>
+                        <li><strong>Solution:</strong> Free stuck damper, recalibrate sensor, increase max flow if undersized</li>
+                    </ul>
+
+                    <h3>Poor Air Circulation</h3>
+                    <ul>
+                        <li><strong>Possible Causes:</strong> Minimum flow too low, diffusers poorly located, return air short-circuiting</li>
+                        <li><strong>Check:</strong> Airflow at minimum, air pattern in space</li>
+                        <li><strong>Solution:</strong> Increase minimum flow (within code limits), relocate diffusers, adjust return grilles</li>
+                    </ul>
+
+                    <h3>Noisy Operation</h3>
+                    <ul>
+                        <li><strong>Possible Causes:</strong> Excessive inlet pressure, damper flutter, fan noise (fan-powered boxes)</li>
+                        <li><strong>Check:</strong> Inlet static pressure, damper position cycling</li>
+                        <li><strong>Solution:</strong> Add acoustic liner, increase minimum position to prevent flutter, balance system static</li>
+                    </ul>
+
+                    <h2 id="overlooked">Often Overlooked Considerations</h2>
+
+                    <h3>Access for Service</h3>
+                    <ul>
+                        <li>VAV boxes require periodic service (filter changes on FP boxes, sensor calibration)</li>
+                        <li>Provide ceiling access panels within 10 feet of each box</li>
+                        <li>Don't install above hard ceilings or in inaccessible soffits</li>
+                        <li>Consider catwalks or walkable ceiling grid for large installations</li>
+                    </ul>
+
+                    <h3>Minimum Flow and Ventilation</h3>
+                    <ul>
+                        <li>Energy codes and ASHRAE 62.1 have strict requirements</li>
+                        <li>Can't just set minimum to 0% - need adequate ventilation air</li>
+                        <li>Some boxes may run at minimum most of the time (interior zones)</li>
+                        <li>Consider DOAS for high-ventilation applications to reduce reheat energy</li>
+                    </ul>
+
+                    <h3>Acoustics</h3>
+                    <ul>
+                        <li>VAV boxes generate noise from damper and fan (FP boxes)</li>
+                        <li>Noise increases at high inlet pressures and partially-closed dampers</li>
+                        <li>Specify acoustic liner for noise-sensitive areas (private offices, conference rooms)</li>
+                        <li>Use flex duct from box to diffuser to attenuate breakout noise</li>
+                    </ul>
+
+                    <h3>Typical Pricing (2024)</h3>
+                    <ul>
+                        <li><strong>Cooling-Only (pressure-independent):</strong> $400-800</li>
+                        <li><strong>HW Reheat:</strong> $600-1,200</li>
+                        <li><strong>Electric Reheat:</strong> $700-1,400</li>
+                        <li><strong>Series Fan-Powered with HW Reheat:</strong> $1,200-2,000</li>
+                        <li><strong>Parallel Fan-Powered with HW Reheat:</strong> $1,100-1,800</li>
+                        <li><strong>Dual-Duct:</strong> $900-1,600</li>
+                    </ul>
+                    <p><em>Prices vary significantly with size and options. Installation labor typically equals equipment cost.</em></p>
+
+                    <h3>Energy Impact</h3>
+                    <p>VAV systems save significant energy compared to constant volume:</p>
+                    <ul>
+                        <li>Fan energy reduction: 30-50% (due to reduced airflow and static pressure)</li>
+                        <li>Cooling energy reduction: 10-20% (less overcooling of zones)</li>
+                        <li>However: Simultaneous heating and cooling (reheat) wastes energy</li>
+                        <li>Solution: Reset supply air temperature up as loads decrease to minimize reheat</li>
+                    </ul>
+
+                    <h2 id="manufacturers">Popular Manufacturers and Brands</h2>
+
+                    <div class="manufacturer-grid">
+                        <div class="manufacturer-card">
+                            <h4>Titus HVAC</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>RL Series VAV boxes</li>
+                                <li>Fan-powered terminals</li>
+                                <li>Wide product range</li>
+                            </ul>
+                            <p><a href="https://www.titus-hvac.com" target="_blank">titus-hvac.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Price Industries</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Proton Series VAV</li>
+                                <li>Industry-leading controls</li>
+                                <li>Focus on performance</li>
+                            </ul>
+                            <p><a href="https://www.priceindustries.com" target="_blank">priceindustries.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Nailor Industries</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Revolution VAV series</li>
+                                <li>Reliable performers</li>
+                                <li>Competitive pricing</li>
+                            </ul>
+                            <p><a href="https://www.nailor.com" target="_blank">nailor.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Krueger</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>KVD Series VAV</li>
+                                <li>Modular construction</li>
+                                <li>Custom capabilities</li>
+                            </ul>
+                            <p><a href="https://www.krueger-hvac.com" target="_blank">krueger-hvac.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Metal Industries</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>Varizone VAV terminals</li>
+                                <li>Strong in West/Southwest US</li>
+                                <li>Quality construction</li>
+                            </ul>
+                            <p><a href="https://www.metalindustries.com" target="_blank">metalindustries.com</a></p>
+                        </div>
+
+                        <div class="manufacturer-card">
+                            <h4>Trox USA</h4>
+                            <p><strong>Notable Products:</strong></p>
+                            <ul>
+                                <li>TVR pressure-independent VAV</li>
+                                <li>European engineering</li>
+                                <li>Premium quality</li>
+                            </ul>
+                            <p><a href="https://www.troxusa.com" target="_blank">troxusa.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>Related Articles</h3>
+                        <div class="related-links">
+                            <a href="air-handling-units.html">Air Handling Units</a>
+                            <a href="rooftop-units.html">Rooftop Units</a>
+                            <a href="variable-frequency-drives.html">Variable Frequency Drives</a>
+                            <a href="../ductulator.html">Duct Sizing Calculator</a>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin: 3rem 0;">
+                        <a href="../articles.html" class="btn">← Back to All Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

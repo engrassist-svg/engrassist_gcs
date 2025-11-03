@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free interactive psychrometric chart for HVAC air property analysis. Calculate humidity ratio, enthalpy, wet bulb, dew point, and specific volume with elevation support.">
+    <meta name="keywords" content="psychrometric chart, HVAC, air properties, humidity, enthalpy, wet bulb, dew point, ASHRAE, psychrometrics">
+    <link rel="canonical" href="https://engrassist.com/psychrometric.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Interactive Psychrometric Chart - HVAC Air Analysis">
+    <meta property="og:description" content="Free interactive psychrometric chart for HVAC air property analysis with elevation support.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/psychrometric.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Interactive Psychrometric Chart - HVAC Air Analysis">
+    <meta name="twitter:description" content="Free interactive psychrometric chart for HVAC air property analysis.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Interactive Psychrometric Chart - EngrAssist</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Interactive Psychrometric Chart</h1>
+                <p class="hero-subtitle">Professional HVAC psychrometric analysis tool with interactive charting, precise calculations, and data export capabilities</p>
+            </div>
+        </section>
+
+        <!-- Chart Controls -->
+        <section class="content-section">
+            <div class="container">
+                <div class="psych-controls-bar">
+                    <div class="control-group">
+                        <label for="elevationSelect">Elevation:</label>
+                        <select id="elevationSelect" onchange="switchElevation()">
+                            <option value="sealevel">Sea Level (29.921 inHg)</option>
+                            <option value="5000ft">5,000 ft (24.896 inHg)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="inputMode">Input Mode:</label>
+                        <select id="inputMode" onchange="switchInputMode()">
+                            <option value="click">Click on Chart</option>
+                            <option value="manual">Manual Entry</option>
+                        </select>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn-psych" onclick="toggleConnectMode()">
+                            <span id="connectModeText">Connect Mode: OFF</span>
+                        </button>
+                        <button class="btn-psych-secondary" onclick="clearAllPoints()">Clear All Points</button>
+                        <button class="btn-psych-export" onclick="exportData()">Export Data</button>
+                    </div>
+                </div>
+
+                <!-- Manual Input Panel (Hidden by default) -->
+                <div id="manualInputPanel" class="manual-input-panel" style="display: none;">
+                    <h3>Manual Point Entry</h3>
+                    <div class="manual-input-grid">
+                        <div class="input-selector">
+                            <label>Select Two Variables:</label>
+                            <div class="variable-checkboxes">
+                                <label><input type="checkbox" name="var1" value="db" onchange="selectVariable(this)"> Dry Bulb (°F)</label>
+                                <label><input type="checkbox" name="var1" value="wb" onchange="selectVariable(this)"> Wet Bulb (°F)</label>
+                                <label><input type="checkbox" name="var1" value="rh" onchange="selectVariable(this)"> Relative Humidity (%)</label>
+                                <label><input type="checkbox" name="var1" value="dp" onchange="selectVariable(this)"> Dew Point (°F)</label>
+                                <label><input type="checkbox" name="var1" value="w" onchange="selectVariable(this)"> Humidity Ratio</label>
+                                <label><input type="checkbox" name="var1" value="h" onchange="selectVariable(this)"> Enthalpy (BTU/lb)</label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-values">
+                            <div class="form-group">
+                                <label for="manualVar1">Variable 1:</label>
+                                <input type="number" id="manualVar1" step="0.01" disabled>
+                                <span id="var1Label">-</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="manualVar2">Variable 2:</label>
+                                <input type="number" id="manualVar2" step="0.01" disabled>
+                                <span id="var2Label">-</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pointLabel">Point Label:</label>
+                                <input type="text" id="pointLabel" maxlength="3" placeholder="A">
+                            </div>
+                            <button class="btn-psych" onclick="addManualPoint()">Add Point</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Display -->
+                <div class="psych-chart-container">
+                    <div class="chart-wrapper">
+                        <svg id="psychChart" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet">
+                            <!-- Chart will be drawn here by JavaScript -->
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="psych-results-panel">
+                    <h3>Point Properties</h3>
+                    <div id="resultsTable" class="results-table">
+                        <p class="info-text">Click on the chart or use manual entry to add points. Up to 12 points can be added.</p>
+                    </div>
+                </div>
+
+                <!-- Points List -->
+                <div class="psych-points-list">
+                    <h3>Active Points (<span id="pointCount">0</span>/12)</h3>
+                    <div id="pointsList" class="points-grid">
+                        <p class="info-text">No points added yet</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <section class="content-section" style="background: #f8f9fa;">
+            <div class="container">
+                <h2 class="section-title">How to Use This Tool</h2>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">🖱️</div>
+                        <h4>Click Mode</h4>
+                        <p>Click anywhere on the chart to place a point. The tool will calculate all psychrometric properties automatically.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">⌨️</div>
+                        <h4>Manual Entry</h4>
+                        <p>Select any two variables and enter their values. The tool will calculate the remaining properties and plot the point.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">🔗</div>
+                        <h4>Connect Points</h4>
+                        <p>Enable connect mode to draw lines between points. Useful for visualizing HVAC processes.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">✏️</div>
+                        <h4>Edit Points</h4>
+                        <p>Click on any point in the points list to edit its label or delete it. Reorder points by connecting them in sequence.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: #2c3e50;">Calculated Properties</h3>
+                <ul style="margin-left: 2rem; line-height: 2; color: #34495e;">
+                    <li><strong>Dry Bulb Temperature</strong> - Actual air temperature measured by standard thermometer</li>
+                    <li><strong>Wet Bulb Temperature</strong> - Temperature measured with wetted thermometer, indicates evaporative cooling potential</li>
+                    <li><strong>Dew Point Temperature</strong> - Temperature at which moisture begins to condense</li>
+                    <li><strong>Relative Humidity</strong> - Percentage of moisture in air relative to saturation</li>
+                    <li><strong>Humidity Ratio</strong> - Pounds of water vapor per pound of dry air</li>
+                    <li><strong>Enthalpy</strong> - Total heat content of air in BTU per pound of dry air</li>
+                    <li><strong>Specific Volume</strong> - Cubic feet per pound of dry air</li>
+                    <li><strong>Vapor Pressure</strong> - Partial pressure of water vapor in the air</li>
+                    <li><strong>Sensible Heat Ratio</strong> - Ratio of sensible to total heat (calculated between two points)</li>
+                </ul>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer" style="margin-top: 2rem;">
+                    <div class="disclaimer-title">Professional Engineering Disclaimer</div>
+                    <div class="disclaimer-text">
+                        <strong>Educational and Preliminary Design Use Only:</strong> This psychrometric chart tool is provided for educational and preliminary analysis purposes only. All calculations use standard ASHRAE formulas and are subject to approximations.
+                        <br><br>
+                        <strong>Professional Responsibility:</strong> Licensed professional engineers must verify all calculations for final design. This tool does not replace engineering judgment, detailed analysis, or compliance with local codes. Users assume all risks associated with tool use.
+                        <br><br>
+                        <strong>Accuracy:</strong> Calculations are based on ideal gas assumptions and standard atmospheric conditions. Actual conditions may vary. Always verify critical calculations with multiple sources.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

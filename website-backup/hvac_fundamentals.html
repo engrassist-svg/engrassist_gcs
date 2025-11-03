@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive guide to HVAC fundamentals covering heating, cooling, ventilation, psychrometrics, thermodynamics, and essential concepts for mechanical engineering professionals.">
+    <meta name="keywords" content="HVAC fundamentals, heating ventilation air conditioning, psychrometrics, thermodynamics, HVAC basics, mechanical engineering, comfort conditions, heat transfer">
+    <link rel="canonical" href="https://engrassist.com/hvac_fundamentals.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="HVAC Fundamentals - EngrAssist">
+    <meta property="og:description" content="Master the fundamental principles of HVAC systems including thermodynamics, psychrometrics, and heat transfer for building comfort.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/hvac_fundamentals.html">
+    <meta property="og:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HVAC Fundamentals - EngrAssist">
+    <meta name="twitter:description" content="Master the fundamental principles of HVAC systems including thermodynamics, psychrometrics, and heat transfer.">
+    <meta name="twitter:image" content="https://engrassist.com/images/Mechanical_Room_1000.png">
+
+    <title>HVAC Fundamentals - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+    <style>
+        .fundamentals-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .fundamentals-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .fundamentals-section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .fundamentals-section h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .fundamentals-section h4 {
+            color: #34495e;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .intro-box p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .concept-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .concept-box h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .key-point {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .key-point h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .formula-box {
+            background: #f0f8ff;
+            border: 1px solid #b8d4e8;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .formula-box strong {
+            color: #2c3e50;
+        }
+
+        .example-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-box h4 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+
+        .tool-reference {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .tool-reference:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .fundamentals-section ul {
+            line-height: 1.8;
+        }
+
+        .fundamentals-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .comfort-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .comfort-table th,
+        .comfort-table td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .comfort-table th {
+            background: #3498db;
+            color: white;
+        }
+
+        .comfort-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .fundamentals-container {
+                padding: 1rem;
+            }
+
+            .fundamentals-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .intro-box,
+            .concept-box,
+            .key-point,
+            .example-box {
+                padding: 0.75rem;
+            }
+
+            .comfort-table {
+                font-size: 0.85rem;
+            }
+
+            .comfort-table th,
+            .comfort-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .fundamentals-container {
+                padding: 0.5rem;
+            }
+
+            .fundamentals-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .fundamentals-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .fundamentals-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .comfort-table {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">HVAC Fundamentals</h1>
+                <p class="hero-subtitle">Master the essential principles of heating, ventilation, and air conditioning. From thermodynamics and psychrometrics to comfort conditions and system components, build a solid foundation in HVAC engineering.</p>
+            </div>
+        </section>
+
+        <!-- Fundamentals Content -->
+        <section class="content-section">
+            <div class="fundamentals-container">
+
+                <!-- Introduction -->
+                <div class="fundamentals-section">
+                    <h2>Introduction to HVAC</h2>
+
+                    <div class="intro-box">
+                        <p><strong>HVAC</strong> stands for <strong>Heating, Ventilation, and Air Conditioning</strong>. These systems provide thermal comfort and acceptable indoor air quality in residential, commercial, and industrial buildings. Understanding HVAC fundamentals is essential for designing efficient, reliable systems that maintain comfortable and healthy indoor environments.</p>
+                    </div>
+
+                    <h3>The Three Pillars of HVAC</h3>
+
+                    <div class="concept-box">
+                        <h4>Heating</h4>
+                        <p>Heating systems add thermal energy to indoor spaces to maintain comfortable temperatures during cold weather. Common heating methods include:</p>
+                        <ul>
+                            <li><strong>Forced Air Systems:</strong> Furnaces that heat air and distribute it through ductwork</li>
+                            <li><strong>Hydronic Systems:</strong> Boilers that heat water circulated through radiators or radiant floors</li>
+                            <li><strong>Heat Pumps:</strong> Devices that transfer heat from outdoor air or ground to indoor spaces</li>
+                            <li><strong>Electric Resistance:</strong> Electric heaters that convert electricity directly to heat</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Ventilation</h4>
+                        <p>Ventilation provides fresh outdoor air to dilute contaminants and maintain indoor air quality. Proper ventilation is critical for occupant health and comfort:</p>
+                        <ul>
+                            <li><strong>Natural Ventilation:</strong> Uses windows, doors, and vents driven by wind and temperature differences</li>
+                            <li><strong>Mechanical Ventilation:</strong> Uses fans to control airflow rates and distribution</li>
+                            <li><strong>Infiltration:</strong> Uncontrolled air leakage through building envelope (generally undesirable)</li>
+                            <li><strong>Energy Recovery:</strong> Transfers heat and moisture between exhaust and outdoor air to reduce energy costs</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Air Conditioning</h4>
+                        <p>Air conditioning removes heat and moisture from indoor air to provide cooling and dehumidification during warm weather:</p>
+                        <ul>
+                            <li><strong>Vapor Compression Cycle:</strong> Most common method using refrigerant phase changes</li>
+                            <li><strong>Chilled Water Systems:</strong> Central chillers produce cold water distributed to air handlers</li>
+                            <li><strong>Evaporative Cooling:</strong> Uses water evaporation to cool air in dry climates</li>
+                            <li><strong>Absorption Cooling:</strong> Uses heat source to drive cooling cycle (less common)</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-point">
+                        <h4>Key Point</h4>
+                        <p>Modern HVAC systems integrate heating, ventilation, and air conditioning into unified systems that can simultaneously control temperature, humidity, air quality, and air distribution throughout a building.</p>
+                    </div>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="toc">
+                    <h3>Quick Navigation</h3>
+                    <ul>
+                        <li><a href="#thermodynamics">Thermodynamics Basics</a></li>
+                        <li><a href="#heat-transfer">Heat Transfer Mechanisms</a></li>
+                        <li><a href="#psychrometrics">Psychrometrics</a></li>
+                        <li><a href="#comfort">Human Comfort Conditions</a></li>
+                        <li><a href="#load-types">Heating and Cooling Loads</a></li>
+                        <li><a href="#refrigeration">Refrigeration Cycle</a></li>
+                        <li><a href="#components">System Components</a></li>
+                        <li><a href="#air-distribution">Air Distribution</a></li>
+                        <li><a href="#controls">Control Fundamentals</a></li>
+                    </ul>
+                </div>
+
+                <!-- Thermodynamics Basics -->
+                <div class="fundamentals-section" id="thermodynamics">
+                    <h2>Thermodynamics Basics</h2>
+
+                    <p>Thermodynamics is the study of energy, heat, and work. Understanding basic thermodynamic principles is essential for HVAC design.</p>
+
+                    <h3>Laws of Thermodynamics</h3>
+
+                    <div class="concept-box">
+                        <h4>First Law: Conservation of Energy</h4>
+                        <p>Energy cannot be created or destroyed, only converted from one form to another. In HVAC applications:</p>
+                        <ul>
+                            <li>Heat added to a system equals the increase in internal energy plus work done by the system</li>
+                            <li>Energy input to equipment must equal energy output plus losses</li>
+                            <li>Heat removed from a space must equal heat gains to maintain steady conditions</li>
+                        </ul>
+                        <div class="formula-box">
+                            <strong>Q - W = ΔU</strong><br>
+                            Where: Q = heat added, W = work done, ΔU = change in internal energy
+                        </div>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Second Law: Entropy and Direction of Heat Flow</h4>
+                        <p>Heat naturally flows from hot to cold. To move heat from cold to hot (as in air conditioning), work must be added:</p>
+                        <ul>
+                            <li>No heat engine can be 100% efficient</li>
+                            <li>Refrigeration requires energy input to move heat against its natural direction</li>
+                            <li>Real processes always generate entropy (energy degradation)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Key Thermodynamic Properties</h3>
+
+                    <ul>
+                        <li><strong>Temperature:</strong> Measure of thermal energy level (°F or °C)</li>
+                        <li><strong>Pressure:</strong> Force per unit area (psi, Pa, in. Hg)</li>
+                        <li><strong>Enthalpy (h):</strong> Total heat content of a substance (Btu/lb or kJ/kg)</li>
+                        <li><strong>Entropy (s):</strong> Measure of energy unavailability or disorder</li>
+                        <li><strong>Specific Heat:</strong> Energy required to raise temperature of unit mass by one degree</li>
+                    </ul>
+
+                    <div class="formula-box">
+                        <strong>Sensible Heat:</strong> Q = m × cp × ΔT<br>
+                        Where: m = mass, cp = specific heat, ΔT = temperature change
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Example: Heating Air</h4>
+                        <p>To heat 1000 CFM of air from 60°F to 100°F:</p>
+                        <ul>
+                            <li>Mass flow rate = 1000 CFM × 0.075 lb/ft³ × 60 min/hr = 4,500 lb/hr</li>
+                            <li>Heat required = 4,500 lb/hr × 0.24 Btu/lb·°F × 40°F = 43,200 Btu/hr</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Heat Transfer -->
+                <div class="fundamentals-section" id="heat-transfer">
+                    <h2>Heat Transfer Mechanisms</h2>
+
+                    <p>Heat transfers through three fundamental mechanisms, all of which occur in HVAC systems.</p>
+
+                    <div class="concept-box">
+                        <h4>1. Conduction</h4>
+                        <p>Heat transfer through solid materials by molecular contact. Important in building envelope heat gain/loss:</p>
+                        <div class="formula-box">
+                            <strong>Q = k × A × ΔT / d</strong><br>
+                            Where: k = thermal conductivity, A = area, ΔT = temperature difference, d = thickness
+                        </div>
+                        <ul>
+                            <li><strong>U-factor (U):</strong> Overall heat transfer coefficient (Btu/hr·ft²·°F)</li>
+                            <li><strong>R-value (R):</strong> Thermal resistance (hr·ft²·°F/Btu), R = 1/U</li>
+                            <li>Higher R-value = better insulation</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>2. Convection</h4>
+                        <p>Heat transfer by fluid movement (air or water). Critical for heating/cooling coils and room air distribution:</p>
+                        <div class="formula-box">
+                            <strong>Q = h × A × ΔT</strong><br>
+                            Where: h = convection coefficient, A = surface area, ΔT = temperature difference
+                        </div>
+                        <ul>
+                            <li><strong>Natural Convection:</strong> Driven by buoyancy (hot air rises)</li>
+                            <li><strong>Forced Convection:</strong> Driven by fans or pumps (more effective)</li>
+                            <li>Air velocity significantly affects heat transfer rates</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>3. Radiation</h4>
+                        <p>Heat transfer by electromagnetic waves, requiring no medium. Major source of solar heat gain:</p>
+                        <div class="formula-box">
+                            <strong>Q = ε × σ × A × (T₁⁴ - T₂⁴)</strong><br>
+                            Where: ε = emissivity, σ = Stefan-Boltzmann constant, A = area, T = absolute temperature
+                        </div>
+                        <ul>
+                            <li><strong>Solar Radiation:</strong> Primary heat gain through windows</li>
+                            <li><strong>Thermal Radiation:</strong> Exchange between surfaces at different temperatures</li>
+                            <li><strong>Radiant Heating/Cooling:</strong> Uses radiation as primary heat transfer mode</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-point">
+                        <h4>Application in HVAC</h4>
+                        <p>All three mechanisms occur simultaneously in buildings. For example, a window experiences:</p>
+                        <ul>
+                            <li><strong>Conduction</strong> through the glass</li>
+                            <li><strong>Convection</strong> at indoor and outdoor surfaces</li>
+                            <li><strong>Radiation</strong> from solar gain and thermal exchange</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Psychrometrics -->
+                <div class="fundamentals-section" id="psychrometrics">
+                    <h2>Psychrometrics</h2>
+
+                    <p>Psychrometrics is the study of thermodynamic properties of moist air. It's essential for analyzing HVAC processes and calculating loads.</p>
+
+                    <h3>Properties of Moist Air</h3>
+
+                    <ul>
+                        <li><strong>Dry-Bulb Temperature (DB):</strong> Actual air temperature measured with standard thermometer (°F)</li>
+                        <li><strong>Wet-Bulb Temperature (WB):</strong> Temperature measured with moistened thermometer (accounts for evaporative cooling)</li>
+                        <li><strong>Dew Point Temperature (DP):</strong> Temperature at which moisture begins to condense</li>
+                        <li><strong>Relative Humidity (RH):</strong> Ratio of actual moisture to maximum possible at given temperature (%)</li>
+                        <li><strong>Humidity Ratio (W):</strong> Mass of water vapor per mass of dry air (lb water/lb dry air)</li>
+                        <li><strong>Enthalpy (h):</strong> Total heat content of moist air (Btu/lb dry air)</li>
+                        <li><strong>Specific Volume (v):</strong> Volume per unit mass of dry air (ft³/lb)</li>
+                    </ul>
+
+                    <div class="concept-box">
+                        <h4>The Psychrometric Chart</h4>
+                        <p>A graphical tool that shows relationships between air properties. The chart allows you to:</p>
+                        <ul>
+                            <li>Determine all air properties when two properties are known</li>
+                            <li>Visualize HVAC processes (heating, cooling, humidification, dehumidification)</li>
+                            <li>Calculate required capacity for heating and cooling equipment</li>
+                        </ul>
+                        <a href="psychrometric.html" class="tool-reference">Interactive Psychrometric Chart</a>
+                    </div>
+
+                    <h3>Common HVAC Processes on Psychrometric Chart</h3>
+
+                    <div class="concept-box">
+                        <h4>Sensible Heating</h4>
+                        <p>Adding heat without changing moisture content:</p>
+                        <ul>
+                            <li>Dry-bulb temperature increases (move right)</li>
+                            <li>Humidity ratio remains constant (horizontal line)</li>
+                            <li>Relative humidity decreases</li>
+                            <li>Example: Furnace heating air in winter</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Sensible Cooling</h4>
+                        <p>Removing heat without changing moisture content:</p>
+                        <ul>
+                            <li>Dry-bulb temperature decreases (move left)</li>
+                            <li>Humidity ratio remains constant (horizontal line)</li>
+                            <li>Relative humidity increases</li>
+                            <li>Example: Sensible cooling with chilled water coil above dew point</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Cooling and Dehumidification</h4>
+                        <p>Removing both heat and moisture (most common AC process):</p>
+                        <ul>
+                            <li>Air is cooled below its dew point</li>
+                            <li>Moisture condenses on cold coil surfaces</li>
+                            <li>Both temperature and humidity ratio decrease (move down and left)</li>
+                            <li>Example: Standard air conditioning in summer</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Humidification</h4>
+                        <p>Adding moisture to air:</p>
+                        <ul>
+                            <li>Humidity ratio increases</li>
+                            <li>With steam: temperature increases (move up and right)</li>
+                            <li>With evaporative: temperature decreases (move up and left along constant enthalpy)</li>
+                            <li>Example: Winter humidification for comfort</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Sensible Cooling/Heating:</strong> Qs = 1.08 × CFM × ΔT<br>
+                        <strong>Latent Cooling/Heating:</strong> Ql = 0.68 × CFM × ΔW<br>
+                        <strong>Total Cooling/Heating:</strong> Qt = 4.5 × CFM × Δh<br><br>
+                        Where: CFM = airflow, ΔT = temperature change, ΔW = humidity ratio change, Δh = enthalpy change
+                    </div>
+                </div>
+
+                <!-- Human Comfort -->
+                <div class="fundamentals-section" id="comfort">
+                    <h2>Human Comfort Conditions</h2>
+
+                    <p>The primary goal of HVAC systems is to provide thermal comfort for occupants. Comfort is subjective but can be quantified based on several factors.</p>
+
+                    <h3>Factors Affecting Thermal Comfort</h3>
+
+                    <div class="concept-box">
+                        <h4>Environmental Factors (Controllable by HVAC)</h4>
+                        <ul>
+                            <li><strong>Air Temperature:</strong> Most obvious factor, typically 68-76°F for comfort</li>
+                            <li><strong>Radiant Temperature:</strong> Temperature of surrounding surfaces affects comfort</li>
+                            <li><strong>Air Velocity:</strong> Air movement affects convective heat transfer and evaporation</li>
+                            <li><strong>Relative Humidity:</strong> Affects evaporative cooling from skin</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Personal Factors (Not Controllable by HVAC)</h4>
+                        <ul>
+                            <li><strong>Clothing Insulation:</strong> Amount and type of clothing worn</li>
+                            <li><strong>Metabolic Rate:</strong> Activity level and heat generation</li>
+                            <li><strong>Individual Differences:</strong> Age, health, acclimatization</li>
+                        </ul>
+                    </div>
+
+                    <h3>ASHRAE Comfort Standards</h3>
+
+                    <p>ASHRAE Standard 55 defines acceptable thermal environmental conditions for human occupancy.</p>
+
+                    <table class="comfort-table">
+                        <thead>
+                            <tr>
+                                <th>Season</th>
+                                <th>Temperature Range</th>
+                                <th>Humidity Range</th>
+                                <th>Air Velocity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Winter (Heating)</td>
+                                <td>68-76°F</td>
+                                <td>30-60% RH</td>
+                                <td>&lt; 30 FPM</td>
+                            </tr>
+                            <tr>
+                                <td>Summer (Cooling)</td>
+                                <td>73-79°F</td>
+                                <td>30-60% RH</td>
+                                <td>&lt; 50 FPM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="key-point">
+                        <h4>Design Implications</h4>
+                        <ul>
+                            <li>Design indoor conditions typically: 70-75°F, 30-50% RH</li>
+                            <li>Cannot satisfy all occupants simultaneously (design for 80% acceptability)</li>
+                            <li>Provide individual control where possible (thermostats, diffusers)</li>
+                            <li>Consider both temperature and humidity for true comfort</li>
+                        </ul>
+                    </div>
+
+                    <h3>Indoor Air Quality (IAQ)</h3>
+
+                    <p>Beyond thermal comfort, HVAC systems must provide acceptable air quality:</p>
+
+                    <ul>
+                        <li><strong>Ventilation:</strong> ASHRAE 62.1 specifies minimum outdoor air rates (typically 15-20 CFM/person)</li>
+                        <li><strong>Filtration:</strong> Remove particulates (MERV ratings 8-13 common)</li>
+                        <li><strong>Contaminant Control:</strong> Dilute or remove pollutants, odors, and VOCs</li>
+                        <li><strong>Humidity Control:</strong> Prevent mold growth (keep RH below 60%) and static electricity (keep above 30%)</li>
+                    </ul>
+                </div>
+
+                <!-- Heating and Cooling Loads -->
+                <div class="fundamentals-section" id="load-types">
+                    <h2>Heating and Cooling Loads</h2>
+
+                    <p>HVAC systems must be sized to handle the heating and cooling loads imposed on a building. Understanding load types is crucial for proper system design.</p>
+
+                    <h3>Cooling Load Components</h3>
+
+                    <div class="concept-box">
+                        <h4>External Loads (From Outside)</h4>
+                        <ul>
+                            <li><strong>Solar Gain Through Windows:</strong> Direct and diffuse solar radiation through glass
+                                <ul>
+                                    <li>Varies by window orientation (south, west highest)</li>
+                                    <li>Affected by shading devices and glass properties (SHGC)</li>
+                                    <li>Time-dependent (peak afternoon for west windows)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Conduction Through Envelope:</strong> Heat flow through walls, roof, windows, doors
+                                <ul>
+                                    <li>Q = U × A × ΔT</li>
+                                    <li>Depends on insulation (U-value) and temperature difference</li>
+                                </ul>
+                            </li>
+                            <li><strong>Infiltration:</strong> Unconditioned outdoor air leaking into building
+                                <ul>
+                                    <li>Brings in both sensible and latent load</li>
+                                    <li>Depends on building tightness and wind pressure</li>
+                                </ul>
+                            </li>
+                            <li><strong>Ventilation:</strong> Required outdoor air for occupants
+                                <ul>
+                                    <li>Per ASHRAE 62.1 requirements</li>
+                                    <li>Can be significant portion of total load in commercial buildings</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Internal Loads (Generated Inside)</h4>
+                        <ul>
+                            <li><strong>Occupants:</strong> People generate both sensible and latent heat
+                                <ul>
+                                    <li>Sensible: ~250 Btu/hr per person (radiated/convected heat)</li>
+                                    <li>Latent: ~200 Btu/hr per person (moisture from breathing and perspiration)</li>
+                                    <li>Varies with activity level</li>
+                                </ul>
+                            </li>
+                            <li><strong>Lighting:</strong> Heat from light fixtures
+                                <ul>
+                                    <li>3.41 Btu/hr per watt of lighting power</li>
+                                    <li>LED lighting significantly reduces this load compared to older technologies</li>
+                                </ul>
+                            </li>
+                            <li><strong>Equipment:</strong> Computers, appliances, machinery
+                                <ul>
+                                    <li>Varies widely by building type</li>
+                                    <li>Data centers have very high equipment loads</li>
+                                </ul>
+                            </li>
+                            <li><strong>Process Loads:</strong> Cooking, manufacturing, special equipment</li>
+                        </ul>
+                    </div>
+
+                    <h3>Heating Load Components</h3>
+
+                    <p>Heating loads are generally simpler than cooling loads:</p>
+
+                    <ul>
+                        <li><strong>Conduction Losses:</strong> Heat loss through building envelope (Q = U × A × ΔT)</li>
+                        <li><strong>Infiltration:</strong> Cold outdoor air entering building</li>
+                        <li><strong>Ventilation:</strong> Heating outdoor air to room temperature</li>
+                    </ul>
+
+                    <div class="key-point">
+                        <h4>Important Differences</h4>
+                        <ul>
+                            <li>Heating loads do NOT include internal gains (occupants, lights, equipment help with heating)</li>
+                            <li>Cooling loads DO include internal gains (they add to cooling requirements)</li>
+                            <li>Solar gain is a major cooling load but helps reduce heating loads</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>Simplified Load Equations:</strong><br><br>
+                        <strong>Envelope Conduction:</strong> Q = U × A × ΔT<br>
+                        <strong>Infiltration/Ventilation Sensible:</strong> Qs = 1.08 × CFM × ΔT<br>
+                        <strong>Infiltration/Ventilation Latent:</strong> Ql = 0.68 × CFM × ΔW<br>
+                        <strong>People Sensible:</strong> Q = Number × 250 Btu/hr<br>
+                        <strong>People Latent:</strong> Q = Number × 200 Btu/hr<br>
+                        <strong>Lighting:</strong> Q = Watts × 3.41 Btu/hr/W
+                    </div>
+
+                    <a href="load_calculation.html" class="tool-reference">HVAC Load Calculator</a>
+                </div>
+
+                <!-- Refrigeration Cycle -->
+                <div class="fundamentals-section" id="refrigeration">
+                    <h2>Refrigeration Cycle</h2>
+
+                    <p>Air conditioning and heat pumps work on the vapor-compression refrigeration cycle. Understanding this cycle is fundamental to HVAC engineering.</p>
+
+                    <h3>The Four Basic Components</h3>
+
+                    <div class="concept-box">
+                        <h4>1. Compressor</h4>
+                        <ul>
+                            <li>Compresses low-pressure refrigerant vapor to high pressure and temperature</li>
+                            <li>Adds energy to the system (requires electrical power)</li>
+                            <li>Types: Reciprocating, scroll, screw, centrifugal</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>2. Condenser</h4>
+                        <ul>
+                            <li>Rejects heat to outdoor air or cooling water</li>
+                            <li>Hot, high-pressure vapor condenses to liquid</li>
+                            <li>Types: Air-cooled (with fans), water-cooled, evaporative</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>3. Expansion Device</h4>
+                        <ul>
+                            <li>Reduces pressure of liquid refrigerant</li>
+                            <li>Causes refrigerant to partially vaporize (flash gas)</li>
+                            <li>Types: Thermostatic expansion valve (TXV), electronic expansion valve (EEV), capillary tube</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>4. Evaporator</h4>
+                        <ul>
+                            <li>Absorbs heat from indoor air or chilled water</li>
+                            <li>Low-pressure liquid refrigerant evaporates to vapor</li>
+                            <li>Types: Direct expansion (DX) coils, flooded evaporators</li>
+                        </ul>
+                    </div>
+
+                    <h3>How the Cycle Works</h3>
+
+                    <ol>
+                        <li><strong>Evaporation:</strong> Low-pressure liquid refrigerant in evaporator absorbs heat from indoor air and evaporates to vapor (this cools the air)</li>
+                        <li><strong>Compression:</strong> Compressor draws in low-pressure vapor and compresses it to high pressure and high temperature</li>
+                        <li><strong>Condensation:</strong> Hot, high-pressure vapor flows to condenser where heat is rejected to outdoors, causing vapor to condense to liquid</li>
+                        <li><strong>Expansion:</strong> High-pressure liquid passes through expansion device, reducing pressure and temperature, returning to evaporator to repeat cycle</li>
+                    </ol>
+
+                    <div class="key-point">
+                        <h4>Key Concepts</h4>
+                        <ul>
+                            <li><strong>Phase Change:</strong> Refrigerant alternates between liquid and vapor states, absorbing heat during evaporation and rejecting heat during condensation</li>
+                            <li><strong>Energy Input:</strong> Compressor adds energy to "pump" heat from cool to warm</li>
+                            <li><strong>COP (Coefficient of Performance):</strong> Cooling output / Energy input (typically 2.5-4.0 for air conditioning)</li>
+                            <li><strong>Heat Pumps:</strong> Same cycle operated in reverse for heating (indoor and outdoor coils switch roles)</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <strong>COP = Cooling Capacity (Btu/hr) / Compressor Power (Watts × 3.41)</strong><br><br>
+                        <strong>EER (Energy Efficiency Ratio) = Cooling Capacity (Btu/hr) / Power Input (Watts)</strong><br><br>
+                        <strong>SEER (Seasonal EER) = Seasonal average efficiency</strong>
+                    </div>
+
+                    <h3>Common Refrigerants</h3>
+
+                    <ul>
+                        <li><strong>R-410A:</strong> Current standard for residential and light commercial AC</li>
+                        <li><strong>R-134a:</strong> Used in automotive and some chillers</li>
+                        <li><strong>R-32:</strong> Newer, lower GWP alternative</li>
+                        <li><strong>R-454B, R-32:</strong> Next-generation low-GWP refrigerants</li>
+                    </ul>
+
+                    <a href="chiller_calculator.html" class="tool-reference">Chiller Sizing Tool</a>
+                </div>
+
+                <!-- System Components -->
+                <div class="fundamentals-section" id="components">
+                    <h2>HVAC System Components</h2>
+
+                    <p>Modern HVAC systems consist of many components working together to provide comfort.</p>
+
+                    <h3>Air-Side Components</h3>
+
+                    <div class="concept-box">
+                        <h4>Air Handling Units (AHU)</h4>
+                        <p>Central units that condition and circulate air:</p>
+                        <ul>
+                            <li>Supply fan: Moves conditioned air through ductwork</li>
+                            <li>Heating coil: Hot water, steam, or electric resistance</li>
+                            <li>Cooling coil: Chilled water or direct expansion refrigerant</li>
+                            <li>Filters: Remove particulates from air</li>
+                            <li>Outdoor air dampers: Control ventilation air intake</li>
+                            <li>Mixing section: Blends return and outdoor air</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Terminal Units</h4>
+                        <ul>
+                            <li><strong>VAV Boxes:</strong> Variable air volume boxes that modulate airflow to zones</li>
+                            <li><strong>Fan Coil Units:</strong> Local units with coil and fan serving individual zones</li>
+                            <li><strong>Unit Ventilators:</strong> Similar to fan coils with outdoor air connection</li>
+                            <li><strong>Diffusers and Grilles:</strong> Distribute air within spaces</li>
+                        </ul>
+                    </div>
+
+                    <h3>Water-Side Components</h3>
+
+                    <div class="concept-box">
+                        <h4>Boilers</h4>
+                        <p>Generate hot water or steam for heating:</p>
+                        <ul>
+                            <li>Fire-tube or water-tube designs</li>
+                            <li>Fuel: Natural gas, oil, electric</li>
+                            <li>Efficiency: 80-99% depending on type (condensing boilers highest)</li>
+                        </ul>
+                        <a href="boiler_calculator.html" class="tool-reference">Boiler Sizing Calculator</a>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Chillers</h4>
+                        <p>Produce chilled water for cooling:</p>
+                        <ul>
+                            <li><strong>Air-Cooled:</strong> Reject heat to outdoor air (simpler, less efficient)</li>
+                            <li><strong>Water-Cooled:</strong> Reject heat to cooling tower (more efficient, more complex)</li>
+                            <li>Compressor types: Scroll, screw, centrifugal</li>
+                            <li>Typical efficiency: 0.4-0.8 kW/ton</li>
+                        </ul>
+                        <a href="chiller_calculator.html" class="tool-reference">Chiller Sizing Calculator</a>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Pumps</h4>
+                        <p>Circulate water through hydronic systems:</p>
+                        <ul>
+                            <li>Centrifugal pumps most common in HVAC</li>
+                            <li>Must overcome friction losses in pipes, coils, and fittings</li>
+                            <li>Variable speed pumps save energy at part load</li>
+                        </ul>
+                        <a href="pump_sizing.html" class="tool-reference">Pump Selection Tool</a>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Cooling Towers</h4>
+                        <p>Reject heat from water-cooled chillers:</p>
+                        <ul>
+                            <li>Use evaporative cooling for high efficiency</li>
+                            <li>Types: Open-circuit, closed-circuit, hybrid</li>
+                            <li>Require water treatment and maintenance</li>
+                        </ul>
+                    </div>
+
+                    <h3>Packaged Equipment</h3>
+
+                    <ul>
+                        <li><strong>Rooftop Units (RTU):</strong> All-in-one heating and cooling units, common in commercial buildings</li>
+                        <li><strong>Split Systems:</strong> Outdoor condensing unit paired with indoor air handler or furnace</li>
+                        <li><strong>VRF Systems:</strong> Variable refrigerant flow with multiple indoor units served by one outdoor unit</li>
+                        <li><strong>Heat Pumps:</strong> Provide both heating and cooling by reversing refrigeration cycle</li>
+                    </ul>
+                </div>
+
+                <!-- Air Distribution -->
+                <div class="fundamentals-section" id="air-distribution">
+                    <h2>Air Distribution Fundamentals</h2>
+
+                    <p>Effective air distribution ensures uniform conditions throughout occupied spaces.</p>
+
+                    <h3>Ductwork Design</h3>
+
+                    <div class="concept-box">
+                        <h4>Duct Sizing Methods</h4>
+                        <ul>
+                            <li><strong>Equal Friction:</strong> Maintain constant pressure drop per foot of duct</li>
+                            <li><strong>Static Regain:</strong> Convert velocity pressure to static pressure at fittings</li>
+                            <li><strong>Velocity Method:</strong> Limit maximum velocities for noise control</li>
+                        </ul>
+                        <a href="ductulator.html" class="tool-reference">Duct Sizing Calculator</a>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Design Considerations</h4>
+                        <ul>
+                            <li><strong>Velocity Limits:</strong>
+                                <ul>
+                                    <li>Residences: 600-900 FPM branches, 700-1200 FPM mains</li>
+                                    <li>Commercial: 1000-2000 FPM depending on noise tolerance</li>
+                                    <li>Main ducts near fan: Up to 2500 FPM acceptable</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pressure Drop:</strong> Typically 0.1 in. w.g. per 100 ft for low-pressure systems</li>
+                            <li><strong>Aspect Ratio:</strong> Keep rectangular ducts within 4:1 ratio for efficiency</li>
+                        </ul>
+                    </div>
+
+                    <h3>Air Distribution Patterns</h3>
+
+                    <div class="concept-box">
+                        <h4>Mixing Ventilation</h4>
+                        <p>Most common approach - mix supply air with room air:</p>
+                        <ul>
+                            <li>Supply air from ceiling diffusers</li>
+                            <li>Creates well-mixed conditions throughout room</li>
+                            <li>Supply air temperature typically 15-25°F below room temperature</li>
+                            <li>Airflow patterns determined by diffuser type and throw</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Displacement Ventilation</h4>
+                        <p>Supply cool air at floor level, warm air rises and exhausts at ceiling:</p>
+                        <ul>
+                            <li>Better air quality at occupied zone</li>
+                            <li>More energy efficient (higher supply air temperatures)</li>
+                            <li>Requires higher ceiling heights</li>
+                            <li>Not suitable for all applications</li>
+                        </ul>
+                    </div>
+
+                    <h3>Diffuser Selection</h3>
+
+                    <ul>
+                        <li><strong>Throw:</strong> Distance air travels before velocity drops to 50 FPM (should reach 75% across room)</li>
+                        <li><strong>Spread:</strong> Width of air pattern</li>
+                        <li><strong>NC (Noise Criteria):</strong> Select diffusers with acceptable noise levels (NC 25-35 for offices)</li>
+                        <li><strong>Types:</strong> Ceiling diffusers (square, round), linear diffusers, slot diffusers, displacement diffusers</li>
+                    </ul>
+                </div>
+
+                <!-- Control Fundamentals -->
+                <div class="fundamentals-section" id="controls">
+                    <h2>Control System Fundamentals</h2>
+
+                    <p>Modern HVAC systems use sophisticated controls to maintain comfort while minimizing energy use.</p>
+
+                    <h3>Control Modes</h3>
+
+                    <div class="concept-box">
+                        <h4>On-Off Control</h4>
+                        <p>Simplest control mode:</p>
+                        <ul>
+                            <li>Equipment fully on or fully off</li>
+                            <li>Results in temperature swings around setpoint</li>
+                            <li>Used for residential systems and small equipment</li>
+                            <li>Deadband prevents short cycling</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Modulating Control</h4>
+                        <p>Varies equipment output to match load:</p>
+                        <ul>
+                            <li><strong>Proportional (P):</strong> Output proportional to error</li>
+                            <li><strong>Proportional-Integral (PI):</strong> Adds integral action to eliminate offset</li>
+                            <li><strong>PID:</strong> Adds derivative for faster response (less common in HVAC)</li>
+                            <li>Provides tighter temperature control and better efficiency</li>
+                        </ul>
+                    </div>
+
+                    <h3>Common Control Strategies</h3>
+
+                    <div class="concept-box">
+                        <h4>Zone Temperature Control</h4>
+                        <ul>
+                            <li>Thermostat measures zone temperature</li>
+                            <li>Modulates VAV box damper or coil valve to maintain setpoint</li>
+                            <li>Deadband between heating and cooling prevents simultaneous operation</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Supply Air Temperature Reset</h4>
+                        <ul>
+                            <li>Vary supply air temperature based on load</li>
+                            <li>Warmest supply air temperature that satisfies most demanding zone</li>
+                            <li>Reduces reheat energy and increases system efficiency</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Static Pressure Reset</h4>
+                        <ul>
+                            <li>Reduce duct static pressure when zones don't need full airflow</li>
+                            <li>Saves significant fan energy at part load</li>
+                            <li>Based on most-open VAV box position</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Economizer Control</h4>
+                        <ul>
+                            <li>Use cool outdoor air for "free cooling" when available</li>
+                            <li>Compare outdoor and return air conditions</li>
+                            <li>Can provide up to 100% outdoor air when beneficial</li>
+                            <li>Significant energy savings in many climates</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-box">
+                        <h4>Demand Controlled Ventilation</h4>
+                        <ul>
+                            <li>Vary ventilation air based on actual occupancy</li>
+                            <li>Uses CO₂ sensors to estimate occupancy</li>
+                            <li>Reduces energy waste when spaces are unoccupied or partially occupied</li>
+                        </ul>
+                    </div>
+
+                    <h3>Energy Management Sequences</h3>
+
+                    <ul>
+                        <li><strong>Optimal Start/Stop:</strong> Start equipment at optimal time to reach setpoint when occupants arrive</li>
+                        <li><strong>Night Setback/Setup:</strong> Allow temperatures to drift during unoccupied periods</li>
+                        <li><strong>Demand Limiting:</strong> Shed loads during peak demand periods to reduce utility costs</li>
+                        <li><strong>Load Sequencing:</strong> Stage equipment on/off to match load and maximize efficiency</li>
+                    </ul>
+
+                    <div class="key-point">
+                        <h4>Control System Benefits</h4>
+                        <ul>
+                            <li>Maintain comfort conditions throughout occupied spaces</li>
+                            <li>Reduce energy consumption by 20-40% compared to basic controls</li>
+                            <li>Provide remote monitoring and diagnostics</li>
+                            <li>Enable data collection for commissioning and optimization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <div class="fundamentals-section">
+                    <h2>Conclusion</h2>
+
+                    <p>Understanding these HVAC fundamentals provides the foundation for designing, analyzing, and troubleshooting building mechanical systems. From the basic principles of thermodynamics and heat transfer to the operation of refrigeration cycles and control strategies, these concepts are essential for mechanical engineering professionals.</p>
+
+                    <h3>Key Takeaways</h3>
+
+                    <ul>
+                        <li>HVAC systems provide thermal comfort (temperature + humidity) and acceptable indoor air quality</li>
+                        <li>Heat transfer occurs through conduction, convection, and radiation - all three are important in buildings</li>
+                        <li>Psychrometrics describes properties of moist air and allows analysis of HVAC processes</li>
+                        <li>Comfort depends on air temperature, radiant temperature, humidity, and air velocity</li>
+                        <li>Loads include envelope losses/gains, ventilation, infiltration, occupants, lights, and equipment</li>
+                        <li>Refrigeration cycle uses phase change to move heat from cool to warm spaces</li>
+                        <li>Modern systems use modulating controls and energy management strategies for efficiency</li>
+                    </ul>
+
+                    <h3>Continue Your Learning</h3>
+
+                    <p>Apply these fundamentals using the interactive tools and guides available on EngrAssist:</p>
+
+                    <div style="margin-top: 1rem;">
+                        <a href="psychrometric.html" class="tool-reference">Psychrometric Chart</a>
+                        <a href="load_calculation.html" class="tool-reference">Load Calculator</a>
+                        <a href="hvac_design_guide.html" class="tool-reference">HVAC Design Guide</a>
+                        <a href="engineering_calculations.html" class="tool-reference">Engineering Calculations</a>
+                        <a href="ductulator.html" class="tool-reference">Duct Sizing</a>
+                        <a href="pipe_sizing.html" class="tool-reference">Pipe Sizing</a>
+                        <a href="boiler_calculator.html" class="tool-reference">Boiler Sizing</a>
+                        <a href="chiller_calculator.html" class="tool-reference">Chiller Sizing</a>
+                        <a href="ashrae_standards.html" class="tool-reference">ASHRAE Standards</a>
+                        <a href="troubleshooting_guide.html" class="tool-reference">Troubleshooting Guide</a>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This educational resource is provided for informational purposes only and should not replace professional engineering education, training, or judgment. HVAC system design should be performed by or under the supervision of a licensed professional engineer. All designs must comply with applicable codes and standards. The information presented represents general principles and may not be appropriate for all applications. Always verify calculations and consult manufacturer data and local requirements.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

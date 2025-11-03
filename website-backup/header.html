@@ -1,0 +1,71 @@
+<header>
+    <nav>
+        <!-- LEFT: Logo + Brand Name -->
+        <a href="index.html" class="logo-container">
+            <img src="images/favicon.ico" alt="EA Logo" class="favicon">
+            <span class="brand-name">EngrAssist</span>
+        </a>
+         
+        <!-- CENTER: Desktop Search (visible only on desktop) -->
+        <div class="search-container desktop-search">
+            <input type="search" 
+                   id="siteSearch" 
+                   placeholder="Search tools..." 
+                   onkeyup="handleSearch(event)">
+            <span class="search-icon">🔍</span>
+        </div>
+         
+        <!-- RIGHT: Desktop Navigation Links -->
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+
+            <!-- Engineering Dropdown -->
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Engineering ▾</a>
+                <div class="dropdown-content">
+                    <a href="mechanical_page.html">Mechanical</a>
+                    <a href="electrical_page.html">Electrical</a>
+                    <a href="plumbing_page.html">Plumbing</a>
+                </div>
+            </li>
+
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Mobile Menu Button (sandwich icon) -->
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Search inside mobile menu -->
+        <div class="mobile-search-container">
+            <input type="search" 
+                   id="mobileSearch" 
+                   placeholder="Search tools..." 
+                   onkeyup="handleSearch(event)">
+            <span class="mobile-search-icon">🔍</span>
+        </div>
+
+        <!-- Mobile Navigation Links -->
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            
+            <!-- Engineering with submenu -->
+            <li>
+                <a href="#" class="mobile-submenu-toggle" onclick="toggleMobileSubmenu(event)">
+                    Engineering ▾
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a href="mechanical_page.html">Mechanical</a></li>
+                    <li><a href="electrical_page.html">Electrical</a></li>
+                    <li><a href="plumbing_page.html">Plumbing</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</header>

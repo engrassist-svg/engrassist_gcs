@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free linear interpolation calculator for engineering calculations. Find intermediate values between two known data points with precision.">
+    <meta name="keywords" content="linear interpolation, interpolation calculator, engineering calculator, data interpolation, mathematical interpolation">
+    <link rel="canonical" href="https://engrassist.com/interpolator.html">
+    <title>Linear Interpolation Tool - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Linear Interpolation Tool</h1>
+                <p class="hero-subtitle">Estimate unknown values within or beyond a data range using linear interpolation and extrapolation. Perfect for engineering calculations, data analysis, and quick estimations.</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+
+                <!-- How to Use Section -->
+                <div class="info-box">
+                    <h4>How to Use This Tool</h4>
+                    <p><strong>Linear interpolation</strong> finds an unknown value between two known data points by assuming a straight-line relationship. <strong>Linear extrapolation</strong> extends this line beyond the known data range.</p>
+                    <br>
+                    <p><strong>Steps:</strong></p>
+                    <ol style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>Enter the coordinates of two known points: (X₁, Y₁) and (X₂, Y₂)</li>
+                        <li>Enter EITHER a known X₃ value OR a known Y₃ value (leave the other blank)</li>
+                        <li>Click "Calculate" to find the unknown value</li>
+                        <li>The tool will interpolate (if within range) or extrapolate (if beyond range)</li>
+                    </ol>
+                    <br>
+                    <p><strong>Formula Used:</strong></p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>To find Y₃: Y₃ = Y₁ + ((X₃ − X₁) × (Y₂ − Y₁)) / (X₂ − X₁)</li>
+                        <li>To find X₃: X₃ = X₁ + ((Y₃ − Y₁) × (X₂ − X₁)) / (Y₂ − Y₁)</li>
+                    </ul>
+                </div>
+
+                <!-- Calculator Interface -->
+                <div class="conversion-calculator">
+                    <h2 class="section-title">Interpolation Calculator</h2>
+
+                    <div class="calculator-interface">
+                        <!-- Known Points Section -->
+                        <div style="margin-bottom: 3rem;">
+                            <h3 style="color: #2c3e50; margin-bottom: 1.5rem; text-align: center;">Known Data Points</h3>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                                <!-- Point 1 -->
+                                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #3498db;">
+                                    <h4 style="color: #2c3e50; margin-bottom: 1rem;">Point 1 (X₁, Y₁)</h4>
+                                    <div class="form-group">
+                                        <label for="x1">X₁:</label>
+                                        <input type="number" id="x1" placeholder="Enter X₁ value" step="any">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="y1">Y₁:</label>
+                                        <input type="number" id="y1" placeholder="Enter Y₁ value" step="any">
+                                    </div>
+                                </div>
+
+                                <!-- Point 2 -->
+                                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #27ae60;">
+                                    <h4 style="color: #2c3e50; margin-bottom: 1rem;">Point 2 (X₂, Y₂)</h4>
+                                    <div class="form-group">
+                                        <label for="x2">X₂:</label>
+                                        <input type="number" id="x2" placeholder="Enter X₂ value" step="any">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="y2">Y₂:</label>
+                                        <input type="number" id="y2" placeholder="Enter Y₂ value" step="any">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Unknown Point Section -->
+                        <div style="margin-bottom: 2rem;">
+                            <h3 style="color: #2c3e50; margin-bottom: 1.5rem; text-align: center;">Point to Find (X₃, Y₃)</h3>
+                            <div class="warning-box">
+                                <p style="text-align: center; margin: 0;"><strong>Important:</strong> Enter ONLY ONE value below. Leave the other field empty to calculate it.</p>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                                <div class="form-group">
+                                    <label for="x3">X₃ (Known):</label>
+                                    <input type="number" id="x3" placeholder="Enter X₃ if known, or leave blank" step="any">
+                                </div>
+                                <div class="form-group">
+                                    <label for="y3">Y₃ (Known):</label>
+                                    <input type="number" id="y3" placeholder="Enter Y₃ if known, or leave blank" step="any">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="converter-buttons">
+                            <button id="calculateBtn" class="btn">Calculate</button>
+                            <button id="clearBtn" class="btn-secondary">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="resultsSection" style="display: none; margin-top: 3rem;">
+                    <div class="boiler-results-section">
+                        <h3>Results</h3>
+                        <div id="resultType" class="info-box" style="margin-bottom: 1rem; text-align: center;">
+                            <p id="resultTypeText" style="margin: 0; font-weight: 600;"></p>
+                        </div>
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Calculated Value:</span>
+                            <span class="result-value" id="resultValue">-</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Slope (m):</span>
+                            <span class="result-value" id="slopeValue">-</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Y-Intercept (b):</span>
+                            <span class="result-value" id="interceptValue">-</span>
+                        </div>
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Linear Equation:</span>
+                            <span class="result-value" id="equationValue" style="font-size: 1rem;">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Section -->
+                <div id="errorSection" class="error-box" style="display: none; margin-top: 2rem;">
+                    <h4 style="color: #721c24; margin-bottom: 0.5rem;">Error</h4>
+                    <p id="errorMessage" style="color: #721c24; margin: 0;"></p>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Important Limitations</div>
+                    <div class="disclaimer-text">
+                        <p><strong>This tool is designed ONLY for LINEAR relationships.</strong></p>
+                        <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                            <li><strong>Linear Systems:</strong> Use this tool only when the relationship between X and Y can be reasonably approximated by a straight line.</li>
+                            <li><strong>Interpolation is more reliable:</strong> Values within the known data range (between X₁ and X₂) are generally more accurate.</li>
+                            <li><strong>Extrapolation caution:</strong> Values beyond the known range may be less accurate, especially as you move further from the data points.</li>
+                            <li><strong>Non-linear systems:</strong> Do NOT use for exponential, logarithmic, polynomial, or other non-linear relationships. Results will be inaccurate.</li>
+                            <li><strong>Verification required:</strong> Always verify results with actual data or more sophisticated methods for critical applications.</li>
+                        </ul>
+                        <br>
+                        <p><strong>Example Use Cases:</strong> Pressure-elevation relationships over small ranges, simple velocity-time calculations, basic temperature conversions, proportional scaling operations.</p>
+                        <br>
+                        <p><strong>Not Suitable For:</strong> Psychrometric calculations, fluid property tables with phase changes, compressible flow calculations, or any system with curved relationships.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Interpolation Calculator Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculateBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const errorSection = document.getElementById('errorSection');
+
+            // Input fields
+            const x1Input = document.getElementById('x1');
+            const y1Input = document.getElementById('y1');
+            const x2Input = document.getElementById('x2');
+            const y2Input = document.getElementById('y2');
+            const x3Input = document.getElementById('x3');
+            const y3Input = document.getElementById('y3');
+
+            // Result fields
+            const resultValue = document.getElementById('resultValue');
+            const slopeValue = document.getElementById('slopeValue');
+            const interceptValue = document.getElementById('interceptValue');
+            const equationValue = document.getElementById('equationValue');
+            const resultTypeText = document.getElementById('resultTypeText');
+
+            // Calculate button handler
+            calculateBtn.addEventListener('click', function() {
+                // Hide previous results and errors
+                resultsSection.style.display = 'none';
+                errorSection.style.display = 'none';
+
+                // Get input values
+                const x1 = parseFloat(x1Input.value);
+                const y1 = parseFloat(y1Input.value);
+                const x2 = parseFloat(x2Input.value);
+                const y2 = parseFloat(y2Input.value);
+                const x3 = x3Input.value.trim() !== '' ? parseFloat(x3Input.value) : null;
+                const y3 = y3Input.value.trim() !== '' ? parseFloat(y3Input.value) : null;
+
+                // Validation
+                if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+                    showError('Please enter valid values for both known points (X₁, Y₁) and (X₂, Y₂).');
+                    return;
+                }
+
+                if (x1 === x2) {
+                    showError('X₁ and X₂ must be different values (cannot have a vertical line).');
+                    return;
+                }
+
+                if (y1 === y2 && y3 !== null) {
+                    showError('Cannot solve for X₃ when Y₁ equals Y₂ (horizontal line with known Y₃).');
+                    return;
+                }
+
+                if (x3 === null && y3 === null) {
+                    showError('Please enter either X₃ or Y₃ (one value must be known).');
+                    return;
+                }
+
+                if (x3 !== null && y3 !== null) {
+                    showError('Please enter ONLY ONE value: either X₃ or Y₃ (not both).');
+                    return;
+                }
+
+                // Calculate slope and intercept
+                const slope = (y2 - y1) / (x2 - x1);
+                const intercept = y1 - slope * x1;
+
+                // Perform interpolation/extrapolation
+                let calculatedValue, resultLabel, isInterpolation;
+
+                if (x3 !== null) {
+                    // Calculate Y₃ from known X₃
+                    calculatedValue = y1 + ((x3 - x1) * (y2 - y1)) / (x2 - x1);
+                    resultLabel = `Y₃ = ${calculatedValue.toFixed(6)}`;
+
+                    // Determine if interpolation or extrapolation
+                    const minX = Math.min(x1, x2);
+                    const maxX = Math.max(x1, x2);
+                    isInterpolation = x3 >= minX && x3 <= maxX;
+
+                } else {
+                    // Calculate X₃ from known Y₃
+                    calculatedValue = x1 + ((y3 - y1) * (x2 - x1)) / (y2 - y1);
+                    resultLabel = `X₃ = ${calculatedValue.toFixed(6)}`;
+
+                    // Determine if interpolation or extrapolation
+                    const minY = Math.min(y1, y2);
+                    const maxY = Math.max(y1, y2);
+                    isInterpolation = y3 >= minY && y3 <= maxY;
+                }
+
+                // Display results
+                resultValue.textContent = resultLabel;
+                slopeValue.textContent = slope.toFixed(6);
+                interceptValue.textContent = intercept.toFixed(6);
+
+                const slopeSign = intercept >= 0 ? '+' : '';
+                equationValue.textContent = `y = ${slope.toFixed(4)}x ${slopeSign} ${intercept.toFixed(4)}`;
+
+                if (isInterpolation) {
+                    resultTypeText.innerHTML = '✓ <strong>Interpolation</strong> - The result is within the known data range (generally more reliable).';
+                    document.getElementById('resultType').style.background = '#d4edda';
+                    document.getElementById('resultType').style.borderLeftColor = '#28a745';
+                } else {
+                    resultTypeText.innerHTML = '⚠ <strong>Extrapolation</strong> - The result is beyond the known data range (use with caution).';
+                    document.getElementById('resultType').style.background = '#fff3cd';
+                    document.getElementById('resultType').style.borderLeftColor = '#f39c12';
+                }
+
+                resultsSection.style.display = 'block';
+
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+
+            // Clear button handler
+            clearBtn.addEventListener('click', function() {
+                x1Input.value = '';
+                y1Input.value = '';
+                x2Input.value = '';
+                y2Input.value = '';
+                x3Input.value = '';
+                y3Input.value = '';
+                resultsSection.style.display = 'none';
+                errorSection.style.display = 'none';
+            });
+
+            // Error display function
+            function showError(message) {
+                document.getElementById('errorMessage').textContent = message;
+                errorSection.style.display = 'block';
+                errorSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Clear error when user starts typing
+            const allInputs = [x1Input, y1Input, x2Input, y2Input, x3Input, y3Input];
+            allInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    errorSection.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

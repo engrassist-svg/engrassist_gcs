@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Free coil selection calculator for HVAC heating and cooling coils. Calculate coil capacity, fluid flow, air temperature changes, and fluid temperature requirements.">
+    <meta name="keywords" content="coil selection, heating coil, cooling coil, HVAC coil, coil sizing, heat transfer, glycol coil, water coil, ASHRAE">
+    <link rel="canonical" href="https://engrassist.com/coil_selection.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Coil Selection Calculator - EngrAssist">
+    <meta property="og:description" content="Free HVAC coil selection calculator for heating and cooling coils with fluid flow calculations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/coil_selection.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Coil Selection Calculator">
+    <meta name="twitter:description" content="Free HVAC coil selection calculator for heating and cooling coils.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Coil Selection Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Coil Selection Calculator</h1>
+                <p class="hero-subtitle">Calculate heating and cooling coil performance including capacity, airflow, fluid flow, and temperature changes. Supports water and glycol mixtures for freeze protection.</p>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Coil Parameters</h2>
+
+                <div class="info-box">
+                    <h4>How to Use This Calculator</h4>
+                    <p>Enter any combination of known values and the calculator will solve for the remaining unknowns. You need at least 5 of the 7 parameters to calculate the rest.</p>
+                </div>
+
+                <!-- Fluid Type Selection -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coil-fluidType">Fluid Type:</label>
+                        <select id="coil-fluidType" onchange="toggleCoilGlycolMix()">
+                            <option value="water" selected>Water</option>
+                            <option value="propylene">Propylene Glycol Mix</option>
+                            <option value="ethylene">Ethylene Glycol Mix</option>
+                        </select>
+                    </div>
+                    <div id="coil-glycolMixInput" class="form-group" style="display: none;">
+                        <label for="coil-glycolPercent">Glycol Percentage (%):</label>
+                        <input type="number" id="coil-glycolPercent" placeholder="0-50%" value="30" min="0" max="50" step="1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Typical range: 20-40% for freeze protection
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Air Side Parameters -->
+                <h3 class="subsection-title">Air Side</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coil-airflow">Airflow (CFM):</label>
+                        <input type="number" id="coil-airflow" placeholder="Enter airflow" min="0" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Leave blank to calculate
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="coil-enteringAirTemp">Entering Air Temperature (°F):</label>
+                        <input type="number" id="coil-enteringAirTemp" placeholder="Enter EAT" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Leave blank to calculate
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="coil-leavingAirTemp">Leaving Air Temperature (°F):</label>
+                    <input type="number" id="coil-leavingAirTemp" placeholder="Enter LAT" step="0.1">
+                    <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                        Leave blank to calculate
+                    </small>
+                </div>
+
+                <!-- Fluid Side Parameters -->
+                <h3 class="subsection-title">Fluid Side</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coil-fluidFlow">Fluid Flow (GPM):</label>
+                        <input type="number" id="coil-fluidFlow" placeholder="Enter GPM" min="0" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Leave blank to calculate
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="coil-enteringFluidTemp">Entering Fluid Temperature (°F):</label>
+                        <input type="number" id="coil-enteringFluidTemp" placeholder="Enter EFT" step="0.1">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Leave blank to calculate
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="coil-leavingFluidTemp">Leaving Fluid Temperature (°F):</label>
+                    <input type="number" id="coil-leavingFluidTemp" placeholder="Enter LFT" step="0.1">
+                    <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                        Leave blank to calculate
+                    </small>
+                </div>
+
+                <!-- Capacity -->
+                <h3 class="subsection-title">Coil Capacity</h3>
+                <div class="form-group">
+                    <label for="coil-capacity">Capacity (MBH):</label>
+                    <input type="number" id="coil-capacity" placeholder="Enter capacity in MBH" min="0" step="0.1">
+                    <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                        MBH = 1,000 BTU/hr. Leave blank to calculate
+                    </small>
+                </div>
+
+                <button class="btn" onclick="calculateCoil()">Calculate Coil Performance</button>
+
+                <!-- Results Section -->
+                <div id="coil-results" class="boiler-results-section" style="display: none;">
+                    <h3>Calculation Results</h3>
+
+                    <div class="boiler-result-item boiler-result-blue">
+                        <span class="result-label">Coil Capacity:</span>
+                        <span class="result-value" id="result-capacity">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Airflow:</span>
+                        <span class="result-value" id="result-airflow">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Entering Air Temperature:</span>
+                        <span class="result-value" id="result-eat">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Leaving Air Temperature:</span>
+                        <span class="result-value" id="result-lat">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-green">
+                        <span class="result-label">Air Temperature Change (ΔT):</span>
+                        <span class="result-value" id="result-air-delta">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Fluid Flow:</span>
+                        <span class="result-value" id="result-fluidflow">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Entering Fluid Temperature:</span>
+                        <span class="result-value" id="result-eft">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Leaving Fluid Temperature:</span>
+                        <span class="result-value" id="result-lft">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-purple">
+                        <span class="result-label">Fluid Temperature Change (ΔT):</span>
+                        <span class="result-value" id="result-fluid-delta">--</span>
+                    </div>
+
+                    <div class="boiler-result-item boiler-result-orange">
+                        <span class="result-label">Fluid Properties:</span>
+                        <span class="result-value" id="result-fluid-props">--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reference Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Coil Selection Guidelines</h2>
+
+                <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Heat Transfer Equations</h3>
+                <div class="calc-card">
+                    <h4>Air Side (Sensible Heat)</h4>
+                    <div class="formula">Q = 1.08 × CFM × ΔT<sub>air</sub></div>
+                    <ul>
+                        <li>Q = Heat transfer (BTU/hr)</li>
+                        <li>CFM = Airflow (cubic feet per minute)</li>
+                        <li>ΔT<sub>air</sub> = Air temperature difference (°F)</li>
+                        <li>1.08 = Constant (0.075 lb/ft³ × 60 min/hr × 0.24 BTU/lb·°F)</li>
+                    </ul>
+                </div>
+
+                <div class="calc-card" style="margin-top: 1rem;">
+                    <h4>Fluid Side</h4>
+                    <div class="formula">Q = 500 × GPM × ΔT<sub>fluid</sub> × SG × Cp</div>
+                    <ul>
+                        <li>Q = Heat transfer (BTU/hr)</li>
+                        <li>GPM = Fluid flow (gallons per minute)</li>
+                        <li>ΔT<sub>fluid</sub> = Fluid temperature difference (°F)</li>
+                        <li>SG = Specific gravity of fluid</li>
+                        <li>Cp = Specific heat (BTU/lb·°F)</li>
+                        <li>500 = Constant (8.34 lb/gal × 60 min/hr)</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Typical Design Conditions</h3>
+
+                <h4 style="color: #34495e; margin-top: 1.5rem; margin-bottom: 0.5rem;">Heating Coils</h4>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Hot Water Supply:</strong> 180°F (typical), can range from 140°F to 200°F</li>
+                    <li><strong>Hot Water Return:</strong> 160°F (typical 20°F ΔT)</li>
+                    <li><strong>Entering Air:</strong> Varies with outdoor conditions (0°F to 70°F typical)</li>
+                    <li><strong>Leaving Air:</strong> 90-110°F for comfort heating</li>
+                    <li><strong>Face Velocity:</strong> 400-800 FPM typical</li>
+                    <li><strong>Air Temperature Rise:</strong> 40-70°F typical</li>
+                </ul>
+
+                <h4 style="color: #34495e; margin-top: 1.5rem; margin-bottom: 0.5rem;">Cooling Coils (Chilled Water)</h4>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Chilled Water Supply:</strong> 42-45°F (typical 44°F)</li>
+                    <li><strong>Chilled Water Return:</strong> 54-58°F (typical 10-14°F ΔT)</li>
+                    <li><strong>Entering Air:</strong> 75-80°F DB, varies with application</li>
+                    <li><strong>Leaving Air:</strong> 52-58°F typical (for comfort cooling)</li>
+                    <li><strong>Face Velocity:</strong> 300-500 FPM to prevent condensate carryover</li>
+                    <li><strong>Air Temperature Drop:</strong> 18-28°F typical</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Glycol Solutions</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Propylene Glycol:</strong> Food-grade, safer for potable water applications</li>
+                    <li><strong>Ethylene Glycol:</strong> Better heat transfer, toxic - used in closed loops only</li>
+                    <li><strong>Typical Concentration:</strong> 20-40% by weight for freeze protection</li>
+                    <li><strong>30% Glycol:</strong> Freeze point approximately 5°F (propylene) or -10°F (ethylene)</li>
+                    <li><strong>Flow Rate Impact:</strong> 10-20% higher GPM needed vs. water for same capacity</li>
+                    <li><strong>Pump Power:</strong> Increases with glycol concentration due to higher viscosity</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Design Tips</h3>
+                <ul style="margin-left: 2rem; line-height: 2;">
+                    <li><strong>Approach Temperature:</strong> Minimum 5-8°F between leaving air and entering fluid temperature</li>
+                    <li><strong>Air Velocity:</strong> Lower velocities for cooling coils to prevent moisture carryover</li>
+                    <li><strong>Rows Deep:</strong> 3-4 rows for heating coils, 4-8 rows for cooling coils</li>
+                    <li><strong>Fin Spacing:</strong> 8-10 FPI for heating, 10-14 FPI for cooling (clean applications)</li>
+                    <li><strong>Pressure Drop:</strong> Target 0.3-0.8" W.C. air side, 5-15 ft water head fluid side</li>
+                    <li><strong>Coil Orientation:</strong> Counterflow preferred for best heat transfer efficiency</li>
+                </ul>
+
+                <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Leading Coil Manufacturers</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔥</div>
+                        <h4 class="feature-title">Trane</h4>
+                        <p>Comprehensive line of heating and cooling coils. Custom and standard configurations. High efficiency designs.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">❄️</div>
+                        <h4 class="feature-title">Carrier</h4>
+                        <p>Standard and custom coils for all applications. Advanced fin designs for optimal heat transfer.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h4 class="feature-title">Heatcraft</h4>
+                        <p>Specialized in industrial coils. Custom fabrication available. Corrosion-resistant options.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌡️</div>
+                        <h4 class="feature-title">Colmac</h4>
+                        <p>High-quality custom and standard coils. Excellent for glycol and specialty applications.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔧</div>
+                        <h4 class="feature-title">Super Radiator Coils</h4>
+                        <p>Quick delivery standard coils. Custom designs available. Wide range of configurations.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💡</div>
+                        <h4 class="feature-title">Modine</h4>
+                        <p>Unit heaters and coils. Rugged construction. Good for industrial applications.</p>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Important Disclaimer</h4>
+                    <p>These calculations provide estimates for preliminary sizing only. Actual coil selection requires consideration of factors including humidity, altitude, fin spacing, number of rows, circuiting, pressure drop, freeze protection, and specific application requirements. Always consult with a licensed professional engineer and coil manufacturer for final selection. This calculator assumes sensible heat transfer only and does not account for latent cooling loads. EngrAssist is not responsible for equipment selection based on these estimates.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
