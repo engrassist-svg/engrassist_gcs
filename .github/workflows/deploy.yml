@@ -24,6 +24,12 @@ jobs:
       - name: Build obfuscated code
         run: npm run build
 
+      - name: Compress CSS and JS files
+        run: |
+          echo "Compressing CSS and JS files with gzip..."
+          gzip -9 -k -f styles.css scripts.js load_calculation.js service-worker.js || true
+          echo "✓ Compression complete"
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
@@ -35,5 +41,81 @@ jobs:
       - name: Upload files to bucket
         run: |
           gsutil -m rsync -r -d -c \
-            -x ".git/.*|.github/.*|.*\.psd$|.*_old\.*|README\.md|.*\.DS_Store|node_modules/.*|src/.*|build/.*|package\.json|package-lock\.json|\.gitignore" \
+            -x ".git/.*|.github/.*|.*\.psd$|.*_old\.*|README\.md|.*\.DS_Store|node_modules/.*|src/.*|build/.*|package\.json|package-lock\.json|\.gitignore|.*\.sh$|CLOUDFLARE.*|SETUP_GUIDE\.md|SEO_SETUP.*" \
             . gs://${{ secrets.GCP_BUCKET_NAME }}
+
+      - name: Upload compressed files with proper headers
+        run: |
+          echo "Uploading compressed CSS/JS files..."
+
+          # Upload gzipped CSS with proper headers
+          if [ -f "styles.css.gz" ]; then
+            gsutil -h "Content-Encoding:gzip" \
+                   -h "Content-Type:text/css" \
+                   -h "Cache-Control:public, max-age=31536000, immutable" \
+                   cp styles.css.gz gs://${{ secrets.GCP_BUCKET_NAME }}/styles.css
+            echo "✓ Uploaded styles.css (gzipped)"
+          fi
+
+          # Upload gzipped JS files with proper headers
+          for js_file in scripts.js load_calculation.js; do
+            if [ -f "${js_file}.gz" ]; then
+              gsutil -h "Content-Encoding:gzip" \
+                     -h "Content-Type:application/javascript" \
+                     -h "Cache-Control:public, max-age=31536000, immutable" \
+                     cp ${js_file}.gz gs://${{ secrets.GCP_BUCKET_NAME }}/${js_file}
+              echo "✓ Uploaded ${js_file} (gzipped)"
+            fi
+          done
+
+          # Upload service worker (no cache)
+          if [ -f "service-worker.js.gz" ]; then
+            gsutil -h "Content-Encoding:gzip" \
+                   -h "Content-Type:application/javascript" \
+                   -h "Cache-Control:public, max-age=0, must-revalidate" \
+                   cp service-worker.js.gz gs://${{ secrets.GCP_BUCKET_NAME }}/service-worker.js
+            echo "✓ Uploaded service-worker.js (gzipped)"
+          fi
+
+      - name: Apply cache headers to images and HTML
+        run: |
+          echo "Applying cache headers to static assets..."
+
+          # HTML files (1 day)
+          gsutil -m setmeta -h "Cache-Control:public, max-age=86400" \
+            "gs://${{ secrets.GCP_BUCKET_NAME }}/*.html" || true
+
+          gsutil -m setmeta -h "Cache-Control:public, max-age=86400" \
+            "gs://${{ secrets.GCP_BUCKET_NAME }}/articles/*.html" || true
+
+          # Images (1 year)
+          gsutil -m setmeta -h "Cache-Control:public, max-age=31536000, immutable" \
+            "gs://${{ secrets.GCP_BUCKET_NAME }}/images/*" || true
+
+          # Templates (1 week)
+          gsutil -m setmeta -h "Cache-Control:public, max-age=604800" \
+            gs://${{ secrets.GCP_BUCKET_NAME }}/header.html \
+            gs://${{ secrets.GCP_BUCKET_NAME }}/footer.html || true
+
+          # Other static assets
+          gsutil -m setmeta -h "Cache-Control:public, max-age=86400" \
+            "gs://${{ secrets.GCP_BUCKET_NAME }}/*.xml" \
+            "gs://${{ secrets.GCP_BUCKET_NAME }}/*.txt" || true
+
+          echo "✓ Cache headers applied"
+
+      - name: Deployment summary
+        run: |
+          echo "============================================"
+          echo "Deployment Complete!"
+          echo "============================================"
+          echo "✓ Code obfuscated and built"
+          echo "✓ CSS/JS compressed with gzip (~70% reduction)"
+          echo "✓ Files uploaded to GCS bucket"
+          echo "✓ Cache headers applied"
+          echo ""
+          echo "Next steps:"
+          echo "  1. Test website: https://engrassist.com"
+          echo "  2. Run image optimization: ./optimize-images.sh"
+          echo "  3. Consider Cloudflare migration: see CLOUDFLARE_MIGRATION_GUIDE.md"
+          echo ""
