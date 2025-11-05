@@ -79,6 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (dateInput) {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
+
+    // Wire up the calculate button
+    const calculateButton = document.querySelector('button.btn[onclick*="calculateLoads"]');
+    if (calculateButton) {
+        calculateButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            calculateLoads();
+        });
+    }
 });
 
 // Accept disclaimer and show main content
@@ -249,29 +258,50 @@ function humidityRatioFromWB(dryBulbF, wetBulbF) {
 
 // Main calculation function
 function calculateLoads() {
-    // Validate inputs
-    if (!validateInputs()) {
-        return;
+    try {
+        console.log('calculateLoads function called');
+
+        // Validate inputs
+        if (!validateInputs()) {
+            console.log('Validation failed');
+            return;
+        }
+
+        console.log('Validation passed, getting input values');
+        // Get all input values
+        const inputs = getInputValues();
+
+        console.log('Calculating cooling loads');
+        // Calculate cooling loads
+        const coolingLoads = calculateCoolingLoads(inputs);
+
+        console.log('Calculating heating loads');
+        // Calculate heating loads
+        const heatingLoads = calculateHeatingLoads(inputs);
+
+        console.log('Displaying results');
+        // Display results
+        displayResults(coolingLoads, heatingLoads);
+
+        // Show results section
+        const loadResults = document.getElementById('loadResults');
+        if (loadResults) {
+            loadResults.style.display = 'block';
+            console.log('Results section displayed');
+
+            // Scroll to results
+            loadResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            console.error('loadResults element not found!');
+        }
+    } catch (error) {
+        console.error('Error in calculateLoads:', error);
+        alert('An error occurred during calculation: ' + error.message);
     }
-
-    // Get all input values
-    const inputs = getInputValues();
-
-    // Calculate cooling loads
-    const coolingLoads = calculateCoolingLoads(inputs);
-
-    // Calculate heating loads
-    const heatingLoads = calculateHeatingLoads(inputs);
-
-    // Display results
-    displayResults(coolingLoads, heatingLoads);
-
-    // Show results section
-    document.getElementById('loadResults').style.display = 'block';
-
-    // Scroll to results
-    document.getElementById('loadResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+// Make function globally accessible for onclick attribute
+window.calculateLoads = calculateLoads;
 
 function validateInputs() {
     const length = parseFloat(document.getElementById('roomLength').value);
