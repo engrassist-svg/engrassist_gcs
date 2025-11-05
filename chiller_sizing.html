@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive commercial chiller resource: sizing calculator, detailed information, troubleshooting guide, and technical specifications for cooling systems.">
+    <meta name="keywords" content="chiller sizing, chiller calculator, cooling load, commercial chiller, HVAC, tonnage calculation, cooling system design, chiller troubleshooting, chiller specifications">
+    <link rel="canonical" href="https://engrassist.com/chiller_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Commercial Chiller Sizing & Information - EngrAssist">
+    <meta property="og:description" content="Complete commercial chiller resource with calculator, information, troubleshooting, and specifications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/chiller_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Commercial Chiller Sizing & Information">
+    <meta name="twitter:description" content="Complete commercial chiller resource with calculator and guides.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Commercial Chiller Sizing & Information - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+    <style>
+        /* Tab Navigation Styles */
+        .tab-navigation {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            max-width: 100%;
+        }
+
+        .tab-button {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-color: #2980b9;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .tab-navigation {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .tab-button {
+                padding: 1.25rem 0.75rem;
+                font-size: 0.95rem;
+                min-height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+                min-height: 65px;
+            }
+        }
+
+        /* Article content styles */
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Mobile width adjustments */
+        @media (max-width: 768px) {
+            .article-content {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #3498db;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f4f8, #d6eaf8);
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Mobile table scrolling */
+        @media (max-width: 768px) {
+            .spec-table-wrapper {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+            }
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            margin: 0;
+            background: white;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .troubleshooting-table {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .troubleshooting-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            min-width: 800px;
+        }
+
+        .troubleshooting-table th,
+        .troubleshooting-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .troubleshooting-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Mobile table scrolling */
+        @media (max-width: 768px) {
+            .troubleshooting-table {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+            }
+
+            .troubleshooting-table table {
+                min-width: 800px;
+            }
+        }
+
+        .constants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .constant-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .constant-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .constant-card p {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .reference-table {
+            margin: 2rem 0;
+        }
+
+        .reference-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .reference-table th,
+        .reference-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .reference-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .energy-section {
+            margin: 3rem 0;
+        }
+
+        .key-activities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-activities li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .key-activities li:last-child {
+            border-bottom: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Commercial Chiller Sizing & Information</h1>
+                <p class="hero-subtitle">Comprehensive resource for commercial chiller systems: sizing calculator, technical information, troubleshooting guides, and equipment specifications</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator')">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information')">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting')">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications')">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">System Requirements</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chiller-sqft">Square Footage:</label>
+                            <input type="number" id="chiller-sqft" placeholder="Enter square footage" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="chiller-sqftPerTon">Square Feet per Ton:</label>
+                            <input type="number" id="chiller-sqftPerTon" placeholder="Enter sq ft/ton" value="400" min="0" step="0.1" required>
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                <strong>Common values:</strong><br>
+                                Office: 400-600 | Retail: 300-400 | Restaurant: 200-300<br>
+                                Hospital: 250-350 | Data Center: 100-200 | Warehouse: 800-1200
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chiller-safetyFactor">Safety Factor (%):</label>
+                            <input type="number" id="chiller-safetyFactor" placeholder="0-50%" value="20" min="0" max="100" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="chiller-fluidType">Fluid Type:</label>
+                            <select id="chiller-fluidType" onchange="toggleChillerGlycolMix()">
+                                <option value="water" selected>Water</option>
+                                <option value="propylene">Propylene Glycol Mix</option>
+                                <option value="ethylene">Ethylene Glycol Mix</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="chiller-glycolMixInput" class="form-group" style="display: none;">
+                        <label for="chiller-glycolPercent">Glycol Percentage (%):</label>
+                        <input type="number" id="chiller-glycolPercent" placeholder="0-50%" value="30" min="0" max="50" step="1">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chiller-enterTemp">Entering Fluid Temperature (°F):</label>
+                            <input type="number" id="chiller-enterTemp" placeholder="Enter temperature" value="54" step="0.1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                Typical return water temperature
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="chiller-leaveTemp">Leaving Fluid Temperature (°F):</label>
+                            <input type="number" id="chiller-leaveTemp" placeholder="Leave temperature" value="44" step="0.1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                Typical supply water temperature
+                            </small>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateChillerSystem()">Calculate System Requirements</button>
+
+                    <div id="chiller-systemResults" class="boiler-results-section">
+                        <h3>System Requirements Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Base Cooling Load:</span>
+                            <span class="result-value" id="chiller-coolingLoad">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Required Capacity (with safety factor):</span>
+                            <span class="result-value" id="chiller-requiredBTU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Required Tonnage:</span>
+                            <span class="result-value" id="chiller-requiredTons">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Temperature Difference (ΔT):</span>
+                            <span class="result-value" id="chiller-deltaT">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Fluid Specific Heat:</span>
+                            <span class="result-value" id="chiller-specificHeat">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Fluid Density:</span>
+                            <span class="result-value" id="chiller-density">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Estimated System Flow:</span>
+                            <span class="result-value" id="chiller-systemFlow">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Selected System Section -->
+                    <div class="selected-system-section">
+                        <h2 class="section-title">Selected System</h2>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="chiller-quantity">Number of Chillers:</label>
+                                <input type="number" id="chiller-quantity" placeholder="Enter quantity" min="1" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="chiller-capacity">Chiller Capacity (Tons per chiller):</label>
+                                <input type="number" id="chiller-capacity" placeholder="Enter capacity in tons" min="0" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="chiller-efficiency">Chiller Efficiency (EER or kW/Ton):</label>
+                                <select id="chiller-efficiencyType" onchange="updateChillerEfficiencyLabel()">
+                                    <option value="eer" selected>EER (Energy Efficiency Ratio)</option>
+                                    <option value="kwton">kW/Ton</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="chiller-efficiencyValue" id="chiller-efficiencyLabel">EER Value:</label>
+                                <input type="number" id="chiller-efficiencyValue" placeholder="12-20 for EER" value="14" min="0" step="0.1">
+                                <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                    <span id="chiller-efficiencyHint">Typical air-cooled: 10-12 EER, water-cooled: 14-20 EER</span>
+                                </small>
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="calculateChillerSelectedSystem()">Calculate Selected System</button>
+
+                        <div id="chiller-selectedResults" class="boiler-results-section">
+                            <h3>Selected System Results</h3>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Capacity per Chiller:</span>
+                                <span class="result-value" id="chiller-capacityPerChiller">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Total System Capacity:</span>
+                                <span class="result-value" id="chiller-totalCapacity">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Actual Safety Factor:</span>
+                                <span class="result-value" id="chiller-actualSafety">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Power Consumption per Chiller:</span>
+                                <span class="result-value" id="chiller-powerPerChiller">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Total System Power:</span>
+                                <span class="result-value" id="chiller-totalPower">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-purple">
+                                <span class="result-label">Fluid Flow per Chiller:</span>
+                                <span class="result-value" id="chiller-flowPerChiller">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-purple">
+                                <span class="result-label">Total System Flow:</span>
+                                <span class="result-value" id="chiller-totalFlow">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reference Section -->
+                    <h2 class="section-title" style="margin-top: 3rem;">Sizing Guidelines & Rules of Thumb</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Commercial Building Cooling Load (Square Feet per Ton)</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Office Buildings:</strong> 400-600 sq ft/ton (light occupancy and equipment)</li>
+                        <li><strong>Retail Stores:</strong> 300-400 sq ft/ton (moderate occupancy)</li>
+                        <li><strong>Restaurants:</strong> 200-300 sq ft/ton (high occupancy and cooking equipment)</li>
+                        <li><strong>Hotels/Residential:</strong> 400-600 sq ft/ton (similar to office spaces)</li>
+                        <li><strong>Data Centers:</strong> 100-200 sq ft/ton (very high heat loads from servers)</li>
+                        <li><strong>Hospitals:</strong> 250-350 sq ft/ton (high ventilation requirements)</li>
+                        <li><strong>Warehouses (conditioned):</strong> 800-1200 sq ft/ton (minimal occupancy)</li>
+                        <li><strong>Schools/Classrooms:</strong> 350-500 sq ft/ton (moderate to high occupancy)</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Safety Factors</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Replacement Systems:</strong> 10-15%</li>
+                        <li><strong>New Construction:</strong> 15-20%</li>
+                        <li><strong>Future Expansion:</strong> 20-30%</li>
+                        <li><strong>Variable Speed Chillers:</strong> Can size closer to actual load due to part-load efficiency</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Chiller Temperature Guidelines</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Standard Chilled Water:</strong> 44°F supply / 54°F return (10°F ΔT)</li>
+                        <li><strong>Low Temperature Applications:</strong> 38-42°F supply (process cooling)</li>
+                        <li><strong>High ΔT Systems:</strong> 42°F supply / 58°F return (16°F ΔT) - reduced flow, smaller pipes</li>
+                        <li><strong>Glycol Systems:</strong> Typically 20-30% glycol for freeze protection</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Leading Commercial Chiller Manufacturers</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">❄️</div>
+                            <h4 class="feature-title">Trane</h4>
+                            <p>Air-cooled & water-cooled chillers 20-4000 tons. Centrifugal & screw compressors. EER up to 20+.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🏢</div>
+                            <h4 class="feature-title">Carrier</h4>
+                            <p>AquaEdge and AquaForce series. 80-4000 tons. Magnetic bearing centrifugal technology.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <h4 class="feature-title">York</h4>
+                            <p>YVAA, YLAA air-cooled. YMC2, YZ magnetic bearing chillers. 20-5000 tons.</p>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Chiller Efficiency Reference</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Air-Cooled Chillers:</strong> 9-12 EER (0.8-1.2 kW/ton) - easier installation, lower initial cost</li>
+                        <li><strong>Water-Cooled Screw:</strong> 11-15 EER (0.6-0.9 kW/ton) - good efficiency, moderate maintenance</li>
+                        <li><strong>Water-Cooled Centrifugal:</strong> 14-20+ EER (0.45-0.7 kW/ton) - highest efficiency, best for large loads</li>
+                        <li><strong>Magnetic Bearing Centrifugal:</strong> 18-25+ EER (0.35-0.5 kW/ton) - premium efficiency, oil-free operation</li>
+                        <li><strong>Variable Speed Drive (VSD):</strong> Improves part-load efficiency by 30-50%</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Important Disclaimer</h4>
+                        <p>These calculations provide estimates for preliminary sizing only. Always conduct a proper cooling load calculation per ASHRAE standards and consult with a licensed professional engineer or chiller manufacturer for final sizing. Factors such as humidity loads, ventilation requirements, solar gains, internal loads, equipment heat rejection, piping losses, altitude, and specific application requirements must be considered. EngrAssist is not responsible for equipment selection based on these estimates.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <div class="toc">
+                            <h3>Table of Contents</h3>
+                            <ul>
+                                <li><a href="#info-overview">Overview</a></li>
+                                <li><a href="#info-how-it-works">How It Works</a></li>
+                                <li><a href="#info-types">Types of Water-Cooled Chillers</a></li>
+                                <li><a href="#info-applications">Applications</a></li>
+                                <li><a href="#info-typical-setups">Typical Configurations</a></li>
+                                <li><a href="#info-sizing">Sizing Requirements</a></li>
+                                <li><a href="#info-options">Available Options</a></li>
+                                <li><a href="#info-best-practices">Best Practices</a></li>
+                                <li><a href="#info-overlooked">Often Overlooked Considerations</a></li>
+                                <li><a href="#info-manufacturers">Popular Manufacturers</a></li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-overview">Overview</h2>
+                        <p>Water-cooled chillers are refrigeration machines that remove heat from a building or process using water as the cooling medium in the condenser. Unlike air-cooled chillers, which reject heat directly to the ambient air, water-cooled chillers use a separate condenser water loop connected to a cooling tower or other heat rejection device. This configuration typically offers higher efficiency, quieter operation, and better performance in hot climates compared to air-cooled alternatives.</p>
+
+                        <p>Water-cooled chillers are commonly found in large commercial buildings, industrial facilities, hospitals, data centers, and district cooling plants where cooling loads exceed 100-150 tons and where the added complexity of a cooling tower system can be justified by the energy savings and performance benefits.</p>
+
+                        <h2 id="info-how-it-works">How It Works</h2>
+                        <p>Water-cooled chillers operate on the vapor-compression refrigeration cycle, consisting of four main components:</p>
+
+                        <div class="info-box">
+                            <h4>The Refrigeration Cycle</h4>
+                            <ol>
+                                <li><strong>Evaporator:</strong> Chilled water from the building returns at approximately 54-58°F and is cooled to 42-45°F as refrigerant evaporates, absorbing heat from the water.</li>
+                                <li><strong>Compressor:</strong> The compressor (centrifugal, screw, or scroll) increases the pressure and temperature of the refrigerant vapor.</li>
+                                <li><strong>Condenser:</strong> Hot refrigerant vapor releases heat to condenser water (typically 85°F entering, 95°F leaving), condensing back to a liquid.</li>
+                                <li><strong>Expansion Device:</strong> The high-pressure liquid refrigerant passes through an expansion valve, reducing pressure and temperature before returning to the evaporator.</li>
+                            </ol>
+                        </div>
+
+                        <p>The condenser water is then pumped to a cooling tower where the heat is rejected to the atmosphere through evaporation. This closed-loop system allows for very efficient heat rejection, especially in moderate climates where wet-bulb temperatures are low.</p>
+
+                        <h2 id="info-types">Types of Water-Cooled Chillers</h2>
+
+                        <div class="info-box">
+                            <h3>1. Centrifugal Chillers</h3>
+                            <p><strong>Capacity Range:</strong> 100 - 10,000+ tons</p>
+                            <p>Centrifugal chillers use a centrifugal compressor with an impeller to compress refrigerant. They are the most efficient option for large cooling loads and are commonly used in central plants. Modern magnetic bearing centrifugal chillers offer exceptional efficiency with COP values of 6.0-8.0 or higher at full load and excellent part-load performance.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Highest efficiency, quietest operation, low maintenance, excellent part-load performance</li>
+                                <li><strong>Disadvantages:</strong> Higher initial cost, minimum load limitations (typically 10-15%), complex controls</li>
+                                <li><strong>Common Refrigerants:</strong> R-134a, R-513A, R-1233zd, R-1234ze</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>2. Screw Chillers</h3>
+                            <p><strong>Capacity Range:</strong> 50 - 1,500 tons</p>
+                            <p>Screw chillers use twin-screw rotary compressors. They offer good efficiency and are well-suited for variable load applications. Screw chillers can handle lower loads better than centrifugal chillers and are often the choice for mid-sized applications.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Good part-load efficiency, fewer moving parts than reciprocating, can handle low evaporator temperatures</li>
+                                <li><strong>Disadvantages:</strong> Slightly lower efficiency than centrifugal at large capacities, higher noise levels</li>
+                                <li><strong>Common Refrigerants:</strong> R-134a, R-513A</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>3. Scroll Chillers</h3>
+                            <p><strong>Capacity Range:</strong> 10 - 200 tons</p>
+                            <p>Scroll chillers use multiple scroll compressors and are ideal for smaller applications. They offer good efficiency and reliability with modular capacity control through compressor staging.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Lower initial cost, simple maintenance, good reliability, modular capacity control</li>
+                                <li><strong>Disadvantages:</strong> Lower efficiency at larger capacities, more compressors means more potential failure points</li>
+                                <li><strong>Common Refrigerants:</strong> R-410A, R-134a</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-applications">Applications and Uses</h2>
+                        <p>Water-cooled chillers are ideal for the following applications:</p>
+                        <ul>
+                            <li><strong>Large Commercial Buildings:</strong> Office towers, shopping malls, convention centers (>150 tons)</li>
+                            <li><strong>Healthcare Facilities:</strong> Hospitals and medical centers requiring high reliability and precise temperature control</li>
+                            <li><strong>Data Centers:</strong> High-density cooling loads with year-round operation</li>
+                            <li><strong>Industrial Process Cooling:</strong> Manufacturing facilities, pharmaceutical production, food processing</li>
+                            <li><strong>District Cooling:</strong> Campus settings serving multiple buildings</li>
+                            <li><strong>Hotels and Resorts:</strong> Large hospitality facilities with consistent cooling demands</li>
+                            <li><strong>Universities and Institutional Buildings:</strong> Central plants serving multiple academic buildings</li>
+                        </ul>
+
+                        <h2 id="info-typical-setups">Typical Configurations</h2>
+
+                        <div class="info-box">
+                            <h3>Single Chiller Configuration</h3>
+                            <p>Smaller facilities (100-300 tons) may use a single chiller with standby capabilities or rental provisions. This is the most economical initial installation but provides no redundancy during maintenance or failure.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Multiple Chiller Arrays</h3>
+                            <p>Large facilities typically use 2-4 chillers in parallel to provide:</p>
+                            <ul>
+                                <li>Redundancy - Operation continues if one chiller fails</li>
+                                <li>Improved Part-Load Efficiency - Operating fewer chillers at higher loads is more efficient than one at low load</li>
+                                <li>Maintenance Flexibility - Chillers can be serviced without shutting down the entire system</li>
+                                <li>Future Expansion - Additional capacity can be added as needed</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Common Chiller Staging Strategies</h3>
+                            <p><strong>Equal Sizing:</strong> Multiple chillers of equal capacity (e.g., four 500-ton chillers for 2,000-ton load)</p>
+                            <p><strong>Lead-Lag:</strong> One smaller "lead" chiller handles base load with larger chillers for peak (e.g., 200-ton + 800-ton for 1,000-ton peak)</p>
+                            <p><strong>Diverse Sizing:</strong> Varied sizes for optimal part-load efficiency across different load conditions</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Primary-Secondary Pumping vs. Variable Primary Flow</h3>
+                            <p><strong>Primary-Secondary:</strong> Traditional design with dedicated constant-flow primary pumps on each chiller and variable-flow secondary distribution. Requires common pipe for hydraulic separation.</p>
+                            <p><strong>Variable Primary Flow:</strong> Modern design with variable-speed pumps directly on the chiller loop, eliminating the need for separate loops. Requires careful control to maintain minimum flow through operating chillers.</p>
+                        </div>
+
+                        <h2 id="info-sizing">Sizing Requirements</h2>
+
+                        <h3>Information Needed for Proper Sizing</h3>
+                        <div class="spec-table-wrapper">
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Typical Values</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Peak Cooling Load</td>
+                                    <td>Tons or BTU/hr</td>
+                                    <td>From load calculation or building simulation</td>
+                                </tr>
+                                <tr>
+                                    <td>Chilled Water Supply Temperature</td>
+                                    <td>42-48°F (typically 44°F)</td>
+                                    <td>Lower temps increase capacity but decrease efficiency</td>
+                                </tr>
+                                <tr>
+                                    <td>Chilled Water Return Temperature</td>
+                                    <td>54-58°F (typically 56°F)</td>
+                                    <td>Delta-T of 10-14°F is standard</td>
+                                </tr>
+                                <tr>
+                                    <td>Condenser Water Entering Temperature</td>
+                                    <td>75-85°F</td>
+                                    <td>Based on local wet-bulb conditions and cooling tower design</td>
+                                </tr>
+                                <tr>
+                                    <td>Condenser Water Leaving Temperature</td>
+                                    <td>85-95°F</td>
+                                    <td>Typically 10°F rise through condenser</td>
+                                </tr>
+                                <tr>
+                                    <td>Available Voltage</td>
+                                    <td>460V/3ph most common</td>
+                                    <td>Larger chillers may require 4160V or higher</td>
+                                </tr>
+                                <tr>
+                                    <td>Altitude</td>
+                                    <td>Feet above sea level</td>
+                                    <td>Affects compressor sizing and capacity</td>
+                                </tr>
+                                <tr>
+                                    <td>Glycol Concentration (if applicable)</td>
+                                    <td>0-30%</td>
+                                    <td>Reduces capacity and efficiency</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+
+                        <h3>Sizing Guidelines</h3>
+                        <ul>
+                            <li><strong>Safety Factor:</strong> Typically 10-15% above calculated peak load to account for uncertainties</li>
+                            <li><strong>Diversity Factor:</strong> For multiple tenants or zones, actual peak may be 70-85% of sum of individual peaks</li>
+                            <li><strong>Future Expansion:</strong> Consider sizing infrastructure (pipe, pumps, cooling tower) for future chiller additions</li>
+                            <li><strong>Minimum Load:</strong> Ensure chiller can operate efficiently at minimum expected load (typically 30-50% of peak)</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <h4>Common Sizing Mistakes</h4>
+                            <ul>
+                                <li>Oversizing based on extreme conditions that rarely occur</li>
+                                <li>Not accounting for improved building envelope or equipment efficiency</li>
+                                <li>Ignoring part-load operation (where the chiller operates 95% of the time)</li>
+                                <li>Forgetting to account for heat gains from pumps, fans, and lighting improvements</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-options">Available Options</h2>
+
+                        <h3>Efficiency Enhancements</h3>
+                        <ul>
+                            <li><strong>Variable Speed Drives:</strong> On compressor for improved part-load efficiency (standard on most modern centrifugal chillers)</li>
+                            <li><strong>Magnetic Bearings:</strong> Eliminate oil system, reduce friction, improve efficiency and reliability</li>
+                            <li><strong>Heat Recovery:</strong> Capture condenser heat for domestic hot water or space heating</li>
+                            <li><strong>Free Cooling (Waterside Economizer):</strong> Bypass chiller during cold weather and use cooling tower directly</li>
+                        </ul>
+
+                        <h3>Control Options</h3>
+                        <ul>
+                            <li><strong>Building Management System (BMS) Integration:</strong> BACnet, Modbus, or proprietary protocols</li>
+                            <li><strong>Plant Optimization Software:</strong> Coordinates chillers, pumps, and cooling towers for optimal plant efficiency</li>
+                            <li><strong>Demand Limiting:</strong> Automatically reduces chiller load to stay within utility demand targets</li>
+                            <li><strong>Remote Monitoring:</strong> Cloud-based monitoring and diagnostics</li>
+                        </ul>
+
+                        <h3>Physical Options</h3>
+                        <ul>
+                            <li><strong>Sound Attenuation:</strong> Additional insulation and vibration isolation for noise-sensitive locations</li>
+                            <li><strong>Marine-Grade Coatings:</strong> For coastal installations or corrosive environments</li>
+                            <li><strong>Seismic Certification:</strong> Required in high-seismic zones</li>
+                            <li><strong>Dual Refrigerant Circuits:</strong> Provides 50% redundancy if one circuit fails</li>
+                        </ul>
+
+                        <h2 id="info-best-practices">Best Practices</h2>
+
+                        <div class="info-box">
+                            <h3>Design Phase</h3>
+                            <ul>
+                                <li>Perform detailed load calculations; avoid using rules of thumb like "400 SF/ton"</li>
+                                <li>Consider load profile and part-load operation when selecting chiller type</li>
+                                <li>Coordinate chiller, pump, and cooling tower selection for optimal system efficiency</li>
+                                <li>Plan for adequate clearance for tube pulling (typically length of tube bundle + 3-4 feet)</li>
+                                <li>Ensure adequate structural support - chillers with water can weigh 15-25 lb/ton</li>
+                                <li>Specify VFDs on condenser water pumps for improved system efficiency</li>
+                                <li>Include water treatment system from day one</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Installation</h3>
+                            <ul>
+                                <li>Verify rigging path and reinforcement before equipment arrives</li>
+                                <li>Install vibration isolation under chiller and on all piping connections</li>
+                                <li>Ensure proper oil return to compressor (pitch horizontal suction lines)</li>
+                                <li>Install flow switches on both chilled and condenser water circuits</li>
+                                <li>Provide adequate freeze protection if chiller may operate below 35°F ambient</li>
+                                <li>Install pressure gauges and thermometers for troubleshooting</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Operation & Maintenance</h3>
+                            <ul>
+                                <li>Maintain water treatment program to prevent scaling, corrosion, and biological growth</li>
+                                <li>Log operating parameters daily (temps, pressures, kW) to identify trends</li>
+                                <li>Clean condenser tubes annually (or more frequently in harsh water conditions)</li>
+                                <li>Check oil level and condition quarterly (screw/scroll chillers)</li>
+                                <li>Verify refrigerant charge annually; even small leaks impact efficiency</li>
+                                <li>Reset chilled water temperature based on load to improve efficiency</li>
+                                <li>Stage chillers to optimize plant efficiency, not just "first on, first off"</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-overlooked">Often Overlooked Considerations</h2>
+
+                        <div class="info-box">
+                            <h3>Physical Dimensions and Weight</h3>
+                            <p>Water-cooled chillers are large and heavy. A 500-ton centrifugal chiller might be 20' long × 8' wide × 10' tall and weigh 25,000-35,000 lbs when shipped (more with water). Consider:</p>
+                            <ul>
+                                <li>Can it fit through doors, down ramps, around corners?</li>
+                                <li>Will it fit in the elevator, or does the crane need to lift it to the roof?</li>
+                                <li>Is structural reinforcement required?</li>
+                                <li>Is there sufficient tube-pull clearance for maintenance?</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Service and Maintenance Access</h3>
+                            <ul>
+                                <li><strong>Tube Bundle Removal:</strong> Requires clear space equal to bundle length plus 3-4 feet</li>
+                                <li><strong>Control Panel Access:</strong> Typically 3-4 feet clearance needed</li>
+                                <li><strong>Compressor Service:</strong> Some chillers require overhead clearance for motor or bearing removal</li>
+                                <li><strong>Refrigerant Recovery:</strong> Space for recovery equipment and cylinders during service</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Typical Pricing (2024)</h3>
+                            <p>Costs vary significantly based on efficiency, options, and market conditions:</p>
+                            <ul>
+                                <li><strong>Scroll Chillers (50-100 tons):</strong> $500-700/ton</li>
+                                <li><strong>Screw Chillers (100-500 tons):</strong> $400-600/ton</li>
+                                <li><strong>Centrifugal Chillers (500+ tons):</strong> $350-550/ton</li>
+                                <li><strong>High-Efficiency Magnetic Bearing Centrifugal:</strong> $450-700/ton</li>
+                            </ul>
+                            <p><em>Note: These are equipment-only costs. Installation typically adds 50-100% to total project cost.</em></p>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Energy Costs</h3>
+                            <p>Operating costs often exceed equipment costs over the life of the chiller. A 500-ton chiller operating 2,000 hours/year at $0.12/kWh:</p>
+                            <ul>
+                                <li><strong>Standard Efficiency (0.60 kW/ton):</strong> $72,000/year</li>
+                                <li><strong>High Efficiency (0.45 kW/ton):</strong> $54,000/year</li>
+                                <li><strong>Savings:</strong> $18,000/year, $360,000 over 20-year life</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Water Quality and Treatment</h3>
+                            <p>Often underestimated, poor water treatment is the #1 cause of premature chiller failure:</p>
+                            <ul>
+                                <li>Budget 5-10% of chiller cost for water treatment system</li>
+                                <li>Plan for regular water testing (monthly minimum)</li>
+                                <li>Chemical treatment costs typically $2,000-5,000/year for a 500-ton system</li>
+                                <li>One tube bundle replacement can cost $50,000-150,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Sound Levels</h3>
+                            <p>While quieter than air-cooled chillers, water-cooled chillers still generate noise:</p>
+                            <ul>
+                                <li><strong>Centrifugal:</strong> 75-85 dBA at 10 feet</li>
+                                <li><strong>Screw:</strong> 80-90 dBA at 10 feet</li>
+                                <li><strong>Scroll:</strong> 75-85 dBA at 10 feet</li>
+                                <li>Add sound attenuation package if near occupied spaces or property lines</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-manufacturers">Popular Manufacturers and Brands</h2>
+
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Trane (Ingersoll Rand)</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>CenTraVac centrifugal chillers</li>
+                                    <li>Series R rotary screw chillers</li>
+                                    <li>Extensive service network</li>
+                                </ul>
+                                <p><a href="https://www.trane.com" target="_blank">trane.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Carrier</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>19XR/19XRV centrifugal chillers</li>
+                                    <li>AquaSnap scroll chillers</li>
+                                    <li>Pioneer in refrigeration technology</li>
+                                </ul>
+                                <p><a href="https://www.carrier.com" target="_blank">carrier.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>York (Johnson Controls)</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>YK centrifugal chillers</li>
+                                    <li>YVAA air-cooled screw chillers</li>
+                                    <li>Strong in large tonnage applications</li>
+                                </ul>
+                                <p><a href="https://www.johnsoncontrols.com/york" target="_blank">johnsoncontrols.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Daikin (McQuay)</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>Magnitude magnetic bearing chillers</li>
+                                    <li>WME water-cooled screw chillers</li>
+                                    <li>Focus on energy efficiency</li>
+                                </ul>
+                                <p><a href="https://www.daikinapplied.com" target="_blank">daikinapplied.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Multistack</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>Modular scroll chiller systems</li>
+                                    <li>Excellent part-load efficiency</li>
+                                    <li>Ideal for phased installations</li>
+                                </ul>
+                                <p><a href="https://www.multistack.com" target="_blank">multistack.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Smardt</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>Oil-free magnetic bearing chillers</li>
+                                    <li>Exceptional efficiency (0.35-0.45 kW/ton)</li>
+                                    <li>Compact footprint</li>
+                                </ul>
+                                <p><a href="https://www.smardt.com" target="_blank">smardt.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <div class="energy-section">
+                        <h2 class="section-title">Chiller Troubleshooting</h2>
+                        <div class="energy-content">
+
+                            <div class="troubleshooting-table">
+                                <h3>Common Chiller Problems</h3>
+                                <table class="efficiency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symptom</th>
+                                            <th>Possible Causes</th>
+                                            <th>Diagnostic Steps</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Low Leaving Water Temperature</strong></td>
+                                            <td>Fouled tubes, low flow, low load, refrigerant undercharge</td>
+                                            <td>Check approach temperature, measure flow rate, inspect tubes, verify refrigerant charge</td>
+                                            <td>Clean tubes, repair flow issues, adjust load, recharge refrigerant</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>High Discharge Pressure</strong></td>
+                                            <td>Fouled condenser, high condenser water temp, non-condensables, refrigerant overcharge</td>
+                                            <td>Check condenser approach, inspect tubes, check cooling tower, purge air</td>
+                                            <td>Clean condenser, repair cooling tower, purge system, recover excess refrigerant</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Low Suction Pressure</strong></td>
+                                            <td>Low load, refrigerant undercharge, expansion valve issue, evaporator fouling</td>
+                                            <td>Check building load, verify charge, test TXV/EXV, inspect evaporator</td>
+                                            <td>Recharge system, replace valve, clean evaporator</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>High Amp Draw</strong></td>
+                                            <td>High head pressure, mechanical issues, electrical problems</td>
+                                            <td>Check all pressures, listen for abnormal sounds, verify voltage/phase balance</td>
+                                            <td>Address pressure issues, repair mechanical problems, fix electrical supply</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Frequent Starts/Stops</strong></td>
+                                            <td>Oversized unit, low load, control issues, flow switch issues</td>
+                                            <td>Review load calculations, check minimum run timers, verify flow rates</td>
+                                            <td>Adjust controls, add thermal storage, repair flow issues</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Oil Level Issues</strong></td>
+                                            <td>Oil migration, oil foaming, refrigerant in oil, oil return problems</td>
+                                            <td>Check sight glass, measure oil temperature, verify oil separator operation</td>
+                                            <td>Add oil, repair oil return system, reduce refrigerant migration</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Critical Chiller Measurements</h4>
+                                <ul>
+                                    <li><strong>Evaporator Approach:</strong> Leaving water temp - refrigerant evaporating temp (typically 2-4°F)</li>
+                                    <li><strong>Condenser Approach:</strong> Refrigerant condensing temp - entering water temp (typically 2-6°F)</li>
+                                    <li><strong>Superheat:</strong> Suction temp - evaporating temp (typically 8-12°F)</li>
+                                    <li><strong>Subcooling:</strong> Condensing temp - liquid line temp (typically 5-10°F)</li>
+                                    <li><strong>Delta T:</strong> Entering - leaving water temp (typically 10-12°F design)</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Systematic Troubleshooting Approach</h3>
+                            <div class="info-box">
+                                <h4>Step 1: Define the Problem</h4>
+                                <ul>
+                                    <li>What is the specific symptom or complaint?</li>
+                                    <li>When did the problem start?</li>
+                                    <li>Has anything changed recently (setpoints, equipment, weather)?</li>
+                                    <li>Is the problem continuous or intermittent?</li>
+                                    <li>Which zones or systems are affected?</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 2: Gather Data</h4>
+                                <ul>
+                                    <li>Review BMS/BAS trending data and alarms</li>
+                                    <li>Check equipment status indicators and gauges</li>
+                                    <li>Measure temperatures, pressures, flows, and electrical parameters</li>
+                                    <li>Review maintenance records and equipment logs</li>
+                                    <li>Obtain design documents and sequence of operations</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 3: Analyze and Diagnose</h4>
+                                <ul>
+                                    <li>Compare actual values to design values</li>
+                                    <li>Identify which systems/components are functioning correctly</li>
+                                    <li>Isolate the problem to a specific subsystem or component</li>
+                                    <li>Develop hypotheses for root cause</li>
+                                    <li>Test each hypothesis systematically</li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Safety Considerations</h4>
+                                <p><strong>Always follow these safety procedures when troubleshooting chiller equipment:</strong></p>
+                                <ul>
+                                    <li>Follow lockout/tagout (LOTO) procedures for all energy sources</li>
+                                    <li>Wear appropriate PPE: safety glasses, work boots, gloves</li>
+                                    <li>Never open refrigerant systems under pressure</li>
+                                    <li>Ensure proper ventilation when working with refrigerants</li>
+                                    <li>Use proper refrigerant handling equipment</li>
+                                    <li>Be aware of electrical hazards - high voltage present</li>
+                                    <li>Never bypass safety controls</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Preventive Maintenance for Chillers</h3>
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Monthly Tasks</h4>
+                                    <ul>
+                                        <li>Check for unusual noise, vibration, or leaks</li>
+                                        <li>Verify control operation and setpoints</li>
+                                        <li>Review BAS alarms and trending</li>
+                                        <li>Check refrigerant charge indicators</li>
+                                        <li>Inspect water treatment levels</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Quarterly Tasks</h4>
+                                    <ul>
+                                        <li>Test water treatment and adjust chemicals</li>
+                                        <li>Check oil levels (screw/scroll chillers)</li>
+                                        <li>Inspect for corrosion or scale buildup</li>
+                                        <li>Test flow switches and sensors</li>
+                                        <li>Clean or replace air filters if applicable</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Annual Tasks</h4>
+                                    <ul>
+                                        <li>Clean condenser and evaporator tubes</li>
+                                        <li>Test refrigerant charge and leak check</li>
+                                        <li>Inspect electrical connections</li>
+                                        <li>Test all safety controls and interlocks</li>
+                                        <li>Verify compressor oil condition</li>
+                                        <li>Full system commissioning check</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <div class="mechanical-section">
+                        <h2 class="section-title">Chiller Specifications</h2>
+
+                        <div class="reference-tables">
+                            <div class="reference-table">
+                                <h3>Chiller Types and Specifications</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Capacity Range</th>
+                                            <th>Efficiency (kW/ton)</th>
+                                            <th>Best Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Air-Cooled Scroll</td>
+                                            <td>20 - 150 tons</td>
+                                            <td>1.0 - 1.2</td>
+                                            <td>Small commercial, tight spaces</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Air-Cooled Screw</td>
+                                            <td>80 - 500 tons</td>
+                                            <td>0.9 - 1.1</td>
+                                            <td>Medium commercial buildings</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Water-Cooled Screw</td>
+                                            <td>150 - 1,000 tons</td>
+                                            <td>0.7 - 0.9</td>
+                                            <td>Large buildings with cooling towers</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Water-Cooled Centrifugal</td>
+                                            <td>200 - 10,000+ tons</td>
+                                            <td>0.45 - 0.7</td>
+                                            <td>Central plants, campuses</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Magnetic Bearing Centrifugal</td>
+                                            <td>100 - 1,000 tons</td>
+                                            <td>0.45 - 0.6</td>
+                                            <td>High efficiency applications</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="constants-grid">
+                            <div class="constant-card">
+                                <h4>Standard CHW Supply Temp</h4>
+                                <p>42°F - 45°F</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Standard CHW Return Temp</h4>
+                                <p>54°F - 58°F</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Design ΔT</h4>
+                                <p>10°F - 14°F</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Flow Rate</h4>
+                                <p>2.4 GPM/ton (10°F ΔT)</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Water-Cooled vs Air-Cooled</h4>
+                            <p>Water-cooled chillers require cooling towers and condenser water pumps, but offer significantly higher efficiency. Air-cooled chillers are easier to install but consume 25-40% more energy. Consider local climate, water availability, and long-term operating costs when selecting chiller type.</p>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Key Selection Criteria</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Typical Range/Values</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cooling Capacity</td>
+                                        <td>Tons or BTU/hr</td>
+                                        <td>Based on cooling load calculation plus safety factor</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Efficiency</td>
+                                        <td>kW/ton or EER</td>
+                                        <td>Lower kW/ton is better (0.45-1.2 typical range)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IPLV (Integrated Part Load Value)</td>
+                                        <td>15-30 EER typical</td>
+                                        <td>Weighted efficiency at various loads - critical metric</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Compressor Type</td>
+                                        <td>Centrifugal, Screw, Scroll</td>
+                                        <td>Affects efficiency, noise, capacity range</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Refrigerant</td>
+                                        <td>R-134a, R-513A, R-1234ze, etc.</td>
+                                        <td>Environmental impact and performance vary</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Condenser Type</td>
+                                        <td>Water-cooled, Air-cooled</td>
+                                        <td>Water-cooled more efficient but more complex</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operating Voltage</td>
+                                        <td>208V, 230V, 460V, 4160V</td>
+                                        <td>Larger chillers require higher voltage</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sound Level</td>
+                                        <td>75-95 dBA at 10 feet</td>
+                                        <td>Consider location and noise restrictions</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Standard Design Temperatures & Flow Rates</h3>
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Standard Chilled Water System</h4>
+                                <ul>
+                                    <li><strong>Supply:</strong> 42-45°F (44°F typical)</li>
+                                    <li><strong>Return:</strong> 54-58°F (56°F typical)</li>
+                                    <li><strong>Design ΔT:</strong> 10-12°F</li>
+                                    <li><strong>Flow Rate:</strong> 2.4 GPM/ton @ 10°F ΔT</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>High ΔT Systems</h4>
+                                <ul>
+                                    <li><strong>Supply:</strong> 40-42°F</li>
+                                    <li><strong>Return:</strong> 56-58°F</li>
+                                    <li><strong>Design ΔT:</strong> 14-18°F</li>
+                                    <li><strong>Benefit:</strong> Reduced flow, smaller pipes and pumps</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Condenser Water</h4>
+                                <ul>
+                                    <li><strong>Entering:</strong> 75-85°F (design wet-bulb + 7°F)</li>
+                                    <li><strong>Leaving:</strong> 85-95°F</li>
+                                    <li><strong>Design ΔT:</strong> 10°F</li>
+                                    <li><strong>Flow Rate:</strong> 3.0 GPM/ton typical</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Typical Equipment Dimensions</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Capacity</th>
+                                        <th>Approx. Length</th>
+                                        <th>Approx. Width</th>
+                                        <th>Approx. Height</th>
+                                        <th>Weight Range</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>100 tons</td>
+                                        <td>8-12 ft</td>
+                                        <td>4-6 ft</td>
+                                        <td>6-8 ft</td>
+                                        <td>3,000-6,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>300 tons</td>
+                                        <td>14-18 ft</td>
+                                        <td>6-8 ft</td>
+                                        <td>8-10 ft</td>
+                                        <td>12,000-18,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>500 tons</td>
+                                        <td>18-22 ft</td>
+                                        <td>7-9 ft</td>
+                                        <td>9-11 ft</td>
+                                        <td>20,000-30,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,000 tons</td>
+                                        <td>22-26 ft</td>
+                                        <td>8-10 ft</td>
+                                        <td>10-12 ft</td>
+                                        <td>35,000-50,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2,000+ tons</td>
+                                        <td>26-35 ft</td>
+                                        <td>10-12 ft</td>
+                                        <td>12-15 ft</td>
+                                        <td>50,000-80,000+ lbs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Installation Considerations</h4>
+                            <ul>
+                                <li><strong>Clearances:</strong> Front/rear for tube pulling (tube length + 4 ft), sides: 3-4 ft</li>
+                                <li><strong>Access:</strong> Verify equipment can be moved into mechanical room (doors, elevators, crane access)</li>
+                                <li><strong>Floor Loading:</strong> Ensure structural capacity for equipment weight plus water</li>
+                                <li><strong>Rigging:</strong> Overhead clearance and structural support for lifting during installation</li>
+                                <li><strong>Utilities:</strong> Electrical power, chilled water piping, condenser water piping, drain</li>
+                                <li><strong>Vibration Isolation:</strong> Required for most installations to prevent noise transmission</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Code and Standards References</h3>
+                        <div class="info-box">
+                            <h4>Applicable Codes and Standards</h4>
+                            <ul>
+                                <li><strong>ASHRAE 90.1:</strong> Energy Standard for Buildings - minimum efficiency requirements</li>
+                                <li><strong>AHRI 550/590:</strong> Performance Rating of Water-Chilling and Heat Pump Water-Heating Packages</li>
+                                <li><strong>ASHRAE 15:</strong> Safety Standard for Refrigeration Systems</li>
+                                <li><strong>IMC/UMC:</strong> International/Uniform Mechanical Code</li>
+                                <li><strong>ASME B31.5:</strong> Refrigeration Piping and Heat Transfer Components</li>
+                                <li><strong>NEC Article 440:</strong> Air-Conditioning and Refrigerating Equipment (electrical)</li>
+                                <li><strong>Local Codes:</strong> Always verify local jurisdiction requirements</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box" style="margin-top: 2rem;">
+                            <h4>Professional Disclaimer</h4>
+                            <p>These specifications are provided for reference and preliminary design purposes only. Actual equipment selection must be based on manufacturer data, site-specific conditions, and local codes. All specifications should be reviewed and approved by a licensed professional engineer. Equipment performance varies by manufacturer and model. Always consult manufacturer literature for specific equipment ratings and requirements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of tabs for better UX
+            window.scrollTo({
+                top: document.querySelector('.tab-navigation').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
