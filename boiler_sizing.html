@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive commercial boiler resource: sizing calculator, detailed information, troubleshooting guide, and technical specifications for heating systems.">
+    <meta name="keywords" content="boiler sizing, boiler calculator, heating load, commercial boiler, HVAC, BTU calculation, heating system design, boiler troubleshooting, boiler specifications">
+    <link rel="canonical" href="https://engrassist.com/boiler_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Commercial Boiler Sizing & Information - EngrAssist">
+    <meta property="og:description" content="Complete commercial boiler resource with calculator, information, troubleshooting, and specifications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/boiler_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Commercial Boiler Sizing & Information">
+    <meta name="twitter:description" content="Complete commercial boiler resource with calculator and guides.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Commercial Boiler Sizing & Information - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+    <style>
+        /* Tab Navigation Styles */
+        .tab-navigation {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            max-width: 100%;
+        }
+
+        .tab-button {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border-color: #c0392b;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .tab-navigation {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .tab-button {
+                padding: 1.25rem 0.75rem;
+                font-size: 0.95rem;
+                min-height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+                min-height: 65px;
+            }
+        }
+
+        /* Article content styles from commercial-boilers.html */
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            margin: 0;
+            background: white;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .troubleshooting-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .troubleshooting-table th,
+        .troubleshooting-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .troubleshooting-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            font-weight: 600;
+        }
+
+        .constants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .constant-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .constant-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .constant-card p {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .reference-table {
+            margin: 2rem 0;
+        }
+
+        .reference-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .reference-table th,
+        .reference-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .reference-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            font-weight: 600;
+        }
+
+        .energy-section {
+            margin: 3rem 0;
+        }
+
+        .key-activities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-activities li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .key-activities li:last-child {
+            border-bottom: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Commercial Boiler Sizing & Information</h1>
+                <p class="hero-subtitle">Comprehensive resource for commercial boiler systems: sizing calculator, technical information, troubleshooting guides, and equipment specifications</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator')">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information')">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting')">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications')">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">System Requirements</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sqft">Square Footage:</label>
+                            <input type="number" id="sqft" placeholder="Enter square footage" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="btuPerSqFt">BTU per Square Foot:</label>
+                            <input type="number" id="btuPerSqFt" placeholder="Enter BTU/sq ft" value="25" min="0" step="0.1" required>
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                Common values: Cold Climate: 50 | Moderate: 35 | Warm: 20
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="safetyFactor">Safety Factor (%):</label>
+                            <input type="number" id="safetyFactor" placeholder="0-50%" value="50" min="0" max="100" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="fluidType">Fluid Type:</label>
+                            <select id="fluidType" onchange="toggleGlycolMix()">
+                                <option value="water" selected>Water</option>
+                                <option value="propylene">Propylene Glycol Mix</option>
+                                <option value="ethylene">Ethylene Glycol Mix</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="glycolMixInput" class="form-group" style="display: none;">
+                        <label for="glycolPercent">Glycol Percentage (%):</label>
+                        <input type="number" id="glycolPercent" placeholder="0-50%" value="30" min="0" max="50" step="1">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="enterTemp">Entering Fluid Temperature (°F):</label>
+                            <input type="number" id="enterTemp" placeholder="Enter temperature" value="110" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="leaveTemp">Leaving Fluid Temperature (°F):</label>
+                            <input type="number" id="leaveTemp" placeholder="Leave temperature" value="140" step="0.1">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateBoilerSystem()">Calculate System Requirements</button>
+
+                    <div id="systemResults" class="boiler-results-section">
+                        <h3>System Requirements Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Base Heat Loss:</span>
+                            <span class="result-value" id="heatLoss">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Required BTU (with safety factor):</span>
+                            <span class="result-value" id="requiredBTU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Temperature Difference (ΔT):</span>
+                            <span class="result-value" id="deltaT">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Fluid Specific Heat:</span>
+                            <span class="result-value" id="specificHeat">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Fluid Density:</span>
+                            <span class="result-value" id="density">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Estimated System Flow:</span>
+                            <span class="result-value" id="systemFlow">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Selected System Section - Always Visible -->
+                    <div class="selected-system-section">
+                        <h2 class="section-title">Selected System</h2>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boilerQuantity">Number of Boilers:</label>
+                                <input type="number" id="boilerQuantity" placeholder="Enter quantity" min="1" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="boilerInputBTU">Boiler Input BTU/hr (per boiler):</label>
+                                <input type="number" id="boilerInputBTU" placeholder="Enter input BTU" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boilerEfficiency">Boiler Efficiency (%):</label>
+                                <input type="number" id="boilerEfficiency" placeholder="85-98%" value="96" min="70" max="99" step="0.1">
+                            </div>
+                            <div class="form-group">
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="calculateBoilerSelectedSystem()">Calculate Selected System</button>
+
+                        <div id="selectedResults" class="boiler-results-section">
+                            <h3>Selected System Results</h3>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Output BTU per Boiler:</span>
+                                <span class="result-value" id="outputBTUPerBoiler">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Total System Output BTU:</span>
+                                <span class="result-value" id="totalOutputBTU">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-orange">
+                                <span class="result-label">Actual Safety Factor:</span>
+                                <span class="result-value" id="actualSafety">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-purple">
+                                <span class="result-label">Fluid Flow per Boiler:</span>
+                                <span class="result-value" id="flowPerBoiler">--</span>
+                            </div>
+
+                            <div class="boiler-result-item boiler-result-purple">
+                                <span class="result-label">Total System Flow:</span>
+                                <span class="result-value" id="totalFlow">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reference Section -->
+                    <h2 class="section-title" style="margin-top: 3rem;">Sizing Guidelines & Rules of Thumb</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Commercial Building BTU per Square Foot</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Cold Climate (Northern US/Canada):</strong> 40-50 BTU/sq ft</li>
+                        <li><strong>Moderate Climate (Most of US):</strong> 30-40 BTU/sq ft</li>
+                        <li><strong>Warm Climate (Southern US):</strong> 20-30 BTU/sq ft</li>
+                        <li><strong>Well-Insulated Modern Buildings:</strong> 25-35 BTU/sq ft</li>
+                        <li><strong>Warehouses/High Ceilings:</strong> 50-75 BTU/sq ft</li>
+                        <li><strong>High-Ventilation Spaces:</strong> 75-100+ BTU/sq ft</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Safety Factors</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Replacement Boilers:</strong> 10-15%</li>
+                        <li><strong>New Construction:</strong> 15-20%</li>
+                        <li><strong>Future Expansion:</strong> 20-25%</li>
+                        <li><strong>Modulating Boilers:</strong> Can size closer to actual load due to turndown ratio</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Leading Commercial Boiler Manufacturers</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">🔥</div>
+                            <h4 class="feature-title">Lochinvar</h4>
+                            <p>Condensing boilers 399k-6M BTU/hr. Knight & Crest series. Up to 98% efficiency.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚙️</div>
+                            <h4 class="feature-title">Cleaver-Brooks</h4>
+                            <p>Firetube & watertube. 125-1000 BHP. ClearFire condensing series.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🏭</div>
+                            <h4 class="feature-title">Fulton</h4>
+                            <p>Vertical tubeless design. 1.2-1000 BHP. Pulse combustion technology.</p>
+                        </div>
+                    </div>
+                    <div class="warning-box">
+                        <h4>⚠️ Important Disclaimer</h4>
+                        <p>These calculations provide estimates for preliminary sizing only. Always conduct a proper heat loss calculation and consult with a licensed professional engineer or boiler manufacturer for final sizing. Factors such as piping losses, altitude, future expansion, and specific application requirements must be considered. EngrAssist is not responsible for equipment selection based on these estimates.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <div class="toc">
+                            <h3>Table of Contents</h3>
+                            <ul>
+                                <li><a href="#info-overview">Overview</a></li>
+                                <li><a href="#info-how-it-works">How It Works</a></li>
+                                <li><a href="#info-types">Types of Commercial Boilers</a></li>
+                                <li><a href="#info-applications">Applications</a></li>
+                                <li><a href="#info-typical-setups">Typical Configurations</a></li>
+                                <li><a href="#info-sizing">Sizing Requirements</a></li>
+                                <li><a href="#info-options">Available Options</a></li>
+                                <li><a href="#info-best-practices">Best Practices</a></li>
+                                <li><a href="#info-overlooked">Often Overlooked Considerations</a></li>
+                                <li><a href="#info-manufacturers">Popular Manufacturers</a></li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-overview">Overview</h2>
+                        <p>Commercial boilers are pressure vessels that generate hot water or steam for space heating, domestic hot water, and industrial processes. They operate by burning fuel (natural gas, propane, oil, or biomass) or using electricity to heat water to temperatures ranging from 140°F to 250°F for hot water systems, or to create steam at 2-150 psi for steam systems.</p>
+
+                        <p>Modern commercial boilers are highly efficient (80-99% combustion efficiency), heavily regulated for safety, and available in a wide range of capacities from 300 MBH (thousands of BTU per hour) to over 100,000 MBH for large campus systems.</p>
+
+                        <h2 id="info-how-it-works">How It Works</h2>
+                        <p>Boilers operate on straightforward principles of combustion and heat transfer:</p>
+
+                        <div class="info-box">
+                            <h4>The Combustion Process</h4>
+                            <ol>
+                                <li><strong>Fuel Introduction:</strong> Gas or oil is mixed with air in the burner assembly</li>
+                                <li><strong>Ignition:</strong> The fuel-air mixture is ignited in the combustion chamber</li>
+                                <li><strong>Heat Transfer:</strong> Hot combustion gases transfer heat to water either flowing through tubes (fire-tube) or surrounding tubes (water-tube)</li>
+                                <li><strong>Exhaust:</strong> Flue gases exit through the stack (or condensing heat exchanger in condensing boilers)</li>
+                                <li><strong>Circulation:</strong> Heated water circulates through the building's distribution system and returns to the boiler for reheating</li>
+                            </ol>
+                        </div>
+
+                        <h2 id="info-types">Types of Commercial Boilers</h2>
+
+                        <h3>1. Fire-Tube Boilers</h3>
+                        <p><strong>Capacity Range:</strong> 300 - 25,000 MBH</p>
+                        <p>Hot combustion gases pass through tubes surrounded by water. The most common type for commercial buildings.</p>
+                        <ul>
+                            <li><strong>Advantages:</strong> Lower initial cost, compact design, less sensitive to water quality, simple maintenance</li>
+                            <li><strong>Disadvantages:</strong> Slower response to load changes, lower maximum pressure (typically 150 psi max)</li>
+                            <li><strong>Typical Efficiency:</strong> 80-84% (non-condensing), 90-99% (condensing)</li>
+                            <li><strong>Applications:</strong> Office buildings, schools, hospitals, light industrial</li>
+                        </ul>
+
+                        <h3>2. Water-Tube Boilers</h3>
+                        <p><strong>Capacity Range:</strong> 10,000 - 100,000+ MBH</p>
+                        <p>Water circulates through tubes surrounded by hot combustion gases. Required for high-pressure steam and very large capacities.</p>
+                        <ul>
+                            <li><strong>Advantages:</strong> Can handle high pressures (150+ psi), faster response, longer life, higher efficiency potential</li>
+                            <li><strong>Disadvantages:</strong> Higher initial cost, more complex, requires better water treatment</li>
+                            <li><strong>Typical Efficiency:</strong> 75-82% (older), 85-88% (modern)</li>
+                            <li><strong>Applications:</strong> Large commercial buildings, universities, hospitals, industrial facilities</li>
+                        </ul>
+
+                        <h3>3. Condensing Boilers</h3>
+                        <p><strong>Capacity Range:</strong> 200 - 6,000 MBH</p>
+                        <p>Extract additional heat by condensing water vapor from flue gases. Available in both fire-tube and water-tube configurations.</p>
+                        <ul>
+                            <li><strong>Advantages:</strong> Highest efficiency (90-99%), lower operating costs, reduced emissions</li>
+                            <li><strong>Disadvantages:</strong> Higher initial cost, requires condensate drain, works best with low return water temps (< 130°F)</li>
+                            <li><strong>Typical Efficiency:</strong> 90-99% (higher efficiency at lower return temps)</li>
+                            <li><strong>Applications:</strong> Any hot water system, especially radiant floor heating, low-temp baseboard</li>
+                        </ul>
+
+                        <h3>4. Electric Boilers</h3>
+                        <p><strong>Capacity Range:</strong> 100 - 10,000 MBH</p>
+                        <p>Use electric resistance heating elements to heat water. No combustion.</p>
+                        <ul>
+                            <li><strong>Advantages:</strong> 100% efficient, compact, no flue required, quiet, no combustion air needed</li>
+                            <li><strong>Disadvantages:</strong> High operating costs in most markets, requires large electrical service</li>
+                            <li><strong>Applications:</strong> Areas without gas service, clean rooms, small loads, backup heating</li>
+                        </ul>
+
+                        <h3>5. Modular/Cascade Systems</h3>
+                        <p><strong>Capacity Range:</strong> Multiple small boilers (200-2,000 MBH each)</p>
+                        <p>Multiple smaller boilers working together as a single plant.</p>
+                        <ul>
+                            <li><strong>Advantages:</strong> Excellent part-load efficiency, redundancy, phased installation, easy replacement</li>
+                            <li><strong>Disadvantages:</strong> More complexity, more maintenance points, requires more floor space</li>
+                            <li><strong>Typical Configuration:</strong> 3-6 boilers, staged for load</li>
+                        </ul>
+
+                        <h2 id="info-applications">Applications</h2>
+                        <ul>
+                            <li><strong>Commercial Buildings:</strong> Office towers, retail centers, hotels (hot water heating)</li>
+                            <li><strong>Healthcare:</strong> Hospitals and medical facilities (hot water and steam for sterilization)</li>
+                            <li><strong>Education:</strong> Schools, universities (hot water or steam for campus distribution)</li>
+                            <li><strong>Industrial:</strong> Manufacturing, food processing (process steam and heating)</li>
+                            <li><strong>Multi-Family Residential:</strong> Apartment buildings, condos (domestic hot water and space heating)</li>
+                            <li><strong>Institutional:</strong> Government buildings, military installations</li>
+                        </ul>
+
+                        <h2 id="info-typical-setups">Typical Configurations</h2>
+
+                        <h3>Single Boiler</h3>
+                        <p>Used in smaller buildings (< 2,000 MBH load). Simple and economical but provides no redundancy.</p>
+                        <ul>
+                            <li>Requires backup plan for maintenance or failure</li>
+                            <li>Poor part-load efficiency (operates at low fire most of the time)</li>
+                            <li>Suitable for mild climates or buildings with minimal heating requirements</li>
+                        </ul>
+
+                        <h3>Multiple Boilers (Traditional)</h3>
+                        <p>Two to four boilers, typically with one sized for peak load and others for base load.</p>
+                        <ul>
+                            <li><strong>Common: </strong> Two boilers at 50-60% of peak load each (120% total capacity)</li>
+                            <li><strong>Better:</strong> Three boilers - one at 25%, two at 50% (125% total capacity)</li>
+                            <li>Provides redundancy and better part-load operation</li>
+                        </ul>
+
+                        <h3>Modular Cascade Systems</h3>
+                        <p>Four to six identical smaller boilers with intelligent staging controls.</p>
+                        <ul>
+                            <li>Outstanding part-load efficiency (can operate one boiler at high fire rather than all at low fire)</li>
+                            <li>Built-in redundancy</li>
+                            <li>Lead-lag rotation distributes wear evenly</li>
+                            <li>Example: Six 1,000 MBH boilers for a 5,000 MBH peak load</li>
+                        </ul>
+
+                        <h3>Primary-Secondary Pumping</h3>
+                        <p>Traditional hydronic system design:</p>
+                        <ul>
+                            <li>Constant-flow primary loop through boilers</li>
+                            <li>Variable-flow secondary loop to building</li>
+                            <li>Hydraulic separation via common pipe or hydraulic separator</li>
+                            <li>Ensures minimum flow through operating boilers</li>
+                        </ul>
+
+                        <h3>Variable Primary Flow</h3>
+                        <p>Modern design with variable-speed pumps directly on boiler loop:</p>
+                        <ul>
+                            <li>Eliminates separate primary loop and pumps</li>
+                            <li>More energy efficient</li>
+                            <li>Requires careful control to maintain minimum boiler flow</li>
+                            <li>Best suited for condensing boilers with low minimum flow requirements</li>
+                        </ul>
+
+                        <h2 id="info-sizing">Sizing Requirements</h2>
+
+                        <h3>Information Needed for Proper Sizing</h3>
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Typical Values/Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Peak Heating Load</td>
+                                        <td>MBH or BTU/hr from heat loss calculation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Design Outdoor Temperature</td>
+                                        <td>ASHRAE 99.6% or 99% value for location</td>
+                                    </tr>
+                                    <tr>
+                                        <td>System Type</td>
+                                        <td>Hot water (140-180°F) or Steam (2-150 psi)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Supply Water Temperature</td>
+                                        <td>140-180°F (hot water), 212°F+ (steam)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Return Water Temperature</td>
+                                        <td>Typically 20°F delta (160°F supply = 140°F return)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Domestic Hot Water Load (if combined)</td>
+                                        <td>GPH × 8.33 × temp rise × 60</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Altitude</td>
+                                        <td>Affects combustion and capacity</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Available Fuel</td>
+                                        <td>Natural gas, propane, oil, or electricity</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gas Pressure</td>
+                                        <td>Low (4-7" WC), Medium (1-5 psi), High (5+ psi)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Venting Requirements</td>
+                                        <td>Available stack height, type B vent, PVC (condensing)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Sizing Guidelines</h3>
+                        <ul>
+                            <li><strong>Pickup Allowance:</strong> 10-20% for piping and terminal unit mass</li>
+                            <li><strong>Piping Losses:</strong> 5-10% for outdoor piping or long distribution runs</li>
+                            <li><strong>Safety Factor:</strong> Already included in good heat loss calculations - don't double up!</li>
+                            <li><strong>Domestic Hot Water:</strong> If using boiler for DHW, size for simultaneous operation (typically heating load + 50% of DHW load)</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <h4>Common Sizing Mistakes</h4>
+                            <ul>
+                                <li>Oversizing by using "400 SF/MBH" rule instead of proper heat loss calculation</li>
+                                <li>Piling on multiple safety factors (design outdoor temp + pickup + safety factor + "a little extra")</li>
+                                <li>Not accounting for improved insulation or window performance in existing buildings</li>
+                                <li>Forgetting internal heat gains (lights, people, equipment) that reduce net heating load</li>
+                                <li>Sizing based on connected radiator load rather than calculated building load</li>
+                            </ul>
+                            <p><strong>Reality:</strong> Grossly oversized boilers operate inefficiently, cycle excessively, and have shorter lifespans.</p>
+                        </div>
+
+                        <h2 id="info-options">Available Options</h2>
+
+                        <h3>Efficiency Enhancements</h3>
+                        <ul>
+                            <li><strong>Condensing Technology:</strong> Extracts maximum heat from flue gases (90-99% efficiency)</li>
+                            <li><strong>Modulating Burners:</strong> Adjust fire rate to match load (10:1 or higher turndown ratio)</li>
+                            <li><strong>Outdoor Reset:</strong> Adjusts supply water temp based on outdoor temperature</li>
+                            <li><strong>Economizers:</strong> Preheat combustion air with flue gases</li>
+                        </ul>
+
+                        <h3>Control Options</h3>
+                        <ul>
+                            <li><strong>BMS Integration:</strong> BACnet, Modbus, or LonWorks protocols</li>
+                            <li><strong>Lead-Lag Sequencing:</strong> Rotate boilers to equalize runtime and wear</li>
+                            <li><strong>Boiler Plant Manager:</strong> System-level optimization of multiple boilers</li>
+                            <li><strong>Remote Monitoring:</strong> Cloud-based diagnostics and alarm notification</li>
+                        </ul>
+
+                        <h3>Safety and Code Requirements</h3>
+                        <ul>
+                            <li><strong>Low Water Cutoff (LWCO):</strong> Shuts down boiler if water level drops (required by code)</li>
+                            <li><strong>Pressure Relief Valve:</strong> Prevents overpressure (required by ASME code)</li>
+                            <li><strong>Flame Safeguard:</strong> Monitors burner and shuts down on unsafe conditions</li>
+                            <li><strong>Combustion Air Proving:</strong> Verifies adequate combustion air before ignition</li>
+                        </ul>
+
+                        <h3>Physical Options</h3>
+                        <ul>
+                            <li><strong>Insulation Package:</strong> Reduces jacket heat loss and protects personnel</li>
+                            <li><strong>Stainless Steel Construction:</strong> Extended life in corrosive environments</li>
+                            <li><strong>Dual Fuel Capability:</strong> Gas and oil burners for fuel flexibility</li>
+                            <li><strong>Close Clearance Model:</strong> For tight mechanical room installations</li>
+                        </ul>
+
+                        <h2 id="info-best-practices">Best Practices</h2>
+
+                        <h3>Design Phase</h3>
+                        <ul>
+                            <li>Perform detailed heat loss calculation - never use rules of thumb for final sizing</li>
+                            <li>Consider condensing boilers for any system with return temps below 130°F</li>
+                            <li>Size for multiple boilers (not just one) for reliability and efficiency</li>
+                            <li>Plan for adequate combustion air - typically 50 CFM per 100 MBH input</li>
+                            <li>Ensure adequate makeup water connection and backflow prevention</li>
+                            <li>Include expansion tank sizing in initial design</li>
+                            <li>Consider water treatment requirements from day one</li>
+                        </ul>
+
+                        <h3>Installation</h3>
+                        <ul>
+                            <li>Verify clearances to combustibles per NFPA 54 (National Fuel Gas Code)</li>
+                            <li>Install boilers on level surface - improper leveling can cause circulation problems</li>
+                            <li>Use vibration isolation if sensitive areas are nearby</li>
+                            <li>Pitch condensate drain for gravity flow (condensing boilers)</li>
+                            <li>Install shutoff valves and thermometers on supply and return for troubleshooting</li>
+                            <li>Provide easy access to cleanout ports and flue connections</li>
+                            <li>Test all safety controls before commissioning</li>
+                        </ul>
+
+                        <h3>Operation & Maintenance</h3>
+                        <ul>
+                            <li><strong>Annual Inspection:</strong> Clean fireside and waterside, inspect heat exchanger</li>
+                            <li><strong>Combustion Analysis:</strong> Test annually and tune for optimal efficiency</li>
+                            <li><strong>Water Treatment:</strong> Test monthly, maintain proper pH and inhibitors</li>
+                            <li><strong>Safety Checks:</strong> Test LWCO, pressure relief, and flame safeguard controls monthly</li>
+                            <li><strong>Logs:</strong> Record daily/weekly operating temps, pressures, and gas usage</li>
+                            <li><strong>Water Quality:</strong> Most critical for boiler life - poor water = premature failure</li>
+                            <li><strong>Reset Strategy:</strong> Use outdoor reset to improve seasonal efficiency</li>
+                        </ul>
+
+                        <h2 id="info-overlooked">Often Overlooked Considerations</h2>
+
+                        <h3>Physical Dimensions and Weight</h3>
+                        <p>Commercial boilers are large and heavy:</p>
+                        <ul>
+                            <li><strong>2,000 MBH fire-tube:</strong> ~12' L × 5' W × 7' H, 8,000-12,000 lbs</li>
+                            <li><strong>6,000 MBH water-tube:</strong> ~20' L × 8' W × 10' H, 25,000+ lbs</li>
+                            <li>Verify access path before ordering - many boilers must be rigged in during construction</li>
+                            <li>Plan for future replacement - can you get it out and a new one in?</li>
+                        </ul>
+
+                        <h3>Clearance Requirements</h3>
+                        <ul>
+                            <li><strong>Front:</strong> 6-8 feet for burner service</li>
+                            <li><strong>Sides:</strong> 2-3 feet for jacket removal</li>
+                            <li><strong>Rear:</strong> 18-24" for inspection</li>
+                            <li><strong>Top:</strong> 2-3 feet for header service</li>
+                            <li>More clearance = easier maintenance = happier technicians</li>
+                        </ul>
+
+                        <h3>Venting and Combustion Air</h3>
+                        <ul>
+                            <li>Non-condensing boilers require Type B vent or stainless steel chimney</li>
+                            <li>Condensing boilers can use PVC, CPVC, or polypropylene (check manufacturer specs)</li>
+                            <li>Combustion air: 50 CFM per 100 MBH is typical minimum</li>
+                            <li>Direct vent systems simplify installation and improve efficiency</li>
+                        </ul>
+
+                        <h3>Typical Pricing (2024)</h3>
+                        <ul>
+                            <li><strong>Small Non-Condensing (500-1,000 MBH):</strong> $8,000-15,000</li>
+                            <li><strong>Medium Fire-Tube (2,000-4,000 MBH):</strong> $25,000-60,000</li>
+                            <li><strong>Condensing Boilers (500-2,000 MBH):</strong> $12,000-40,000</li>
+                            <li><strong>Large Water-Tube (10,000+ MBH):</strong> $150,000-500,000+</li>
+                            <li><strong>Modular Systems (4-6 units):</strong> $50,000-150,000</li>
+                        </ul>
+                        <p><em>Installation costs typically add 50-100% to equipment cost. Budget 5% of system cost annually for maintenance.</em></p>
+
+                        <h3>Operating Costs</h3>
+                        <p>Example: 2,000 MBH boiler, 2,000 hours/season, $1.00/therm gas:</p>
+                        <ul>
+                            <li><strong>80% Efficient:</strong> $50,000/year</li>
+                            <li><strong>95% Efficient:</strong> $42,000/year</li>
+                            <li><strong>Annual Savings:</strong> $8,000 (payback on premium for condensing boiler often 3-5 years)</li>
+                        </ul>
+
+                        <h3>Water Treatment</h3>
+                        <p>Essential for boiler longevity:</p>
+                        <ul>
+                            <li>Untreated water causes scale, corrosion, and premature failure</li>
+                            <li>Treatment system: $2,000-5,000 initial cost</li>
+                            <li>Annual chemicals and testing: $1,000-3,000</li>
+                            <li>Replacing a failed boiler heat exchanger: $15,000-50,000+</li>
+                        </ul>
+
+                        <h2 id="info-manufacturers">Popular Manufacturers and Brands</h2>
+
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Cleaver-Brooks</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>ClearFire fire-tube boilers</li>
+                                    <li>HAWK vertical water-tube</li>
+                                    <li>Market leader in commercial boilers</li>
+                                </ul>
+                                <p><a href="https://www.cleaver-brooks.com" target="_blank">cleaver-brooks.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Weil-McLain</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>EcoNomizer condensing boilers</li>
+                                    <li>Aqua Plus cast iron sectional</li>
+                                    <li>Strong in light commercial</li>
+                                </ul>
+                                <p><a href="https://www.weil-mclain.com" target="_blank">weil-mclain.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Lochinvar</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>CREST condensing fire-tube</li>
+                                    <li>KNIGHT modular condensing</li>
+                                    <li>Innovation in condensing technology</li>
+                                </ul>
+                                <p><a href="https://www.lochinvar.com" target="_blank">lochinvar.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Raypak</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>H3 modulating condensing</li>
+                                    <li>Commercial pool and spa heating</li>
+                                    <li>Compact designs</li>
+                                </ul>
+                                <p><a href="https://www.raypak.com" target="_blank">raypak.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>IBC Technologies (Bryan Steam)</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>Flexible water-tube boilers</li>
+                                    <li>High-pressure steam</li>
+                                    <li>Industrial applications</li>
+                                </ul>
+                                <p><a href="https://www.ibcboiler.com" target="_blank">ibcboiler.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Aerco</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>Benchmark modular condensing</li>
+                                    <li>Innovation water heaters</li>
+                                    <li>Compact footprint designs</li>
+                                </ul>
+                                <p><a href="https://www.aerco.com" target="_blank">aerco.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <div class="energy-section">
+                        <h2 class="section-title">Boiler Troubleshooting</h2>
+                        <div class="energy-content">
+
+                            <div class="troubleshooting-table">
+                                <h3>Common Boiler Problems</h3>
+                                <table class="efficiency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symptom</th>
+                                            <th>Possible Causes</th>
+                                            <th>Diagnostic Steps</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Boiler Won't Fire</strong></td>
+                                            <td>No power, safety lockout, no fuel, ignition failure, flame sensor issue</td>
+                                            <td>Check power supply, verify fuel pressure, inspect flame sensor, check error codes</td>
+                                            <td>Restore power, reset safety, fix fuel supply, clean/replace flame sensor, repair ignition</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Short Cycling</strong></td>
+                                            <td>Oversized boiler, low system volume, control issues, circulation problems</td>
+                                            <td>Check firing rate vs. load, measure system volume, verify pump operation</td>
+                                            <td>Add buffer tank, adjust firing rate, repair controls, fix circulation</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Low Efficiency</strong></td>
+                                            <td>Dirty heat exchanger, excess air, poor combustion, flue gas condensation in non-condensing boiler</td>
+                                            <td>Perform combustion test, inspect heat exchanger, check stack temperature</td>
+                                            <td>Clean heat exchanger, adjust air/fuel ratio, repair dampers</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Water Leaks</strong></td>
+                                            <td>Failed gaskets, corroded sections, pressure relief valve, expansion issues</td>
+                                            <td>Inspect all connections, pressure test system, check relief valve, verify expansion tank</td>
+                                            <td>Replace gaskets, repair/replace sections, replace relief valve, fix expansion system</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>High Stack Temperature</strong></td>
+                                            <td>Dirty heat exchanger, excess air, air in fuel, undersized boiler</td>
+                                            <td>Measure O₂ and CO, inspect heat exchanger, check firing rate vs. load</td>
+                                            <td>Clean heat exchanger, adjust combustion air, bleed fuel line</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Noisy Operation</strong></td>
+                                            <td>Kettling (scale buildup), air in system, water hammer, combustion noise</td>
+                                            <td>Listen to location of noise, check water treatment, verify venting</td>
+                                            <td>Descale heat exchanger, purge air, fix piping issues, adjust burner</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Combustion Analysis Parameters</h4>
+                                <p><strong>Target Values for Natural Gas Boilers:</strong></p>
+                                <ul>
+                                    <li><strong>Oxygen (O₂):</strong> 4-6% for optimal efficiency</li>
+                                    <li><strong>Carbon Dioxide (CO₂):</strong> 9-10% (inversely related to O₂)</li>
+                                    <li><strong>Carbon Monoxide (CO):</strong> &lt;100 ppm (400 ppm max)</li>
+                                    <li><strong>Stack Temperature:</strong> 300-450°F for non-condensing, 100-140°F for condensing</li>
+                                    <li><strong>Excess Air:</strong> 20-40% for atmospheric burners, 10-20% for power burners</li>
+                                    <li><strong>Combustion Efficiency:</strong> 78-82% for non-condensing, 88-95% for condensing</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Systematic Troubleshooting Approach</h3>
+                            <div class="info-box">
+                                <h4>Step 1: Define the Problem</h4>
+                                <ul>
+                                    <li>What is the specific symptom or complaint?</li>
+                                    <li>When did the problem start?</li>
+                                    <li>Has anything changed recently (setpoints, equipment, weather)?</li>
+                                    <li>Is the problem continuous or intermittent?</li>
+                                    <li>Which zones or systems are affected?</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 2: Gather Data</h4>
+                                <ul>
+                                    <li>Review BMS/BAS trending data and alarms</li>
+                                    <li>Check equipment status indicators and gauges</li>
+                                    <li>Measure temperatures, pressures, flows, and electrical parameters</li>
+                                    <li>Review maintenance records and equipment logs</li>
+                                    <li>Obtain design documents and sequence of operations</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 3: Analyze and Diagnose</h4>
+                                <ul>
+                                    <li>Compare actual values to design values</li>
+                                    <li>Identify which systems/components are functioning correctly</li>
+                                    <li>Isolate the problem to a specific subsystem or component</li>
+                                    <li>Develop hypotheses for root cause</li>
+                                    <li>Test each hypothesis systematically</li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Safety Considerations</h4>
+                                <p><strong>Always follow these safety procedures when troubleshooting boiler equipment:</strong></p>
+                                <ul>
+                                    <li>Follow lockout/tagout (LOTO) procedures for all energy sources</li>
+                                    <li>Wear appropriate PPE: safety glasses, work boots, heat-resistant gloves</li>
+                                    <li>Allow equipment to cool before servicing hot surfaces</li>
+                                    <li>Relieve pressure before opening systems</li>
+                                    <li>Ensure proper ventilation when working with combustion equipment</li>
+                                    <li>Test for gas leaks with proper detection equipment</li>
+                                    <li>Never bypass safety controls</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Preventive Maintenance for Boilers</h3>
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Monthly Tasks</h4>
+                                    <ul>
+                                        <li>Check for unusual noise, vibration, or leaks</li>
+                                        <li>Verify control operation and setpoints</li>
+                                        <li>Review BAS alarms and trending</li>
+                                        <li>Test safety controls</li>
+                                        <li>Check water treatment levels</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Quarterly Tasks</h4>
+                                    <ul>
+                                        <li>Test water treatment and adjust chemicals</li>
+                                        <li>Inspect for corrosion or scale buildup</li>
+                                        <li>Check venting system</li>
+                                        <li>Test low water cutoff</li>
+                                        <li>Verify pressure relief valve operation</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Annual Tasks</h4>
+                                    <ul>
+                                        <li>Perform combustion analysis and tune burner</li>
+                                        <li>Clean fireside and waterside of heat exchanger</li>
+                                        <li>Inspect and clean burner assembly</li>
+                                        <li>Test all safety controls and interlocks</li>
+                                        <li>Inspect flue passages and gaskets</li>
+                                        <li>Full system commissioning check</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <div class="mechanical-section">
+                        <h2 class="section-title">Boiler Specifications</h2>
+
+                        <div class="reference-tables">
+                            <div class="reference-table">
+                                <h3>Boiler Types and Specifications</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Capacity Range</th>
+                                            <th>Efficiency</th>
+                                            <th>Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Condensing (Gas)</td>
+                                            <td>50 - 6,000 MBH</td>
+                                            <td>92 - 98%</td>
+                                            <td>Low temp systems, high efficiency</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Non-Condensing (Gas)</td>
+                                            <td>50 - 10,000 MBH</td>
+                                            <td>80 - 85%</td>
+                                            <td>Standard heating systems</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fire-Tube</td>
+                                            <td>1,000 - 25,000 MBH</td>
+                                            <td>80 - 84%</td>
+                                            <td>Large commercial, industrial</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Water-Tube</td>
+                                            <td>10,000+ MBH</td>
+                                            <td>80 - 85%</td>
+                                            <td>Very large facilities, steam</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Electric</td>
+                                            <td>10 - 5,000 kW</td>
+                                            <td>~100%</td>
+                                            <td>Clean rooms, small loads</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="constants-grid">
+                            <div class="constant-card">
+                                <h4>HW Supply Temp</h4>
+                                <p>140°F - 180°F</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>HW Return Temp</h4>
+                                <p>120°F - 160°F</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Design ΔT</h4>
+                                <p>20°F - 40°F</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Steam Pressure</h4>
+                                <p>5 - 150 psig</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Condensing vs Non-Condensing</h4>
+                            <p>Condensing boilers achieve higher efficiency by extracting heat from flue gases, but require corrosion-resistant materials. Best suited for systems with return water temperatures below 130°F.</p>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Key Selection Criteria</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Typical Range/Values</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Input Capacity</td>
+                                        <td>MBH or BTU/hr</td>
+                                        <td>Based on heat loss calculation plus safety factor</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Output Capacity</td>
+                                        <td>Input × Efficiency</td>
+                                        <td>Net available heating capacity</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Turndown Ratio</td>
+                                        <td>3:1 to 10:1</td>
+                                        <td>Higher ratio = better part-load performance</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operating Pressure</td>
+                                        <td>30-150 psi (HW), 2-150 psi (Steam)</td>
+                                        <td>Must match system requirements</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fuel Type</td>
+                                        <td>Natural Gas, Propane, Oil, Electric</td>
+                                        <td>Based on availability and cost</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Venting</td>
+                                        <td>Type B, Direct, PVC (condensing)</td>
+                                        <td>Condensing boilers can use PVC</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Footprint</td>
+                                        <td>Varies by type and capacity</td>
+                                        <td>Verify clearances and access requirements</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weight</td>
+                                        <td>100 - 25,000+ lbs</td>
+                                        <td>Verify floor loading capacity</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Standard Design Temperatures & Flow Rates</h3>
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Hot Water Heating</h4>
+                                <ul>
+                                    <li><strong>Supply:</strong> 140-180°F</li>
+                                    <li><strong>Return:</strong> 120-160°F</li>
+                                    <li><strong>Design ΔT:</strong> 20-40°F</li>
+                                    <li><strong>Flow Rate:</strong> 0.5 GPM/MBH @ 20°F ΔT</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Low Temperature Systems</h4>
+                                <ul>
+                                    <li><strong>Supply:</strong> 110-140°F</li>
+                                    <li><strong>Return:</strong> 90-120°F</li>
+                                    <li><strong>Design ΔT:</strong> 15-25°F</li>
+                                    <li><strong>Best for:</strong> Radiant floor, condensing boilers</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Steam Systems</h4>
+                                <ul>
+                                    <li><strong>Low Pressure:</strong> 2-15 psig</li>
+                                    <li><strong>Medium Pressure:</strong> 15-50 psig</li>
+                                    <li><strong>High Pressure:</strong> 50-150 psig</li>
+                                    <li><strong>Temp:</strong> 212°F+ (saturated steam)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Typical Equipment Dimensions</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Capacity</th>
+                                        <th>Approx. Length</th>
+                                        <th>Approx. Width</th>
+                                        <th>Approx. Height</th>
+                                        <th>Weight Range</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>500 MBH</td>
+                                        <td>5-6 ft</td>
+                                        <td>2-3 ft</td>
+                                        <td>5-6 ft</td>
+                                        <td>1,000-2,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,000 MBH</td>
+                                        <td>6-8 ft</td>
+                                        <td>3-4 ft</td>
+                                        <td>6-7 ft</td>
+                                        <td>2,000-4,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2,000 MBH</td>
+                                        <td>10-12 ft</td>
+                                        <td>4-5 ft</td>
+                                        <td>7-8 ft</td>
+                                        <td>8,000-12,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4,000 MBH</td>
+                                        <td>14-16 ft</td>
+                                        <td>5-6 ft</td>
+                                        <td>8-10 ft</td>
+                                        <td>15,000-20,000 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6,000+ MBH</td>
+                                        <td>18-25 ft</td>
+                                        <td>6-8 ft</td>
+                                        <td>10-12 ft</td>
+                                        <td>20,000-30,000+ lbs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Installation Considerations</h4>
+                            <ul>
+                                <li><strong>Clearances:</strong> Front: 6-8 ft, Sides: 2-3 ft, Rear: 18-24", Top: 2-3 ft</li>
+                                <li><strong>Access:</strong> Verify equipment can be moved into mechanical room</li>
+                                <li><strong>Floor Loading:</strong> Ensure structural capacity for equipment weight</li>
+                                <li><strong>Venting:</strong> Plan flue routing and combustion air supply</li>
+                                <li><strong>Utilities:</strong> Gas service, electrical power, water supply, drain</li>
+                                <li><strong>Future Replacement:</strong> Consider access for eventual equipment replacement</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Code and Standards References</h3>
+                        <div class="info-box">
+                            <h4>Applicable Codes and Standards</h4>
+                            <ul>
+                                <li><strong>ASME CSD-1:</strong> Controls and Safety Devices for Automatically Fired Boilers</li>
+                                <li><strong>NFPA 54:</strong> National Fuel Gas Code</li>
+                                <li><strong>NFPA 85:</strong> Boiler and Combustion Systems Hazards Code</li>
+                                <li><strong>ASHRAE 90.1:</strong> Energy Standard for Buildings</li>
+                                <li><strong>UL 795:</strong> Commercial-Industrial Gas Heating Equipment</li>
+                                <li><strong>AHRI 1500:</strong> Performance Rating of Commercial Space Heating Boilers</li>
+                                <li><strong>Local Codes:</strong> Always verify local jurisdiction requirements</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box" style="margin-top: 2rem;">
+                            <h4>Professional Disclaimer</h4>
+                            <p>These specifications are provided for reference and preliminary design purposes only. Actual equipment selection must be based on manufacturer data, site-specific conditions, and local codes. All specifications should be reviewed and approved by a licensed professional engineer. Equipment performance varies by manufacturer and model.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of tabs for better UX
+            window.scrollTo({
+                top: document.querySelector('.tab-navigation').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
