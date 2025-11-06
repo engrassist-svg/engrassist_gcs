@@ -451,6 +451,8 @@
                             <label for="pipeType">Pipe Material:</label>
                             <select id="pipeType">
                                 <option value="copper">Copper (Type L)</option>
+                                <option value="copper_k">Copper (Type K)</option>
+                                <option value="copper_m">Copper (Type M)</option>
                                 <option value="pex">PEX</option>
                                 <option value="cpvc">CPVC</option>
                                 <option value="galvanized">Galvanized Steel</option>
@@ -460,12 +462,16 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="waterTemp">Water Temperature:</label>
-                            <select id="waterTemp">
-                                <option value="cold">Cold Water (≤ 60°F)</option>
-                                <option value="hot">Hot Water (120-140°F)</option>
-                            </select>
+                            <label for="coldWaterTemp">Cold Water Temperature (°F):</label>
+                            <input type="number" id="coldWaterTemp" placeholder="Enter cold water temp" value="60" min="32" max="100">
                         </div>
+                        <div class="form-group">
+                            <label for="hotWaterTemp">Hot Water Temperature (°F):</label>
+                            <input type="number" id="hotWaterTemp" placeholder="Enter hot water temp" value="140" min="100" max="180">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="pipeLength">Developed Pipe Length (ft):</label>
                             <input type="number" id="pipeLength" placeholder="Enter pipe length" value="100" min="0">
@@ -552,6 +558,13 @@
                                     <td>2.5</td>
                                     <td><input type="number" class="hot-qty" data-wsfu="0" value="0" min="0"></td>
                                     <td>0</td>
+                                </tr>
+                                <tr style="background-color: #e8f4f8;">
+                                    <td><strong>Additional WSFU</strong></td>
+                                    <td><input type="number" id="additionalColdWSFU" value="0" min="0" step="0.1"></td>
+                                    <td>-</td>
+                                    <td><input type="number" id="additionalHotWSFU" value="0" min="0" step="0.1"></td>
+                                    <td>-</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1503,49 +1516,5 @@
 
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-
-    <script>
-        // Tab switching function
-        function switchTab(tabName) {
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Remove active class from all buttons
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-
-            // Show selected tab content
-            document.getElementById(tabName + '-tab').classList.add('active');
-
-            // Add active class to clicked button
-            event.target.classList.add('active');
-
-            // Scroll to top of tabs for better UX
-            window.scrollTo({
-                top: document.querySelector('.tab-navigation').offsetTop - 100,
-                behavior: 'smooth'
-            });
-        }
-
-        // Toggle calculation method (fixture units vs direct GPM)
-        function toggleCalcMethod() {
-            const method = document.getElementById('calcMethod').value;
-            const fixtureTable = document.querySelector('.pipe-table-wrapper');
-            const directGPM = document.getElementById('directGPMInput');
-
-            if (method === 'fixtureUnits') {
-                fixtureTable.style.display = 'block';
-                directGPM.style.display = 'none';
-            } else {
-                fixtureTable.style.display = 'none';
-                directGPM.style.display = 'flex';
-            }
-        }
-    </script>
 </body>
 </html>
