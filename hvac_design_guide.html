@@ -55,6 +55,238 @@
      crossorigin="anonymous"></script>
 
 
+    <style>
+        .design-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .guide-section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .step-content {
+            margin-left: 56px;
+        }
+
+        .key-activities {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .key-activities h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .key-activities ul {
+            margin-bottom: 0;
+        }
+
+        .key-activities li {
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-box {
+            background: #e8f4f8;
+            border: 1px solid #b8dde8;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .reference-box h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .reference-box h4::before {
+            content: "📚";
+            margin-right: 0.5rem;
+        }
+
+        .important-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .important-note h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .tool-reference {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .tool-reference:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .workflow-diagram {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .workflow-step {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem auto;
+            max-width: 600px;
+        }
+
+        .workflow-arrow {
+            color: #3498db;
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .design-guide-container {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .step-content {
+                margin-left: 0;
+            }
+
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .step-number {
+                margin-bottom: 0.5rem;
+            }
+
+            .key-activities,
+            .reference-box,
+            .important-note {
+                padding: 0.75rem;
+            }
+
+            .workflow-diagram {
+                padding: 1rem;
+            }
+
+            .workflow-step {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .design-guide-container {
+                padding: 0.5rem;
+            }
+
+            .guide-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .guide-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .guide-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .step-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Spinner -->

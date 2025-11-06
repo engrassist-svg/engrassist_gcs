@@ -55,6 +55,205 @@
      crossorigin="anonymous"></script>
 
 
+    <style>
+        .code-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .guide-section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-section h4 {
+            color: #2c3e50;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .code-reference-box {
+            background: #e8f4f8;
+            border: 1px solid #b8dde8;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .code-reference-box h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .code-reference-box h4::before {
+            content: "📋";
+            margin-right: 0.5rem;
+        }
+
+        .code-category {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .code-category h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .code-category ul {
+            margin-bottom: 0;
+        }
+
+        .code-category li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .requirement-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .requirement-box h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .code-table th,
+        .code-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        .code-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .code-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .code-link {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .code-link:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .code-guide-container {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .code-reference-box,
+            .code-category,
+            .requirement-box {
+                padding: 1rem;
+            }
+
+            .code-table {
+                font-size: 0.9rem;
+            }
+
+            .code-table th,
+            .code-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .code-guide-container {
+                padding: 0.5rem;
+            }
+
+            .guide-section {
+                padding: 0.75rem;
+                border-radius: 4px;
+            }
+
+            .guide-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .guide-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .code-table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Spinner -->
