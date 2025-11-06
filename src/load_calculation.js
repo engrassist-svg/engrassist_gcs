@@ -79,15 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (dateInput) {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
-
-    // Wire up the calculate button
-    const calculateButton = document.querySelector('button.btn[onclick*="calculateLoads"]');
-    if (calculateButton) {
-        calculateButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            calculateLoads();
-        });
-    }
 });
 
 // Accept disclaimer and show main content
@@ -512,7 +503,9 @@ function calculateCoolingLoads(inputs) {
     // Additional safety factors lead to oversizing problems
 
     // Calculate Sensible Heat Ratio first
-    loads.shr = loads.totalSensible / (loads.totalSensible + loads.totalLatent);
+    // Prevent division by zero: if no load, default SHR to 0.80 (moderate climate)
+    const totalCoolingLoad = loads.totalSensible + loads.totalLatent;
+    loads.shr = totalCoolingLoad > 0 ? loads.totalSensible / totalCoolingLoad : 0.80;
 
     // Calculate equipment size
     loads.tons = loads.totalLoad / 12000; // 12,000 BTU/hr per ton
@@ -683,7 +676,8 @@ function displayResults(cooling, heating) {
 
     let breakdownHTML = '';
     components.forEach(comp => {
-        const percentage = (comp.value / cooling.totalLoad * 100).toFixed(1);
+        // Safely calculate percentage, handling zero total load
+        const percentage = (cooling.totalLoad > 0) ? (comp.value / cooling.totalLoad * 100).toFixed(1) : '0.0';
         if (comp.value > 0) {
             breakdownHTML += '<div style="margin-bottom: 0.8rem;">';
             breakdownHTML += '<div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">';
