@@ -4391,3 +4391,953 @@ body {
     }
 }
 
+
+/* ====================================
+   ARTICLES PAGE STYLES
+   ==================================== */
+.article-search-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.article-search-box input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+.article-search-box input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.article-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.article-card-header {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 1.5rem;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.article-card-header h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+}
+
+.article-category {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.article-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.article-description {
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.article-tag {
+    background: #e8f4f8;
+    color: #2980b9;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.category-section {
+    margin-bottom: 4rem;
+}
+
+.category-header {
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border-left: 4px solid #3498db;
+}
+
+.category-header h2 {
+    margin: 0 0 0.5rem 0;
+    color: #2c3e50;
+}
+
+.category-description {
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    color: #7f8c8d;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ====================================
+   404 ERROR PAGE STYLES
+   ==================================== */
+.error-container {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #3498db;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.error-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.error-message {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+}
+
+.error-blueprint {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #3498db;
+    margin: 3rem 0;
+    text-align: left;
+}
+
+.blueprint-grid {
+    line-height: 1.8;
+}
+
+.engineering-joke {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #f39c12;
+    margin: 2rem 0;
+    font-size: 1.1rem;
+    color: #856404;
+}
+
+.troubleshooting {
+    text-align: left;
+    background: #e8f4f8;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+.troubleshooting h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.troubleshooting ul {
+    margin-left: 2rem;
+    line-height: 2;
+    color: #34495e;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 3rem 0;
+}
+
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 5rem;
+    }
+    
+    .error-title {
+        font-size: 1.8rem;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button-group .btn,
+    .button-group .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* ====================================
+   ARTICLE CONTENT STYLES (for individual articles)
+   ==================================== */
+.article-content {
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.article-hero {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.article-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.article-meta {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.toc {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+.toc h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin: 0.75rem 0;
+}
+
+.toc a {
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.toc a:hover {
+    text-decoration: underline;
+}
+
+/* Different colored TOC for different equipment types */
+.toc.chillers, .toc.cooling { border-left: 4px solid #3498db; }
+.toc.chillers a, .toc.cooling a { color: #3498db; }
+.toc.chillers a:hover, .toc.cooling a:hover { color: #2980b9; }
+
+.toc.boilers, .toc.heating { border-left: 4px solid #e74c3c; }
+.toc.boilers a, .toc.heating a { color: #e74c3c; }
+
+.toc.vrf, .toc.ductless { border-left: 4px solid #9b59b6; }
+.toc.vrf a, .toc.ductless a { color: #9b59b6; }
+
+.toc.air-distribution { border-left: 4px solid #27ae60; }
+.toc.air-distribution a { color: #27ae60; }
+
+.info-box {
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.info-box h4 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+/* Different colored info boxes */
+.info-box.blue {
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    border-left: 4px solid #3498db;
+}
+
+.info-box.yellow {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border-left: 4px solid #f39c12;
+}
+
+.warning-box {
+    background: #fff3cd;
+    border-left: 4px solid #f39c12;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.warning-box h4 {
+    color: #856404;
+    margin-top: 0;
+}
+
+.spec-table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.spec-table-wrapper::-webkit-scrollbar {
+    height: 12px;
+}
+
+.spec-table-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.spec-table-wrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    margin: 0;
+    background: white;
+}
+
+.spec-table th,
+.spec-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.spec-table th {
+    color: white;
+    font-weight: 600;
+}
+
+/* Different colored table headers */
+.spec-table.blue th {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.spec-table.red th {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.spec-table.purple th {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.spec-table.green th {
+    background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.spec-table tr:hover {
+    background: #f8f9fa;
+}
+
+.manufacturer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.manufacturer-card {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #f39c12;
+}
+
+.manufacturer-card h4 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.manufacturer-card a {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.related-articles {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 3rem 0;
+}
+
+.related-articles h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.related-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.related-link {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.related-link:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Different colored related links */
+.related-link.blue {
+    border-left: 3px solid #3498db;
+}
+
+.related-link.red {
+    border-left: 3px solid #e74c3c;
+}
+
+.related-link.purple {
+    border-left: 3px solid #9b59b6;
+}
+
+.related-link.green {
+    border-left: 3px solid #27ae60;
+}
+
+@media (max-width: 768px) {
+    .article-hero h1 {
+        font-size: 2rem;
+    }
+
+    .manufacturer-grid,
+    .related-links {
+        grid-template-columns: 1fr;
+    }
+
+    .article-content {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* ====================================
+   TAB NAVIGATION STYLES (for multi-tab pages like boiler_sizing)
+   ==================================== */
+.tab-navigation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+    max-width: 100%;
+}
+
+.tab-button {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tab-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.tab-button.active {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border-color: #c0392b;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .tab-navigation {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .tab-button {
+        padding: 1.25rem 0.75rem;
+        font-size: 0.95rem;
+        min-height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-button {
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+        min-height: 65px;
+    }
+}
+
+/* ====================================
+   HVAC DESIGN GUIDE STYLES
+   ==================================== */
+.design-guide-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.guide-section {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.guide-section h2 {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.guide-section h3 {
+    color: #34495e;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.guide-section h4 {
+    color: #2c3e50;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.step-number {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.step-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.step-content {
+    margin-left: 56px;
+}
+
+.key-activities {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.key-activities h4 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.key-activities ul {
+    margin-bottom: 0;
+}
+
+.key-activities li {
+    margin-bottom: 0.5rem;
+}
+
+.reference-box {
+    background: #e8f4f8;
+    border: 1px solid #b8dde8;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.reference-box h4 {
+    margin-top: 0;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.reference-box h4::before {
+    content: "📚";
+    margin-right: 0.5rem;
+}
+
+.important-note {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.important-note h4 {
+    margin-top: 0;
+    color: #856404;
+}
+
+.tool-reference {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.tool-reference:hover {
+    background: #2980b9;
+    color: white;
+}
+
+.checklist {
+    list-style: none;
+    padding-left: 0;
+}
+
+.checklist li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.workflow-diagram {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.workflow-step {
+    background: white;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 600px;
+}
+
+.workflow-arrow {
+    color: #3498db;
+    font-size: 2rem;
+    margin: 0.5rem 0;
+}
+
+/* ====================================
+   CODE REQUIREMENTS STYLES
+   ==================================== */
+.code-guide-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.code-reference-box {
+    background: #e8f4f8;
+    border: 1px solid #b8dde8;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.code-reference-box h4 {
+    margin-top: 0;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.code-reference-box h4::before {
+    content: "📋";
+    margin-right: 0.5rem;
+}
+
+.code-category {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+.code-category h4 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+.code-category ul {
+    margin-bottom: 0;
+}
+
+.code-category li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.requirement-box {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.requirement-box h4 {
+    margin-top: 0;
+    color: #856404;
+}
+
+.code-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.code-table th,
+.code-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.code-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.code-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.code-link {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.code-link:hover {
+    background: #2980b9;
+    color: white;
+}
+
+/* Mobile responsive styles for guides */
+@media (max-width: 768px) {
+    .design-guide-container,
+    .code-guide-container {
+        padding: 1rem;
+    }
+
+    .guide-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-content {
+        margin-left: 0;
+    }
+
+    .step-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .step-number {
+        margin-bottom: 0.5rem;
+    }
+
+    .key-activities,
+    .reference-box,
+    .important-note,
+    .code-reference-box,
+    .code-category,
+    .requirement-box {
+        padding: 1rem;
+    }
+
+    .workflow-diagram {
+        padding: 1rem;
+    }
+
+    .workflow-step {
+        padding: 0.75rem;
+    }
+
+    .code-table {
+        font-size: 0.9rem;
+    }
+
+    .code-table th,
+    .code-table td {
+        padding: 0.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .design-guide-container,
+    .code-guide-container {
+        padding: 0.5rem;
+    }
+
+    .guide-section {
+        padding: 0.75rem;
+        border-radius: 4px;
+    }
+
+    .guide-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .guide-section h3 {
+        font-size: 1.1rem;
+    }
+
+    .step-title {
+        font-size: 1.25rem;
+    }
+
+    .code-table {
+        font-size: 0.85rem;
+    }
+}
