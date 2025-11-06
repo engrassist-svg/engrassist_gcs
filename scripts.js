@@ -265,7 +265,7 @@ function handleSearch(event) {
             'psychro': 'psychrometric.html',
             'chart': 'psychrometric.html',
             'boiler': 'boiler_sizing.html',
-            'chiller': 'chiller_calculator.html',
+            'chiller': 'chiller_sizing.html',
             'coil': 'coil_selection.html',
             'fan': 'fan_selection.html',
             'air balance': 'air_balance.html',
