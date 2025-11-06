@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive plumbing pipe sizing resource: calculator for domestic water pipes, detailed information, troubleshooting guide, and technical specifications for hot and cold water systems.">
+    <meta name="keywords" content="pipe sizing, plumbing calculator, domestic water, fixture units, GPM calculator, water pipe sizing, plumbing design, hot water, cold water, pipe velocity">
+    <link rel="canonical" href="https://engrassist.com/plumbing_pipe_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Plumbing Pipe Sizing Calculator & Information - EngrAssist">
+    <meta property="og:description" content="Complete plumbing pipe sizing resource with calculator, information, troubleshooting, and specifications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/plumbing_pipe_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Plumbing Pipe Sizing Calculator & Information">
+    <meta name="twitter:description" content="Complete plumbing pipe sizing resource with calculator and guides.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Plumbing Pipe Sizing Calculator & Information - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+    <style>
+        /* Tab Navigation Styles */
+        .tab-navigation {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            max-width: 100%;
+        }
+
+        .tab-button {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-color: #2980b9;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .tab-navigation {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .tab-button {
+                padding: 1.25rem 0.75rem;
+                font-size: 0.95rem;
+                min-height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+                min-height: 65px;
+            }
+        }
+
+        /* Pipe sizing specific styles */
+        .pipe-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .pipe-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+            margin: 0;
+            background: white;
+        }
+
+        .pipe-table th,
+        .pipe-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .pipe-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .pipe-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .pipe-table tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        .pipe-table input {
+            width: 100%;
+            max-width: 150px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Column headers for hot/cold */
+        .cold-water-header {
+            background: linear-gradient(135deg, #3498db, #2874a6) !important;
+        }
+
+        .hot-water-header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+        }
+
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .article-content {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .pipe-table-wrapper {
+                overflow-x: scroll;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+            }
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #3498db;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            margin: 0;
+            background: white;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .troubleshooting-table {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .troubleshooting-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            min-width: 800px;
+        }
+
+        .troubleshooting-table th,
+        .troubleshooting-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .troubleshooting-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .troubleshooting-table {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+            }
+        }
+
+        .constants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .constant-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .constant-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .constant-card p {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .reference-table {
+            margin: 2rem 0;
+        }
+
+        .reference-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .reference-table th,
+        .reference-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .reference-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Plumbing Pipe Sizing Calculator & Information</h1>
+                <p class="hero-subtitle">Comprehensive resource for domestic water pipe sizing: calculator for hot and cold water systems, technical information, troubleshooting guides, and pipe specifications</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator')">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information')">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting')">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications')">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Pipe Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="calcMethod">Calculation Method:</label>
+                            <select id="calcMethod" onchange="toggleCalcMethod()">
+                                <option value="fixtureUnits">Fixture Units (WSFU)</option>
+                                <option value="gpm">Direct GPM Entry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeType">Pipe Material:</label>
+                            <select id="pipeType">
+                                <option value="copper">Copper (Type L)</option>
+                                <option value="pex">PEX</option>
+                                <option value="cpvc">CPVC</option>
+                                <option value="galvanized">Galvanized Steel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="waterTemp">Water Temperature:</label>
+                            <select id="waterTemp">
+                                <option value="cold">Cold Water (≤ 60°F)</option>
+                                <option value="hot">Hot Water (120-140°F)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeLength">Developed Pipe Length (ft):</label>
+                            <input type="number" id="pipeLength" placeholder="Enter pipe length" value="100" min="0">
+                        </div>
+                    </div>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem;">Water Demand Entry</h3>
+
+                    <div class="pipe-table-wrapper">
+                        <table class="pipe-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Fixture Type</th>
+                                    <th colspan="2" class="cold-water-header">Cold Water</th>
+                                    <th colspan="2" class="hot-water-header">Hot Water</th>
+                                </tr>
+                                <tr>
+                                    <th class="cold-water-header">Quantity</th>
+                                    <th class="cold-water-header">WSFU per Fixture</th>
+                                    <th class="hot-water-header">Quantity</th>
+                                    <th class="hot-water-header">WSFU per Fixture</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fixtureTableBody">
+                                <tr>
+                                    <td><strong>Water Closet (Tank)</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="2.5" value="0" min="0"></td>
+                                    <td>2.5</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="0" value="0" min="0"></td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Water Closet (Flush Valve)</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="6.0" value="0" min="0"></td>
+                                    <td>6.0</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="0" value="0" min="0"></td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lavatory/Sink</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="0.5" value="0" min="0"></td>
+                                    <td>0.5</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="0.5" value="0" min="0"></td>
+                                    <td>0.5</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Shower</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="1.0" value="0" min="0"></td>
+                                    <td>1.0</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="1.0" value="0" min="0"></td>
+                                    <td>1.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bathtub</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="1.0" value="0" min="0"></td>
+                                    <td>1.0</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="1.0" value="0" min="0"></td>
+                                    <td>1.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kitchen Sink</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="0.75" value="0" min="0"></td>
+                                    <td>0.75</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="0.75" value="0" min="0"></td>
+                                    <td>0.75</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dishwasher</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="0" value="0" min="0"></td>
+                                    <td>0</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="1.4" value="0" min="0"></td>
+                                    <td>1.4</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Clothes Washer</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="1.0" value="0" min="0"></td>
+                                    <td>1.0</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="1.0" value="0" min="0"></td>
+                                    <td>1.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hose Bibb (3/4")</strong></td>
+                                    <td><input type="number" class="cold-qty" data-wsfu="2.5" value="0" min="0"></td>
+                                    <td>2.5</td>
+                                    <td><input type="number" class="hot-qty" data-wsfu="0" value="0" min="0"></td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="directGPMInput" class="form-row" style="display: none;">
+                        <div class="form-group">
+                            <label for="coldGPM">Cold Water Flow (GPM):</label>
+                            <input type="number" id="coldGPM" placeholder="Enter GPM" value="0" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="hotGPM">Hot Water Flow (GPM):</label>
+                            <input type="number" id="hotGPM" placeholder="Enter GPM" value="0" min="0" step="0.1">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculatePipeSizing()">Calculate Pipe Sizing</button>
+
+                    <div id="pipeSizingResults" class="boiler-results-section" style="display: none;">
+                        <h3>Pipe Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Cold Water Fixture Units:</span>
+                            <span class="result-value" id="coldWSFU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Cold Water Flow (GPM):</span>
+                            <span class="result-value" id="coldGPMResult">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Recommended Cold Water Pipe Size:</span>
+                            <span class="result-value" id="coldPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Cold Water Velocity:</span>
+                            <span class="result-value" id="coldVelocity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Hot Water Fixture Units:</span>
+                            <span class="result-value" id="hotWSFU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Hot Water Flow (GPM):</span>
+                            <span class="result-value" id="hotGPMResult">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Recommended Hot Water Pipe Size:</span>
+                            <span class="result-value" id="hotPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Hot Water Velocity:</span>
+                            <span class="result-value" id="hotVelocity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Pressure Drop (Cold Water):</span>
+                            <span class="result-value" id="coldPressureDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Pressure Drop (Hot Water):</span>
+                            <span class="result-value" id="hotPressureDrop">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Reference Section -->
+                    <h2 class="section-title" style="margin-top: 3rem;">Sizing Guidelines & Reference Values</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Fixture Unit Values (WSFU)</h3>
+                    <p>Water Supply Fixture Units (WSFU) are standardized values from IPC/UPC codes that represent the water demand of plumbing fixtures. These values account for flow rate and probability of simultaneous use.</p>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Velocity Limits by Pipe Material</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Copper - Cold Water:</strong> 8 ft/s maximum</li>
+                        <li><strong>Copper - Hot Water:</strong> 5 ft/s maximum</li>
+                        <li><strong>PEX - Cold Water:</strong> 10 ft/s maximum</li>
+                        <li><strong>PEX - Hot Water:</strong> 8 ft/s maximum</li>
+                        <li><strong>CPVC - Cold Water:</strong> 8 ft/s maximum</li>
+                        <li><strong>CPVC - Hot Water:</strong> 5 ft/s maximum</li>
+                        <li><strong>Galvanized Steel:</strong> 5 ft/s maximum (both hot and cold)</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Pressure Requirements</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Minimum Supply Pressure:</strong> 40-60 psi</li>
+                        <li><strong>Maximum Supply Pressure:</strong> 80 psi (pressure reducer required above this)</li>
+                        <li><strong>Minimum Fixture Pressure:</strong> 15-20 psi for most fixtures</li>
+                        <li><strong>Flush Valve Toilets:</strong> 25-35 psi minimum</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Important Disclaimer</h4>
+                        <p>These calculations provide estimates for preliminary sizing only. Always verify with local plumbing codes (IPC, UPC, or local amendments) and consult with a licensed plumber or professional engineer for final design. Factors such as available pressure, elevation changes, water quality, and specific fixture requirements must be considered. EngrAssist is not responsible for pipe sizing based on these estimates.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <div class="toc">
+                            <h3>Table of Contents</h3>
+                            <ul>
+                                <li><a href="#info-overview">Overview</a></li>
+                                <li><a href="#info-how-it-works">How Pipe Sizing Works</a></li>
+                                <li><a href="#info-methods">Sizing Methods</a></li>
+                                <li><a href="#info-pipe-materials">Pipe Materials</a></li>
+                                <li><a href="#info-fixture-units">Fixture Units Explained</a></li>
+                                <li><a href="#info-velocity">Velocity and Pressure</a></li>
+                                <li><a href="#info-best-practices">Best Practices</a></li>
+                                <li><a href="#info-common-mistakes">Common Mistakes</a></li>
+                                <li><a href="#info-codes">Code Requirements</a></li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-overview">Overview</h2>
+                        <p>Proper domestic water pipe sizing is essential for delivering adequate water flow and pressure to all plumbing fixtures while minimizing energy costs, water waste, and pipe erosion. Undersized pipes result in poor flow and low pressure, while oversized pipes waste money, increase water waste, and can lead to water quality issues.</p>
+
+                        <p>Domestic water systems must be designed to deliver water at sufficient pressure (typically 40-60 psi at the supply, minimum 15-20 psi at fixtures) while maintaining acceptable flow velocities to prevent noise, erosion, and water hammer.</p>
+
+                        <h2 id="info-how-it-works">How Pipe Sizing Works</h2>
+                        <p>Plumbing pipe sizing involves calculating the water demand for a building or system, then selecting pipe sizes that can deliver that flow while maintaining:</p>
+
+                        <div class="info-box">
+                            <h4>Key Design Parameters</h4>
+                            <ol>
+                                <li><strong>Adequate Flow Rate:</strong> Sufficient GPM to meet fixture demands</li>
+                                <li><strong>Minimum Pressure:</strong> Enough pressure at the most remote fixture</li>
+                                <li><strong>Acceptable Velocity:</strong> Fast enough for efficiency, slow enough to prevent erosion</li>
+                                <li><strong>Reasonable Pressure Loss:</strong> Minimize friction losses through proper sizing</li>
+                            </ol>
+                        </div>
+
+                        <p>The process accounts for the fact that not all fixtures will be used simultaneously. This "diversity factor" is built into the fixture unit method developed by Roy B. Hunter in 1940.</p>
+
+                        <h2 id="info-methods">Sizing Methods</h2>
+
+                        <div class="info-box">
+                            <h3>1. Fixture Unit Method (Hunter's Curve)</h3>
+                            <p><strong>Most Common Method</strong></p>
+                            <p>Assigns standardized Water Supply Fixture Unit (WSFU) values to each fixture type. Total fixture units are converted to GPM using probability curves (Hunter's Curve) that account for diversity of use.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Standardized, code-approved, accounts for probability</li>
+                                <li><strong>Disadvantages:</strong> Can be conservative (oversized) with modern low-flow fixtures</li>
+                                <li><strong>Best for:</strong> Residential and commercial buildings, code compliance</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>2. Direct GPM Method</h3>
+                            <p>Calculates actual flow rates based on fixture flow rates and estimated simultaneous use.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> More accurate for specific applications, accounts for low-flow fixtures</li>
+                                <li><strong>Disadvantages:</strong> Requires more detailed analysis, less standardized</li>
+                                <li><strong>Best for:</strong> Custom applications, water-efficient designs</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>3. Velocity-Based Sizing</h3>
+                            <p>Selects pipe size to maintain velocities within acceptable ranges (typically 4-8 ft/s).</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Prevents erosion and noise, simple to calculate</li>
+                                <li><strong>Disadvantages:</strong> Must be combined with pressure loss calculations</li>
+                                <li><strong>Best for:</strong> Final verification after initial sizing</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-pipe-materials">Pipe Materials</h2>
+
+                        <div class="info-box">
+                            <h3>Copper (Type L or M)</h3>
+                            <p><strong>Industry Standard - Excellent Track Record</strong></p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Durable, long lifespan (50+ years), handles high temperatures and pressures, naturally antibacterial, recyclable</li>
+                                <li><strong>Disadvantages:</strong> Higher material cost, requires skilled installation, can corrode in acidic water, affected by mineral buildup</li>
+                                <li><strong>Typical Applications:</strong> All residential and commercial plumbing, especially hot water systems</li>
+                                <li><strong>Velocity Limits:</strong> 8 ft/s (cold), 5 ft/s (hot)</li>
+                                <li><strong>Temperature Rating:</strong> Up to 400°F (annealed), 250°F (drawn)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>PEX (Cross-Linked Polyethylene)</h3>
+                            <p><strong>Modern Choice - Growing Market Share</strong></p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Flexible (fewer fittings), freeze-resistant, corrosion-proof, lower cost, easy installation, quiet operation</li>
+                                <li><strong>Disadvantages:</strong> Cannot be used outdoors (UV sensitive), not suitable for recirculation loops without special consideration, some concerns about chemical leaching</li>
+                                <li><strong>Typical Applications:</strong> Residential plumbing, radiant floor heating, retrofit applications</li>
+                                <li><strong>Velocity Limits:</strong> 10 ft/s (cold), 8 ft/s (hot)</li>
+                                <li><strong>Temperature Rating:</strong> 200°F at 80 psi, 180°F at 100 psi</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>CPVC (Chlorinated Polyvinyl Chloride)</h3>
+                            <p><strong>Plastic Alternative to Copper</strong></p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Lower cost than copper, corrosion-resistant, easy to work with, good for hot water</li>
+                                <li><strong>Disadvantages:</strong> Brittle (can crack), affected by chlorine, UV sensitive, lower temperature rating than copper</li>
+                                <li><strong>Typical Applications:</strong> Residential hot and cold water, budget installations</li>
+                                <li><strong>Velocity Limits:</strong> 8 ft/s (cold), 5 ft/s (hot)</li>
+                                <li><strong>Temperature Rating:</strong> 180-200°F at 100 psi</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Galvanized Steel</h3>
+                            <p><strong>Legacy Material - Rarely Used in New Construction</strong></p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Very strong, handles high pressures, fire-resistant</li>
+                                <li><strong>Disadvantages:</strong> Prone to corrosion and mineral buildup, heavy, difficult to work with, reduced flow over time</li>
+                                <li><strong>Typical Applications:</strong> Older buildings (pre-1960s), some commercial applications</li>
+                                <li><strong>Velocity Limits:</strong> 5 ft/s (both hot and cold)</li>
+                                <li><strong>Expected Life:</strong> 40-50 years, but flow degrades significantly</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-fixture-units">Fixture Units Explained</h2>
+
+                        <p>Water Supply Fixture Units (WSFU) were developed by Roy B. Hunter at the National Bureau of Standards in 1940. The system assigns each fixture a unit value based on:</p>
+
+                        <ul>
+                            <li><strong>Flow Rate:</strong> GPM demanded by the fixture</li>
+                            <li><strong>Duration:</strong> How long the fixture operates per use</li>
+                            <li><strong>Frequency:</strong> How often the fixture is used</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <h4>Common Fixture Unit Values (IPC/UPC)</h4>
+                            <ul>
+                                <li><strong>Water Closet (Tank):</strong> 2.5 WSFU (cold only)</li>
+                                <li><strong>Water Closet (Flush Valve):</strong> 6.0 WSFU (cold only)</li>
+                                <li><strong>Lavatory:</strong> 0.5 WSFU (hot and cold each)</li>
+                                <li><strong>Shower:</strong> 1.0 WSFU (hot and cold each)</li>
+                                <li><strong>Bathtub:</strong> 1.0 WSFU (hot and cold each)</li>
+                                <li><strong>Kitchen Sink:</strong> 0.75 WSFU (hot and cold each)</li>
+                                <li><strong>Dishwasher:</strong> 1.4 WSFU (hot only)</li>
+                                <li><strong>Clothes Washer:</strong> 1.0 WSFU (hot and cold each)</li>
+                                <li><strong>Hose Bibb (3/4"):</strong> 2.5 WSFU (cold only)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Converting Fixture Units to GPM</h3>
+                        <p>Hunter's Curve converts total fixture units to probable flow rate. The relationship is non-linear because the probability of simultaneous use decreases as more fixtures are added. Example conversions:</p>
+
+                        <ul style="margin-left: 2rem; line-height: 2;">
+                            <li><strong>5 WSFU:</strong> ≈ 4 GPM</li>
+                            <li><strong>10 WSFU:</strong> ≈ 8 GPM</li>
+                            <li><strong>20 WSFU:</strong> ≈ 14 GPM</li>
+                            <li><strong>30 WSFU:</strong> ≈ 20 GPM</li>
+                            <li><strong>50 WSFU:</strong> ≈ 30 GPM</li>
+                            <li><strong>100 WSFU:</strong> ≈ 50 GPM</li>
+                        </ul>
+
+                        <h2 id="info-velocity">Velocity and Pressure</h2>
+
+                        <h3>Why Velocity Matters</h3>
+                        <div class="info-box">
+                            <h4>Too Fast (> 8-10 ft/s)</h4>
+                            <ul>
+                                <li>Erosion-corrosion of pipe walls, especially in copper</li>
+                                <li>Water hammer and noise</li>
+                                <li>Excessive pressure drop</li>
+                                <li>Increased wear on valves and fittings</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Too Slow (< 2 ft/s)</h4>
+                            <ul>
+                                <li>Oversized pipes waste money</li>
+                                <li>Water sits in pipes longer (water quality issues)</li>
+                                <li>Temperature loss in hot water lines</li>
+                                <li>More fixtures = more water waste waiting for hot water</li>
+                            </ul>
+                        </div>
+
+                        <h3>Pressure Loss Considerations</h3>
+                        <p>Pressure loss through piping is caused by friction between water and pipe walls. Loss increases with:</p>
+
+                        <ul>
+                            <li><strong>Flow Rate:</strong> Higher flow = more loss (exponential relationship)</li>
+                            <li><strong>Pipe Length:</strong> Longer runs = more loss (linear)</li>
+                            <li><strong>Smaller Diameter:</strong> Smaller pipes = much higher loss</li>
+                            <li><strong>Roughness:</strong> Older/rougher pipes have higher friction</li>
+                            <li><strong>Fittings:</strong> Each elbow, tee, or valve adds loss</li>
+                        </ul>
+
+                        <p><strong>Rule of Thumb:</strong> Budget 5-10 psi loss per 100 feet of pipe, plus 2-5 psi for each fixture supply.</p>
+
+                        <h2 id="info-best-practices">Best Practices</h2>
+
+                        <div class="info-box">
+                            <h3>Design Phase</h3>
+                            <ul>
+                                <li>Start with a detailed fixture schedule including fixture types and quantities</li>
+                                <li>Calculate hot and cold water demands separately</li>
+                                <li>Use Hunter's Curve for code compliance, verify with velocity calculations</li>
+                                <li>Account for pressure loss: friction in pipes, elevation changes, meter loss, fixtures</li>
+                                <li>Consider future expansion - easier to install larger pipe now</li>
+                                <li>Design for recirculation on hot water runs over 50-75 feet</li>
+                                <li>Specify pressure-reducing valves if supply exceeds 80 psi</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Installation</h3>
+                            <ul>
+                                <li>Maintain proper support spacing per code (copper: 6 ft horizontal, 10 ft vertical)</li>
+                                <li>Slope horizontal pipes 1/4" per foot for drainage</li>
+                                <li>Install isolation valves for future maintenance</li>
+                                <li>Use proper insulation on hot water pipes (minimum R-3)</li>
+                                <li>Install water hammer arrestors where needed (washing machines, dishwashers)</li>
+                                <li>Test entire system at 150% working pressure for leaks</li>
+                                <li>Flush thoroughly before final connections</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Residential Best Practices</h3>
+                            <ul>
+                                <li><strong>Service Entrance:</strong> Minimum 3/4", often 1" for larger homes</li>
+                                <li><strong>Main Distribution:</strong> 3/4" trunk, 1/2" branches to individual fixtures</li>
+                                <li><strong>Fixture Supplies:</strong> 3/8" or 1/2" supply tubes</li>
+                                <li><strong>Manifold Systems:</strong> 3/4" or 1" manifold with 1/2" or 3/8" PEX home runs</li>
+                                <li><strong>Hot Water Recirculation:</strong> 3/4" supply, 1/2" return typical</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-common-mistakes">Common Mistakes to Avoid</h2>
+
+                        <div class="warning-box">
+                            <h4>Undersizing Errors</h4>
+                            <ul>
+                                <li><strong>Mistake:</strong> Using 1/2" pipe for main trunk lines serving multiple fixtures</li>
+                                <li><strong>Result:</strong> Low pressure at fixtures, especially when multiple are in use</li>
+                                <li><strong>Solution:</strong> Use 3/4" for trunk lines, 1/2" for individual branches</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Oversizing Errors</h4>
+                            <ul>
+                                <li><strong>Mistake:</strong> Installing 1" or larger pipe everywhere "to be safe"</li>
+                                <li><strong>Result:</strong> Wasted money, water quality issues, long wait for hot water</li>
+                                <li><strong>Solution:</strong> Size based on actual demand, not "bigger is better"</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Material Selection Errors</h4>
+                            <ul>
+                                <li><strong>Mistake:</strong> Using CPVC for recirculation loops</li>
+                                <li><strong>Result:</strong> Premature failure due to constant hot water exposure</li>
+                                <li><strong>Solution:</strong> Use copper or specialized PEX for recirculation</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Velocity Errors</h4>
+                            <ul>
+                                <li><strong>Mistake:</strong> Ignoring velocity limits, especially on hot water</li>
+                                <li><strong>Result:</strong> Erosion-corrosion, premature pinhole leaks in copper</li>
+                                <li><strong>Solution:</strong> Calculate velocity, keep hot water ≤ 5 ft/s in copper</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-codes">Code Requirements</h2>
+
+                        <p>Plumbing codes in the United States are primarily based on two model codes:</p>
+
+                        <div class="info-box">
+                            <h3>International Plumbing Code (IPC)</h3>
+                            <p>Adopted by most states, particularly in the eastern US. Published by the International Code Council (ICC).</p>
+                            <ul>
+                                <li>Appendix E: Sizing of Water Piping System</li>
+                                <li>Table E103.3(2): Water Supply Fixture Units</li>
+                                <li>Table E103.3(3): Conversion to GPM</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Uniform Plumbing Code (UPC)</h3>
+                            <p>Adopted primarily in western states. Published by the International Association of Plumbing and Mechanical Officials (IAPMO).</p>
+                            <ul>
+                                <li>Chapter 6: Water Supply and Distribution</li>
+                                <li>Table 610.3: Fixture Unit Values</li>
+                                <li>Table 610.4: Water Distribution Pipe Sizing</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Always Verify Local Requirements</h4>
+                            <p>While IPC and UPC are model codes, many jurisdictions adopt them with amendments. Always check:</p>
+                            <ul>
+                                <li>Local building department for adopted code version and amendments</li>
+                                <li>State-specific modifications to model codes</li>
+                                <li>Water purveyor requirements (water company may have additional rules)</li>
+                                <li>Backflow prevention requirements</li>
+                                <li>Water conservation ordinances (may require low-flow fixtures)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <div class="energy-section">
+                        <h2 class="section-title">Plumbing System Troubleshooting</h2>
+                        <div class="energy-content">
+
+                            <div class="troubleshooting-table">
+                                <h3>Common Domestic Water System Problems</h3>
+                                <table class="efficiency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symptom</th>
+                                            <th>Possible Causes</th>
+                                            <th>Diagnostic Steps</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Low Pressure at All Fixtures</strong></td>
+                                            <td>Main valve partially closed, PRV set too low, undersized service, clogged meter or filter, municipal supply issue</td>
+                                            <td>Check main valve, test pressure at meter and furthest fixture, check PRV setting, call water company</td>
+                                            <td>Open main valve fully, adjust PRV, clean/replace filters, upgrade service size if needed</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Low Pressure at One Fixture</strong></td>
+                                            <td>Clogged aerator/showerhead, kinked supply line, partially closed stop valve, debris in supply line</td>
+                                            <td>Remove and clean aerator, check supply valve position, disconnect supply and test flow</td>
+                                            <td>Clean or replace aerator, replace supply line, open valve, flush supply line</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Low Pressure When Multiple Fixtures Run</strong></td>
+                                            <td>Undersized piping, insufficient supply pressure, pressure-reducing valve set too low</td>
+                                            <td>Measure pressure with multiple fixtures running, check pipe sizes against demand, test PRV</td>
+                                            <td>Upsize trunk lines, increase PRV setting (if possible), reduce simultaneous demand</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Water Hammer / Banging Pipes</strong></td>
+                                            <td>Missing/failed water hammer arrestors, loose pipes, high pressure, fast-closing valves</td>
+                                            <td>Identify when noise occurs (which fixture), check pressure, inspect pipe supports</td>
+                                            <td>Install water hammer arrestors, secure pipes properly, reduce pressure if >80 psi, replace quick-closing valves</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>No Hot Water or Slow Hot Water</strong></td>
+                                            <td>Water heater issue, long pipe runs, no recirculation, undersized hot water piping, mixing valve problem</td>
+                                            <td>Check water heater operation, measure pipe runs, test hot water flow rate, check mixing valves</td>
+                                            <td>Repair/replace water heater, install recirculation system, insulate pipes, upsize piping, adjust/replace mixing valves</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Discolored Water (Brown/Rusty)</strong></td>
+                                            <td>Corroded pipes (galvanized), municipal main break, sediment in water heater</td>
+                                            <td>Determine if hot or cold (or both), check if municipal issue, flush water heater, inspect exposed piping</td>
+                                            <td>Replace corroded piping, flush system if municipal issue, drain and flush water heater, install sediment filter</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fluctuating Pressure</strong></td>
+                                            <td>Faulty PRV, thermal expansion, undersized piping, municipal pressure variation</td>
+                                            <td>Monitor pressure over time, check PRV operation, verify expansion tank, check with neighbors</td>
+                                            <td>Replace PRV, install/replace expansion tank, upsize piping if needed, install pressure tank</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Excessive Pressure (>80 psi)</strong></td>
+                                            <td>No PRV installed, failed PRV, thermal expansion without expansion tank</td>
+                                            <td>Measure pressure at multiple locations, check for PRV, test PRV adjustment</td>
+                                            <td>Install PRV, replace failed PRV, install thermal expansion tank, adjust PRV setting</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Whistling/Squealing Pipes</strong></td>
+                                            <td>High velocity, partially closed valve, worn valve washer, resonance in piping</td>
+                                            <td>Identify source of noise, check valve positions, measure pressure and flow</td>
+                                            <td>Reduce pressure or upsize pipe, open valves fully, replace worn washers, install flow restrictors</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Leaks at Joints</strong></td>
+                                            <td>Failed solder joint, loose fitting, corrosion, thermal expansion/contraction, water hammer</td>
+                                            <td>Identify leak location and type, inspect joint condition, check for movement/vibration</td>
+                                            <td>Re-solder copper joints, tighten compression fittings, replace corroded sections, secure pipes, add expansion loops</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Diagnostic Tools and Techniques</h3>
+
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Pressure Testing</h4>
+                                    <ul>
+                                        <li><strong>Pressure Gauge:</strong> Install at hose bibb or test valve</li>
+                                        <li><strong>Normal Range:</strong> 40-60 psi</li>
+                                        <li><strong>Test Points:</strong> Meter, first fixture, last fixture</li>
+                                        <li><strong>Dynamic Test:</strong> Measure while fixtures are running</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Flow Testing</h4>
+                                    <ul>
+                                        <li><strong>Bucket Test:</strong> Time how long to fill 5-gallon bucket</li>
+                                        <li><strong>Expected Flow:</strong> 2-3 GPM (lavatory), 2.5 GPM (shower)</li>
+                                        <li><strong>Low Flow:</strong> Clean aerators, check for restrictions</li>
+                                        <li><strong>Multi-Fixture:</strong> Test simultaneous use</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Visual Inspection</h4>
+                                    <ul>
+                                        <li><strong>Pipe Condition:</strong> Check for corrosion, green stains (copper)</li>
+                                        <li><strong>Support:</strong> Verify proper spacing and security</li>
+                                        <li><strong>Leaks:</strong> Look for stains, minerals, mold</li>
+                                        <li><strong>Valve Operation:</strong> Test all shutoff valves</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Water Quality Testing</h4>
+                                    <ul>
+                                        <li><strong>pH Level:</strong> Should be 6.5-8.5 (acidic water corrodes copper)</li>
+                                        <li><strong>Hardness:</strong> High hardness causes scale buildup</li>
+                                        <li><strong>Iron/Manganese:</strong> Causes staining</li>
+                                        <li><strong>Chlorine:</strong> Can degrade plastic pipes over time</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Systematic Troubleshooting Approach</h3>
+                            <div class="info-box">
+                                <h4>Step 1: Define the Problem</h4>
+                                <ul>
+                                    <li>What is the specific symptom?</li>
+                                    <li>When did it start? Sudden or gradual?</li>
+                                    <li>Which fixtures are affected? All or specific?</li>
+                                    <li>Hot water only, cold water only, or both?</li>
+                                    <li>Is it constant or intermittent?</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 2: Gather Data</h4>
+                                <ul>
+                                    <li>Measure water pressure at multiple locations</li>
+                                    <li>Test flow rates at affected fixtures</li>
+                                    <li>Check water heater settings and condition</li>
+                                    <li>Inspect visible piping for damage or corrosion</li>
+                                    <li>Review any recent plumbing work or changes</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 3: Isolate the Cause</h4>
+                                <ul>
+                                    <li>Test upstream vs. downstream of suspected problem</li>
+                                    <li>Isolate sections using shutoff valves</li>
+                                    <li>Compare hot vs. cold water systems</li>
+                                    <li>Check if problem is municipal or building-specific</li>
+                                    <li>Eliminate possibilities systematically</li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Safety Considerations</h4>
+                                <p><strong>Always follow these safety procedures when troubleshooting plumbing:</strong></p>
+                                <ul>
+                                    <li>Shut off water supply before working on pressurized systems</li>
+                                    <li>Relieve pressure before opening joints or valves</li>
+                                    <li>Be aware of scalding hazards with hot water systems</li>
+                                    <li>Use appropriate PPE: safety glasses, gloves</li>
+                                    <li>Know the location of main shutoff valve</li>
+                                    <li>Never drink or test water quality from hot water system</li>
+                                    <li>Call a licensed plumber for gas water heaters or complex issues</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Preventive Maintenance</h3>
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Annual Tasks</h4>
+                                    <ul>
+                                        <li>Test water pressure at multiple locations</li>
+                                        <li>Drain and flush water heater</li>
+                                        <li>Test pressure-reducing valve</li>
+                                        <li>Check expansion tank pre-charge</li>
+                                        <li>Inspect accessible piping for leaks/corrosion</li>
+                                        <li>Test all shutoff valves (exercise them)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Every 2-3 Years</h4>
+                                    <ul>
+                                        <li>Replace water heater anode rod</li>
+                                        <li>Clean aerators and showerheads</li>
+                                        <li>Test water quality (pH, hardness)</li>
+                                        <li>Inspect/replace supply line hoses (washing machine, dishwasher)</li>
+                                        <li>Check for hidden leaks (monitor water meter)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Every 5-10 Years</h4>
+                                    <ul>
+                                        <li>Replace PRV (if installed)</li>
+                                        <li>Replace expansion tank</li>
+                                        <li>Replace water heater (typical 10-12 year life)</li>
+                                        <li>Consider whole-house leak detection system</li>
+                                        <li>Evaluate pipe condition if galvanized or old copper</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <div class="mechanical-section">
+                        <h2 class="section-title">Pipe Specifications & Reference Data</h2>
+
+                        <div class="reference-tables">
+                            <div class="reference-table">
+                                <h3>Pipe Material Comparison</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Material</th>
+                                            <th>Max Temp</th>
+                                            <th>Max Pressure</th>
+                                            <th>Expected Life</th>
+                                            <th>Relative Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Copper Type L</td>
+                                            <td>250°F</td>
+                                            <td>400+ psi</td>
+                                            <td>50+ years</td>
+                                            <td>$$$$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Copper Type M</td>
+                                            <td>250°F</td>
+                                            <td>400+ psi</td>
+                                            <td>50+ years</td>
+                                            <td>$$$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PEX-A (Engel)</td>
+                                            <td>200°F</td>
+                                            <td>160 psi @ 73°F</td>
+                                            <td>50+ years</td>
+                                            <td>$$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PEX-B (Silane)</td>
+                                            <td>200°F</td>
+                                            <td>160 psi @ 73°F</td>
+                                            <td>50+ years</td>
+                                            <td>$$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CPVC (CTS)</td>
+                                            <td>180°F</td>
+                                            <td>100 psi @ 180°F</td>
+                                            <td>50+ years</td>
+                                            <td>$$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Galvanized Steel</td>
+                                            <td>250°F</td>
+                                            <td>300+ psi</td>
+                                            <td>40-50 years*</td>
+                                            <td>$$$</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p style="font-size: 0.9rem; margin-top: 0.5rem;">* Galvanized steel life depends heavily on water quality; flow capacity degrades significantly over time.</p>
+                            </div>
+                        </div>
+
+                        <div class="constants-grid">
+                            <div class="constant-card">
+                                <h4>Min Supply Pressure</h4>
+                                <p>40-60 psi</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Max Supply Pressure</h4>
+                                <p>80 psi</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Min Fixture Pressure</h4>
+                                <p>15-20 psi</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Copper Cold Velocity</h4>
+                                <p>8 ft/s max</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Copper Hot Velocity</h4>
+                                <p>5 ft/s max</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>PEX Cold Velocity</h4>
+                                <p>10 ft/s max</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Common Pipe Sizes and Capacities</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nominal Size</th>
+                                        <th>Copper Type L ID</th>
+                                        <th>PEX ID</th>
+                                        <th>Max GPM @ 5 fps</th>
+                                        <th>Max GPM @ 8 fps</th>
+                                        <th>Typical Use</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>3/8"</td>
+                                        <td>0.430"</td>
+                                        <td>0.350"</td>
+                                        <td>1.5</td>
+                                        <td>2.4</td>
+                                        <td>Individual fixtures, short runs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/2"</td>
+                                        <td>0.545"</td>
+                                        <td>0.475"</td>
+                                        <td>2.8</td>
+                                        <td>4.5</td>
+                                        <td>Fixture branches, short trunks</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3/4"</td>
+                                        <td>0.785"</td>
+                                        <td>0.671"</td>
+                                        <td>6.2</td>
+                                        <td>10.0</td>
+                                        <td>Main distribution, house service</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1"</td>
+                                        <td>1.025"</td>
+                                        <td>0.875"</td>
+                                        <td>11.0</td>
+                                        <td>17.5</td>
+                                        <td>Large homes, commercial service</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1-1/4"</td>
+                                        <td>1.265"</td>
+                                        <td>1.110"</td>
+                                        <td>17.0</td>
+                                        <td>27.0</td>
+                                        <td>Commercial distribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1-1/2"</td>
+                                        <td>1.505"</td>
+                                        <td>1.360"</td>
+                                        <td>24.0</td>
+                                        <td>38.5</td>
+                                        <td>Commercial mains</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2"</td>
+                                        <td>1.985"</td>
+                                        <td>1.822"</td>
+                                        <td>42.0</td>
+                                        <td>67.0</td>
+                                        <td>Large commercial, multi-family</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Fixture Unit Conversion Table</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Total Fixture Units (WSFU)</th>
+                                        <th>Demand (GPM)</th>
+                                        <th>Total Fixture Units (WSFU)</th>
+                                        <th>Demand (GPM)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>3.0</td>
+                                        <td>40</td>
+                                        <td>25</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>4.0</td>
+                                        <td>50</td>
+                                        <td>30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>5.0</td>
+                                        <td>60</td>
+                                        <td>35</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>6.0</td>
+                                        <td>70</td>
+                                        <td>39</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>6.5</td>
+                                        <td>80</td>
+                                        <td>43</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>7.0</td>
+                                        <td>90</td>
+                                        <td>46</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>8.0</td>
+                                        <td>100</td>
+                                        <td>50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>9.0</td>
+                                        <td>120</td>
+                                        <td>56</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>10.5</td>
+                                        <td>140</td>
+                                        <td>62</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>12.0</td>
+                                        <td>160</td>
+                                        <td>67</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>15.0</td>
+                                        <td>180</td>
+                                        <td>72</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25</td>
+                                        <td>18.0</td>
+                                        <td>200</td>
+                                        <td>77</td>
+                                    </tr>
+                                    <tr>
+                                        <td>30</td>
+                                        <td>21.0</td>
+                                        <td>250</td>
+                                        <td>90</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Typical Residential Pipe Sizing</h3>
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Small Home (1-2 Bath)</h4>
+                                <ul>
+                                    <li><strong>Service Entrance:</strong> 3/4"</li>
+                                    <li><strong>Main Trunk:</strong> 3/4"</li>
+                                    <li><strong>Hot Water Heater:</strong> 3/4"</li>
+                                    <li><strong>Branch to Bath:</strong> 1/2"</li>
+                                    <li><strong>Fixture Supply:</strong> 3/8" or 1/2"</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Medium Home (2-3 Bath)</h4>
+                                <ul>
+                                    <li><strong>Service Entrance:</strong> 1"</li>
+                                    <li><strong>Main Trunk:</strong> 3/4"</li>
+                                    <li><strong>Hot Water Heater:</strong> 3/4"</li>
+                                    <li><strong>Branch to Bath:</strong> 1/2" or 3/4"</li>
+                                    <li><strong>Fixture Supply:</strong> 3/8" or 1/2"</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Large Home (3+ Bath)</h4>
+                                <ul>
+                                    <li><strong>Service Entrance:</strong> 1" or 1-1/4"</li>
+                                    <li><strong>Main Trunk:</strong> 1"</li>
+                                    <li><strong>Hot Water Heater:</strong> 3/4" or 1"</li>
+                                    <li><strong>Branch to Bath:</strong> 3/4"</li>
+                                    <li><strong>Fixture Supply:</strong> 1/2"</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Code and Standards References</h3>
+                        <div class="info-box">
+                            <h4>Applicable Codes and Standards</h4>
+                            <ul>
+                                <li><strong>International Plumbing Code (IPC):</strong> Appendix E - Sizing of Water Piping System</li>
+                                <li><strong>Uniform Plumbing Code (UPC):</strong> Chapter 6 - Water Supply and Distribution</li>
+                                <li><strong>ASME A112.18.1:</strong> Plumbing Fixture Fittings</li>
+                                <li><strong>ASTM B88:</strong> Standard Specification for Seamless Copper Water Tube</li>
+                                <li><strong>ASTM F876/F877:</strong> PEX Tubing and Fittings</li>
+                                <li><strong>ASTM D2846:</strong> CPVC Plastic Hot and Cold Water Distribution Systems</li>
+                                <li><strong>NSF/ANSI 61:</strong> Drinking Water System Components - Health Effects</li>
+                                <li><strong>Local Codes:</strong> Always verify local jurisdiction requirements</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box" style="margin-top: 2rem;">
+                            <h4>Professional Disclaimer</h4>
+                            <p>These specifications are provided for reference and preliminary design purposes only. Actual pipe sizing must comply with adopted plumbing codes in your jurisdiction and be based on detailed hydraulic calculations. All plumbing work should be performed by or under the supervision of a licensed plumber. Pipe sizing affects health, safety, and building performance - always consult with qualified professionals for final design and installation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of tabs for better UX
+            window.scrollTo({
+                top: document.querySelector('.tab-navigation').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        // Toggle calculation method (fixture units vs direct GPM)
+        function toggleCalcMethod() {
+            const method = document.getElementById('calcMethod').value;
+            const fixtureTable = document.querySelector('.pipe-table-wrapper');
+            const directGPM = document.getElementById('directGPMInput');
+
+            if (method === 'fixtureUnits') {
+                fixtureTable.style.display = 'block';
+                directGPM.style.display = 'none';
+            } else {
+                fixtureTable.style.display = 'none';
+                directGPM.style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>
