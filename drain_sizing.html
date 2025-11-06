@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive plumbing drain pipe sizing calculator, detailed information, troubleshooting guide, and technical specifications for drainage systems.">
+    <meta name="keywords" content="drain pipe sizing, drain calculator, DFU calculation, plumbing drainage, fixture units, pipe sizing, drainage system design, drain troubleshooting, drain specifications">
+    <link rel="canonical" href="https://engrassist.com/drain_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Drain Pipe Sizing & Information - EngrAssist">
+    <meta property="og:description" content="Complete drain pipe sizing resource with calculator, information, troubleshooting, and specifications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/drain_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Drain Pipe Sizing & Information">
+    <meta name="twitter:description" content="Complete drain pipe sizing resource with calculator and guides.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Drain Pipe Sizing & Information - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+    <style>
+        /* Tab Navigation Styles */
+        .tab-navigation {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            max-width: 100%;
+        }
+
+        .tab-button {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-color: #2980b9;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .tab-navigation {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .tab-button {
+                padding: 1.25rem 0.75rem;
+                font-size: 0.95rem;
+                min-height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+                min-height: 65px;
+            }
+        }
+
+        /* Article content styles */
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Mobile width adjustments */
+        @media (max-width: 768px) {
+            .article-content {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #3498db;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.75rem 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-left: 4px solid #2196f3;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .spec-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .spec-table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Mobile table scrolling */
+        @media (max-width: 768px) {
+            .spec-table-wrapper {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+            }
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            margin: 0;
+            background: white;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .spec-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .troubleshooting-table {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .troubleshooting-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            min-width: 800px;
+        }
+
+        .troubleshooting-table th,
+        .troubleshooting-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .troubleshooting-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Mobile table scrolling */
+        @media (max-width: 768px) {
+            .troubleshooting-table {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                border-radius: 0;
+            }
+
+            .troubleshooting-table table {
+                min-width: 800px;
+            }
+        }
+
+        .constants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .constant-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .constant-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .constant-card p {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .reference-table {
+            margin: 2rem 0;
+        }
+
+        .reference-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .reference-table th,
+        .reference-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .reference-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: 600;
+        }
+
+        .energy-section {
+            margin: 3rem 0;
+        }
+
+        .key-activities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-activities li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .key-activities li:last-child {
+            border-bottom: none;
+        }
+
+        /* Calculator specific styles */
+        .drain-results-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .drain-results-section.visible {
+            display: block;
+        }
+
+        .drain-result-item {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .drain-result-blue {
+            border-left: 5px solid #3498db;
+        }
+
+        .drain-result-green {
+            border-left: 5px solid #27ae60;
+        }
+
+        .drain-result-orange {
+            border-left: 5px solid #f39c12;
+        }
+
+        .drain-result-purple {
+            border-left: 5px solid #9b59b6;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .result-value {
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #3498db;
+        }
+
+        .calculation-mode-selector {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .mode-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .mode-button.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .calculation-inputs {
+            display: none;
+        }
+
+        .calculation-inputs.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .calculation-mode-selector {
+                flex-direction: column;
+            }
+
+            .mode-button {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Drain Pipe Sizing & Information</h1>
+                <p class="hero-subtitle">Comprehensive resource for plumbing drainage systems: sizing calculator, technical information, troubleshooting guides, and equipment specifications</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator')">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information')">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting')">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications')">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Drain Pipe Sizing Calculator</h2>
+
+                    <div class="calculation-mode-selector">
+                        <button class="mode-button active" onclick="switchCalculationMode('dfu')">
+                            Calculate by Fixture Units (DFU)
+                        </button>
+                        <button class="mode-button" onclick="switchCalculationMode('gpm')">
+                            Calculate by GPM
+                        </button>
+                    </div>
+
+                    <!-- DFU Calculation Mode -->
+                    <div id="dfu-inputs" class="calculation-inputs active">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Enter Fixture Units</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="totalDFU">Total Drainage Fixture Units (DFU):</label>
+                                <input type="number" id="totalDFU" placeholder="Enter total DFU" min="0" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="pipeOrientation">Pipe Orientation:</label>
+                                <select id="pipeOrientation">
+                                    <option value="horizontal">Horizontal Branch</option>
+                                    <option value="vertical">Vertical Stack</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pipeSlope">Slope (for horizontal pipes):</label>
+                                <select id="pipeSlope">
+                                    <option value="0.25">1/4 inch per foot (Standard)</option>
+                                    <option value="0.125">1/8 inch per foot</option>
+                                    <option value="0.5">1/2 inch per foot</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pipeCode">Plumbing Code:</label>
+                                <select id="pipeCode">
+                                    <option value="ipc">IPC (International Plumbing Code)</option>
+                                    <option value="upc">UPC (Uniform Plumbing Code)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="calculateDrainByDFU()">Calculate Pipe Size</button>
+                    </div>
+
+                    <!-- GPM Calculation Mode -->
+                    <div id="gpm-inputs" class="calculation-inputs">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Enter Flow Rate</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="flowRateGPM">Flow Rate (GPM):</label>
+                                <input type="number" id="flowRateGPM" placeholder="Enter GPM" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="gpmPipeOrientation">Pipe Orientation:</label>
+                                <select id="gpmPipeOrientation">
+                                    <option value="horizontal">Horizontal Branch</option>
+                                    <option value="vertical">Vertical Stack</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gpmPipeSlope">Slope (for horizontal pipes):</label>
+                                <select id="gpmPipeSlope">
+                                    <option value="0.25">1/4 inch per foot (Standard)</option>
+                                    <option value="0.125">1/8 inch per foot</option>
+                                    <option value="0.5">1/2 inch per foot</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="calculateDrainByGPM()">Calculate Pipe Size</button>
+                    </div>
+
+                    <div id="drainResults" class="drain-results-section">
+                        <h3>Sizing Results</h3>
+
+                        <div class="drain-result-item drain-result-blue">
+                            <span class="result-label">Recommended Pipe Size:</span>
+                            <span class="result-value" id="recommendedSize">--</span>
+                        </div>
+
+                        <div class="drain-result-item drain-result-green">
+                            <span class="result-label">Maximum Capacity (DFU):</span>
+                            <span class="result-value" id="maxCapacity">--</span>
+                        </div>
+
+                        <div class="drain-result-item drain-result-orange">
+                            <span class="result-label">Equivalent Flow Rate:</span>
+                            <span class="result-value" id="equivalentFlow">--</span>
+                        </div>
+
+                        <div class="drain-result-item drain-result-purple">
+                            <span class="result-label">Safety Factor:</span>
+                            <span class="result-value" id="safetyFactor">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Reference Section -->
+                    <h2 class="section-title" style="margin-top: 3rem;">Common Fixture Unit Values</h2>
+
+                    <div class="spec-table-wrapper">
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Fixture Type</th>
+                                    <th>Drainage Fixture Units (DFU)</th>
+                                    <th>Trap Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Water Closet (Toilet) - Gravity Tank</td>
+                                    <td>4</td>
+                                    <td>3" or 4"</td>
+                                </tr>
+                                <tr>
+                                    <td>Water Closet (Toilet) - Flush Valve</td>
+                                    <td>6</td>
+                                    <td>3" or 4"</td>
+                                </tr>
+                                <tr>
+                                    <td>Lavatory (Sink)</td>
+                                    <td>1</td>
+                                    <td>1-1/4"</td>
+                                </tr>
+                                <tr>
+                                    <td>Kitchen Sink (Domestic)</td>
+                                    <td>2</td>
+                                    <td>1-1/2"</td>
+                                </tr>
+                                <tr>
+                                    <td>Shower</td>
+                                    <td>2</td>
+                                    <td>2"</td>
+                                </tr>
+                                <tr>
+                                    <td>Bathtub</td>
+                                    <td>2</td>
+                                    <td>1-1/2"</td>
+                                </tr>
+                                <tr>
+                                    <td>Washing Machine (Domestic)</td>
+                                    <td>3</td>
+                                    <td>2"</td>
+                                </tr>
+                                <tr>
+                                    <td>Dishwasher (Domestic)</td>
+                                    <td>2</td>
+                                    <td>1-1/2"</td>
+                                </tr>
+                                <tr>
+                                    <td>Floor Drain</td>
+                                    <td>2</td>
+                                    <td>2"</td>
+                                </tr>
+                                <tr>
+                                    <td>Urinal (Wall Hung)</td>
+                                    <td>4</td>
+                                    <td>2"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Quick Reference: Pipe Capacity</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>1-1/2" Pipe:</strong> 1 DFU (horizontal), 2 DFU (vertical)</li>
+                        <li><strong>2" Pipe:</strong> 8 DFU (horizontal), 16 DFU (vertical)</li>
+                        <li><strong>3" Pipe:</strong> 20-42 DFU (horizontal, depends on slope), 48 DFU (vertical)</li>
+                        <li><strong>4" Pipe:</strong> 160-216 DFU (horizontal, depends on slope), 256-500 DFU (vertical)</li>
+                        <li><strong>6" Pipe:</strong> 620-840 DFU (horizontal), 1,380 DFU (vertical)</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>Important Disclaimer</h4>
+                        <p>These calculations provide estimates for preliminary sizing only. Always consult local plumbing codes and a licensed plumber or professional engineer for final sizing and installation. Factors such as building height, fixture spacing, venting requirements, and local code variations must be considered. EngrAssist is not responsible for pipe selection based on these estimates.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <div class="toc">
+                            <h3>Table of Contents</h3>
+                            <ul>
+                                <li><a href="#info-overview">Overview</a></li>
+                                <li><a href="#info-how-it-works">How Drainage Systems Work</a></li>
+                                <li><a href="#info-dfu-system">Understanding DFU System</a></li>
+                                <li><a href="#info-pipe-types">Types of Drain Pipes</a></li>
+                                <li><a href="#info-slope">Slope Requirements</a></li>
+                                <li><a href="#info-venting">Venting Requirements</a></li>
+                                <li><a href="#info-sizing">Sizing Methodology</a></li>
+                                <li><a href="#info-codes">Plumbing Codes</a></li>
+                                <li><a href="#info-best-practices">Best Practices</a></li>
+                                <li><a href="#info-materials">Pipe Materials</a></li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-overview">Overview</h2>
+                        <p>Drain pipe sizing is a critical component of plumbing system design that ensures proper waste removal and prevents clogs, slow drainage, and system failures. The drainage system must handle the discharge from all plumbing fixtures while maintaining proper flow velocity and preventing sewer gas infiltration through proper venting.</p>
+
+                        <p>Unlike water supply systems that operate under pressure, drainage systems rely on gravity flow. This fundamental difference requires careful attention to pipe sizing, slope, and venting to ensure reliable operation.</p>
+
+                        <h2 id="info-how-it-works">How Drainage Systems Work</h2>
+                        <p>Plumbing drainage systems operate on simple but critical principles:</p>
+
+                        <div class="info-box">
+                            <h4>The Drainage Process</h4>
+                            <ol>
+                                <li><strong>Fixture Discharge:</strong> Wastewater flows from fixtures through individual traps</li>
+                                <li><strong>Trap Function:</strong> Each fixture trap maintains a water seal to prevent sewer gases from entering the building</li>
+                                <li><strong>Branch Lines:</strong> Individual fixture drains connect to horizontal branch lines</li>
+                                <li><strong>Vertical Stacks:</strong> Branch lines connect to vertical soil or waste stacks</li>
+                                <li><strong>Building Drain:</strong> Vertical stacks connect to horizontal building drain at base</li>
+                                <li><strong>Building Sewer:</strong> Building drain connects to municipal sewer or septic system</li>
+                                <li><strong>Venting:</strong> Vent pipes allow air to enter the system, preventing trap siphonage and maintaining atmospheric pressure</li>
+                            </ol>
+                        </div>
+
+                        <h2 id="info-dfu-system">Understanding the DFU System</h2>
+
+                        <div class="info-box">
+                            <h3>What is a Drainage Fixture Unit (DFU)?</h3>
+                            <p>A Drainage Fixture Unit (DFU) is a dimensionless value that represents the probable discharge load of a plumbing fixture. The DFU system was developed by Dr. Roy B. Hunter in the 1920s and accounts for:</p>
+                            <ul>
+                                <li><strong>Flow Rate:</strong> Volume of discharge from the fixture</li>
+                                <li><strong>Duration:</strong> How long the fixture discharges</li>
+                                <li><strong>Frequency:</strong> How often the fixture is used</li>
+                                <li><strong>Peak Load:</strong> Probability that multiple fixtures discharge simultaneously</li>
+                            </ul>
+                            <p><strong>Conversion:</strong> 1 DFU ≈ 7.5 GPM (approximate peak discharge rate)</p>
+                        </div>
+
+                        <p>The DFU system allows designers to size drainage piping based on cumulative fixture loads rather than assuming all fixtures discharge simultaneously, which would result in grossly oversized systems.</p>
+
+                        <h3>How DFUs Add Up</h3>
+                        <ul>
+                            <li>DFUs are cumulative - add all fixtures connected to a given pipe segment</li>
+                            <li>Not all fixtures discharge at once - DFU method accounts for diversity</li>
+                            <li>Larger systems benefit more from diversity factor</li>
+                            <li>Code tables convert total DFUs to required pipe size</li>
+                        </ul>
+
+                        <h2 id="info-pipe-types">Types of Drain Pipes</h2>
+
+                        <div class="info-box">
+                            <h3>Horizontal Branch Drains</h3>
+                            <p><strong>Function:</strong> Collect discharge from individual fixtures and convey to vertical stacks</p>
+                            <ul>
+                                <li>Must maintain minimum slope for gravity flow</li>
+                                <li>Lower capacity than vertical pipes of same diameter</li>
+                                <li>Typically 1-1/2" to 4" diameter in residential</li>
+                                <li>Cannot exceed maximum DFU load per code tables</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Vertical Soil & Waste Stacks</h3>
+                            <p><strong>Function:</strong> Vertical pipes that convey discharge from multiple floors to building drain</p>
+                            <ul>
+                                <li><strong>Soil Stack:</strong> Receives discharge from water closets (toilets)</li>
+                                <li><strong>Waste Stack:</strong> Receives discharge from other fixtures (sinks, showers, etc.)</li>
+                                <li>Higher capacity than horizontal pipes due to vertical flow</li>
+                                <li>Minimum 3" diameter for soil stacks with water closets</li>
+                                <li>Typically 2" to 6" diameter in commercial buildings</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Building Drain</h3>
+                            <p><strong>Function:</strong> Horizontal pipe at building base that receives all vertical stacks</p>
+                            <ul>
+                                <li>Must be sized for total building discharge</li>
+                                <li>Installed below lowest fixture</li>
+                                <li>Requires proper slope for gravity flow</li>
+                                <li>Connects to building sewer at 5' outside building</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Building Sewer</h3>
+                            <p><strong>Function:</strong> Extends from building drain to public sewer or septic tank</p>
+                            <ul>
+                                <li>Begins 5' outside building foundation</li>
+                                <li>Must maintain minimum slope</li>
+                                <li>Subject to municipal or county jurisdiction</li>
+                                <li>Typically 4" to 6" diameter minimum</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-slope">Slope Requirements</h2>
+
+                        <p>Proper slope is critical for drainage systems. Too little slope causes waste to settle; too much slope causes water to outrun solids.</p>
+
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Pipe Diameter</th>
+                                        <th>Minimum Slope</th>
+                                        <th>Fall per 10 Feet</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2-1/2" and smaller</td>
+                                        <td>1/4" per foot</td>
+                                        <td>2.5 inches</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3" to 6"</td>
+                                        <td>1/8" per foot</td>
+                                        <td>1.25 inches</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8" and larger</td>
+                                        <td>1/16" per foot</td>
+                                        <td>0.625 inches</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Critical Slope Guidelines</h4>
+                            <ul>
+                                <li><strong>Never Less Than Minimum:</strong> Inadequate slope leads to settling and clogs</li>
+                                <li><strong>Avoid Excessive Slope:</strong> Greater than 3x minimum can cause problems</li>
+                                <li><strong>Maintain Consistent Slope:</strong> Avoid sags or bellies in horizontal runs</li>
+                                <li><strong>Check with Level:</strong> Verify slope during installation</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-venting">Venting Requirements</h2>
+
+                        <p>Proper venting is essential to drainage system performance. Vents serve three critical functions:</p>
+
+                        <div class="info-box">
+                            <h3>Functions of Drain Vents</h3>
+                            <ol>
+                                <li><strong>Maintain Atmospheric Pressure:</strong> Allows air to enter behind falling water, preventing trap siphonage</li>
+                                <li><strong>Allow Gases to Escape:</strong> Provides pathway for sewer gases to exhaust above roof</li>
+                                <li><strong>Protect Trap Seals:</strong> Prevents pressure differentials that would pull water out of fixture traps</li>
+                            </ol>
+                        </div>
+
+                        <h3>Types of Vents</h3>
+
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Individual Vent</h4>
+                                <p>Connects directly to one fixture trap and extends to open air or connects to vent stack.</p>
+                                <ul>
+                                    <li>Most reliable method</li>
+                                    <li>Required when fixture is far from stack</li>
+                                    <li>Common for island sinks</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Common Vent</h4>
+                                <p>Single vent serves two fixtures on opposite sides of wall.</p>
+                                <ul>
+                                    <li>Economical solution</li>
+                                    <li>Back-to-back sinks, lavatories</li>
+                                    <li>Must meet code spacing requirements</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Wet Vent</h4>
+                                <p>Pipe serves as both drain and vent.</p>
+                                <ul>
+                                    <li>Space-saving method</li>
+                                    <li>Specific code requirements</li>
+                                    <li>Common in bathroom groups</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Stack Vent</h4>
+                                <p>Extension of soil/waste stack above highest fixture.</p>
+                                <ul>
+                                    <li>Main vent for building</li>
+                                    <li>Extends through roof</li>
+                                    <li>Minimum 3" diameter typical</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Circuit Vent</h4>
+                                <p>Serves multiple fixtures on horizontal branch.</p>
+                                <ul>
+                                    <li>Efficient for fixture groups</li>
+                                    <li>Common in commercial restrooms</li>
+                                    <li>Specific location requirements</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Air Admittance Valve (AAV)</h4>
+                                <p>One-way valve allows air in but not out.</p>
+                                <ul>
+                                    <li>Useful for remodeling</li>
+                                    <li>Not accepted by all jurisdictions</li>
+                                    <li>Cannot serve entire system</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h2 id="info-sizing">Sizing Methodology</h2>
+
+                        <div class="info-box">
+                            <h3>Step-by-Step Sizing Process</h3>
+                            <ol>
+                                <li><strong>Identify All Fixtures:</strong> List every plumbing fixture that will discharge into the system</li>
+                                <li><strong>Assign DFU Values:</strong> Use code tables to assign DFU value to each fixture based on type and trap size</li>
+                                <li><strong>Calculate Cumulative Load:</strong> Add DFUs for all fixtures discharging into each pipe segment</li>
+                                <li><strong>Determine Pipe Type:</strong> Identify if segment is horizontal branch, vertical stack, building drain, or building sewer</li>
+                                <li><strong>Check Code Tables:</strong> Use appropriate table for pipe type and total DFU load</li>
+                                <li><strong>Select Pipe Size:</strong> Choose smallest pipe size that exceeds total DFU load</li>
+                                <li><strong>Verify Slope:</strong> Ensure minimum slope can be maintained for horizontal pipes</li>
+                                <li><strong>Size Vents:</strong> Size vent pipes based on DFU load and developed length</li>
+                            </ol>
+                        </div>
+
+                        <h3>Important Sizing Considerations</h3>
+                        <ul>
+                            <li><strong>Minimum Trap Size:</strong> Never reduce below fixture trap size</li>
+                            <li><strong>Minimum Toilet Drain:</strong> 3" minimum for water closets</li>
+                            <li><strong>Building Drain Minimum:</strong> Typically 3" or 4" minimum</li>
+                            <li><strong>Future Expansion:</strong> Consider oversizing for potential additions</li>
+                            <li><strong>Cleanout Access:</strong> Provide cleanouts at changes in direction and specified intervals</li>
+                        </ul>
+
+                        <h2 id="info-codes">Plumbing Codes</h2>
+
+                        <div class="info-box">
+                            <h3>International Plumbing Code (IPC)</h3>
+                            <p>Published by the International Code Council (ICC), the IPC is adopted across most of the United States and internationally.</p>
+                            <ul>
+                                <li>Chapter 7 covers sanitary drainage systems</li>
+                                <li>Table 710.1(1) - Building drains and sewers</li>
+                                <li>Table 710.1(2) - Horizontal branches and stacks</li>
+                                <li>Updated every 3 years (2024 is current edition)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Uniform Plumbing Code (UPC)</h3>
+                            <p>Published by the International Association of Plumbing and Mechanical Officials (IAPMO), widely used in western states.</p>
+                            <ul>
+                                <li>Chapter 7 covers sanitary drainage</li>
+                                <li>Generally more conservative than IPC</li>
+                                <li>Table 7-5 provides DFU capacities</li>
+                                <li>Updated every 3 years</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Always Check Local Codes</h4>
+                            <p>While IPC and UPC are model codes, local jurisdictions may adopt:</p>
+                            <ul>
+                                <li>Older or newer versions of the code</li>
+                                <li>Local amendments and modifications</li>
+                                <li>Additional requirements beyond model code</li>
+                                <li>Different fixture unit values</li>
+                            </ul>
+                            <p><strong>Always verify requirements with local building department before finalizing design.</strong></p>
+                        </div>
+
+                        <h2 id="info-best-practices">Best Practices</h2>
+
+                        <div class="info-box">
+                            <h3>Design Phase</h3>
+                            <ul>
+                                <li>Use actual DFU values from code tables - don't guess</li>
+                                <li>Plan drainage system before finalizing fixture locations</li>
+                                <li>Keep drainage runs as short and direct as possible</li>
+                                <li>Minimize horizontal offsets in vertical stacks</li>
+                                <li>Provide adequate slope without excessive fall</li>
+                                <li>Plan for cleanout locations at changes in direction</li>
+                                <li>Consider acoustic isolation for waste stacks in walls</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Installation</h3>
+                            <ul>
+                                <li>Support pipes at required intervals (typically every 4' for horizontal)</li>
+                                <li>Verify slope with level during installation</li>
+                                <li>Test all joints for leaks before covering</li>
+                                <li>Protect pipes from freezing in unheated areas</li>
+                                <li>Install cleanout access at required locations</li>
+                                <li>Maintain proper trap depth (typically 2" to 4")</li>
+                                <li>Ensure vent terminals are properly located above roof</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Common Mistakes to Avoid</h3>
+                            <ul>
+                                <li>Undersizing drains to save money</li>
+                                <li>Insufficient slope on horizontal runs</li>
+                                <li>Inadequate venting leading to slow drains</li>
+                                <li>Reducing pipe size in direction of flow</li>
+                                <li>Installing horizontal pipes with sags or bellies</li>
+                                <li>Connecting fixtures without proper trap seals</li>
+                                <li>Failing to provide cleanout access</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-materials">Pipe Materials</h2>
+
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>PVC (Polyvinyl Chloride)</h4>
+                                <ul>
+                                    <li><strong>Sizes:</strong> 1-1/4" to 12"+</li>
+                                    <li><strong>Schedule:</strong> 40 or 80</li>
+                                    <li><strong>Pros:</strong> Inexpensive, easy to work with, corrosion resistant</li>
+                                    <li><strong>Cons:</strong> Not for hot water, can be loud</li>
+                                    <li><strong>Applications:</strong> Most common for DWV systems</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>ABS (Acrylonitrile Butadiene Styrene)</h4>
+                                <ul>
+                                    <li><strong>Sizes:</strong> 1-1/4" to 6"</li>
+                                    <li><strong>Color:</strong> Black</li>
+                                    <li><strong>Pros:</strong> Easy to install, one-step cement</li>
+                                    <li><strong>Cons:</strong> Not accepted in all areas, can warp</li>
+                                    <li><strong>Applications:</strong> DWV systems, common in western states</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Cast Iron</h4>
+                                <ul>
+                                    <li><strong>Sizes:</strong> 2" to 15"</li>
+                                    <li><strong>Type:</strong> Hub & spigot or no-hub</li>
+                                    <li><strong>Pros:</strong> Durable, quiet, fire resistant</li>
+                                    <li><strong>Cons:</strong> Heavy, expensive, requires skill</li>
+                                    <li><strong>Applications:</strong> Commercial buildings, high-rises</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Copper DWV</h4>
+                                <ul>
+                                    <li><strong>Sizes:</strong> 1-1/4" to 8"</li>
+                                    <li><strong>Type:</strong> DWV (thin wall)</li>
+                                    <li><strong>Pros:</strong> Long life, compact, attractive</li>
+                                    <li><strong>Cons:</strong> Expensive, requires soldering skill</li>
+                                    <li><strong>Applications:</strong> High-end residential, exposed applications</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <div class="energy-section">
+                        <h2 class="section-title">Drain System Troubleshooting</h2>
+                        <div class="energy-content">
+
+                            <div class="troubleshooting-table">
+                                <h3>Common Drain Problems</h3>
+                                <table class="efficiency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symptom</th>
+                                            <th>Possible Causes</th>
+                                            <th>Diagnostic Steps</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Slow Draining Fixtures</strong></td>
+                                            <td>Partial clog, inadequate venting, insufficient slope, undersized pipe</td>
+                                            <td>Check other fixtures on same drain, listen for gurgling, inspect cleanout, test vent system</td>
+                                            <td>Clear obstruction, improve venting, verify slope, upsize pipe if needed</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Gurgling Sounds</strong></td>
+                                            <td>Blocked or insufficient venting, partial drain blockage, trap seal issues</td>
+                                            <td>Check vent terminal on roof, inspect vent connections, verify trap depth</td>
+                                            <td>Clear vent blockage, add venting, install AAV, clear partial obstruction</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sewer Odors</strong></td>
+                                            <td>Dry trap (lost seal), cracked pipe, inadequate venting, blocked vent</td>
+                                            <td>Check trap water level, inspect pipes for cracks, verify vent operation</td>
+                                            <td>Fill trap with water, repair/replace cracked pipes, improve venting</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Multiple Fixtures Backing Up</strong></td>
+                                            <td>Main line blockage, building drain clog, sewer line obstruction</td>
+                                            <td>Determine which fixtures affected, locate lowest backup point, inspect main cleanout</td>
+                                            <td>Snake or hydro-jet main line, repair/replace damaged sewer line</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Overflowing Floor Drains</strong></td>
+                                            <td>Main drain backup, building sewer blockage, insufficient capacity</td>
+                                            <td>Check for recent heavy usage, inspect main line, verify pipe sizing</td>
+                                            <td>Clear main line obstruction, upsize undersized pipes, install backwater valve</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Trap Seal Loss</strong></td>
+                                            <td>Evaporation, siphonage from inadequate venting, excessive momentum</td>
+                                            <td>Check venting system, measure trap depth, observe drainage action</td>
+                                            <td>Add or improve venting, install deeper trap, add trap primer for floor drains</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Noisy Drains</strong></td>
+                                            <td>Inadequate venting, high flow velocity, loose pipes, water hammer</td>
+                                            <td>Listen to determine noise type, check pipe support, verify vent system</td>
+                                            <td>Improve venting, secure loose pipes, add acoustic insulation, reduce flow velocity</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Recurring Clogs</strong></td>
+                                            <td>Improper slope, undersized pipe, root intrusion, structural defects</td>
+                                            <td>Camera inspection, verify slope, check for roots, inspect pipe condition</td>
+                                            <td>Correct slope issues, upsize piping, remove roots, repair/replace damaged sections</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Systematic Drain Troubleshooting</h3>
+
+                            <div class="info-box">
+                                <h4>Step 1: Define the Problem</h4>
+                                <ul>
+                                    <li>Which fixture(s) are affected?</li>
+                                    <li>Is problem constant or intermittent?</li>
+                                    <li>When did problem start?</li>
+                                    <li>Has anything changed recently?</li>
+                                    <li>What makes it better or worse?</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 2: Gather Information</h4>
+                                <ul>
+                                    <li>Test all fixtures on same branch</li>
+                                    <li>Check for gurgling sounds</li>
+                                    <li>Inspect visible pipes for issues</li>
+                                    <li>Review drainage system layout</li>
+                                    <li>Locate cleanout access points</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 3: Isolate the Problem</h4>
+                                <ul>
+                                    <li>Single fixture = local issue</li>
+                                    <li>Multiple fixtures = shared drain or vent issue</li>
+                                    <li>All fixtures = main line problem</li>
+                                    <li>Gurgling = venting issue</li>
+                                    <li>Odors = trap seal or crack</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 4: Apply Solution</h4>
+                                <ul>
+                                    <li>Start with simplest solution first</li>
+                                    <li>Clear obstructions mechanically when possible</li>
+                                    <li>Use chemicals only as last resort</li>
+                                    <li>Verify repair solves original problem</li>
+                                    <li>Document solution for future reference</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Drain Clearing Methods</h3>
+
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Plunger</h4>
+                                    <p><strong>Best For:</strong> Local fixture clogs, soft obstructions</p>
+                                    <ul>
+                                        <li>Cover overflow drain first</li>
+                                        <li>Use forceful plunges</li>
+                                        <li>20-30 plunges typically needed</li>
+                                        <li>Works on toilets, sinks, tubs</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Drain Snake (Auger)</h4>
+                                    <p><strong>Best For:</strong> Tough clogs, hair blockages</p>
+                                    <ul>
+                                        <li>Manual or powered versions</li>
+                                        <li>25' to 100' lengths available</li>
+                                        <li>Can break up or retrieve blockages</li>
+                                        <li>Access through cleanout or fixture</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Hydro-Jetting</h4>
+                                    <p><strong>Best For:</strong> Severe clogs, grease buildup, root removal</p>
+                                    <ul>
+                                        <li>High-pressure water (3,000-4,000 PSI)</li>
+                                        <li>Cleans pipe walls thoroughly</li>
+                                        <li>Requires professional equipment</li>
+                                        <li>Most effective long-term solution</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Camera Inspection</h4>
+                                    <p><strong>Best For:</strong> Diagnosing hidden problems, locating breaks</p>
+                                    <ul>
+                                        <li>Video inspection of pipe interior</li>
+                                        <li>Identifies cracks, roots, bellies</li>
+                                        <li>Documents pipe condition</li>
+                                        <li>Locates specific problem areas</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Chemical Drain Cleaners</h4>
+                                <p><strong>Use with Extreme Caution:</strong></p>
+                                <ul>
+                                    <li><strong>Pros:</strong> Convenient, no tools required, works on some clogs</li>
+                                    <li><strong>Cons:</strong> Can damage pipes (especially older metal), dangerous if splashed, environmental concerns, ineffective on many blockages</li>
+                                    <li><strong>Never use if:</strong> Drain is completely blocked (chemical will sit and damage pipe), you've already tried a plunger (splashing risk), pipes are old or damaged</li>
+                                    <li><strong>Recommendation:</strong> Use only as last resort before calling plumber; mechanical methods are safer and often more effective</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Preventive Maintenance</h3>
+
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Weekly Tasks</h4>
+                                    <ul>
+                                        <li>Run water in all drains regularly</li>
+                                        <li>Use drain strainers to catch debris</li>
+                                        <li>Remove visible hair from drains</li>
+                                        <li>Flush with hot water after use</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Monthly Tasks</h4>
+                                    <ul>
+                                        <li>Clean pop-up stoppers and strainers</li>
+                                        <li>Flush drains with baking soda/vinegar</li>
+                                        <li>Check for slow drainage</li>
+                                        <li>Inspect visible pipes for leaks</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Annual Tasks</h4>
+                                    <ul>
+                                        <li>Professional drain inspection</li>
+                                        <li>Camera inspection of main line</li>
+                                        <li>Root treatment if needed</li>
+                                        <li>Review and update drainage plan</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">What Not to Put Down Drains</h3>
+
+                            <div class="warning-box">
+                                <h4>Kitchen Drains - Never Dispose Of:</h4>
+                                <ul>
+                                    <li><strong>Fats, Oils, and Grease (FOG):</strong> Solidifies in pipes causing major clogs</li>
+                                    <li><strong>Coffee Grounds:</strong> Accumulate and cause blockages</li>
+                                    <li><strong>Eggshells:</strong> Create granular waste that traps other debris</li>
+                                    <li><strong>Flour and Dough:</strong> Forms paste-like clogs</li>
+                                    <li><strong>Rice and Pasta:</strong> Continues to swell and expand</li>
+                                    <li><strong>Fibrous Vegetables:</strong> Celery, asparagus, corn husks tangle in pipes</li>
+                                    <li><strong>Bones and Shells:</strong> Damage disposals and cause jams</li>
+                                    <li><strong>Stickers from Produce:</strong> Don't break down, cause clogs</li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Bathroom Drains - Never Dispose Of:</h4>
+                                <ul>
+                                    <li><strong>Paper Products:</strong> Paper towels, wipes (even "flushable"), feminine products</li>
+                                    <li><strong>Cotton Swabs and Balls:</strong> Don't break down in water</li>
+                                    <li><strong>Dental Floss:</strong> Tangles around other debris</li>
+                                    <li><strong>Hair:</strong> Use drain covers to catch hair before it enters drain</li>
+                                    <li><strong>Medications:</strong> Environmental concern; take to proper disposal</li>
+                                    <li><strong>Cat Litter:</strong> Clumps and creates concrete-like blocks</li>
+                                    <li><strong>Diapers:</strong> Expand massively and cause instant clogs</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Proper Disposal Alternatives</h4>
+                                <ul>
+                                    <li><strong>FOG:</strong> Cool, pour into container, dispose in trash</li>
+                                    <li><strong>Food Waste:</strong> Compost or trash disposal</li>
+                                    <li><strong>Hair:</strong> Remove from strainer and trash</li>
+                                    <li><strong>Paper Products:</strong> Trash only</li>
+                                    <li><strong>Medications:</strong> Pharmacy take-back programs</li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>When to Call a Professional</h4>
+                                <ul>
+                                    <li>Multiple fixtures backing up simultaneously</li>
+                                    <li>Persistent slow drainage after attempting repairs</li>
+                                    <li>Sewage backing up through floor drains</li>
+                                    <li>Gurgling sounds from multiple fixtures</li>
+                                    <li>Suspected broken or collapsed pipes</li>
+                                    <li>Tree root intrusion</li>
+                                    <li>Recurring clogs in same location</li>
+                                    <li>Any problem involving main sewer line</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <div class="mechanical-section">
+                        <h2 class="section-title">Drain Pipe Specifications</h2>
+
+                        <div class="reference-tables">
+                            <div class="reference-table">
+                                <h3>Horizontal Branch and Building Drain Capacity (IPC)</h3>
+                                <p><em>Maximum Drainage Fixture Units (DFU) for various pipe sizes and slopes</em></p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Pipe Diameter</th>
+                                            <th>1/8" per foot</th>
+                                            <th>1/4" per foot</th>
+                                            <th>1/2" per foot</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1-1/2"</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2"</td>
+                                            <td>--</td>
+                                            <td>8</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2-1/2"</td>
+                                            <td>12</td>
+                                            <td>14</td>
+                                            <td>18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3"</td>
+                                            <td>20</td>
+                                            <td>42</td>
+                                            <td>50</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4"</td>
+                                            <td>160</td>
+                                            <td>216</td>
+                                            <td>250</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5"</td>
+                                            <td>360</td>
+                                            <td>480</td>
+                                            <td>575</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6"</td>
+                                            <td>620</td>
+                                            <td>840</td>
+                                            <td>1,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8"</td>
+                                            <td>1,400</td>
+                                            <td>1,920</td>
+                                            <td>2,300</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10"</td>
+                                            <td>2,500</td>
+                                            <td>3,500</td>
+                                            <td>4,200</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="reference-tables">
+                            <div class="reference-table">
+                                <h3>Vertical Stack Capacity (IPC)</h3>
+                                <p><em>Maximum Drainage Fixture Units (DFU) for vertical soil and waste stacks</em></p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Pipe Diameter</th>
+                                            <th>Total for Stack</th>
+                                            <th>Total per Branch Interval</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1-1/2"</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2"</td>
+                                            <td>16</td>
+                                            <td>8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2-1/2"</td>
+                                            <td>32</td>
+                                            <td>12</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3"</td>
+                                            <td>48</td>
+                                            <td>20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4"</td>
+                                            <td>256</td>
+                                            <td>90</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5"</td>
+                                            <td>600</td>
+                                            <td>200</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6"</td>
+                                            <td>1,380</td>
+                                            <td>350</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8"</td>
+                                            <td>3,600</td>
+                                            <td>600</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10"</td>
+                                            <td>5,600</td>
+                                            <td>1,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p style="margin-top: 1rem; font-size: 0.9rem;"><em>Note: Branch interval is one story height (approximately 8 feet)</em></p>
+                            </div>
+                        </div>
+
+                        <div class="constants-grid">
+                            <div class="constant-card">
+                                <h4>Min Slope (≤3")</h4>
+                                <p>1/4" per foot</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Min Slope (3"-6")</h4>
+                                <p>1/8" per foot</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Min Toilet Drain</h4>
+                                <p>3 inches</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>1 DFU Equivalent</h4>
+                                <p>~7.5 GPM</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Pipe Material Specifications</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Standard</th>
+                                        <th>Typical Sizes</th>
+                                        <th>Max Temp</th>
+                                        <th>Applications</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PVC DWV</td>
+                                        <td>ASTM D2665</td>
+                                        <td>1-1/4" to 12"</td>
+                                        <td>140°F</td>
+                                        <td>Most common DWV, residential & commercial</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ABS DWV</td>
+                                        <td>ASTM D2661</td>
+                                        <td>1-1/4" to 6"</td>
+                                        <td>180°F</td>
+                                        <td>DWV systems, common in western states</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cast Iron</td>
+                                        <td>ASTM A74, CISPI 301</td>
+                                        <td>2" to 15"</td>
+                                        <td>250°F+</td>
+                                        <td>Commercial, high-rise, quiet operation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Copper DWV</td>
+                                        <td>ASTM B306</td>
+                                        <td>1-1/4" to 8"</td>
+                                        <td>250°F+</td>
+                                        <td>High-end residential, exposed applications</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PEX</td>
+                                        <td>ASTM F2023</td>
+                                        <td>3/8" to 1"</td>
+                                        <td>180°F</td>
+                                        <td>Not typically used for drainage</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Standard Component Specifications</h3>
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Fixture Traps</h4>
+                                <ul>
+                                    <li><strong>P-Trap:</strong> Most common, outlet through wall</li>
+                                    <li><strong>S-Trap:</strong> Prohibited by most codes (siphoning)</li>
+                                    <li><strong>Trap Seal:</strong> 2" to 4" water depth required</li>
+                                    <li><strong>Material:</strong> Match drain pipe material</li>
+                                    <li><strong>Size:</strong> Match or larger than fixture outlet</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Cleanouts</h4>
+                                <ul>
+                                    <li><strong>Size:</strong> Same as pipe up to 4", then min 4"</li>
+                                    <li><strong>Location:</strong> Base of each stack, every 100'</li>
+                                    <li><strong>Direction Changes:</strong> Each 135° or greater</li>
+                                    <li><strong>Access:</strong> Min 12" clearance in front</li>
+                                    <li><strong>Height:</strong> Max 48" above floor</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Pipe Hangers</h4>
+                                <ul>
+                                    <li><strong>Horizontal PVC:</strong> Every 4' (32x pipe OD)</li>
+                                    <li><strong>Vertical PVC:</strong> Every 8' (max 10')</li>
+                                    <li><strong>Cast Iron:</strong> Every 5' horizontal, 15' vertical</li>
+                                    <li><strong>At Joints:</strong> Within 12" of couplings</li>
+                                    <li><strong>Type:</strong> Rigid straps or hangers</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Vent Terminals</h4>
+                                <ul>
+                                    <li><strong>Height:</strong> Min 6" above roof</li>
+                                    <li><strong>Location:</strong> 10' from windows, property lines</li>
+                                    <li><strong>Size:</strong> Never smaller than largest branch</li>
+                                    <li><strong>Min Size:</strong> 1-1/4" (residential), 2" (commercial)</li>
+                                    <li><strong>Flashing:</strong> Weatherproof roof penetration</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Installation Tolerances & Clearances</h3>
+                        <div class="info-box">
+                            <h4>Critical Installation Requirements</h4>
+                            <ul>
+                                <li><strong>Slope Tolerance:</strong> ±1/8" per 10 feet maximum variation</li>
+                                <li><strong>Horizontal Alignment:</strong> Maintain straight runs; avoid sags or bellies</li>
+                                <li><strong>Vertical Alignment:</strong> Plumb within 1/4" per 10 feet</li>
+                                <li><strong>Joint Spacing:</strong> Expansion allowance 1/8" per 10°F temperature change</li>
+                                <li><strong>Pipe Burial:</strong> Min 12" cover for exterior pipes in freeze zones</li>
+                                <li><strong>Separation from Water:</strong> Min 12" horizontal from potable water</li>
+                                <li><strong>Through Framing:</strong> Center of hole, min 1/2" clearance all around</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Code Compliance Notes</h4>
+                            <ul>
+                                <li><strong>Testing Required:</strong> Air test (5 psi / 15 min) or water test (10' head / 15 min)</li>
+                                <li><strong>Inspection Points:</strong> Rough-in before covering, final after fixtures installed</li>
+                                <li><strong>As-Built Documentation:</strong> Record actual pipe locations for future reference</li>
+                                <li><strong>Permit Required:</strong> Nearly all drain installations require plumbing permit</li>
+                                <li><strong>Licensed Plumber:</strong> Many jurisdictions require licensed contractor for DWV work</li>
+                                <li><strong>Local Amendments:</strong> Always verify local code requirements before starting</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Referenced Standards</h3>
+                        <div class="info-box">
+                            <h4>Applicable Codes and Standards</h4>
+                            <ul>
+                                <li><strong>IPC:</strong> International Plumbing Code (Chapter 7 - Sanitary Drainage)</li>
+                                <li><strong>UPC:</strong> Uniform Plumbing Code (Chapter 7 - Sanitary Drainage)</li>
+                                <li><strong>ASTM D2665:</strong> PVC DWV Pipe and Fittings</li>
+                                <li><strong>ASTM D2661:</strong> ABS DWV Pipe and Fittings</li>
+                                <li><strong>ASTM A74:</strong> Cast Iron Soil Pipe and Fittings</li>
+                                <li><strong>ASTM B306:</strong> Copper Drainage Tube (DWV)</li>
+                                <li><strong>CISPI 301:</strong> Hubless Cast Iron Soil Pipe and Fittings</li>
+                                <li><strong>NSF/ANSI 14:</strong> Plastic Piping System Components</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning-box" style="margin-top: 2rem;">
+                            <h4>Professional Disclaimer</h4>
+                            <p>These specifications are provided for reference and preliminary design purposes only. Actual system design must comply with locally adopted plumbing codes and must be approved by the authority having jurisdiction. All work should be performed by licensed plumbing contractors. Specifications vary by location and code edition. Always consult local building department for specific requirements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of tabs for better UX
+            window.scrollTo({
+                top: document.querySelector('.tab-navigation').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        // Calculation mode switching
+        function switchCalculationMode(mode) {
+            // Update button states
+            const modeButtons = document.querySelectorAll('.mode-button');
+            modeButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show/hide input sections
+            document.getElementById('dfu-inputs').classList.remove('active');
+            document.getElementById('gpm-inputs').classList.remove('active');
+
+            if (mode === 'dfu') {
+                document.getElementById('dfu-inputs').classList.add('active');
+            } else {
+                document.getElementById('gpm-inputs').classList.add('active');
+            }
+
+            // Hide results when switching modes
+            document.getElementById('drainResults').classList.remove('visible');
+        }
+
+        // Drain sizing calculation by DFU
+        function calculateDrainByDFU() {
+            const totalDFU = parseFloat(document.getElementById('totalDFU').value);
+            const orientation = document.getElementById('pipeOrientation').value;
+            const slope = parseFloat(document.getElementById('pipeSlope').value);
+            const code = document.getElementById('pipeCode').value;
+
+            if (!totalDFU || totalDFU <= 0) {
+                alert('Please enter a valid total DFU value');
+                return;
+            }
+
+            // IPC sizing tables (simplified)
+            let sizingTable;
+            if (orientation === 'horizontal') {
+                if (slope === 0.25) {
+                    sizingTable = [
+                        { size: '1-1/2"', max: 1 },
+                        { size: '2"', max: 8 },
+                        { size: '2-1/2"', max: 14 },
+                        { size: '3"', max: 42 },
+                        { size: '4"', max: 216 },
+                        { size: '5"', max: 480 },
+                        { size: '6"', max: 840 },
+                        { size: '8"', max: 1920 }
+                    ];
+                } else if (slope === 0.125) {
+                    sizingTable = [
+                        { size: '1-1/2"', max: 1 },
+                        { size: '2-1/2"', max: 12 },
+                        { size: '3"', max: 20 },
+                        { size: '4"', max: 160 },
+                        { size: '5"', max: 360 },
+                        { size: '6"', max: 620 },
+                        { size: '8"', max: 1400 }
+                    ];
+                } else { // 0.5
+                    sizingTable = [
+                        { size: '1-1/2"', max: 1 },
+                        { size: '2"', max: 10 },
+                        { size: '2-1/2"', max: 18 },
+                        { size: '3"', max: 50 },
+                        { size: '4"', max: 250 },
+                        { size: '5"', max: 575 },
+                        { size: '6"', max: 1000 },
+                        { size: '8"', max: 2300 }
+                    ];
+                }
+            } else { // vertical
+                sizingTable = [
+                    { size: '1-1/2"', max: 2 },
+                    { size: '2"', max: 16 },
+                    { size: '2-1/2"', max: 32 },
+                    { size: '3"', max: 48 },
+                    { size: '4"', max: 256 },
+                    { size: '5"', max: 600 },
+                    { size: '6"', max: 1380 },
+                    { size: '8"', max: 3600 }
+                ];
+            }
+
+            // Find appropriate pipe size
+            let recommendedPipe = null;
+            for (let i = 0; i < sizingTable.length; i++) {
+                if (totalDFU <= sizingTable[i].max) {
+                    recommendedPipe = sizingTable[i];
+                    break;
+                }
+            }
+
+            if (!recommendedPipe) {
+                recommendedPipe = { size: '10" or larger', max: 'Exceeds table' };
+            }
+
+            // Calculate equivalent GPM (approximate)
+            const equivalentGPM = (totalDFU * 7.5).toFixed(1);
+
+            // Calculate safety factor
+            const safetyPercent = recommendedPipe.max !== 'Exceeds table'
+                ? (((recommendedPipe.max - totalDFU) / totalDFU) * 100).toFixed(0)
+                : 'N/A';
+
+            // Display results
+            document.getElementById('recommendedSize').textContent = recommendedPipe.size;
+            document.getElementById('maxCapacity').textContent = recommendedPipe.max + ' DFU';
+            document.getElementById('equivalentFlow').textContent = equivalentGPM + ' GPM';
+            document.getElementById('safetyFactor').textContent = safetyPercent !== 'N/A' ? safetyPercent + '%' : safetyPercent;
+
+            document.getElementById('drainResults').classList.add('visible');
+        }
+
+        // Drain sizing calculation by GPM
+        function calculateDrainByGPM() {
+            const flowRate = parseFloat(document.getElementById('flowRateGPM').value);
+            const orientation = document.getElementById('gpmPipeOrientation').value;
+            const slope = parseFloat(document.getElementById('gpmPipeSlope').value);
+
+            if (!flowRate || flowRate <= 0) {
+                alert('Please enter a valid flow rate (GPM)');
+                return;
+            }
+
+            // Convert GPM to DFU (approximate)
+            const equivalentDFU = (flowRate / 7.5).toFixed(1);
+
+            // Use same sizing table as DFU method
+            let sizingTable;
+            if (orientation === 'horizontal') {
+                if (slope === 0.25) {
+                    sizingTable = [
+                        { size: '1-1/2"', max: 1 },
+                        { size: '2"', max: 8 },
+                        { size: '2-1/2"', max: 14 },
+                        { size: '3"', max: 42 },
+                        { size: '4"', max: 216 },
+                        { size: '5"', max: 480 },
+                        { size: '6"', max: 840 },
+                        { size: '8"', max: 1920 }
+                    ];
+                } else if (slope === 0.125) {
+                    sizingTable = [
+                        { size: '1-1/2"', max: 1 },
+                        { size: '2-1/2"', max: 12 },
+                        { size: '3"', max: 20 },
+                        { size: '4"', max: 160 },
+                        { size: '5"', max: 360 },
+                        { size: '6"', max: 620 },
+                        { size: '8"', max: 1400 }
+                    ];
+                } else {
+                    sizingTable = [
+                        { size: '1-1/2"', max: 1 },
+                        { size: '2"', max: 10 },
+                        { size: '2-1/2"', max: 18 },
+                        { size: '3"', max: 50 },
+                        { size: '4"', max: 250 },
+                        { size: '5"', max: 575 },
+                        { size: '6"', max: 1000 },
+                        { size: '8"', max: 2300 }
+                    ];
+                }
+            } else {
+                sizingTable = [
+                    { size: '1-1/2"', max: 2 },
+                    { size: '2"', max: 16 },
+                    { size: '2-1/2"', max: 32 },
+                    { size: '3"', max: 48 },
+                    { size: '4"', max: 256 },
+                    { size: '5"', max: 600 },
+                    { size: '6"', max: 1380 },
+                    { size: '8"', max: 3600 }
+                ];
+            }
+
+            // Find appropriate pipe size based on DFU equivalent
+            let recommendedPipe = null;
+            for (let i = 0; i < sizingTable.length; i++) {
+                if (parseFloat(equivalentDFU) <= sizingTable[i].max) {
+                    recommendedPipe = sizingTable[i];
+                    break;
+                }
+            }
+
+            if (!recommendedPipe) {
+                recommendedPipe = { size: '10" or larger', max: 'Exceeds table' };
+            }
+
+            // Calculate max flow for recommended pipe
+            const maxFlowGPM = recommendedPipe.max !== 'Exceeds table'
+                ? (recommendedPipe.max * 7.5).toFixed(1)
+                : 'N/A';
+
+            // Calculate safety factor
+            const safetyPercent = recommendedPipe.max !== 'Exceeds table'
+                ? (((recommendedPipe.max - parseFloat(equivalentDFU)) / parseFloat(equivalentDFU)) * 100).toFixed(0)
+                : 'N/A';
+
+            // Display results
+            document.getElementById('recommendedSize').textContent = recommendedPipe.size;
+            document.getElementById('maxCapacity').textContent = recommendedPipe.max + ' DFU (' + maxFlowGPM + ' GPM)';
+            document.getElementById('equivalentFlow').textContent = flowRate + ' GPM (' + equivalentDFU + ' DFU)';
+            document.getElementById('safetyFactor').textContent = safetyPercent !== 'N/A' ? safetyPercent + '%' : safetyPercent;
+
+            document.getElementById('drainResults').classList.add('visible');
+        }
+    </script>
+</body>
+</html>
