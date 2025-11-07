@@ -4409,7 +4409,7 @@ function calculateHRVSavings() {
 // ========================================
 
 // Tab switching function for plumbing pipe sizing page
-function switchTab(tabName) {
+function switchTab(tabName, event) {
     // Hide all tab contents
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => {
@@ -4426,7 +4426,9 @@ function switchTab(tabName) {
     document.getElementById(tabName + '-tab').classList.add('active');
 
     // Add active class to clicked button
-    event.target.classList.add('active');
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
 
     // Scroll to top of tabs for better UX
     window.scrollTo({
