@@ -4408,6 +4408,48 @@ function calculateHRVSavings() {
 // PLUMBING PIPE SIZING CALCULATOR
 // ========================================
 
+// Tab switching function for plumbing pipe sizing page
+function switchTab(tabName) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+        content.classList.remove('active');
+    });
+
+    // Remove active class from all buttons
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Show selected tab content
+    document.getElementById(tabName + '-tab').classList.add('active');
+
+    // Add active class to clicked button
+    event.target.classList.add('active');
+
+    // Scroll to top of tabs for better UX
+    window.scrollTo({
+        top: document.querySelector('.tab-navigation').offsetTop - 100,
+        behavior: 'smooth'
+    });
+}
+
+// Toggle calculation method (fixture units vs direct GPM)
+function toggleCalcMethod() {
+    const method = document.getElementById('calcMethod').value;
+    const fixtureTable = document.querySelector('.pipe-table-wrapper');
+    const directGPM = document.getElementById('directGPMInput');
+
+    if (method === 'fixtureUnits') {
+        fixtureTable.style.display = 'block';
+        directGPM.style.display = 'none';
+    } else {
+        fixtureTable.style.display = 'none';
+        directGPM.style.display = 'flex';
+    }
+}
+
 // Convert fixture units to GPM using simplified Hunter's Curve
 function fixtureUnitsToGPM(wsfu) {
     if (wsfu <= 0) return 0;
@@ -4456,6 +4498,24 @@ function getPipeID(pipeType, nominalSize) {
             '1-1/2': 1.505,
             '2': 1.985
         },
+        'copper_k': {
+            '3/8': 0.402,
+            '1/2': 0.527,
+            '3/4': 0.745,
+            '1': 0.995,
+            '1-1/4': 1.245,
+            '1-1/2': 1.481,
+            '2': 1.959
+        },
+        'copper_m': {
+            '3/8': 0.450,
+            '1/2': 0.569,
+            '3/4': 0.811,
+            '1': 1.055,
+            '1-1/4': 1.291,
+            '1-1/2': 1.527,
+            '2': 2.009
+        },
         'pex': {
             '3/8': 0.350,
             '1/2': 0.475,
@@ -4499,6 +4559,14 @@ function calculateVelocity(gpm, pipeID) {
 function getVelocityLimit(pipeType, waterTemp) {
     const limits = {
         'copper': {
+            'cold': 8,
+            'hot': 5
+        },
+        'copper_k': {
+            'cold': 8,
+            'hot': 5
+        },
+        'copper_m': {
             'cold': 8,
             'hot': 5
         },
@@ -4569,7 +4637,6 @@ function recommendPipeSize(gpm, pipeType, waterTemp) {
 function calculatePipeSizing() {
     const calcMethod = document.getElementById('calcMethod').value;
     const pipeType = document.getElementById('pipeType').value;
-    const waterTemp = document.getElementById('waterTemp').value;
     const pipeLength = parseFloat(document.getElementById('pipeLength').value) || 100;
 
     let coldWSFU = 0;
@@ -4594,6 +4661,13 @@ function calculatePipeSizing() {
             hotWSFU += qty * wsfu;
         });
 
+        // Add additional WSFU values
+        const additionalColdWSFU = parseFloat(document.getElementById('additionalColdWSFU').value) || 0;
+        const additionalHotWSFU = parseFloat(document.getElementById('additionalHotWSFU').value) || 0;
+
+        coldWSFU += additionalColdWSFU;
+        hotWSFU += additionalHotWSFU;
+
         // Convert to GPM
         coldGPM = fixtureUnitsToGPM(coldWSFU);
         hotGPM = fixtureUnitsToGPM(hotWSFU);
@@ -4612,7 +4686,7 @@ function calculatePipeSizing() {
         return;
     }
 
-    // Recommend pipe sizes
+    // Recommend pipe sizes (pass 'cold' or 'hot' for water temperature)
     const coldRecommendation = recommendPipeSize(coldGPM, pipeType, 'cold');
     const hotRecommendation = recommendPipeSize(hotGPM, pipeType, 'hot');
 
@@ -4987,9 +5061,75 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+// ====================================
+// ARTICLE SEARCH FUNCTIONALITY
+// ====================================
+function initializeArticleSearch() {
+    const articleSearchInput = document.getElementById('article-search');
+    if (!articleSearchInput) return;
 
+    articleSearchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const articleCards = document.querySelectorAll('.article-card');
+        const categorySections = document.querySelectorAll('.category-section');
+        let visibleCount = 0;
 
+        articleCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const description = card.querySelector('.article-description').textContent.toLowerCase();
+            const tags = card.getAttribute('data-tags').toLowerCase();
+            const category = card.querySelector('.article-category').textContent.toLowerCase();
 
+            if (title.includes(searchTerm) ||
+                description.includes(searchTerm) ||
+                tags.includes(searchTerm) ||
+                category.includes(searchTerm)) {
+                card.style.display = 'flex';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
 
+        // Show/hide category sections based on visible cards
+        categorySections.forEach(section => {
+            const visibleCardsInSection = section.querySelectorAll('.article-card[style="display: flex;"]').length;
+            section.style.display = visibleCardsInSection > 0 ? 'block' : 'none';
+        });
 
+        // Show/hide no results message
+        const noResultsElement = document.getElementById('no-results');
+        if (noResultsElement) {
+            noResultsElement.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    });
+}
 
+// ====================================
+// GOOGLE ANALYTICS INITIALIZATION
+// ====================================
+function initializeGoogleAnalytics() {
+    // Google Analytics is loaded via external script tag in HTML
+    // This function is a placeholder for any additional GA configuration
+    // The actual tracking code should be in the <head> section:
+    // <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    // <script>
+    //   window.dataLayer = window.dataLayer || [];
+    //   function gtag(){dataLayer.push(arguments);}
+    //   gtag('js', new Date());
+    //   gtag('config', 'G-9HVPYW6169');
+    // </script>
+}
+
+// ====================================
+// UPDATE INITIALIZATION TO INCLUDE NEW FEATURES
+// ====================================
+// Modify the existing initializeAllFeatures function to include article search
+const originalInitializeAllFeatures = initializeAllFeatures;
+initializeAllFeatures = function() {
+    if (typeof originalInitializeAllFeatures === 'function') {
+        originalInitializeAllFeatures();
+    }
+    initializeArticleSearch();
+    initializeGoogleAnalytics();
+};
