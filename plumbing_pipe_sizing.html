@@ -561,10 +561,8 @@
                                 </tr>
                                 <tr style="background-color: #e8f4f8;">
                                     <td><strong>Additional WSFU</strong></td>
-                                    <td><input type="number" id="additionalColdWSFU" value="0" min="0" step="0.1"></td>
-                                    <td>-</td>
-                                    <td><input type="number" id="additionalHotWSFU" value="0" min="0" step="0.1"></td>
-                                    <td>-</td>
+                                    <td colspan="2"><input type="number" id="additionalColdWSFU" value="0" min="0" step="0.1"></td>
+                                    <td colspan="2"><input type="number" id="additionalHotWSFU" value="0" min="0" step="0.1"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1516,5 +1514,51 @@
 
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabName, event) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            // Scroll to top of tabs for better UX
+            window.scrollTo({
+                top: document.querySelector('.tab-navigation').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        // Toggle calculation method (fixture units vs direct GPM)
+        function toggleCalcMethod() {
+            const method = document.getElementById('calcMethod').value;
+            const fixtureTable = document.querySelector('.pipe-table-wrapper');
+            const directGPM = document.getElementById('directGPMInput');
+
+            if (method === 'fixtureUnits') {
+                fixtureTable.style.display = 'block';
+                directGPM.style.display = 'none';
+            } else {
+                fixtureTable.style.display = 'none';
+                directGPM.style.display = 'flex';
+            }
+        }
+    </script>
 </body>
 </html>
