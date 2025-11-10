@@ -4409,7 +4409,7 @@ function calculateHRVSavings() {
 // ========================================
 
 // Tab switching function for plumbing pipe sizing page
-function switchTab(tabName, event) {
+function switchTab(tabName, clickedButton) {
     // Hide all tab contents
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => {
@@ -4423,18 +4423,24 @@ function switchTab(tabName, event) {
     });
 
     // Show selected tab content
-    document.getElementById(tabName + '-tab').classList.add('active');
+    const tabElement = document.getElementById(tabName + '-tab');
+    if (tabElement) {
+        tabElement.classList.add('active');
+    }
 
     // Add active class to clicked button
-    if (event && event.target) {
-        event.target.classList.add('active');
+    if (clickedButton) {
+        clickedButton.classList.add('active');
     }
 
     // Scroll to top of tabs for better UX
-    window.scrollTo({
-        top: document.querySelector('.tab-navigation').offsetTop - 100,
-        behavior: 'smooth'
-    });
+    const tabNav = document.querySelector('.tab-navigation');
+    if (tabNav) {
+        window.scrollTo({
+            top: tabNav.offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
 }
 
 // Toggle calculation method (fixture units vs direct GPM)

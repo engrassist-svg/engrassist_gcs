@@ -421,16 +421,16 @@
         <section class="content-section">
             <div class="container">
                 <div class="tab-navigation">
-                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                    <button class="tab-button active" onclick="switchTab('calculator', this)">
                         Calculator
                     </button>
-                    <button class="tab-button" onclick="switchTab('information', event)">
+                    <button class="tab-button" onclick="switchTab('information', this)">
                         Information
                     </button>
-                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                    <button class="tab-button" onclick="switchTab('troubleshooting', this)">
                         Troubleshooting
                     </button>
-                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                    <button class="tab-button" onclick="switchTab('specifications', this)">
                         Specifications
                     </button>
                 </div>
@@ -1517,7 +1517,9 @@
 
     <script>
         // Tab switching function
-        function switchTab(tabName, event) {
+        function switchTab(tabName, clickedButton) {
+            console.log('switchTab called with:', tabName, clickedButton);
+
             // Hide all tab contents
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(content => {
@@ -1531,18 +1533,26 @@
             });
 
             // Show selected tab content
-            document.getElementById(tabName + '-tab').classList.add('active');
+            const tabElement = document.getElementById(tabName + '-tab');
+            if (tabElement) {
+                tabElement.classList.add('active');
+            } else {
+                console.error('Tab not found:', tabName + '-tab');
+            }
 
             // Add active class to clicked button
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
+            if (clickedButton) {
+                clickedButton.classList.add('active');
             }
 
             // Scroll to top of tabs for better UX
-            window.scrollTo({
-                top: document.querySelector('.tab-navigation').offsetTop - 100,
-                behavior: 'smooth'
-            });
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
         }
 
         // Toggle calculation method (fixture units vs direct GPM)
@@ -1559,6 +1569,9 @@
                 directGPM.style.display = 'flex';
             }
         }
+
+        // Log when page is ready
+        console.log('Plumbing pipe sizing inline script loaded');
     </script>
 </body>
 </html>
