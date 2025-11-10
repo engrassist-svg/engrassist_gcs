@@ -31,11 +31,21 @@ function initializeTemplates() {
     const path = window.location.pathname;
     const pathPrefix = path.includes('/articles/') ? '../' : '';
 
-    // Load both templates in parallel for speed
-    Promise.all([
+    // Build array of templates to load
+    const templatesToLoad = [
         loadTemplate('header-placeholder', pathPrefix + 'header.html'),
         loadTemplate('footer-placeholder', pathPrefix + 'footer.html')
-    ]).then(() => {
+    ];
+
+    // Load common tabs if placeholder exists
+    if (document.getElementById('common-tabs-placeholder')) {
+        templatesToLoad.push(
+            loadTemplate('common-tabs-placeholder', pathPrefix + 'common-tabs.html')
+        );
+    }
+
+    // Load all templates in parallel for speed
+    Promise.all(templatesToLoad).then(() => {
         // Templates loaded - show page with fade-in
         document.body.classList.add('templates-loaded');
 
