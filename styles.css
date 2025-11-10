@@ -1076,6 +1076,87 @@ nav {
     box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
 }
 
+/* Tab Navigation Buttons */
+.tab-navigation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+    max-width: 100%;
+}
+
+.tab-button {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tab-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.tab-button.active {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    border-color: #e67e22;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive - Tab Buttons */
+@media (max-width: 768px) {
+    .tab-navigation {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .tab-button {
+        padding: 1.25rem 0.75rem;
+        font-size: 0.95rem;
+        min-height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-button {
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+        min-height: 65px;
+    }
+}
+
 /* Mission Section */
 .mission-section {
     background: linear-gradient(135deg, #2c3e50, #3498db);

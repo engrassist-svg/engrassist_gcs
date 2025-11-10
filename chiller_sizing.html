@@ -55,87 +55,6 @@
      crossorigin="anonymous"></script>
 
     <style>
-        /* Tab Navigation Styles */
-        .tab-navigation {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-            max-width: 100%;
-        }
-
-        .tab-button {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            padding: 1.5rem 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #2c3e50;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .tab-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .tab-button.active {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border-color: #2980b9;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .tab-navigation {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-
-            .tab-button {
-                padding: 1.25rem 0.75rem;
-                font-size: 0.95rem;
-                min-height: 70px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .tab-button {
-                padding: 1rem 0.5rem;
-                font-size: 0.9rem;
-                min-height: 65px;
-            }
-        }
-
         /* Article content styles */
         .article-content {
             max-width: 900px;
@@ -411,16 +330,16 @@
         <section class="content-section">
             <div class="container">
                 <div class="tab-navigation">
-                    <button class="tab-button active" onclick="switchTab('calculator')">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
                         Calculator
                     </button>
-                    <button class="tab-button" onclick="switchTab('information')">
+                    <button class="tab-button" onclick="switchTab('information', event)">
                         Information
                     </button>
-                    <button class="tab-button" onclick="switchTab('troubleshooting')">
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
                         Troubleshooting
                     </button>
-                    <button class="tab-button" onclick="switchTab('specifications')">
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
                         Specifications
                     </button>
                 </div>
@@ -1470,34 +1389,5 @@
 
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-
-    <script>
-        // Tab switching function
-        function switchTab(tabName) {
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Remove active class from all buttons
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-
-            // Show selected tab content
-            document.getElementById(tabName + '-tab').classList.add('active');
-
-            // Add active class to clicked button
-            event.target.classList.add('active');
-
-            // Scroll to top of tabs for better UX
-            window.scrollTo({
-                top: document.querySelector('.tab-navigation').offsetTop - 100,
-                behavior: 'smooth'
-            });
-        }
-    </script>
 </body>
 </html>
