@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Button Test - EngrAssist</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+    <style>
+        body {
+            padding: 2rem;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Tab Button Functionality Test</h1>
+        <p>This page tests that tab buttons work correctly with styles.css and scripts.js.</p>
+
+        <div id="test-results"></div>
+
+        <h2>Test Buttons:</h2>
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="switchTab('calculator', event)">
+                Calculator
+            </button>
+            <button class="tab-button" onclick="switchTab('information', event)">
+                Information
+            </button>
+            <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                Troubleshooting
+            </button>
+            <button class="tab-button" onclick="switchTab('specifications', event)">
+                Specifications
+            </button>
+        </div>
+
+        <div id="calculator-tab" class="tab-content active">
+            <h2>Calculator Tab</h2>
+            <p>✅ Calculator tab is showing (this is the default active tab)</p>
+        </div>
+
+        <div id="information-tab" class="tab-content">
+            <h2>Information Tab</h2>
+            <p>✅ Information tab is showing (click Information button to see this)</p>
+        </div>
+
+        <div id="troubleshooting-tab" class="tab-content">
+            <h2>Troubleshooting Tab</h2>
+            <p>✅ Troubleshooting tab is showing (click Troubleshooting button to see this)</p>
+        </div>
+
+        <div id="specifications-tab" class="tab-content">
+            <h2>Specifications Tab</h2>
+            <p>✅ Specifications tab is showing (click Specifications button to see this)</p>
+        </div>
+
+        <div class="test-status test-pass" style="margin-top: 2rem;">
+            <p>If you can see styled buttons above and clicking them switches between tabs, then styles.css and scripts.js are loading correctly!</p>
+        </div>
+
+        <div class="test-status test-fail" style="margin-top: 1rem;">
+            <p>If buttons are NOT styled or NOT clickable, you need to hard-refresh your browser:</p>
+            <ul>
+                <li><strong>Windows/Linux:</strong> Ctrl + Shift + R or Ctrl + F5</li>
+                <li><strong>Mac:</strong> Cmd + Shift + R or Cmd + Option + E</li>
+                <li><strong>Or:</strong> Clear your browser cache completely</li>
+            </ul>
+        </div>
+
+        <h3>Diagnostic Information:</h3>
+        <div id="diagnostic-info" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p>Loading diagnostic tests...</p>
+        </div>
+    </div>
+
+    <script>
+        // Run diagnostics on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const diagnosticInfo = document.getElementById('diagnostic-info');
+                const switchTabExists = typeof switchTab === 'function';
+                const buttonCount = document.querySelectorAll('.tab-button').length;
+                const tabContentCount = document.querySelectorAll('.tab-content').length;
+
+                const buttonStyles = window.getComputedStyle(document.querySelector('.tab-button'));
+                const hasCursor = buttonStyles.cursor === 'pointer';
+                const hasBackground = buttonStyles.background && buttonStyles.background !== 'none';
+
+                let html = '<ul style="margin: 0; padding-left: 1.5rem;">';
+                html += `<li>switchTab() function exists: ${switchTabExists ? '✅ YES' : '❌ NO'}</li>`;
+                html += `<li>Tab buttons found: ${buttonCount === 4 ? '✅' : '❌'} ${buttonCount}</li>`;
+                html += `<li>Tab content divs found: ${tabContentCount === 4 ? '✅' : '❌'} ${tabContentCount}</li>`;
+                html += `<li>Button has cursor pointer: ${hasCursor ? '✅ YES' : '❌ NO'}</li>`;
+                html += `<li>Button has background styles: ${hasBackground ? '✅ YES' : '❌ NO'}</li>`;
+                html += `<li>styles.css loaded: ${hasBackground ? '✅ YES' : '❌ NO (cache issue!)'}</li>`;
+                html += `<li>scripts.js loaded: ${switchTabExists ? '✅ YES' : '❌ NO (cache issue!)'}</li>`;
+                html += '</ul>';
+
+                diagnosticInfo.innerHTML = html;
+            }, 500);
+        });
+    </script>
+</body>
+</html>
