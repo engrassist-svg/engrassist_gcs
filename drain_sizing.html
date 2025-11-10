@@ -26,7 +26,6 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="header.html" as="fetch" crossorigin>
     <link rel="preload" href="footer.html" as="fetch" crossorigin>
-    <link rel="preload" href="common-tabs.html" as="fetch" crossorigin>
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="scripts.js" as="script">
 
@@ -422,8 +421,20 @@
         <!-- Tab Navigation -->
         <section class="content-section">
             <div class="container">
-                <!-- Common Tab Buttons Loaded Here -->
-                <div id="common-tabs-placeholder"></div>
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
 
                 <!-- CALCULATOR TAB -->
                 <div id="calculator-tab" class="tab-content active">
