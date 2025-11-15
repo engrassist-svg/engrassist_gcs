@@ -4472,3 +4472,662 @@ body {
     }
 }
 
+/* ============================================
+   WORKFLOW HUB STYLES
+   ============================================ */
+
+/* Workflow Setup Section */
+.workflow-setup {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.setup-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #3498db;
+}
+
+.setup-card-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* Project Type Selection */
+.project-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.project-type-btn {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+}
+
+.project-type-btn:hover {
+    border-color: #3498db;
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+.project-type-btn.active {
+    border-color: #3498db;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.project-icon {
+    font-size: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.project-type-btn:hover .project-icon {
+    transform: scale(1.15);
+}
+
+.project-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Location Selector */
+.location-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Code References */
+.code-references {
+    margin-top: 1rem;
+}
+
+.code-references h4 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.code-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.code-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.code-link:hover {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.code-icon {
+    font-size: 1.2rem;
+}
+
+/* Project Info Form */
+.project-info-form {
+    display: grid;
+    gap: 1.25rem;
+}
+
+/* Workflow Actions */
+.workflow-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+/* Project Summary Bar */
+.project-summary-bar {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-summary-info {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.project-summary-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.project-summary-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.btn-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    margin-left: auto;
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Progress Tracker */
+.progress-tracker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3rem 0;
+    padding: 0 1rem;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 0 0 auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.progress-step:hover {
+    transform: scale(1.05);
+}
+
+.progress-step-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: 3px solid #e0e0e0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.progress-step.active .progress-step-circle {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border-color: #3498db;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+    animation: pulse 2s infinite;
+}
+
+.progress-step.completed .progress-step-circle {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: white;
+    border-color: #27ae60;
+}
+
+.progress-step.completed .progress-step-circle::after {
+    content: "✓";
+    position: absolute;
+    font-size: 1.8rem;
+}
+
+.progress-step-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #757575;
+    text-align: center;
+    max-width: 100px;
+    line-height: 1.2;
+}
+
+.progress-step.active .progress-step-label {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.progress-step.completed .progress-step-label {
+    color: #27ae60;
+}
+
+.progress-line {
+    flex: 1;
+    height: 3px;
+    background: #e0e0e0;
+    position: relative;
+    margin: 0 -10px;
+    z-index: 1;
+}
+
+.progress-line.completed {
+    background: linear-gradient(90deg, #27ae60, #229954);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(52, 152, 219, 0.6);
+    }
+}
+
+/* Phase Content */
+.phase-content {
+    margin: 2rem 0;
+}
+
+.phase-panel {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.phase-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.phase-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #f39c12;
+}
+
+.phase-description {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* Phase Tasks */
+.phase-tasks {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #27ae60;
+}
+
+.phase-tasks h4 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.task-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.task-item:hover {
+    background: #f8f9fa;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.task-item span {
+    color: #2c3e50;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.task-item:has(.task-checkbox:checked) span {
+    text-decoration: line-through;
+    color: #999;
+}
+
+/* Phase Tools */
+.phase-tools {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #3498db;
+}
+
+.phase-tools h4 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.tool-card-link {
+    text-decoration: none;
+}
+
+.tool-card-mini {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tool-card-mini:hover {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-color: #3498db;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(52, 152, 219, 0.3);
+}
+
+.tool-card-mini .tool-icon {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.tool-card-mini:hover .tool-icon {
+    transform: scale(1.2);
+}
+
+.tool-card-mini .tool-name {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.tool-card-mini:hover .tool-name {
+    color: white;
+}
+
+/* Phase Navigation */
+.phase-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.phase-navigation .btn {
+    flex: 1;
+    max-width: 300px;
+}
+
+.phase-navigation .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Workflow Save */
+.workflow-save {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Quick Reference */
+.reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.reference-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #f39c12;
+}
+
+.reference-card h3 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.reference-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.reference-links a {
+    color: #3498db;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.reference-links a:hover {
+    color: #f39c12;
+    padding-left: 0.5rem;
+}
+
+/* Mobile Responsiveness for Workflow Hub */
+@media (max-width: 768px) {
+    .project-type-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .workflow-actions {
+        flex-direction: column;
+    }
+
+    .workflow-actions .btn {
+        width: 100%;
+    }
+
+    .project-summary-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .btn-icon {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .progress-tracker {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0;
+    }
+
+    .progress-line {
+        width: 3px;
+        height: 30px;
+        margin: 0;
+        min-height: 30px;
+    }
+
+    .progress-step {
+        width: 100%;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .progress-step-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .progress-step-label {
+        text-align: left;
+        max-width: none;
+    }
+
+    .phase-title {
+        font-size: 1.5rem;
+    }
+
+    .phase-tasks,
+    .phase-tools {
+        padding: 1.5rem;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .phase-navigation {
+        flex-direction: column;
+    }
+
+    .phase-navigation .btn {
+        max-width: none;
+    }
+
+    .workflow-save {
+        flex-direction: column;
+    }
+
+    .workflow-save .btn {
+        width: 100%;
+    }
+
+    .reference-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .code-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .setup-card {
+        padding: 1.5rem;
+    }
+
+    .project-type-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-type-btn {
+        padding: 1.25rem;
+    }
+
+    .project-icon {
+        font-size: 2rem;
+    }
+
+    .phase-description {
+        font-size: 1rem;
+    }
+}
+
