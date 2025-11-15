@@ -5528,19 +5528,6 @@ function initializeWorkflowHub() {
         });
     }
 
-    // Load Project Button
-    const loadProjectBtn = document.getElementById('loadProjectBtn');
-    if (loadProjectBtn) {
-        loadProjectBtn.addEventListener('click', function() {
-            loadProjectFromStorage();
-            if (workflowState.projectName) {
-                startWorkflow();
-            } else {
-                alert('No saved project found. Please create a new project.');
-            }
-        });
-    }
-
     // Phase Navigation
     const prevPhaseBtn = document.getElementById('prevPhaseBtn');
     const nextPhaseBtn = document.getElementById('nextPhaseBtn');
@@ -5626,15 +5613,6 @@ function initializeWorkflowHub() {
                 workflowSection.style.display = 'none';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        });
-    }
-
-    // Save Progress Button
-    const saveProgressBtn = document.getElementById('saveProgressBtn');
-    if (saveProgressBtn) {
-        saveProgressBtn.addEventListener('click', function() {
-            saveProjectToStorage();
-            showNotification('Progress saved successfully!');
         });
     }
 

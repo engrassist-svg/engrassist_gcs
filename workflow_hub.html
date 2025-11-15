@@ -27,17 +27,25 @@
             <div class="container">
                 <!-- Project Action Buttons -->
                 <div class="project-actions">
-                    <button class="btn btn-action" id="loadProjectActionBtn" title="Load a saved project">
-                        <span class="btn-icon">📂</span>
-                        <span class="btn-text">Load Project</span>
-                    </button>
                     <button class="btn btn-action" id="saveProjectActionBtn" title="Save current project">
                         <span class="btn-icon">💾</span>
                         <span class="btn-text">Save Project</span>
                     </button>
+                    <button class="btn btn-action" id="loadProjectActionBtn" title="Load a saved project">
+                        <span class="btn-icon">📂</span>
+                        <span class="btn-text">Load Project</span>
+                    </button>
+                    <button class="btn btn-action" id="exportReportBtn" title="Export project report">
+                        <span class="btn-icon">📄</span>
+                        <span class="btn-text">Export Report</span>
+                    </button>
                     <button class="btn btn-action" id="shareProjectActionBtn" title="Share project">
                         <span class="btn-icon">🔗</span>
                         <span class="btn-text">Share Project</span>
+                    </button>
+                    <button class="btn btn-action btn-action-warning" id="resetWorkflowBtn" title="Start a new project">
+                        <span class="btn-icon">🔄</span>
+                        <span class="btn-text">New Project</span>
                     </button>
                 </div>
 
@@ -64,12 +72,11 @@
                         </div>
                     </div>
                     <div class="status-bar-wrapper">
-                        <!-- Expected Progress Bar (Background) -->
-                        <div class="progress-bar progress-bar-expected">
+                        <!-- Progress Bar Container -->
+                        <div class="progress-bar-container">
+                            <!-- Expected Progress Bar (Background) -->
                             <div class="progress-fill progress-fill-expected" id="expectedProgressBar" style="width: 0%"></div>
-                        </div>
-                        <!-- Actual Progress Bar (Foreground) -->
-                        <div class="progress-bar progress-bar-actual">
+                            <!-- Actual Progress Bar (Foreground) -->
                             <div class="progress-fill progress-fill-actual" id="actualProgressBar" style="width: 0%"></div>
                         </div>
                         <!-- Phase Tickmarks -->
@@ -178,37 +185,6 @@
                         </div>
                     </div>
 
-                    <!-- Project Delivery Method -->
-                    <div class="setup-card">
-                        <h3 class="setup-card-title">🔄 Project Delivery Method</h3>
-                        <div class="delivery-method-selector">
-                            <div class="form-group">
-                                <label for="deliveryMethod">Select Delivery Method:</label>
-                                <select id="deliveryMethod" class="form-control">
-                                    <option value="">Choose delivery method...</option>
-                                    <option value="design-bid-build">Design-Bid-Build (DBB)</option>
-                                    <option value="design-build">Design-Build (DB)</option>
-                                    <option value="cm-at-risk">Construction Manager at Risk (CMAR)</option>
-                                    <option value="integrated-project">Integrated Project Delivery (IPD)</option>
-                                </select>
-                            </div>
-                            <div class="delivery-method-info" id="deliveryMethodInfo">
-                                <div class="info-section">
-                                    <h4>Phase Percentages:</h4>
-                                    <div class="phase-percentages" id="phasePercentages">
-                                        <p class="info-placeholder">Select a delivery method to view phase breakdown</p>
-                                    </div>
-                                </div>
-                                <div class="info-section">
-                                    <h4>Key Characteristics:</h4>
-                                    <div class="delivery-characteristics" id="deliveryCharacteristics">
-                                        <p class="info-placeholder">Select a delivery method to view characteristics</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Project Type Selection -->
                     <div class="setup-card">
                         <h3 class="setup-card-title">📋 Project Type</h3>
@@ -276,11 +252,41 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Project Delivery Method -->
+                    <div class="setup-card">
+                        <h3 class="setup-card-title">🔄 Project Delivery Method</h3>
+                        <div class="delivery-method-selector">
+                            <div class="form-group">
+                                <label for="deliveryMethod">Select Delivery Method:</label>
+                                <select id="deliveryMethod" class="form-control">
+                                    <option value="">Choose delivery method...</option>
+                                    <option value="design-bid-build">Design-Bid-Build (DBB)</option>
+                                    <option value="design-build">Design-Build (DB)</option>
+                                    <option value="cm-at-risk">Construction Manager at Risk (CMAR)</option>
+                                    <option value="integrated-project">Integrated Project Delivery (IPD)</option>
+                                </select>
+                            </div>
+                            <div class="delivery-method-info" id="deliveryMethodInfo">
+                                <div class="info-section">
+                                    <h4>Phase Percentages:</h4>
+                                    <div class="phase-percentages" id="phasePercentages">
+                                        <p class="info-placeholder">Select a delivery method to view phase breakdown</p>
+                                    </div>
+                                </div>
+                                <div class="info-section">
+                                    <h4>Key Characteristics:</h4>
+                                    <div class="delivery-characteristics" id="deliveryCharacteristics">
+                                        <p class="info-placeholder">Select a delivery method to view characteristics</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="workflow-actions">
                     <button class="btn btn-primary" id="startWorkflowBtn">Start Design Workflow →</button>
-                    <button class="btn btn-secondary" id="loadProjectBtn">Load Saved Project</button>
                 </div>
             </div>
         </section>
@@ -720,13 +726,6 @@
                 <div class="phase-navigation">
                     <button class="btn btn-secondary" id="prevPhaseBtn" disabled>← Previous Phase</button>
                     <button class="btn btn-primary" id="nextPhaseBtn">Next Phase →</button>
-                </div>
-
-                <!-- Save Progress -->
-                <div class="workflow-save">
-                    <button class="btn btn-secondary" id="saveProgressBtn">💾 Save Progress</button>
-                    <button class="btn btn-secondary" id="exportReportBtn">📄 Export Report</button>
-                    <button class="btn btn-secondary" id="resetWorkflowBtn">🔄 New Project</button>
                 </div>
             </div>
         </section>
