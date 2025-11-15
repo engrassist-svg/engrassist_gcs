@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Comprehensive VAV box resource: sizing calculator, detailed information, troubleshooting guide, and technical specifications for variable air volume terminal units.">
+    <meta name="keywords" content="VAV sizing, VAV calculator, variable air volume, terminal units, HVAC, airflow calculation, fan powered VAV, pressure independent, VAV troubleshooting, VAV specifications">
+    <link rel="canonical" href="https://engrassist.com/vav_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="VAV Box Sizing & Information - EngrAssist">
+    <meta property="og:description" content="Complete VAV terminal unit resource with calculator, information, troubleshooting, and specifications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/vav_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VAV Box Sizing & Information">
+    <meta name="twitter:description" content="Complete VAV terminal unit resource with calculator and guides.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>VAV Box Sizing & Information - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+    <!-- Google AdSense -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">VAV Box Sizing & Information</h1>
+                <p class="hero-subtitle">Comprehensive resource for Variable Air Volume terminal units: sizing calculator, technical information, troubleshooting guides, and equipment specifications</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">VAV Box Selection Parameters</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vav-roomArea">Room/Zone Area (sq ft):</label>
+                            <input type="number" id="vav-roomArea" placeholder="Enter area" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="vav-cfmPerSqFt">Airflow per Sq Ft (CFM/sq ft):</label>
+                            <input type="number" id="vav-cfmPerSqFt" placeholder="Enter CFM/sq ft" value="1.0" min="0" step="0.1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                <strong>Typical values:</strong><br>
+                                Office: 1.0-1.5 | Conference: 2.0-3.0 | Lab: 4.0-8.0<br>
+                                Classroom: 1.5-2.0 | Retail: 1.2-1.8 | Restaurant: 2.5-4.0
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vav-maxCFM">Maximum Airflow (CFM):</label>
+                            <input type="number" id="vav-maxCFM" placeholder="Calculated or enter manually" min="0" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="vav-minCFM">Minimum Airflow (CFM):</label>
+                            <input type="number" id="vav-minCFM" placeholder="Enter minimum CFM" min="0" step="1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                Typically 30-50% of maximum CFM
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vav-boxType">VAV Box Type:</label>
+                            <select id="vav-boxType" onchange="updateVAVBoxOptions()">
+                                <option value="single-duct-cooling">Single Duct - Cooling Only</option>
+                                <option value="single-duct-reheat">Single Duct - with Reheat</option>
+                                <option value="fan-powered-parallel">Fan Powered - Parallel Flow</option>
+                                <option value="fan-powered-series">Fan Powered - Series Flow</option>
+                                <option value="dual-duct">Dual Duct</option>
+                                <option value="bypass">Bypass VAV</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vav-controlType">Control Type:</label>
+                            <select id="vav-controlType">
+                                <option value="pressure-dependent">Pressure Dependent</option>
+                                <option value="pressure-independent" selected>Pressure Independent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Reheat Options -->
+                    <div id="vav-reheatOptions" class="vav-options-section" style="display: none;">
+                        <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Reheat Configuration</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vav-reheatType">Reheat Type:</label>
+                                <select id="vav-reheatType" onchange="updateVAVReheatInputs()">
+                                    <option value="none">No Reheat</option>
+                                    <option value="electric">Electric Reheat</option>
+                                    <option value="hot-water">Hot Water Coil</option>
+                                    <option value="steam">Steam Coil</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="vav-reheatCapacityGroup" style="display: none;">
+                                <label for="vav-reheatCapacity" id="vav-reheatCapacityLabel">Reheat Capacity (kW or MBH):</label>
+                                <input type="number" id="vav-reheatCapacity" placeholder="Enter capacity" min="0" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fan Powered Options -->
+                    <div id="vav-fanPoweredOptions" class="vav-options-section" style="display: none;">
+                        <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Fan Powered Configuration</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vav-fanMotorType">Fan Motor Type:</label>
+                                <select id="vav-fanMotorType">
+                                    <option value="psc">PSC (Permanent Split Capacitor)</option>
+                                    <option value="ecm" selected>ECM (Electronically Commutated Motor)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="vav-fanStaticPressure">Fan Static Pressure (in. w.c.):</label>
+                                <input type="number" id="vav-fanStaticPressure" placeholder="Enter pressure" value="0.5" min="0" step="0.1">
+                                <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                    Typical: 0.4-1.0 in. w.c.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Static Pressure and Noise -->
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">System Parameters</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vav-inletPressure">Inlet Static Pressure (in. w.c.):</label>
+                            <input type="number" id="vav-inletPressure" placeholder="Enter pressure" value="1.0" min="0" step="0.1">
+                            <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                                Typical range: 0.5-2.0 in. w.c.
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="vav-ncRating">Desired NC Rating:</label>
+                            <select id="vav-ncRating">
+                                <option value="25">NC-25 (Private offices, conference rooms)</option>
+                                <option value="30">NC-30 (Libraries, private offices)</option>
+                                <option value="35" selected>NC-35 (General offices, classrooms)</option>
+                                <option value="40">NC-40 (Cafeterias, light industrial)</option>
+                                <option value="45">NC-45 (Corridors, shops)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateVAVBox()">Calculate VAV Requirements</button>
+
+                    <div id="vav-results" class="boiler-results-section">
+                        <h3>VAV Box Selection Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Calculated Maximum Airflow:</span>
+                            <span class="result-value" id="vav-resultMaxCFM">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Recommended Minimum Airflow:</span>
+                            <span class="result-value" id="vav-resultMinCFM">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Turndown Ratio:</span>
+                            <span class="result-value" id="vav-turndownRatio">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Inlet Velocity (at max flow):</span>
+                            <span class="result-value" id="vav-inletVelocity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Estimated Pressure Drop:</span>
+                            <span class="result-value" id="vav-pressureDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Box Size Recommendation:</span>
+                            <span class="result-value" id="vav-sizeRecommendation">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange" id="vav-reheatResult" style="display: none;">
+                            <span class="result-label">Reheat Capacity Required:</span>
+                            <span class="result-value" id="vav-reheatRequired">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange" id="vav-fanPowerResult" style="display: none;">
+                            <span class="result-label">Fan Power Consumption:</span>
+                            <span class="result-value" id="vav-fanPower">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Reference Section -->
+                    <h2 class="section-title" style="margin-top: 3rem;">Sizing Guidelines & Rules of Thumb</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 1.5rem; margin-bottom: 1rem;">Airflow Requirements by Space Type</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Private Offices:</strong> 1.0-1.5 CFM/sq ft (low occupancy)</li>
+                        <li><strong>General Offices:</strong> 1.2-1.8 CFM/sq ft (moderate occupancy)</li>
+                        <li><strong>Conference Rooms:</strong> 2.0-3.0 CFM/sq ft (high occupancy, intermittent)</li>
+                        <li><strong>Classrooms:</strong> 1.5-2.0 CFM/sq ft (moderate to high occupancy)</li>
+                        <li><strong>Laboratories:</strong> 4.0-8.0 CFM/sq ft (high ventilation requirements)</li>
+                        <li><strong>Retail Stores:</strong> 1.2-1.8 CFM/sq ft (variable occupancy)</li>
+                        <li><strong>Restaurants:</strong> 2.5-4.0 CFM/sq ft (high occupancy and cooking loads)</li>
+                        <li><strong>Hospital Patient Rooms:</strong> 2.0-3.0 CFM/sq ft (infection control)</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Minimum Airflow Guidelines</h3>
+                    <ul style="margin-left: 2rem; line-height: 2;">
+                        <li><strong>Ventilation Requirements:</strong> Per ASHRAE 62.1 - typically 5-15 CFM/person</li>
+                        <li><strong>Turndown Ratio:</strong> 30-50% of maximum for most applications</li>
+                        <li><strong>Air Distribution:</strong> Below 30% turndown, air distribution may suffer</li>
+                        <li><strong>Reheat Applications:</strong> Higher minimums (40-50%) to prevent overcooling</li>
+                    </ul>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Leading VAV Box Manufacturers</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">📦</div>
+                            <h4 class="feature-title">Trane</h4>
+                            <p>VariTrane series. Single duct and fan powered. 75-8000 CFM. Intelligent VAV systems with advanced controls.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🎯</div>
+                            <h4 class="feature-title">Price Industries</h4>
+                            <p>SDV and FDV/FPV series. Pressure independent controls. ECM motors. High performance terminal units.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚙️</div>
+                            <h4 class="feature-title">Krueger</h4>
+                            <p>LMHS series. Hot water and electric reheat. Comprehensive selection software available.</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Important Disclaimer</h4>
+                        <p>These calculations provide estimates for preliminary sizing only. Always conduct a proper load calculation per ASHRAE standards and consult with a licensed professional engineer or VAV manufacturer for final sizing. Factors such as ventilation requirements, noise criteria, inlet pressure variations, ceiling height, throw patterns, and specific application requirements must be considered. Manufacturer selection software should be used for detailed acoustical analysis and final equipment selection. EngrAssist is not responsible for equipment selection based on these estimates.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <div class="toc">
+                            <h3>Table of Contents</h3>
+                            <ul>
+                                <li><a href="#info-overview">Overview</a></li>
+                                <li><a href="#info-how-it-works">How It Works</a></li>
+                                <li><a href="#info-types">Types of VAV Boxes</a></li>
+                                <li><a href="#info-control-types">Control Types</a></li>
+                                <li><a href="#info-applications">Applications</a></li>
+                                <li><a href="#info-sizing">Sizing Requirements</a></li>
+                                <li><a href="#info-options">Available Options</a></li>
+                                <li><a href="#info-best-practices">Best Practices</a></li>
+                                <li><a href="#info-manufacturers">Popular Manufacturers</a></li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-overview">Overview</h2>
+                        <p>Variable Air Volume (VAV) terminal units, commonly called VAV boxes, are air distribution devices that regulate the volume of conditioned air delivered to a space based on heating or cooling demand. Unlike constant volume systems that vary air temperature, VAV systems vary airflow while maintaining a relatively constant supply air temperature (typically 55°F). This approach provides superior energy efficiency, better zone control, and improved comfort compared to constant volume systems.</p>
+
+                        <p>VAV boxes are the workhorses of modern commercial HVAC systems, found in office buildings, schools, hospitals, hotels, and virtually every type of commercial facility. A typical building may have dozens to hundreds of VAV boxes, each serving an individual zone or room.</p>
+
+                        <h2 id="info-how-it-works">How It Works</h2>
+                        <p>A VAV terminal unit operates on a simple but elegant principle:</p>
+
+                        <div class="info-box">
+                            <h4>Basic Operation</h4>
+                            <ol>
+                                <li><strong>Airflow Measurement:</strong> An airflow sensor (typically a velocity pressure sensor) measures the airflow entering the box.</li>
+                                <li><strong>Zone Thermostat:</strong> A thermostat in the zone measures space temperature and compares it to setpoint.</li>
+                                <li><strong>Damper Modulation:</strong> Based on the temperature signal, the controller modulates a damper to increase or decrease airflow to the space.</li>
+                                <li><strong>Cooling Mode:</strong> When the space needs cooling, the damper opens to increase cold airflow. When satisfied, it closes to minimum position.</li>
+                                <li><strong>Heating Mode (if equipped):</strong> When heating is required, airflow typically remains at minimum while reheat (electric, hot water, or steam) is activated.</li>
+                            </ol>
+                        </div>
+
+                        <h2 id="info-types">Types of VAV Boxes</h2>
+
+                        <div class="info-box">
+                            <h3>1. Single Duct - Cooling Only</h3>
+                            <p><strong>Applications:</strong> Interior zones with year-round cooling loads</p>
+                            <p>The simplest VAV configuration. Provides cooling only by modulating cold air from maximum to minimum flow. No heating capability. Used in spaces that never require heating, such as interior zones of large buildings where heat from lights, people, and equipment provides adequate warmth even in winter.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Lowest cost, simple installation, minimal maintenance</li>
+                                <li><strong>Disadvantages:</strong> No heating capability, limited to interior zones</li>
+                                <li><strong>Typical Sizes:</strong> 100-4,000 CFM</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>2. Single Duct with Reheat</h3>
+                            <p><strong>Applications:</strong> Perimeter zones requiring both heating and cooling</p>
+                            <p>Adds a heating coil (electric, hot water, or steam) to provide heating when needed. The most common VAV type for perimeter zones. During cooling, operates like a cooling-only box. During heating, airflow goes to minimum while the reheat coil activates to warm the air.</p>
+                            <ul>
+                                <li><strong>Electric Reheat:</strong> Simplest installation, no piping required, but highest operating cost. Typically limited to smaller boxes (&lt;1,500 CFM) due to electrical load.</li>
+                                <li><strong>Hot Water Reheat:</strong> Most common. Requires hot water piping but lower operating cost than electric. Typical entering water: 180°F, leaving: 160°F.</li>
+                                <li><strong>Steam Reheat:</strong> Rapid response, used in hospitals and labs. Requires steam piping and condensate return.</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>3. Fan Powered - Parallel Flow</h3>
+                            <p><strong>Applications:</strong> Perimeter zones requiring increased air circulation and better heating</p>
+                            <p>Adds a small fan that draws plenum air and mixes it with primary air. The fan runs only during heating or when additional air circulation is needed. Called "parallel" because the fan operates in parallel with the primary airflow path.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Better air distribution, constant air circulation during heating, can use plenum air as "free" heating</li>
+                                <li><strong>Disadvantages:</strong> Higher first cost, fan energy consumption, more maintenance (fan motor)</li>
+                                <li><strong>Fan Operation:</strong> Modern units use ECM motors for energy efficiency, typically drawing 0.3-0.8 watts/CFM</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>4. Fan Powered - Series Flow</h3>
+                            <p><strong>Applications:</strong> Zones requiring constant airflow and ventilation</p>
+                            <p>The fan runs continuously, providing constant airflow to the space. Primary air modulates from maximum to minimum, with the fan making up the difference by drawing plenum air. Called "series" because all air passes through the fan.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Constant air motion and ventilation, excellent for perimeter zones, good mixing</li>
+                                <li><strong>Disadvantages:</strong> Highest energy consumption (fan runs continuously), highest first cost</li>
+                                <li><strong>Energy Use:</strong> ECM motors critical for this application to minimize fan energy penalty</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>5. Dual Duct</h3>
+                            <p><strong>Applications:</strong> Zones with simultaneous heating and cooling needs, or highly variable loads</p>
+                            <p>Two dampers control cold air and warm air streams that mix in the box before delivery to the space. Provides excellent control but at the cost of energy efficiency (simultaneous heating and cooling).</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Precise temperature control, handles widely varying loads</li>
+                                <li><strong>Disadvantages:</strong> Expensive installation (two duct systems), energy inefficient, rarely used in new construction</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>6. Bypass VAV</h3>
+                            <p><strong>Applications:</strong> Retrofit applications where constant air handler flow is required</p>
+                            <p>Instead of reducing airflow to the space, excess air is bypassed to the ceiling plenum. Maintains constant flow through the air handler, which is sometimes required for older equipment.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Allows VAV operation with constant volume equipment</li>
+                                <li><strong>Disadvantages:</strong> No fan energy savings, dumps conditioned air to plenum, inefficient</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-control-types">Control Types</h2>
+
+                        <div class="info-box">
+                            <h3>Pressure Dependent vs. Pressure Independent</h3>
+
+                            <h4>Pressure Dependent</h4>
+                            <p>The damper position is controlled solely by the zone thermostat. Airflow varies with both damper position AND inlet duct pressure. If duct pressure increases (e.g., other boxes close), this box will get more air even at the same damper position.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Lower cost, simpler</li>
+                                <li><strong>Disadvantages:</strong> Poor control when duct pressure varies, requires careful system balancing</li>
+                                <li><strong>Applications:</strong> Small systems with stable pressures, budget-constrained projects</li>
+                            </ul>
+
+                            <h4>Pressure Independent (PI)</h4>
+                            <p>Includes a flow sensor and controller that maintains desired airflow regardless of inlet pressure variations. The controller continuously adjusts the damper to deliver the exact CFM called for by the thermostat.</p>
+                            <ul>
+                                <li><strong>Advantages:</strong> Accurate airflow control, stable operation, easier to balance, better for large systems</li>
+                                <li><strong>Disadvantages:</strong> Higher cost (~$100-200 more per box)</li>
+                                <li><strong>Applications:</strong> Standard for modern commercial buildings, required for LEED points</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-applications">Applications and Uses</h2>
+                        <p>VAV systems are ideal for the following applications:</p>
+                        <ul>
+                            <li><strong>Office Buildings:</strong> Most common application. Each office, conference room, and open area has its own VAV box for independent control.</li>
+                            <li><strong>Schools and Universities:</strong> Each classroom gets a VAV box. Energy savings significant due to unoccupied periods.</li>
+                            <li><strong>Hospitals:</strong> Patient rooms, offices, and common areas. Critical areas (ORs, isolation rooms) may use other systems.</li>
+                            <li><strong>Hotels:</strong> Each guest room typically has a small VAV box (150-400 CFM). Meeting rooms and common areas have larger boxes.</li>
+                            <li><strong>Retail:</strong> Sales floors divided into zones. Fitting rooms often have dedicated boxes for comfort.</li>
+                            <li><strong>Laboratories:</strong> Each lab space has VAV boxes coordinated with fume hood exhaust for proper pressure control.</li>
+                            <li><strong>Data Centers:</strong> Specialized high-capacity VAV boxes for server room cooling with precise control.</li>
+                        </ul>
+
+                        <h2 id="info-sizing">Sizing Requirements</h2>
+
+                        <h3>Critical Sizing Parameters</h3>
+                        <div class="spec-table-wrapper">
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Typical Values</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Maximum Airflow</td>
+                                    <td>Based on cooling load</td>
+                                    <td>From load calculation: Sensible BTU ÷ (1.08 × ΔT)</td>
+                                </tr>
+                                <tr>
+                                    <td>Minimum Airflow</td>
+                                    <td>30-50% of maximum</td>
+                                    <td>Based on ventilation requirements (ASHRAE 62.1) or turndown limits</td>
+                                </tr>
+                                <tr>
+                                    <td>Inlet Static Pressure</td>
+                                    <td>0.5-2.0 in. w.c.</td>
+                                    <td>Higher pressure = smaller duct but higher fan energy</td>
+                                </tr>
+                                <tr>
+                                    <td>Pressure Drop</td>
+                                    <td>0.1-0.3 in. w.c.</td>
+                                    <td>At maximum flow with damper wide open</td>
+                                </tr>
+                                <tr>
+                                    <td>Inlet Velocity</td>
+                                    <td>800-1,500 FPM</td>
+                                    <td>Too low: poor sensor accuracy; Too high: noise and pressure drop</td>
+                                </tr>
+                                <tr>
+                                    <td>NC Rating</td>
+                                    <td>NC-25 to NC-40</td>
+                                    <td>Based on space use: Private office NC-30, open office NC-35</td>
+                                </tr>
+                                <tr>
+                                    <td>Turndown Ratio</td>
+                                    <td>2:1 to 3:1</td>
+                                    <td>Max CFM ÷ Min CFM. 3:1 typical (e.g., 900 max / 300 min)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+
+                        <h3>Sizing Guidelines</h3>
+                        <ul>
+                            <li><strong>Don't Oversize:</strong> Oversized boxes operate at low velocities where control is poor and sensors are inaccurate. Select closest standard size above calculated maximum.</li>
+                            <li><strong>Minimum Airflow:</strong> Must meet the greater of: (1) ASHRAE 62.1 ventilation requirements, or (2) 30% of maximum for proper air distribution.</li>
+                            <li><strong>Inlet Sizing:</strong> Size inlet duct for 800-1,200 FPM at maximum airflow. This ensures adequate sensor accuracy.</li>
+                            <li><strong>Standard Sizes:</strong> Most manufacturers offer boxes in increments: 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1250, 1500, 2000, 2500, 3000, 4000, 5000 CFM.</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <h4>Common Sizing Mistakes</h4>
+                            <ul>
+                                <li>Selecting boxes based on room area × CFM/sq ft without considering actual cooling load</li>
+                                <li>Oversizing "to be safe" - results in poor control and noise issues</li>
+                                <li>Not considering minimum ventilation requirements per ASHRAE 62.1</li>
+                                <li>Ignoring acoustic requirements - selecting a box that meets airflow but exceeds NC limits</li>
+                                <li>Not coordinating inlet duct size with box inlet size - causes turbulence and noise</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-options">Available Options</h2>
+
+                        <h3>Control and Monitoring</h3>
+                        <ul>
+                            <li><strong>BACnet/Modbus Integration:</strong> Connect to building automation system for centralized monitoring and control</li>
+                            <li><strong>Airflow Monitoring:</strong> Display or transmit actual CFM to BAS for verification and trending</li>
+                            <li><strong>CO2-Based Demand Control Ventilation:</strong> Adjust minimum airflow based on occupancy (CO2 levels)</li>
+                            <li><strong>Occupancy Sensors:</strong> Reduce airflow to unoccupied setback when space is vacant</li>
+                        </ul>
+
+                        <h3>Acoustic Options</h3>
+                        <ul>
+                            <li><strong>Sound Attenuators:</strong> Internal or external silencers to meet stringent NC requirements (NC-25 or lower)</li>
+                            <li><strong>Low-Velocity Inlets:</strong> Larger inlet connections to reduce velocity and noise</li>
+                            <li><strong>Discharge Silencers:</strong> For critical applications like recording studios or patient rooms adjacent to boxes</li>
+                        </ul>
+
+                        <h3>Physical Options</h3>
+                        <ul>
+                            <li><strong>Inlet Configurations:</strong> Round, rectangular, top, side, end - to match duct arrangement</li>
+                            <li><strong>Discharge Configurations:</strong> Round, rectangular, boots for flex duct connection</li>
+                            <li><strong>Access Panels:</strong> For easy maintenance and coil cleaning</li>
+                            <li><strong>Insulation:</strong> Internal or external insulation to prevent condensation in high-humidity applications</li>
+                        </ul>
+
+                        <h2 id="info-best-practices">Best Practices</h2>
+
+                        <div class="info-box">
+                            <h3>Design Phase</h3>
+                            <ul>
+                                <li>Perform room-by-room cooling load calculation - don't rely solely on area-based estimates</li>
+                                <li>Calculate ventilation requirements per ASHRAE 62.1 and ensure minimum airflow meets or exceeds this</li>
+                                <li>Use manufacturer selection software for final selection - includes acoustic analysis</li>
+                                <li>Coordinate VAV locations with ceiling grid and diffuser layout</li>
+                                <li>Plan for adequate access to boxes for maintenance (minimum 24" clearance recommended)</li>
+                                <li>Size ducts properly - undersized inlet ducts cause noise and control problems</li>
+                                <li>Specify pressure independent controls for systems larger than 10-15 boxes</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Installation</h3>
+                            <ul>
+                                <li>Support boxes independently - don't hang from ductwork</li>
+                                <li>Provide 3-5 duct diameters of straight duct upstream of box inlet for proper airflow measurement</li>
+                                <li>Install with adequate clearance for damper and coil access</li>
+                                <li>Follow manufacturer's wiring diagrams exactly - improper wiring is #1 cause of control problems</li>
+                                <li>Insulate hot water piping to coils to prevent heat loss in plenum</li>
+                                <li>Install flow switches on hot water coils to prevent coil freeze-up</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Commissioning and Balancing</h3>
+                            <ul>
+                                <li>Set maximum and minimum airflows using box controller, not damper stops</li>
+                                <li>Verify actual airflow with independent measurement - don't rely solely on box readout</li>
+                                <li>Test controls through full range of operation (heating, cooling, unoccupied)</li>
+                                <li>Document settings for each box (max CFM, min CFM, heating capacity, etc.)</li>
+                                <li>Perform functional testing per ASHRAE Guideline 0 or equivalent</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Operation & Maintenance</h3>
+                            <ul>
+                                <li>Clean or replace filters in fan-powered units every 3-6 months</li>
+                                <li>Check damper operation annually - stuck dampers are a common failure</li>
+                                <li>Verify airflow calibration every 2-3 years - sensors can drift</li>
+                                <li>Inspect hot water coils for leaks, especially in heating season</li>
+                                <li>Monitor discharge temperatures - excessively high temps indicate reheat problems</li>
+                                <li>Trend airflow and zone temperatures to identify control issues early</li>
+                            </ul>
+                        </div>
+
+                        <h2 id="info-manufacturers">Popular Manufacturers and Brands</h2>
+
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Trane</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>VariTrane® Single Duct units (75-8,000 CFM)</li>
+                                    <li>VariTrane® Fan-Powered units</li>
+                                    <li>Intelligent VAV Systems with integrated controls</li>
+                                    <li>Third-generation systems for decarbonization</li>
+                                </ul>
+                                <p><a href="https://www.trane.com" target="_blank">trane.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Price Industries</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>SDV Single Duct Terminal Units</li>
+                                    <li>FDV/FPV Fan Powered Units (parallel and series)</li>
+                                    <li>ECM motor options for energy efficiency</li>
+                                    <li>Comprehensive engineering guides available</li>
+                                </ul>
+                                <p><a href="https://www.priceindustries.com" target="_blank">priceindustries.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Krueger</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>LMHS Single Duct VAV Units</li>
+                                    <li>Hot water and electric reheat options</li>
+                                    <li>Selection software for custom sizing</li>
+                                    <li>Extensive white papers on VAV design</li>
+                                </ul>
+                                <p><a href="https://www.krueger-hvac.com" target="_blank">krueger-hvac.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Nailor</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>VSD Series Single Duct VAV</li>
+                                    <li>FPB Fan Powered Boxes</li>
+                                    <li>Pressure independent and dependent options</li>
+                                    <li>Complete range 100-6,000 CFM</li>
+                                </ul>
+                                <p><a href="https://www.nailor.com" target="_blank">nailor.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Titus HVAC</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>RL Series VAV Terminal Units</li>
+                                    <li>Comprehensive acoustic data and guidelines</li>
+                                    <li>Wide range of inlet/discharge configurations</li>
+                                    <li>Strong focus on sound attenuation</li>
+                                </ul>
+                                <p><a href="https://www.titus-hvac.com" target="_blank">titus-hvac.com</a></p>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>MetalAire</h4>
+                                <p><strong>Notable Products:</strong></p>
+                                <ul>
+                                    <li>VAV terminal units with DDC controls</li>
+                                    <li>Fan powered and reheat options</li>
+                                    <li>Value-oriented product line</li>
+                                    <li>Good for budget-conscious projects</li>
+                                </ul>
+                                <p><a href="https://www.metalaire.com" target="_blank">metalaire.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <div class="energy-section">
+                        <h2 class="section-title">VAV Box Troubleshooting</h2>
+                        <div class="energy-content">
+
+                            <div class="troubleshooting-table">
+                                <h3>Common VAV Box Problems</h3>
+                                <table class="efficiency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Symptom</th>
+                                            <th>Possible Causes</th>
+                                            <th>Diagnostic Steps</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>No Airflow to Zone</strong></td>
+                                            <td>Damper stuck closed, no power, controller failure, upstream damper closed</td>
+                                            <td>Check power, verify damper moves, check BAS commands, verify upstream flow</td>
+                                            <td>Power up unit, manually cycle damper, replace controller, open upstream dampers</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Insufficient Airflow</strong></td>
+                                            <td>Low inlet pressure, damper not fully open, undersized box, duct leakage, blocked inlet</td>
+                                            <td>Measure inlet pressure, verify damper position, check for obstructions, perform duct leak test</td>
+                                            <td>Increase system pressure, repair damper actuator, upsize box, seal ducts, remove obstruction</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Excessive Airflow</strong></td>
+                                            <td>Damper stuck open, controller calibration error, high inlet pressure, wrong maximum setpoint</td>
+                                            <td>Verify damper closes, check controller settings, measure inlet pressure, review programming</td>
+                                            <td>Repair damper, recalibrate controller, reduce system pressure, reprogram max setpoint</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Poor Temperature Control</strong></td>
+                                            <td>Minimum airflow too high/low, reheat not working, sensor location, airflow hunting</td>
+                                            <td>Check min/max settings, test reheat operation, verify sensor location, observe damper behavior</td>
+                                            <td>Adjust minimums, repair reheat, relocate sensor, tune control loop (PID settings)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Excessive Noise</strong></td>
+                                            <td>High inlet velocity, damper flutter, loose parts, inadequate attenuation, turbulent inlet</td>
+                                            <td>Measure inlet velocity, listen for flutter, inspect box interior, check upstream ductwork</td>
+                                            <td>Reduce pressure or upsize box, stabilize damper, tighten components, add attenuator, straighten duct</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Hunting/Cycling</strong></td>
+                                            <td>Poor PID tuning, oversized box, pressure fluctuations, sensor issues, interaction with other boxes</td>
+                                            <td>Observe damper behavior, check for oversizing, monitor inlet pressure, verify sensor signal, check system balance</td>
+                                            <td>Retune PID settings, replace with smaller box, stabilize system pressure, replace sensor, rebalance system</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Reheat Not Working</strong></td>
+                                            <td>Valve stuck, no hot water, electric heater failure, wiring error, safety lockout</td>
+                                            <td>Check valve operation, verify HW temp, test heater continuity, verify wiring, check for lockouts</td>
+                                            <td>Repair/replace valve, restore HW, replace heater elements, correct wiring, reset safeties</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Inaccurate Airflow Reading</strong></td>
+                                            <td>Sensor drift, sensor location, turbulent inlet, controller calibration, damaged sensor</td>
+                                            <td>Compare to independent measurement, check sensor installation, inspect upstream duct, review calibration</td>
+                                            <td>Recalibrate sensor, relocate if needed, add straight duct upstream, replace sensor</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Critical VAV Box Measurements</h4>
+                                <ul>
+                                    <li><strong>Inlet Static Pressure:</strong> Measure in duct just upstream of box (should be 0.5-2.0 in. w.c.)</li>
+                                    <li><strong>Actual Airflow:</strong> Measure with pitot tube traverse or capture hood at diffuser</li>
+                                    <li><strong>Discharge Air Temperature:</strong> Should not exceed 90-95°F per ASHRAE guidelines</li>
+                                    <li><strong>Damper Position:</strong> 0-100% or 0-10V signal - verify matches actual position</li>
+                                    <li><strong>Zone Temperature:</strong> Compare thermostat reading to independent measurement</li>
+                                    <li><strong>Hot Water Temperatures:</strong> Entering and leaving (typical: 180°F enter, 160°F leave)</li>
+                                    <li><strong>Velocity Pressure:</strong> At sensor location (VP = (Velocity/4005)²)</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Systematic Troubleshooting Approach</h3>
+                            <div class="info-box">
+                                <h4>Step 1: Gather Information</h4>
+                                <ul>
+                                    <li>What is the specific complaint? (too hot, too cold, noisy, etc.)</li>
+                                    <li>When did the problem start?</li>
+                                    <li>Is it constant or intermittent?</li>
+                                    <li>Has anything changed recently? (setpoints, occupancy, renovations)</li>
+                                    <li>Are other zones affected?</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 2: Check the Basics</h4>
+                                <ul>
+                                    <li>Power supply to VAV box controller</li>
+                                    <li>Thermostat batteries (if applicable) and settings</li>
+                                    <li>Damper physically moves when commanded</li>
+                                    <li>No alarms or faults displayed on controller</li>
+                                    <li>Upstream air handling unit is operating</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 3: Verify Airflow</h4>
+                                <ul>
+                                    <li>Check actual airflow vs. setpoint (should be within ±10%)</li>
+                                    <li>Verify minimum and maximum airflow settings</li>
+                                    <li>Ensure box is not at minimum when zone calls for cooling</li>
+                                    <li>Check that damper fully opens when maximum flow commanded</li>
+                                    <li>Measure inlet static pressure - low pressure = insufficient flow</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Step 4: Check Controls</h4>
+                                <ul>
+                                    <li>Verify zone temperature sensor is reading correctly</li>
+                                    <li>Check setpoints and schedules (occupied vs. unoccupied)</li>
+                                    <li>Test override commands from BAS</li>
+                                    <li>Verify control sequence is appropriate for mode (heating vs. cooling)</li>
+                                    <li>Check for conflicting control signals</li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <h4>Safety Considerations</h4>
+                                <p><strong>Always follow these safety procedures when troubleshooting VAV equipment:</strong></p>
+                                <ul>
+                                    <li>Use ladder safety - VAV boxes are often 10-20 feet above floor</li>
+                                    <li>Watch for sharp edges on sheet metal boxes and ductwork</li>
+                                    <li>Be aware of electrical hazards - 24V controls but may be 120-480V for reheat</li>
+                                    <li>Don't bypass safeties, especially high-limit thermostats on electric heaters</li>
+                                    <li>Hot water coils can reach 180-200°F - use caution</li>
+                                    <li>Wear appropriate PPE: safety glasses, gloves, hard hat if required</li>
+                                    <li>Ensure adequate lighting in ceiling spaces</li>
+                                </ul>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Preventive Maintenance for VAV Boxes</h3>
+                            <div class="manufacturer-grid">
+                                <div class="manufacturer-card">
+                                    <h4>Quarterly Tasks</h4>
+                                    <ul>
+                                        <li>Check for unusual noise during operation</li>
+                                        <li>Verify controller is displaying and responding</li>
+                                        <li>Spot-check airflow readings vs. setpoints</li>
+                                        <li>Review BAS alarms and trending for this zone</li>
+                                        <li>Change filters on fan-powered units</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Annual Tasks</h4>
+                                    <ul>
+                                        <li>Verify actual airflow with independent measurement</li>
+                                        <li>Exercise damper through full range of motion</li>
+                                        <li>Check damper blade linkage for wear</li>
+                                        <li>Inspect hot water coil for leaks</li>
+                                        <li>Test electric heaters (continuity and amperage)</li>
+                                        <li>Verify zone temperature sensors</li>
+                                        <li>Clean airflow sensor ports</li>
+                                    </ul>
+                                </div>
+
+                                <div class="manufacturer-card">
+                                    <h4>Every 3-5 Years</h4>
+                                    <ul>
+                                        <li>Recalibrate airflow sensors</li>
+                                        <li>Full functional test (heating, cooling, min, max)</li>
+                                        <li>Retune control loops if hunting observed</li>
+                                        <li>Update controller firmware if available</li>
+                                        <li>Consider replacement of 15+ year old controllers</li>
+                                        <li>Inspect fan bearings and motors (fan-powered units)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3 style="margin-top: 3rem;">Common Control Problems and Solutions</h3>
+
+                            <div class="info-box">
+                                <h4>Damper Hunting (Oscillating)</h4>
+                                <p><strong>Symptoms:</strong> Damper continuously moves in and out, airflow unstable, zone temperature swings</p>
+                                <p><strong>Causes:</strong> Overly aggressive PID settings, oversized box, pressure fluctuations, interference between boxes</p>
+                                <p><strong>Solutions:</strong></p>
+                                <ul>
+                                    <li>Increase damper loop proportional band (make it less sensitive)</li>
+                                    <li>Add damper action delay or deadband</li>
+                                    <li>Reduce integral gain if using PI or PID control</li>
+                                    <li>Check for and correct oversizing - may need smaller box</li>
+                                    <li>Investigate system pressure stability - may need VFD tuning on air handler</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Won't Reach Minimum Airflow</h4>
+                                <p><strong>Symptoms:</strong> Box reports less than minimum setpoint, zone overcools</p>
+                                <p><strong>Causes:</strong> Insufficient inlet pressure, leaking damper, calibration error, duct leakage</p>
+                                <p><strong>Solutions:</strong></p>
+                                <ul>
+                                    <li>Measure inlet pressure - should be at least 0.5 in. w.c.</li>
+                                    <li>Check damper for proper sealing when closed</li>
+                                    <li>Verify minimum setpoint is appropriate (not set too low)</li>
+                                    <li>Recalibrate flow sensor</li>
+                                    <li>Check for downstream duct leaks robbing airflow</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>Reheat Discharge Temperature Too High</h4>
+                                <p><strong>Symptoms:</strong> Discharge air exceeds 90-95°F, occupant complaints of "baking" feeling</p>
+                                <p><strong>Causes:</strong> Airflow too low during heating, oversized reheat, failed minimum airflow setting</p>
+                                <p><strong>Solutions:</strong></p>
+                                <ul>
+                                    <li>Verify minimum airflow is met during heating (should not drop below minimum)</li>
+                                    <li>Check reheat capacity - may be oversized for the airflow</li>
+                                    <li>Add discharge temperature limit control (limit to 90-95°F max)</li>
+                                    <li>For hot water coils: reduce entering water temperature if possible</li>
+                                    <li>For electric: stage heaters to prevent all elements from firing simultaneously</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <div class="mechanical-section">
+                        <h2 class="section-title">VAV Box Specifications</h2>
+
+                        <div class="reference-tables">
+                            <div class="reference-table">
+                                <h3>VAV Box Types and Specifications</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Typical Size Range</th>
+                                            <th>Pressure Drop</th>
+                                            <th>Best Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Single Duct - Cooling Only</td>
+                                            <td>100 - 4,000 CFM</td>
+                                            <td>0.10 - 0.25 in. w.c.</td>
+                                            <td>Interior zones, cooling-only spaces</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Single Duct - Electric Reheat</td>
+                                            <td>100 - 1,500 CFM</td>
+                                            <td>0.15 - 0.30 in. w.c.</td>
+                                            <td>Perimeter zones, small to medium rooms</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Single Duct - Hot Water Reheat</td>
+                                            <td>150 - 5,000 CFM</td>
+                                            <td>0.15 - 0.35 in. w.c.</td>
+                                            <td>Perimeter zones, all sizes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fan Powered - Parallel</td>
+                                            <td>200 - 2,500 CFM</td>
+                                            <td>0.20 - 0.40 in. w.c.</td>
+                                            <td>Perimeter zones needing better air circulation</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fan Powered - Series</td>
+                                            <td>200 - 2,500 CFM</td>
+                                            <td>0.25 - 0.50 in. w.c.</td>
+                                            <td>Zones requiring constant airflow</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dual Duct</td>
+                                            <td>300 - 3,000 CFM</td>
+                                            <td>0.20 - 0.40 in. w.c.</td>
+                                            <td>Retrofit, special applications</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="constants-grid">
+                            <div class="constant-card">
+                                <h4>Typical Inlet Velocity</h4>
+                                <p>800-1,500 FPM</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Minimum Airflow</h4>
+                                <p>30-50% of Max</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Inlet Static Pressure</h4>
+                                <p>0.5-2.0 in. w.c.</p>
+                            </div>
+                            <div class="constant-card">
+                                <h4>Typical Turndown Ratio</h4>
+                                <p>2:1 to 3:1</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Noise Criteria (NC) Ratings</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Space Type</th>
+                                        <th>Recommended NC</th>
+                                        <th>Maximum NC</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Private Offices</td>
+                                        <td>NC-30</td>
+                                        <td>NC-35</td>
+                                        <td>Quiet environment for concentration</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Conference Rooms</td>
+                                        <td>NC-25</td>
+                                        <td>NC-30</td>
+                                        <td>Speech intelligibility critical</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Open Offices</td>
+                                        <td>NC-35</td>
+                                        <td>NC-40</td>
+                                        <td>Moderate background acceptable</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Classrooms</td>
+                                        <td>NC-30</td>
+                                        <td>NC-35</td>
+                                        <td>Must not interfere with instruction</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hospital Patient Rooms</td>
+                                        <td>NC-30</td>
+                                        <td>NC-35</td>
+                                        <td>Quiet for rest and recovery</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hotel Guest Rooms</td>
+                                        <td>NC-30</td>
+                                        <td>NC-35</td>
+                                        <td>Guest comfort priority</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Retail Sales Areas</td>
+                                        <td>NC-40</td>
+                                        <td>NC-45</td>
+                                        <td>Higher background noise acceptable</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Corridors</td>
+                                        <td>NC-40</td>
+                                        <td>NC-45</td>
+                                        <td>Transient occupancy</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Reheat Capacity Guidelines</h3>
+                        <div class="manufacturer-grid">
+                            <div class="manufacturer-card">
+                                <h4>Electric Reheat</h4>
+                                <ul>
+                                    <li><strong>Typical Capacity:</strong> 1-20 kW</li>
+                                    <li><strong>Temperature Rise:</strong> 3,413 BTU/hr per kW</li>
+                                    <li><strong>Formula:</strong> kW = (CFM × ΔT) / 3,413</li>
+                                    <li><strong>Voltage:</strong> 120V, 208V, 240V, 277V, 480V</li>
+                                    <li><strong>Stages:</strong> Usually 2-3 stages for better control</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Hot Water Reheat</h4>
+                                <ul>
+                                    <li><strong>Entering Water:</strong> 180°F typical</li>
+                                    <li><strong>Leaving Water:</strong> 160°F typical (20°F drop)</li>
+                                    <li><strong>Entering Air:</strong> 55°F (primary air temperature)</li>
+                                    <li><strong>GPM Required:</strong> GPM = MBH / (500 × ΔT water)</li>
+                                    <li><strong>Coil Selection:</strong> 1-8 rows typical</li>
+                                </ul>
+                            </div>
+
+                            <div class="manufacturer-card">
+                                <h4>Steam Reheat</h4>
+                                <ul>
+                                    <li><strong>Steam Pressure:</strong> 2-15 PSIG typical</li>
+                                    <li><strong>Capacity:</strong> Based on latent heat (~970 BTU/lb at 5 PSIG)</li>
+                                    <li><strong>Control Valve:</strong> Modulating or two-position</li>
+                                    <li><strong>Condensate Return:</strong> Required</li>
+                                    <li><strong>Applications:</strong> Hospitals, labs, rapid response needs</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Fan Powered Unit Specifications</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Motor Type</th>
+                                        <th>Power Draw</th>
+                                        <th>Efficiency</th>
+                                        <th>Control</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PSC (Permanent Split Capacitor)</td>
+                                        <td>0.5-1.2 W/CFM</td>
+                                        <td>40-50%</td>
+                                        <td>Multi-speed or single speed</td>
+                                        <td>Older technology, being phased out</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ECM (Electronically Commutated)</td>
+                                        <td>0.3-0.6 W/CFM</td>
+                                        <td>70-85%</td>
+                                        <td>Fully modulating (0-10V)</td>
+                                        <td>Standard for new installations</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ECM with Constant Airflow</td>
+                                        <td>0.3-0.7 W/CFM</td>
+                                        <td>70-85%</td>
+                                        <td>Maintains CFM regardless of pressure</td>
+                                        <td>Best for series flow applications</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Energy Savings: ECM vs PSC Motors</h4>
+                            <p>For a 600 CFM series fan-powered VAV box running 8,760 hours/year at $0.12/kWh:</p>
+                            <ul>
+                                <li><strong>PSC Motor:</strong> 600 CFM × 0.8 W/CFM = 480W = 4,205 kWh/yr = $504/year</li>
+                                <li><strong>ECM Motor:</strong> 600 CFM × 0.4 W/CFM = 240W = 2,102 kWh/yr = $252/year</li>
+                                <li><strong>Annual Savings:</strong> $252/year per box</li>
+                                <li><strong>Payback:</strong> Typically 2-4 years despite higher upfront cost</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Typical Physical Dimensions</h3>
+                        <div class="reference-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Box Capacity</th>
+                                        <th>Approx. Length</th>
+                                        <th>Approx. Width</th>
+                                        <th>Approx. Height</th>
+                                        <th>Weight Range</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>200 CFM</td>
+                                        <td>18-24 in</td>
+                                        <td>12-14 in</td>
+                                        <td>10-12 in</td>
+                                        <td>15-30 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>500 CFM</td>
+                                        <td>24-36 in</td>
+                                        <td>14-18 in</td>
+                                        <td>12-16 in</td>
+                                        <td>30-60 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,000 CFM</td>
+                                        <td>36-48 in</td>
+                                        <td>18-24 in</td>
+                                        <td>16-20 in</td>
+                                        <td>60-120 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2,000 CFM</td>
+                                        <td>48-60 in</td>
+                                        <td>24-30 in</td>
+                                        <td>20-26 in</td>
+                                        <td>120-200 lbs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4,000 CFM</td>
+                                        <td>60-84 in</td>
+                                        <td>30-40 in</td>
+                                        <td>26-34 in</td>
+                                        <td>200-350 lbs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4>Installation Considerations</h4>
+                            <ul>
+                                <li><strong>Ceiling Clearance:</strong> Verify adequate height above ceiling - boxes can be 24-36" tall</li>
+                                <li><strong>Access:</strong> Minimum 24" clearance for damper and coil service recommended</li>
+                                <li><strong>Support:</strong> Boxes must be independently supported - not hung from ductwork</li>
+                                <li><strong>Straight Duct:</strong> 3-5 duct diameters of straight duct before inlet for accurate flow measurement</li>
+                                <li><strong>Electrical:</strong> 24VAC for controls, 120-480VAC for electric reheat</li>
+                                <li><strong>Piping:</strong> Hot water supply and return if HW reheat specified</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Code and Standards References</h3>
+                        <div class="info-box">
+                            <h4>Applicable Codes and Standards</h4>
+                            <ul>
+                                <li><strong>ASHRAE 62.1:</strong> Ventilation for Acceptable Indoor Air Quality - minimum airflow requirements</li>
+                                <li><strong>ASHRAE 90.1:</strong> Energy Standard for Buildings - includes requirements for VAV controls and minimum turndown</li>
+                                <li><strong>ASHRAE Guideline 0:</strong> The Commissioning Process - functional testing requirements</li>
+                                <li><strong>AHRI 880:</strong> Performance Rating of Air Terminals</li>
+                                <li><strong>AHRI 885:</strong> Procedure for Estimating Occupied Space Sound Levels - acoustical testing</li>
+                                <li><strong>NFPA 90A:</strong> Installation of Air-Conditioning and Ventilating Systems</li>
+                                <li><strong>SMACNA:</strong> HVAC Systems Duct Design - duct sizing and installation</li>
+                                <li><strong>Local Codes:</strong> Always verify local jurisdiction requirements</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Typical Pricing (2025)</h3>
+                        <div class="info-box">
+                            <p>Costs vary significantly based on type, size, controls, and options:</p>
+                            <ul>
+                                <li><strong>Single Duct Cooling Only (200-1,000 CFM):</strong> $400-$800 each</li>
+                                <li><strong>Single Duct with Electric Reheat:</strong> $600-$1,200 each</li>
+                                <li><strong>Single Duct with Hot Water Reheat:</strong> $700-$1,400 each</li>
+                                <li><strong>Fan Powered Parallel (PSC motor):</strong> $1,200-$2,000 each</li>
+                                <li><strong>Fan Powered Parallel (ECM motor):</strong> $1,500-$2,500 each</li>
+                                <li><strong>Fan Powered Series (ECM motor):</strong> $1,600-$2,800 each</li>
+                                <li><strong>Pressure Independent Controls:</strong> Add $100-$250 per box</li>
+                                <li><strong>BACnet/Modbus Integration:</strong> Add $150-$300 per box</li>
+                            </ul>
+                            <p><em>Note: These are equipment-only costs. Installation labor typically adds $200-$600 per box depending on accessibility and complexity.</em></p>
+                        </div>
+
+                        <div class="warning-box" style="margin-top: 2rem;">
+                            <h4>Professional Disclaimer</h4>
+                            <p>These specifications are provided for reference and preliminary design purposes only. Actual equipment selection must be based on manufacturer data, site-specific conditions, and local codes. All specifications should be reviewed and approved by a licensed professional engineer. Equipment performance varies by manufacturer and model. Always consult manufacturer literature and selection software for specific equipment ratings, acoustical data, and installation requirements. Proper commissioning per ASHRAE Guideline 0 or equivalent is essential for verifying performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Inline Tab Switching Script -->
+    <script>
+        // Tab switching function - defined inline to ensure it's available for onclick handlers
+        function switchTab(tabName, event) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Add active class to clicked button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // Scroll to top of tabs for better UX
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
