@@ -25,49 +25,72 @@
         <!-- Project Setup Section -->
         <section class="content-section">
             <div class="container">
+                <!-- Project Action Buttons -->
+                <div class="project-actions">
+                    <button class="btn btn-action" id="loadProjectActionBtn" title="Load a saved project">
+                        <span class="btn-icon">📂</span>
+                        <span class="btn-text">Load Project</span>
+                    </button>
+                    <button class="btn btn-action" id="saveProjectActionBtn" title="Save current project">
+                        <span class="btn-icon">💾</span>
+                        <span class="btn-text">Save Project</span>
+                    </button>
+                    <button class="btn btn-action" id="shareProjectActionBtn" title="Share project">
+                        <span class="btn-icon">🔗</span>
+                        <span class="btn-text">Share Project</span>
+                    </button>
+                </div>
+
+                <!-- Status Bar Indicator -->
+                <div class="status-bar-container">
+                    <div class="status-bar-header">
+                        <div class="status-bar-title">
+                            <span class="status-icon">📊</span>
+                            <span>Project Progress</span>
+                        </div>
+                        <div class="status-bar-stats">
+                            <span class="stat-item">
+                                <span class="stat-label">Actual:</span>
+                                <span class="stat-value" id="actualProgress">0%</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-label">Expected:</span>
+                                <span class="stat-value" id="expectedProgress">0%</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-label">Status:</span>
+                                <span class="stat-value stat-status" id="projectStatus">On Track</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="status-bar-wrapper">
+                        <!-- Expected Progress Bar (Background) -->
+                        <div class="progress-bar progress-bar-expected">
+                            <div class="progress-fill progress-fill-expected" id="expectedProgressBar" style="width: 0%"></div>
+                        </div>
+                        <!-- Actual Progress Bar (Foreground) -->
+                        <div class="progress-bar progress-bar-actual">
+                            <div class="progress-fill progress-fill-actual" id="actualProgressBar" style="width: 0%"></div>
+                        </div>
+                        <!-- Phase Tickmarks -->
+                        <div class="progress-tickmarks" id="progressTickmarks"></div>
+                    </div>
+                    <div class="status-bar-legend">
+                        <span class="legend-item">
+                            <span class="legend-color legend-actual"></span>
+                            <span class="legend-label">Actual Progress</span>
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color legend-expected"></span>
+                            <span class="legend-label">Expected Progress</span>
+                        </span>
+                    </div>
+                </div>
+
                 <h2 class="section-title">Project Setup</h2>
 
                 <div class="workflow-setup">
-                    <!-- Project Type Selection -->
-                    <div class="setup-card">
-                        <h3 class="setup-card-title">📋 Project Type</h3>
-                        <div class="project-type-grid">
-                            <button class="project-type-btn" data-type="residential">
-                                <span class="project-icon">🏠</span>
-                                <span class="project-name">Residential</span>
-                            </button>
-                            <button class="project-type-btn" data-type="commercial">
-                                <span class="project-icon">🏢</span>
-                                <span class="project-name">Commercial</span>
-                            </button>
-                            <button class="project-type-btn" data-type="industrial">
-                                <span class="project-icon">🏭</span>
-                                <span class="project-name">Industrial</span>
-                            </button>
-                            <button class="project-type-btn" data-type="healthcare">
-                                <span class="project-icon">🏥</span>
-                                <span class="project-name">Healthcare</span>
-                            </button>
-                            <button class="project-type-btn" data-type="education">
-                                <span class="project-icon">🏫</span>
-                                <span class="project-name">Educational</span>
-                            </button>
-                            <button class="project-type-btn" data-type="hospitality">
-                                <span class="project-icon">🏨</span>
-                                <span class="project-name">Hospitality</span>
-                            </button>
-                            <button class="project-type-btn" data-type="laboratory">
-                                <span class="project-icon">🔬</span>
-                                <span class="project-name">Laboratory</span>
-                            </button>
-                            <button class="project-type-btn" data-type="data-center">
-                                <span class="project-icon">💾</span>
-                                <span class="project-name">Data Center</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Location & Codes -->
+                    <!-- Location & Codes (Moved to Top) -->
                     <div class="setup-card">
                         <h3 class="setup-card-title">📍 Project Location & Codes</h3>
                         <div class="location-selector">
@@ -155,6 +178,76 @@
                         </div>
                     </div>
 
+                    <!-- Project Delivery Method -->
+                    <div class="setup-card">
+                        <h3 class="setup-card-title">🔄 Project Delivery Method</h3>
+                        <div class="delivery-method-selector">
+                            <div class="form-group">
+                                <label for="deliveryMethod">Select Delivery Method:</label>
+                                <select id="deliveryMethod" class="form-control">
+                                    <option value="">Choose delivery method...</option>
+                                    <option value="design-bid-build">Design-Bid-Build (DBB)</option>
+                                    <option value="design-build">Design-Build (DB)</option>
+                                    <option value="cm-at-risk">Construction Manager at Risk (CMAR)</option>
+                                    <option value="integrated-project">Integrated Project Delivery (IPD)</option>
+                                </select>
+                            </div>
+                            <div class="delivery-method-info" id="deliveryMethodInfo">
+                                <div class="info-section">
+                                    <h4>Phase Percentages:</h4>
+                                    <div class="phase-percentages" id="phasePercentages">
+                                        <p class="info-placeholder">Select a delivery method to view phase breakdown</p>
+                                    </div>
+                                </div>
+                                <div class="info-section">
+                                    <h4>Key Characteristics:</h4>
+                                    <div class="delivery-characteristics" id="deliveryCharacteristics">
+                                        <p class="info-placeholder">Select a delivery method to view characteristics</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Type Selection -->
+                    <div class="setup-card">
+                        <h3 class="setup-card-title">📋 Project Type</h3>
+                        <div class="project-type-grid">
+                            <button class="project-type-btn" data-type="residential">
+                                <span class="project-icon">🏠</span>
+                                <span class="project-name">Residential</span>
+                            </button>
+                            <button class="project-type-btn" data-type="commercial">
+                                <span class="project-icon">🏢</span>
+                                <span class="project-name">Commercial</span>
+                            </button>
+                            <button class="project-type-btn" data-type="industrial">
+                                <span class="project-icon">🏭</span>
+                                <span class="project-name">Industrial</span>
+                            </button>
+                            <button class="project-type-btn" data-type="healthcare">
+                                <span class="project-icon">🏥</span>
+                                <span class="project-name">Healthcare</span>
+                            </button>
+                            <button class="project-type-btn" data-type="education">
+                                <span class="project-icon">🏫</span>
+                                <span class="project-name">Educational</span>
+                            </button>
+                            <button class="project-type-btn" data-type="hospitality">
+                                <span class="project-icon">🏨</span>
+                                <span class="project-name">Hospitality</span>
+                            </button>
+                            <button class="project-type-btn" data-type="laboratory">
+                                <span class="project-icon">🔬</span>
+                                <span class="project-name">Laboratory</span>
+                            </button>
+                            <button class="project-type-btn" data-type="data-center">
+                                <span class="project-icon">💾</span>
+                                <span class="project-name">Data Center</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Project Info -->
                     <div class="setup-card">
                         <h3 class="setup-card-title">ℹ️ Project Information</h3>
@@ -164,12 +257,22 @@
                                 <input type="text" id="projectName" class="form-control" placeholder="Enter project name">
                             </div>
                             <div class="form-group">
-                                <label for="projectSize">Building Area (sq ft):</label>
-                                <input type="number" id="projectSize" class="form-control" placeholder="e.g., 50000">
+                                <label for="projectNumber">Project Number:</label>
+                                <input type="text" id="projectNumber" class="form-control" placeholder="e.g., 2024-001">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="projectStartDate">Start Date:</label>
+                                    <input type="date" id="projectStartDate" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectDueDate">Due Date:</label>
+                                    <input type="date" id="projectDueDate" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="projectFloors">Number of Floors:</label>
-                                <input type="number" id="projectFloors" class="form-control" placeholder="e.g., 3">
+                                <label for="projectNotes">Notes:</label>
+                                <textarea id="projectNotes" class="form-control" rows="4" placeholder="Enter project notes, requirements, or other important information..."></textarea>
                             </div>
                         </div>
                     </div>

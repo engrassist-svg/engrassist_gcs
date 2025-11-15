@@ -4476,6 +4476,332 @@ body {
    WORKFLOW HUB STYLES
    ============================================ */
 
+/* Project Action Buttons */
+.project-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action:hover {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn-action .btn-icon {
+    font-size: 1.3rem;
+}
+
+/* Status Bar Container */
+.status-bar-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #3498db;
+}
+
+.status-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.status-bar-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.status-icon {
+    font-size: 1.5rem;
+}
+
+.status-bar-stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.stat-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.stat-status.on-track {
+    background: #d4edda;
+    color: #155724;
+}
+
+.stat-status.ahead {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.stat-status.behind {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Status Bar Wrapper */
+.status-bar-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar-expected {
+    opacity: 0.5;
+}
+
+.progress-bar-actual {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+}
+
+.progress-fill-expected {
+    background: linear-gradient(90deg, #95a5a6, #7f8c8d);
+}
+
+.progress-fill-actual {
+    background: linear-gradient(90deg, #3498db, #2980b9);
+}
+
+/* Progress Tickmarks */
+.progress-tickmarks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    pointer-events: none;
+}
+
+.tickmark {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: rgba(44, 62, 80, 0.3);
+}
+
+.tickmark-label {
+    position: absolute;
+    top: -25px;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #7f8c8d;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Status Bar Legend */
+.status-bar-legend {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #2c3e50;
+}
+
+.legend-color {
+    width: 20px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.legend-actual {
+    background: linear-gradient(90deg, #3498db, #2980b9);
+}
+
+.legend-expected {
+    background: linear-gradient(90deg, #95a5a6, #7f8c8d);
+}
+
+/* Delivery Method Selector */
+.delivery-method-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.delivery-method-info {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.info-section h4 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.phase-percentages {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #3498db;
+}
+
+.phase-percentages ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.phase-percentages li {
+    padding: 0.5rem;
+    background: white;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.phase-percentages li strong {
+    color: #2c3e50;
+}
+
+.phase-percentages li span {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.delivery-characteristics {
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #2ecc71;
+}
+
+.delivery-characteristics ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.delivery-characteristics li {
+    padding: 0.5rem;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.delivery-characteristics li:before {
+    content: "✓";
+    color: #2ecc71;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.info-placeholder {
+    color: #7f8c8d;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Form Row for Side-by-Side Fields */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
 /* Workflow Setup Section */
 .workflow-setup {
     display: grid;
@@ -5105,6 +5431,30 @@ body {
     }
 
     .code-links {
+        grid-template-columns: 1fr;
+    }
+
+    .project-actions {
+        flex-direction: column;
+    }
+
+    .btn-action {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .status-bar-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .status-bar-stats {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .form-row {
         grid-template-columns: 1fr;
     }
 }
