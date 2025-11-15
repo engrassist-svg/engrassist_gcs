@@ -5329,13 +5329,92 @@ function calculateVAVBox() {
 // WORKFLOW HUB FUNCTIONALITY
 // ====================================
 
+// Delivery Method Data
+const deliveryMethodData = {
+    'design-bid-build': {
+        name: 'Design-Bid-Build (DBB)',
+        phases: {
+            'Programming': 10,
+            'Schematic Design (SD)': 15,
+            'Design Development (DD)': 20,
+            'Construction Documents (CD)': 40,
+            'Construction Administration (CA)': 15
+        },
+        characteristics: [
+            'Traditional linear approach - design completes before construction begins',
+            'Owner contracts separately with designer and contractor',
+            'Clear separation of design and construction responsibilities',
+            'Competitive bidding process after design completion',
+            'Well-established process with defined roles',
+            'Longer overall project duration due to sequential phases'
+        ]
+    },
+    'design-build': {
+        name: 'Design-Build (DB)',
+        phases: {
+            'Programming': 10,
+            'Schematic Design (SD)': 20,
+            'Design Development (DD)': 25,
+            'Construction Documents (CD)': 30,
+            'Construction Administration (CA)': 15
+        },
+        characteristics: [
+            'Single point of responsibility for design and construction',
+            'Overlapping design and construction phases',
+            'Owner contracts with one entity (design-builder)',
+            'Faster project delivery through concurrent activities',
+            'Early contractor input on constructability',
+            'Reduced owner administrative burden'
+        ]
+    },
+    'cm-at-risk': {
+        name: 'Construction Manager at Risk (CMAR)',
+        phases: {
+            'Programming': 10,
+            'Schematic Design (SD)': 15,
+            'Design Development (DD)': 25,
+            'Construction Documents (CD)': 35,
+            'Construction Administration (CA)': 15
+        },
+        characteristics: [
+            'Owner contracts with both designer and CM separately',
+            'CM provides input during design phase',
+            'Guaranteed Maximum Price (GMP) established',
+            'CM assumes risk for cost overruns',
+            'Early cost and schedule input',
+            'Balance of owner control and contractor expertise'
+        ]
+    },
+    'integrated-project': {
+        name: 'Integrated Project Delivery (IPD)',
+        phases: {
+            'Programming': 15,
+            'Schematic Design (SD)': 20,
+            'Design Development (DD)': 25,
+            'Construction Documents (CD)': 25,
+            'Construction Administration (CA)': 15
+        },
+        characteristics: [
+            'All key parties involved from project inception',
+            'Shared risk and reward structure',
+            'Collaborative decision-making process',
+            'Early involvement of all disciplines',
+            'Emphasis on value optimization',
+            'Requires high level of trust and communication'
+        ]
+    }
+};
+
 let workflowState = {
     projectType: null,
     projectName: '',
-    projectSize: '',
-    projectFloors: '',
+    projectNumber: '',
     projectState: '',
     projectCity: '',
+    deliveryMethod: '',
+    startDate: '',
+    dueDate: '',
+    notes: '',
     currentPhase: 0,
     completedPhases: [],
     tasks: {}
@@ -5363,10 +5442,13 @@ function initializeWorkflowHub() {
 
     // Form inputs
     const projectName = document.getElementById('projectName');
-    const projectSize = document.getElementById('projectSize');
-    const projectFloors = document.getElementById('projectFloors');
+    const projectNumber = document.getElementById('projectNumber');
     const projectState = document.getElementById('projectState');
     const projectCity = document.getElementById('projectCity');
+    const deliveryMethod = document.getElementById('deliveryMethod');
+    const projectStartDate = document.getElementById('projectStartDate');
+    const projectDueDate = document.getElementById('projectDueDate');
+    const projectNotes = document.getElementById('projectNotes');
 
     if (projectName) {
         projectName.addEventListener('change', function() {
@@ -5375,16 +5457,9 @@ function initializeWorkflowHub() {
         });
     }
 
-    if (projectSize) {
-        projectSize.addEventListener('change', function() {
-            workflowState.projectSize = this.value;
-            saveProjectToStorage();
-        });
-    }
-
-    if (projectFloors) {
-        projectFloors.addEventListener('change', function() {
-            workflowState.projectFloors = this.value;
+    if (projectNumber) {
+        projectNumber.addEventListener('change', function() {
+            workflowState.projectNumber = this.value;
             saveProjectToStorage();
         });
     }
@@ -5402,6 +5477,38 @@ function initializeWorkflowHub() {
             workflowState.projectCity = this.value;
             saveProjectToStorage();
             updateProjectDisplay();
+        });
+    }
+
+    if (deliveryMethod) {
+        deliveryMethod.addEventListener('change', function() {
+            workflowState.deliveryMethod = this.value;
+            updateDeliveryMethodInfo(this.value);
+            updateProgressTickmarks();
+            saveProjectToStorage();
+        });
+    }
+
+    if (projectStartDate) {
+        projectStartDate.addEventListener('change', function() {
+            workflowState.startDate = this.value;
+            updateStatusBar();
+            saveProjectToStorage();
+        });
+    }
+
+    if (projectDueDate) {
+        projectDueDate.addEventListener('change', function() {
+            workflowState.dueDate = this.value;
+            updateStatusBar();
+            saveProjectToStorage();
+        });
+    }
+
+    if (projectNotes) {
+        projectNotes.addEventListener('change', function() {
+            workflowState.notes = this.value;
+            saveProjectToStorage();
         });
     }
 
@@ -5476,8 +5583,39 @@ function initializeWorkflowHub() {
             workflowState.tasks[taskId] = this.checked;
             saveProjectToStorage();
             updatePhaseCompletion();
+            updateStatusBar();
         });
     });
+
+    // Project Action Buttons
+    const loadProjectActionBtn = document.getElementById('loadProjectActionBtn');
+    const saveProjectActionBtn = document.getElementById('saveProjectActionBtn');
+    const shareProjectActionBtn = document.getElementById('shareProjectActionBtn');
+
+    if (loadProjectActionBtn) {
+        loadProjectActionBtn.addEventListener('click', function() {
+            loadProjectFromStorage();
+            showNotification('Project loaded successfully!');
+            updateStatusBar();
+            if (workflowState.deliveryMethod) {
+                updateDeliveryMethodInfo(workflowState.deliveryMethod);
+                updateProgressTickmarks();
+            }
+        });
+    }
+
+    if (saveProjectActionBtn) {
+        saveProjectActionBtn.addEventListener('click', function() {
+            saveProjectToStorage();
+            showNotification('Project saved successfully!');
+        });
+    }
+
+    if (shareProjectActionBtn) {
+        shareProjectActionBtn.addEventListener('click', function() {
+            shareProject();
+        });
+    }
 
     // Edit Project Button
     const editProjectBtn = document.getElementById('editProjectBtn');
@@ -5514,6 +5652,18 @@ function initializeWorkflowHub() {
                 resetWorkflow();
             }
         });
+    }
+
+    // Load shared project from URL if present
+    loadSharedProject();
+
+    // Initialize status bar
+    updateStatusBar();
+
+    // Initialize delivery method info if already selected
+    if (workflowState.deliveryMethod) {
+        updateDeliveryMethodInfo(workflowState.deliveryMethod);
+        updateProgressTickmarks();
     }
 }
 
@@ -5668,16 +5818,22 @@ function loadProjectFromStorage() {
 
             // Restore form values
             const projectName = document.getElementById('projectName');
-            const projectSize = document.getElementById('projectSize');
-            const projectFloors = document.getElementById('projectFloors');
+            const projectNumber = document.getElementById('projectNumber');
             const projectState = document.getElementById('projectState');
             const projectCity = document.getElementById('projectCity');
+            const deliveryMethod = document.getElementById('deliveryMethod');
+            const projectStartDate = document.getElementById('projectStartDate');
+            const projectDueDate = document.getElementById('projectDueDate');
+            const projectNotes = document.getElementById('projectNotes');
 
             if (projectName) projectName.value = workflowState.projectName || '';
-            if (projectSize) projectSize.value = workflowState.projectSize || '';
-            if (projectFloors) projectFloors.value = workflowState.projectFloors || '';
+            if (projectNumber) projectNumber.value = workflowState.projectNumber || '';
             if (projectState) projectState.value = workflowState.projectState || '';
             if (projectCity) projectCity.value = workflowState.projectCity || '';
+            if (deliveryMethod) deliveryMethod.value = workflowState.deliveryMethod || '';
+            if (projectStartDate) projectStartDate.value = workflowState.startDate || '';
+            if (projectDueDate) projectDueDate.value = workflowState.dueDate || '';
+            if (projectNotes) projectNotes.value = workflowState.notes || '';
 
             // Restore project type selection
             if (workflowState.projectType) {
@@ -5698,10 +5854,13 @@ function resetWorkflow() {
     workflowState = {
         projectType: null,
         projectName: '',
-        projectSize: '',
-        projectFloors: '',
+        projectNumber: '',
         projectState: '',
         projectCity: '',
+        deliveryMethod: '',
+        startDate: '',
+        dueDate: '',
+        notes: '',
         currentPhase: 0,
         completedPhases: [],
         tasks: {}
@@ -5711,16 +5870,22 @@ function resetWorkflow() {
 
     // Reset form
     const projectName = document.getElementById('projectName');
-    const projectSize = document.getElementById('projectSize');
-    const projectFloors = document.getElementById('projectFloors');
+    const projectNumber = document.getElementById('projectNumber');
     const projectState = document.getElementById('projectState');
     const projectCity = document.getElementById('projectCity');
+    const deliveryMethod = document.getElementById('deliveryMethod');
+    const projectStartDate = document.getElementById('projectStartDate');
+    const projectDueDate = document.getElementById('projectDueDate');
+    const projectNotes = document.getElementById('projectNotes');
 
     if (projectName) projectName.value = '';
-    if (projectSize) projectSize.value = '';
-    if (projectFloors) projectFloors.value = '';
+    if (projectNumber) projectNumber.value = '';
     if (projectState) projectState.value = '';
     if (projectCity) projectCity.value = '';
+    if (deliveryMethod) deliveryMethod.value = '';
+    if (projectStartDate) projectStartDate.value = '';
+    if (projectDueDate) projectDueDate.value = '';
+    if (projectNotes) projectNotes.value = '';
 
     // Reset project type buttons
     const projectTypeBtns = document.querySelectorAll('.project-type-btn');
@@ -5735,6 +5900,9 @@ function resetWorkflow() {
     // Reset all checkboxes
     const taskCheckboxes = document.querySelectorAll('.task-checkbox');
     taskCheckboxes.forEach(checkbox => checkbox.checked = false);
+
+    // Reset status bar
+    updateStatusBar();
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5898,6 +6066,234 @@ function exportProjectReport() {
     const reportWindow = window.open('', '_blank');
     reportWindow.document.write(reportHTML);
     reportWindow.document.close();
+}
+
+// Update delivery method information display
+function updateDeliveryMethodInfo(methodKey) {
+    const phasePercentagesDiv = document.getElementById('phasePercentages');
+    const deliveryCharacteristicsDiv = document.getElementById('deliveryCharacteristics');
+
+    if (!methodKey || !deliveryMethodData[methodKey]) {
+        if (phasePercentagesDiv) {
+            phasePercentagesDiv.innerHTML = '<p class="info-placeholder">Select a delivery method to view phase breakdown</p>';
+        }
+        if (deliveryCharacteristicsDiv) {
+            deliveryCharacteristicsDiv.innerHTML = '<p class="info-placeholder">Select a delivery method to view characteristics</p>';
+        }
+        return;
+    }
+
+    const methodData = deliveryMethodData[methodKey];
+
+    // Update phase percentages
+    if (phasePercentagesDiv) {
+        let phasesHTML = '<ul>';
+        for (const [phase, percentage] of Object.entries(methodData.phases)) {
+            phasesHTML += `<li><strong>${phase}:</strong> <span>${percentage}%</span></li>`;
+        }
+        phasesHTML += '</ul>';
+        phasePercentagesDiv.innerHTML = phasesHTML;
+    }
+
+    // Update characteristics
+    if (deliveryCharacteristicsDiv) {
+        let characteristicsHTML = '<ul>';
+        methodData.characteristics.forEach(char => {
+            characteristicsHTML += `<li>${char}</li>`;
+        });
+        characteristicsHTML += '</ul>';
+        deliveryCharacteristicsDiv.innerHTML = characteristicsHTML;
+    }
+}
+
+// Update progress tickmarks based on delivery method
+function updateProgressTickmarks() {
+    const tickmarksDiv = document.getElementById('progressTickmarks');
+    if (!tickmarksDiv) return;
+
+    tickmarksDiv.innerHTML = '';
+
+    if (!workflowState.deliveryMethod || !deliveryMethodData[workflowState.deliveryMethod]) {
+        return;
+    }
+
+    const methodData = deliveryMethodData[workflowState.deliveryMethod];
+    const phases = Object.entries(methodData.phases);
+    let cumulativePercent = 0;
+
+    phases.forEach(([phaseName, percentage], index) => {
+        if (index > 0) { // Skip first tickmark at 0%
+            const tickmark = document.createElement('div');
+            tickmark.className = 'tickmark';
+            tickmark.style.left = cumulativePercent + '%';
+
+            const label = document.createElement('div');
+            label.className = 'tickmark-label';
+            label.textContent = phaseName.replace(/\s*\(.*?\)\s*/g, ''); // Remove abbreviations in parentheses
+            label.style.left = cumulativePercent + '%';
+
+            tickmarksDiv.appendChild(tickmark);
+            tickmarksDiv.appendChild(label);
+        }
+        cumulativePercent += percentage;
+    });
+}
+
+// Update status bar with actual and expected progress
+function updateStatusBar() {
+    // Calculate actual progress based on completed tasks
+    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
+    let totalTasks = taskCheckboxes.length;
+    let completedTasks = 0;
+
+    taskCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            completedTasks++;
+        }
+    });
+
+    const actualProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    // Calculate expected progress based on dates
+    let expectedProgress = 0;
+    let statusText = 'Not Started';
+    let statusClass = 'on-track';
+
+    if (workflowState.startDate && workflowState.dueDate) {
+        const startDate = new Date(workflowState.startDate);
+        const dueDate = new Date(workflowState.dueDate);
+        const today = new Date();
+
+        const totalDuration = dueDate - startDate;
+        const elapsedDuration = today - startDate;
+
+        if (today < startDate) {
+            expectedProgress = 0;
+            statusText = 'Not Started';
+        } else if (today > dueDate) {
+            expectedProgress = 100;
+            statusText = actualProgress >= 100 ? 'Completed' : 'Overdue';
+            statusClass = actualProgress >= 100 ? 'ahead' : 'behind';
+        } else {
+            expectedProgress = Math.round((elapsedDuration / totalDuration) * 100);
+            expectedProgress = Math.max(0, Math.min(100, expectedProgress));
+
+            // Determine status
+            const difference = actualProgress - expectedProgress;
+            if (difference >= 5) {
+                statusText = 'Ahead';
+                statusClass = 'ahead';
+            } else if (difference <= -5) {
+                statusText = 'Behind';
+                statusClass = 'behind';
+            } else {
+                statusText = 'On Track';
+                statusClass = 'on-track';
+            }
+        }
+    }
+
+    // Update UI elements
+    const actualProgressEl = document.getElementById('actualProgress');
+    const expectedProgressEl = document.getElementById('expectedProgress');
+    const projectStatusEl = document.getElementById('projectStatus');
+    const actualProgressBar = document.getElementById('actualProgressBar');
+    const expectedProgressBar = document.getElementById('expectedProgressBar');
+
+    if (actualProgressEl) actualProgressEl.textContent = actualProgress + '%';
+    if (expectedProgressEl) expectedProgressEl.textContent = expectedProgress + '%';
+
+    if (projectStatusEl) {
+        projectStatusEl.textContent = statusText;
+        projectStatusEl.className = 'stat-value stat-status ' + statusClass;
+    }
+
+    if (actualProgressBar) {
+        actualProgressBar.style.width = actualProgress + '%';
+    }
+
+    if (expectedProgressBar) {
+        expectedProgressBar.style.width = expectedProgress + '%';
+    }
+}
+
+// Share project functionality
+function shareProject() {
+    const projectData = {
+        ...workflowState,
+        sharedDate: new Date().toISOString()
+    };
+
+    const jsonString = JSON.stringify(projectData);
+    const base64Data = btoa(jsonString);
+
+    // Create shareable URL (you can modify this to use your actual domain)
+    const shareUrl = window.location.origin + window.location.pathname + '?project=' + base64Data;
+
+    // Try to use Web Share API if available
+    if (navigator.share) {
+        navigator.share({
+            title: 'EngrAssist Project: ' + (workflowState.projectName || 'Untitled Project'),
+            text: 'Check out this engineering workflow project',
+            url: shareUrl
+        }).then(() => {
+            showNotification('Project shared successfully!');
+        }).catch(err => {
+            // Fallback to copying to clipboard
+            copyToClipboard(shareUrl);
+        });
+    } else {
+        // Fallback to copying to clipboard
+        copyToClipboard(shareUrl);
+    }
+}
+
+// Helper function to copy text to clipboard
+function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+        document.execCommand('copy');
+        showNotification('Project link copied to clipboard!');
+    } catch (err) {
+        alert('Unable to copy link. Please copy manually:\n\n' + text);
+    }
+
+    document.body.removeChild(textarea);
+}
+
+// Load shared project from URL on page load
+function loadSharedProject() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectParam = urlParams.get('project');
+
+    if (projectParam) {
+        try {
+            const jsonString = atob(projectParam);
+            const projectData = JSON.parse(jsonString);
+
+            workflowState = { ...workflowState, ...projectData };
+            saveProjectToStorage();
+            loadProjectFromStorage();
+
+            showNotification('Shared project loaded successfully!');
+
+            if (workflowState.deliveryMethod) {
+                updateDeliveryMethodInfo(workflowState.deliveryMethod);
+                updateProgressTickmarks();
+            }
+
+            updateStatusBar();
+        } catch (e) {
+            console.error('Error loading shared project:', e);
+            showNotification('Error loading shared project. The link may be invalid.');
+        }
+    }
 }
 
 function showNotification(message) {
