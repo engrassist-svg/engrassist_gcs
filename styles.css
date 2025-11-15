@@ -4513,6 +4513,15 @@ body {
     font-size: 1.3rem;
 }
 
+.btn-action-warning {
+    border-color: #e67e22;
+}
+
+.btn-action-warning:hover {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-color: #e74c3c;
+}
+
 /* Status Bar Container */
 .status-bar-container {
     background: white;
@@ -4596,27 +4605,19 @@ body {
     margin-bottom: 1rem;
 }
 
-.progress-bar {
+.progress-bar-container {
+    position: relative;
     height: 30px;
     background: #e9ecef;
     border-radius: 15px;
     overflow: hidden;
-    position: relative;
     margin-bottom: 0.5rem;
 }
 
-.progress-bar-expected {
-    opacity: 0.5;
-}
-
-.progress-bar-actual {
+.progress-fill {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-}
-
-.progress-fill {
     height: 100%;
     transition: width 0.5s ease;
     display: flex;
@@ -4629,11 +4630,13 @@ body {
 }
 
 .progress-fill-expected {
-    background: linear-gradient(90deg, #95a5a6, #7f8c8d);
+    background: linear-gradient(90deg, rgba(149, 165, 166, 0.5), rgba(127, 140, 141, 0.5));
+    z-index: 1;
 }
 
 .progress-fill-actual {
     background: linear-gradient(90deg, #3498db, #2980b9);
+    z-index: 2;
 }
 
 /* Progress Tickmarks */
