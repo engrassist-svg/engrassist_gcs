@@ -5134,4 +5134,634 @@ initializeAllFeatures = function() {
     }
     initializeArticleSearch();
     initializeGoogleAnalytics();
+    initializeWorkflowHub();
 };
+
+// ====================================
+// WORKFLOW HUB FUNCTIONALITY
+// ====================================
+
+let workflowState = {
+    projectType: null,
+    projectName: '',
+    projectSize: '',
+    projectFloors: '',
+    projectState: '',
+    projectCity: '',
+    currentPhase: 0,
+    completedPhases: [],
+    tasks: {}
+};
+
+function initializeWorkflowHub() {
+    // Only initialize if we're on the workflow hub page
+    if (!document.querySelector('.workflow-setup')) {
+        return;
+    }
+
+    // Load saved project if exists
+    loadProjectFromStorage();
+
+    // Project Type Selection
+    const projectTypeBtns = document.querySelectorAll('.project-type-btn');
+    projectTypeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            projectTypeBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            workflowState.projectType = this.dataset.type;
+            saveProjectToStorage();
+        });
+    });
+
+    // Form inputs
+    const projectName = document.getElementById('projectName');
+    const projectSize = document.getElementById('projectSize');
+    const projectFloors = document.getElementById('projectFloors');
+    const projectState = document.getElementById('projectState');
+    const projectCity = document.getElementById('projectCity');
+
+    if (projectName) {
+        projectName.addEventListener('change', function() {
+            workflowState.projectName = this.value;
+            saveProjectToStorage();
+        });
+    }
+
+    if (projectSize) {
+        projectSize.addEventListener('change', function() {
+            workflowState.projectSize = this.value;
+            saveProjectToStorage();
+        });
+    }
+
+    if (projectFloors) {
+        projectFloors.addEventListener('change', function() {
+            workflowState.projectFloors = this.value;
+            saveProjectToStorage();
+        });
+    }
+
+    if (projectState) {
+        projectState.addEventListener('change', function() {
+            workflowState.projectState = this.value;
+            saveProjectToStorage();
+            updateProjectDisplay();
+        });
+    }
+
+    if (projectCity) {
+        projectCity.addEventListener('change', function() {
+            workflowState.projectCity = this.value;
+            saveProjectToStorage();
+            updateProjectDisplay();
+        });
+    }
+
+    // Start Workflow Button
+    const startWorkflowBtn = document.getElementById('startWorkflowBtn');
+    if (startWorkflowBtn) {
+        startWorkflowBtn.addEventListener('click', function() {
+            if (!workflowState.projectType) {
+                alert('Please select a project type before starting the workflow.');
+                return;
+            }
+            if (!workflowState.projectName) {
+                alert('Please enter a project name before starting the workflow.');
+                return;
+            }
+            startWorkflow();
+        });
+    }
+
+    // Load Project Button
+    const loadProjectBtn = document.getElementById('loadProjectBtn');
+    if (loadProjectBtn) {
+        loadProjectBtn.addEventListener('click', function() {
+            loadProjectFromStorage();
+            if (workflowState.projectName) {
+                startWorkflow();
+            } else {
+                alert('No saved project found. Please create a new project.');
+            }
+        });
+    }
+
+    // Phase Navigation
+    const prevPhaseBtn = document.getElementById('prevPhaseBtn');
+    const nextPhaseBtn = document.getElementById('nextPhaseBtn');
+
+    if (prevPhaseBtn) {
+        prevPhaseBtn.addEventListener('click', function() {
+            if (workflowState.currentPhase > 0) {
+                workflowState.currentPhase--;
+                updateWorkflowDisplay();
+                saveProjectToStorage();
+            }
+        });
+    }
+
+    if (nextPhaseBtn) {
+        nextPhaseBtn.addEventListener('click', function() {
+            if (workflowState.currentPhase < 4) {
+                workflowState.currentPhase++;
+                updateWorkflowDisplay();
+                saveProjectToStorage();
+            }
+        });
+    }
+
+    // Progress Step Clicks
+    const progressSteps = document.querySelectorAll('.progress-step');
+    progressSteps.forEach((step, index) => {
+        step.addEventListener('click', function() {
+            workflowState.currentPhase = index;
+            updateWorkflowDisplay();
+            saveProjectToStorage();
+        });
+    });
+
+    // Task Checkboxes
+    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
+    taskCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const taskId = this.dataset.task;
+            workflowState.tasks[taskId] = this.checked;
+            saveProjectToStorage();
+            updatePhaseCompletion();
+        });
+    });
+
+    // Edit Project Button
+    const editProjectBtn = document.getElementById('editProjectBtn');
+    if (editProjectBtn) {
+        editProjectBtn.addEventListener('click', function() {
+            const workflowSection = document.getElementById('workflowSection');
+            if (workflowSection) {
+                workflowSection.style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Save Progress Button
+    const saveProgressBtn = document.getElementById('saveProgressBtn');
+    if (saveProgressBtn) {
+        saveProgressBtn.addEventListener('click', function() {
+            saveProjectToStorage();
+            showNotification('Progress saved successfully!');
+        });
+    }
+
+    // Export Report Button
+    const exportReportBtn = document.getElementById('exportReportBtn');
+    if (exportReportBtn) {
+        exportReportBtn.addEventListener('click', exportProjectReport);
+    }
+
+    // Reset Workflow Button
+    const resetWorkflowBtn = document.getElementById('resetWorkflowBtn');
+    if (resetWorkflowBtn) {
+        resetWorkflowBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to start a new project? This will clear all current progress.')) {
+                resetWorkflow();
+            }
+        });
+    }
+}
+
+function startWorkflow() {
+    const workflowSection = document.getElementById('workflowSection');
+    if (workflowSection) {
+        workflowSection.style.display = 'block';
+        updateProjectDisplay();
+        updateWorkflowDisplay();
+
+        // Scroll to workflow section
+        workflowSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function updateProjectDisplay() {
+    const displayProjectName = document.getElementById('displayProjectName');
+    const displayProjectType = document.getElementById('displayProjectType');
+    const displayProjectLocation = document.getElementById('displayProjectLocation');
+
+    if (displayProjectName) {
+        displayProjectName.textContent = workflowState.projectName || '—';
+    }
+
+    if (displayProjectType) {
+        const typeMap = {
+            'residential': 'Residential',
+            'commercial': 'Commercial',
+            'industrial': 'Industrial',
+            'healthcare': 'Healthcare',
+            'education': 'Educational',
+            'hospitality': 'Hospitality',
+            'laboratory': 'Laboratory',
+            'data-center': 'Data Center'
+        };
+        displayProjectType.textContent = typeMap[workflowState.projectType] || '—';
+    }
+
+    if (displayProjectLocation) {
+        let location = '';
+        if (workflowState.projectCity) {
+            location = workflowState.projectCity;
+        }
+        if (workflowState.projectState) {
+            location += (location ? ', ' : '') + workflowState.projectState;
+        }
+        displayProjectLocation.textContent = location || '—';
+    }
+}
+
+function updateWorkflowDisplay() {
+    const phases = ['programming', 'schematic', 'design-dev', 'construction-docs', 'construction-admin'];
+
+    // Update progress steps
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const progressLines = document.querySelectorAll('.progress-line');
+
+    progressSteps.forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index < workflowState.currentPhase) {
+            step.classList.add('completed');
+        } else if (index === workflowState.currentPhase) {
+            step.classList.add('active');
+        }
+    });
+
+    progressLines.forEach((line, index) => {
+        line.classList.remove('completed');
+        if (index < workflowState.currentPhase) {
+            line.classList.add('completed');
+        }
+    });
+
+    // Update phase panels
+    const phasePanels = document.querySelectorAll('.phase-panel');
+    phasePanels.forEach((panel, index) => {
+        panel.classList.remove('active');
+        if (index === workflowState.currentPhase) {
+            panel.classList.add('active');
+        }
+    });
+
+    // Update navigation buttons
+    const prevPhaseBtn = document.getElementById('prevPhaseBtn');
+    const nextPhaseBtn = document.getElementById('nextPhaseBtn');
+
+    if (prevPhaseBtn) {
+        prevPhaseBtn.disabled = workflowState.currentPhase === 0;
+    }
+
+    if (nextPhaseBtn) {
+        nextPhaseBtn.disabled = workflowState.currentPhase === 4;
+    }
+
+    // Load task states
+    loadTaskStates();
+}
+
+function loadTaskStates() {
+    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
+    taskCheckboxes.forEach(checkbox => {
+        const taskId = checkbox.dataset.task;
+        if (workflowState.tasks[taskId]) {
+            checkbox.checked = true;
+        }
+    });
+}
+
+function updatePhaseCompletion() {
+    const phases = ['programming', 'schematic', 'design-dev', 'construction-docs', 'construction-admin'];
+    const phasePrefixes = ['prog', 'schem', 'dd', 'cd', 'ca'];
+
+    phasePrefixes.forEach((prefix, phaseIndex) => {
+        const phaseTasks = document.querySelectorAll(`[data-task^="${prefix}-"]`);
+        let allComplete = true;
+
+        phaseTasks.forEach(task => {
+            if (!task.checked) {
+                allComplete = false;
+            }
+        });
+
+        if (allComplete && phaseTasks.length > 0) {
+            if (!workflowState.completedPhases.includes(phaseIndex)) {
+                workflowState.completedPhases.push(phaseIndex);
+                saveProjectToStorage();
+            }
+        } else {
+            const index = workflowState.completedPhases.indexOf(phaseIndex);
+            if (index > -1) {
+                workflowState.completedPhases.splice(index, 1);
+                saveProjectToStorage();
+            }
+        }
+    });
+}
+
+function saveProjectToStorage() {
+    try {
+        localStorage.setItem('workflowProject', JSON.stringify(workflowState));
+    } catch (e) {
+        console.error('Error saving project to localStorage:', e);
+    }
+}
+
+function loadProjectFromStorage() {
+    try {
+        const saved = localStorage.getItem('workflowProject');
+        if (saved) {
+            const loadedState = JSON.parse(saved);
+            workflowState = { ...workflowState, ...loadedState };
+
+            // Restore form values
+            const projectName = document.getElementById('projectName');
+            const projectSize = document.getElementById('projectSize');
+            const projectFloors = document.getElementById('projectFloors');
+            const projectState = document.getElementById('projectState');
+            const projectCity = document.getElementById('projectCity');
+
+            if (projectName) projectName.value = workflowState.projectName || '';
+            if (projectSize) projectSize.value = workflowState.projectSize || '';
+            if (projectFloors) projectFloors.value = workflowState.projectFloors || '';
+            if (projectState) projectState.value = workflowState.projectState || '';
+            if (projectCity) projectCity.value = workflowState.projectCity || '';
+
+            // Restore project type selection
+            if (workflowState.projectType) {
+                const projectTypeBtns = document.querySelectorAll('.project-type-btn');
+                projectTypeBtns.forEach(btn => {
+                    if (btn.dataset.type === workflowState.projectType) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        }
+    } catch (e) {
+        console.error('Error loading project from localStorage:', e);
+    }
+}
+
+function resetWorkflow() {
+    workflowState = {
+        projectType: null,
+        projectName: '',
+        projectSize: '',
+        projectFloors: '',
+        projectState: '',
+        projectCity: '',
+        currentPhase: 0,
+        completedPhases: [],
+        tasks: {}
+    };
+
+    localStorage.removeItem('workflowProject');
+
+    // Reset form
+    const projectName = document.getElementById('projectName');
+    const projectSize = document.getElementById('projectSize');
+    const projectFloors = document.getElementById('projectFloors');
+    const projectState = document.getElementById('projectState');
+    const projectCity = document.getElementById('projectCity');
+
+    if (projectName) projectName.value = '';
+    if (projectSize) projectSize.value = '';
+    if (projectFloors) projectFloors.value = '';
+    if (projectState) projectState.value = '';
+    if (projectCity) projectCity.value = '';
+
+    // Reset project type buttons
+    const projectTypeBtns = document.querySelectorAll('.project-type-btn');
+    projectTypeBtns.forEach(btn => btn.classList.remove('active'));
+
+    // Hide workflow section
+    const workflowSection = document.getElementById('workflowSection');
+    if (workflowSection) {
+        workflowSection.style.display = 'none';
+    }
+
+    // Reset all checkboxes
+    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
+    taskCheckboxes.forEach(checkbox => checkbox.checked = false);
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    showNotification('Project reset successfully. Start a new project!');
+}
+
+function exportProjectReport() {
+    const phases = [
+        { name: 'Programming', prefix: 'prog', count: 5 },
+        { name: 'Schematic Design', prefix: 'schem', count: 6 },
+        { name: 'Design Development', prefix: 'dd', count: 7 },
+        { name: 'Construction Documents', prefix: 'cd', count: 7 },
+        { name: 'Construction Administration', prefix: 'ca', count: 8 }
+    ];
+
+    let reportHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Workflow Report - ${workflowState.projectName}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        h1 {
+            color: #1e3c72;
+            border-bottom: 3px solid #f39c12;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        .project-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .project-info p {
+            margin: 5px 0;
+        }
+        .phase-section {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            background: #f8f9fa;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        .task-list li {
+            padding: 5px 0;
+        }
+        .completed {
+            color: #27ae60;
+        }
+        .incomplete {
+            color: #e74c3c;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #229954);
+            text-align: center;
+            color: white;
+            line-height: 30px;
+            font-weight: bold;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🏗️ Engineering Workflow Report</h1>
+
+    <div class="project-info">
+        <h2>Project Information</h2>
+        <p><strong>Project Name:</strong> ${workflowState.projectName || 'N/A'}</p>
+        <p><strong>Project Type:</strong> ${workflowState.projectType || 'N/A'}</p>
+        <p><strong>Location:</strong> ${workflowState.projectCity || ''} ${workflowState.projectState || ''}</p>
+        <p><strong>Building Area:</strong> ${workflowState.projectSize ? workflowState.projectSize + ' sq ft' : 'N/A'}</p>
+        <p><strong>Number of Floors:</strong> ${workflowState.projectFloors || 'N/A'}</p>
+        <p><strong>Report Generated:</strong> ${new Date().toLocaleDateString()}</p>
+    </div>
+`;
+
+    let totalTasks = 0;
+    let completedTasks = 0;
+
+    phases.forEach((phase, index) => {
+        let phaseHTML = `
+    <div class="phase-section">
+        <h2>Phase ${index + 1}: ${phase.name}</h2>
+        <ul class="task-list">
+`;
+
+        for (let i = 1; i <= phase.count; i++) {
+            const taskId = `${phase.prefix}-${i}`;
+            const isComplete = workflowState.tasks[taskId] || false;
+            totalTasks++;
+            if (isComplete) completedTasks++;
+
+            const checkbox = document.querySelector(`[data-task="${taskId}"]`);
+            const taskText = checkbox ? checkbox.parentElement.querySelector('span').textContent : `Task ${i}`;
+
+            phaseHTML += `
+            <li class="${isComplete ? 'completed' : 'incomplete'}">
+                ${isComplete ? '✓' : '○'} ${taskText}
+            </li>
+`;
+        }
+
+        phaseHTML += `
+        </ul>
+    </div>
+`;
+        reportHTML += phaseHTML;
+    });
+
+    const completionPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    reportHTML = reportHTML.replace('</div>', `
+        <p><strong>Overall Progress:</strong></p>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: ${completionPercentage}%">${completionPercentage}%</div>
+        </div>
+    </div>
+`);
+
+    reportHTML += `
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Print Report</button>
+    </div>
+
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center; color: #999;">
+        <p><small>Generated by EngrAssist Workflow Hub</small></p>
+    </div>
+</body>
+</html>
+`;
+
+    // Open in new window
+    const reportWindow = window.open('', '_blank');
+    reportWindow.document.write(reportHTML);
+    reportWindow.document.close();
+}
+
+function showNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #27ae60, #229954);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Add CSS animations for notifications
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
