@@ -5329,109 +5329,438 @@ function calculateVAVBox() {
 // WORKFLOW HUB FUNCTIONALITY
 // ====================================
 
-// Building Code Database by State
+// Building Code Database by State - Based on ICC Code Adoption Chart (January 2024)
 const stateCodesDatabase = {
+    'AL': {
+        name: 'Alabama',
+        codes: {
+            IBC: '2021', IRC: '2015', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2015', 'IECC-C': '2015',
+            IPMC: null, IEBC: '2021', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'AK': {
+        name: 'Alaska',
+        codes: {
+            IBC: '2021', IRC: 'Local', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: null, IgCC: null, 'IECC-R': '2021', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: '2021', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'AZ': {
+        name: 'Arizona',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: '2018', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: 'Local', 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: 'Local', IWUIC: 'Local', IZC: 'Local', ICC700: 'Local'
+        }
+    },
+    'AR': {
+        name: 'Arkansas',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2018',
+            IPSDC: null, IFGC: '2018', IgCC: null, 'IECC-R': '2009', 'IECC-C': '2009',
+            IPMC: null, IEBC: null, ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
     'CA': {
         name: 'California',
-        buildingCode: { name: 'California Building Code (CBC)', edition: '2022', base: 'IBC 2021' },
-        energyCode: { name: 'California Energy Code (Title 24, Part 6)', edition: '2022' },
-        mechanicalCode: { name: 'California Mechanical Code (CMC)', edition: '2022', base: 'IMC 2021' },
-        plumbingCode: { name: 'California Plumbing Code (CPC)', edition: '2022', base: 'UPC 2021' },
-        electricalCode: { name: 'California Electrical Code (CEC)', edition: '2022', base: 'NEC 2020' },
-        fireCode: { name: 'California Fire Code (CFC)', edition: '2022', base: 'IFC 2021' },
-        greenCode: { name: 'CALGreen (Title 24, Part 11)', edition: '2022' }
+        codes: {
+            IBC: '2021 (CBC)', IRC: '2021 (CRC)', IFC: '2021 (CFC)', IMC: null,
+            IPC: null, IPSDC: null, IFGC: null, IgCC: null,
+            'IECC-R': 'Title 24 Part 6', 'IECC-C': 'Title 24 Part 6',
+            IPMC: 'Local', IEBC: '2021', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
     },
-    'TX': {
-        name: 'Texas',
-        buildingCode: { name: 'International Building Code (IBC)', edition: '2021' },
-        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2021' },
-        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2021' },
-        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2021' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
-        fireCode: { name: 'International Fire Code (IFC)', edition: '2021' }
+    'CO': {
+        name: 'Colorado',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: 'Local', IMC: 'Local', IPC: '2021',
+            IPSDC: 'Local', IFGC: '2021', IgCC: 'Local', 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: 'Local', IWUIC: 'Local', IZC: 'Local', ICC700: 'Local'
+        }
+    },
+    'CT': {
+        name: 'Connecticut',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: null, IEBC: null, ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'DE': {
+        name: 'Delaware',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: '2021', IMC: '2021', IPC: 'Local',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2018', 'IECC-C': 'ASHRAE 90.1-2016',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'DC': {
+        name: 'District of Columbia',
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: '2015', IMC: '2015', IPC: '2015',
+            IPSDC: null, IFGC: '2015', IgCC: '2012', 'IECC-R': '2015', 'IECC-C': '2015',
+            IPMC: '2015', IEBC: '2015', ISPSC: '2015', ICCPC: null, IWUIC: null, IZC: null
+        }
     },
     'FL': {
         name: 'Florida',
-        buildingCode: { name: 'Florida Building Code (FBC)', edition: '2023', base: 'IBC 2021' },
-        energyCode: { name: 'Florida Building Code - Energy Conservation', edition: '2023' },
-        mechanicalCode: { name: 'Florida Building Code - Mechanical', edition: '2023', base: 'IMC 2021' },
-        plumbingCode: { name: 'Florida Building Code - Plumbing', edition: '2023', base: 'IPC 2021' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
-        fireCode: { name: 'Florida Fire Prevention Code', edition: '2023', base: 'IFC 2021' }
-    },
-    'NY': {
-        name: 'New York',
-        buildingCode: { name: 'NYS Uniform Fire Prevention and Building Code', edition: '2020', base: 'IBC 2018' },
-        energyCode: { name: 'NYS Energy Conservation Construction Code', edition: '2020' },
-        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2018' },
-        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2018' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
-        fireCode: { name: 'New York State Fire Code', edition: '2020', base: 'IFC 2018' }
-    },
-    'IL': {
-        name: 'Illinois',
-        buildingCode: { name: 'International Building Code (IBC)', edition: '2021' },
-        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2021' },
-        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2021' },
-        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2021' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
-        fireCode: { name: 'International Fire Code (IFC)', edition: '2021' }
-    },
-    'PA': {
-        name: 'Pennsylvania',
-        buildingCode: { name: 'Uniform Construction Code (UCC)', edition: '2018', base: 'IBC 2018' },
-        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2018' },
-        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2018' },
-        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2018' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
-        fireCode: { name: 'International Fire Code (IFC)', edition: '2018' }
-    },
-    'OH': {
-        name: 'Ohio',
-        buildingCode: { name: 'Ohio Building Code (OBC)', edition: '2022', base: 'IBC 2021' },
-        energyCode: { name: 'Ohio Energy Conservation Code', edition: '2022' },
-        mechanicalCode: { name: 'Ohio Mechanical Code', edition: '2022', base: 'IMC 2021' },
-        plumbingCode: { name: 'Ohio Plumbing Code', edition: '2022', base: 'IPC 2021' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
-        fireCode: { name: 'Ohio Fire Code', edition: '2022', base: 'IFC 2021' }
+        codes: {
+            IBC: '2021 (FBC)', IRC: '2021 (FBC-R)', IFC: '2021', IMC: '2021', IPC: 'Local',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: 'Local', IEBC: '2021', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
     },
     'GA': {
         name: 'Georgia',
-        buildingCode: { name: 'International Building Code (IBC)', edition: '2018' },
-        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2018' },
-        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2018' },
-        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2018' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
-        fireCode: { name: 'International Fire Code (IFC)', edition: '2018' }
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: null, IFGC: '2018', IgCC: null, 'IECC-R': '2015', 'IECC-C': '2015',
+            IPMC: '2018', IEBC: '2018', ISPSC: '2018', ICCPC: null, IWUIC: null, IZC: null
+        }
     },
-    'NC': {
-        name: 'North Carolina',
-        buildingCode: { name: 'North Carolina State Building Code', edition: '2018', base: 'IBC 2018' },
-        energyCode: { name: 'NC Energy Conservation Code', edition: '2018' },
-        mechanicalCode: { name: 'NC Mechanical Code', edition: '2018', base: 'IMC 2018' },
-        plumbingCode: { name: 'NC Plumbing Code', edition: '2018', base: 'IPC 2018' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
-        fireCode: { name: 'NC Fire Prevention Code', edition: '2018', base: 'IFC 2018' }
+    'HI': {
+        name: 'Hawaii',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: 'Local*', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: null, IgCC: null, 'IECC-R': '2018', 'IECC-C': '2021',
+            IPMC: null, IEBC: '2018', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'ID': {
+        name: 'Idaho',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: 'Local', IFGC: '2018', IgCC: null, 'IECC-R': '2018', 'IECC-C': 'Local',
+            IPMC: '2018', IEBC: '2015*', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'IL': {
+        name: 'Illinois',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: 'Local', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: 'Local', 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: 'Local', IWUIC: 'Local', IZC: 'Local', ICC700: 'Local'
+        }
+    },
+    'IN': {
+        name: 'Indiana',
+        codes: {
+            IBC: '2012', IRC: '2018', IFC: '2012', IMC: '2012', IPC: '2006',
+            IPSDC: null, IFGC: '2012', IgCC: null, 'IECC-R': '2018', 'IECC-C': 'ASHRAE 90.1-2007 min',
+            IPMC: null, IEBC: null, ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'IA': {
+        name: 'Iowa',
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: '2015', IMC: '2021', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: null, 'IECC-R': '2012', 'IECC-C': '2012',
+            IPMC: 'Local', IEBC: '2015', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: 'Local'
+        }
+    },
+    'KS': {
+        name: 'Kansas',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: 'Local', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: 'Local', 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'KY': {
+        name: 'Kentucky',
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: '2012', IMC: '2015', IPC: '2009',
+            IPSDC: null, IFGC: '2012', IgCC: null, 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: null, IEBC: '2015', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'LA': {
+        name: 'Louisiana',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: 'Local', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: 'Local', IEBC: '2021', ISPSC: '2021', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'ME': {
+        name: 'Maine',
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: '2015', IMC: '2015 (2021)', IPC: '2015 (2021)',
+            IPSDC: 'Local', IFGC: '2015', IgCC: null, 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: null, IEBC: null, ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'MD': {
+        name: 'Maryland',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: 'Local',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: 'Local', IEBC: '2021', ISPSC: '2021', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'MA': {
+        name: 'Massachusetts',
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: 'Local', IMC: '2015', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2015 (2021)', 'IECC-C': '2015 (2021)',
+            IPMC: 'Local', IEBC: '2015', ISPSC: '2015', ICCPC: null, IWUIC: null, IZC: null
+        }
     },
     'MI': {
         name: 'Michigan',
-        buildingCode: { name: 'Michigan Building Code', edition: '2015', base: 'IBC 2015' },
-        energyCode: { name: 'Michigan Energy Code', edition: '2015' },
-        mechanicalCode: { name: 'Michigan Mechanical Code', edition: '2015', base: 'IMC 2015' },
-        plumbingCode: { name: 'Michigan Plumbing Code', edition: '2015', base: 'IPC 2015' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
-        fireCode: { name: 'International Fire Code (IFC)', edition: '2015' }
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: 'Local', IMC: '2015', IPC: '2015',
+            IPSDC: 'Local', IFGC: '2015', IgCC: null, 'IECC-R': '2015', 'IECC-C': 'Local',
+            IPMC: '2015', IEBC: '2015', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: '2012'
+        }
     },
-    // Default for states not specifically listed
-    'DEFAULT': {
-        name: 'Default',
-        buildingCode: { name: 'International Building Code (IBC)', edition: '2021' },
-        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2021' },
-        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2021' },
-        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2021' },
-        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
-        fireCode: { name: 'International Fire Code (IFC)', edition: '2021' }
+    'MN': {
+        name: 'Minnesota',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: 'Local', IFGC: '2018', IgCC: 'Local', 'IECC-R': '2012', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: '2018', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'MS': {
+        name: 'Mississippi',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: 'Local', IFGC: '2018', IgCC: null, 'IECC-R': '2018 & ASHRAE 90.1-2010', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: '2018', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'MO': {
+        name: 'Missouri',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: 'Local', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: 'Local', 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: 'Local', IWUIC: 'Local', IZC: 'Local'
+        }
+    },
+    'MT': {
+        name: 'Montana',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: '2021', 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: '2021', IEBC: '2021', ISPSC: '2021', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'NE': {
+        name: 'Nebraska',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: 'Local', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: null, 'IECC-R': '2018', 'IECC-C': '2018',
+            IPMC: 'Local', IEBC: '2018', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'NV': {
+        name: 'Nevada',
+        codes: {
+            IBC: 'Local', IRC: 'Local', IFC: 'Local', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: null, 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: 'Local', IWUIC: null, IZC: null
+        }
+    },
+    'NH': {
+        name: 'New Hampshire',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: 'Local',
+            IPSDC: null, IFGC: '2018', IgCC: null, 'IECC-R': '2018', 'IECC-C': 'Local',
+            IPMC: '2018', IEBC: '2018', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'NJ': {
+        name: 'New Jersey',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2015 (IBC)', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': 'ASHRAE 90.1-2019',
+            IPMC: 'Local', IEBC: '2021', ISPSC: '2021', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'NM': {
+        name: 'New Mexico',
+        codes: {
+            IBC: '2015', IRC: '2015', IFC: '2015', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: null, 'IECC-R': '2018', 'IECC-C': '2018',
+            IPMC: 'Local', IEBC: '2015', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'NY': {
+        name: 'New York',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: null, IFGC: '2018', IgCC: null, 'IECC-R': '2018', 'IECC-C': '2018',
+            IPMC: '2018', IEBC: '2018', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'NC': {
+        name: 'North Carolina',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: null, IEBC: '2021', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'ND': {
+        name: 'North Dakota',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'OH': {
+        name: 'Ohio',
+        codes: {
+            IBC: '2015', IRC: '2018', IFC: '2015', IMC: '2015', IPC: '2015',
+            IPSDC: null, IFGC: '2015', IgCC: null, 'IECC-R': '2018', 'IECC-C': '2012',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'OK': {
+        name: 'Oklahoma',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: 'Local', IFGC: '2018', IgCC: null, 'IECC-R': '2009', 'IECC-C': '2006',
+            IPMC: 'Local', IEBC: '2018', ISPSC: 'Local', ICCPC: null, IWUIC: 'Local', IZC: null
+        }
+    },
+    'OR': {
+        name: 'Oregon',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2021', 'IECC-C': 'ASHRAE 90.1-2010',
+            IPMC: 'Local', IEBC: 'Local*', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'PA': {
+        name: 'Pennsylvania',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: null, IFGC: '2018', IgCC: null, 'IECC-R': '2018', 'IECC-C': '2018',
+            IPMC: 'Local', IEBC: '2018', ISPSC: '2018', ICCPC: '2018', IWUIC: '2018', IZC: null
+        }
+    },
+    'RI': {
+        name: 'Rhode Island',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: null, IFGC: '2018', IgCC: '2012', 'IECC-R': '2018', 'IECC-C': '2018',
+            IPMC: '2018', IEBC: '2018', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'SC': {
+        name: 'South Carolina',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: null, 'IECC-R': '2009', 'IECC-C': '2009',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'SD': {
+        name: 'South Dakota',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2015', IMC: '2015', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: null, 'IECC-R': '2021', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: 'Local', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'TN': {
+        name: 'Tennessee',
+        codes: {
+            IBC: '2012', IRC: '2018', IFC: '2012', IMC: '2012', IPC: '2012',
+            IPSDC: null, IFGC: '2012', IgCC: 'Local', 'IECC-R': '2009', 'IECC-C': '2012',
+            IPMC: '2012', IEBC: '2012', ISPSC: 'Local', ICCPC: null, IWUIC: 'Local', IZC: null
+        }
+    },
+    'TX': {
+        name: 'Texas',
+        codes: {
+            IBC: '2012', IRC: '2012', IFC: 'Local', IMC: 'Local', IPC: 'Local',
+            IPSDC: 'Local', IFGC: 'Local', IgCC: 'Local', 'IECC-R': '2015', 'IECC-C': '2015',
+            IPMC: 'Local', IEBC: 'Local', ISPSC: '2018', ICCPC: 'Local', IWUIC: 'Local', IZC: 'Local'
+        }
+    },
+    'UT': {
+        name: 'Utah',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: '2015', 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: '2021', IEBC: 'Local', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'VT': {
+        name: 'Vermont',
+        codes: {
+            IBC: '2015', IRC: 'Local', IFC: '2021', IMC: '2018', IPC: '2018',
+            IPSDC: null, IFGC: '2015', IgCC: null, 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: null, IEBC: 'Local', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'VA': {
+        name: 'Virginia',
+        codes: {
+            IBC: '2021', IRC: '2021', IFC: '2021', IMC: '2021', IPC: '2021',
+            IPSDC: null, IFGC: '2021', IgCC: 'Local', 'IECC-R': '2021', 'IECC-C': '2021',
+            IPMC: '2021', IEBC: '2021', ISPSC: '2021', ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'WA': {
+        name: 'Washington',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: 'Local',
+            IPSDC: null, IFGC: '2018', IgCC: 'Local', 'IECC-R': '2018', 'IECC-C': '2018',
+            IPMC: 'Local', IEBC: '2018', ISPSC: '2018', ICCPC: 'Local', IWUIC: '2018', IZC: null
+        }
+    },
+    'WV': {
+        name: 'West Virginia',
+        codes: {
+            IBC: '2018', IRC: '2018', IFC: '2018', IMC: '2018', IPC: '2018',
+            IPSDC: null, IFGC: '2018', IgCC: '2015', 'IECC-R': 'ASHRAE 90.1-2013', 'IECC-C': '2018',
+            IPMC: '2018', IEBC: '2018', ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'WI': {
+        name: 'Wisconsin',
+        codes: {
+            IBC: '2015', IRC: 'Local', IFC: '2015', IMC: '2015', IPC: '2009',
+            IPSDC: null, IFGC: '2015', IgCC: null, 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: null, IEBC: null, ISPSC: null, ICCPC: null, IWUIC: null, IZC: null
+        }
+    },
+    'WY': {
+        name: 'Wyoming',
+        codes: {
+            IBC: '2021', IRC: 'Local', IFC: '2021', IMC: '2021', IPC: 'Local',
+            IPSDC: 'Local', IFGC: '2021', IgCC: 'Local', 'IECC-R': 'Local', 'IECC-C': 'Local',
+            IPMC: 'Local', IEBC: '2021', ISPSC: 'Local', ICCPC: 'Local', IWUIC: 'Local', IZC: 'Local'
+        }
     }
+};
+
+// Code name mappings for display
+const codeNames = {
+    IBC: 'International Building Code',
+    IRC: 'International Residential Code',
+    IFC: 'International Fire Code',
+    IMC: 'International Mechanical Code',
+    IPC: 'International Plumbing Code',
+    IPSDC: 'International Private Sewage Disposal Code',
+    IFGC: 'International Fuel Gas Code',
+    IgCC: 'International Green Construction Code',
+    'IECC-R': 'Int. Energy Conservation Code - Residential',
+    'IECC-C': 'Int. Energy Conservation Code - Commercial',
+    IPMC: 'International Property Maintenance Code',
+    IEBC: 'International Existing Building Code',
+    ISPSC: 'International Swimming Pool and Spa Code',
+    ICCPC: 'ICC Performance Code',
+    IWUIC: 'Int. Wildland-Urban Interface Code',
+    IZC: 'International Zoning Code',
+    ICC700: 'National Green Building Standard'
 };
 
 // Project Type Code Requirements
@@ -5595,7 +5924,6 @@ let workflowState = {
     projectName: '',
     projectNumber: '',
     projectState: '',
-    projectCity: '',
     deliveryMethod: '',
     startDate: '',
     dueDate: '',
@@ -5630,7 +5958,6 @@ function initializeWorkflowHub() {
     const projectName = document.getElementById('projectName');
     const projectNumber = document.getElementById('projectNumber');
     const projectState = document.getElementById('projectState');
-    const projectCity = document.getElementById('projectCity');
     const deliveryMethod = document.getElementById('deliveryMethod');
     const projectStartDate = document.getElementById('projectStartDate');
     const projectDueDate = document.getElementById('projectDueDate');
@@ -5659,13 +5986,6 @@ function initializeWorkflowHub() {
         });
     }
 
-    if (projectCity) {
-        projectCity.addEventListener('change', function() {
-            workflowState.projectCity = this.value;
-            saveProjectToStorage();
-            updateProjectDisplay();
-        });
-    }
 
     if (deliveryMethod) {
         deliveryMethod.addEventListener('change', function() {
@@ -5868,14 +6188,8 @@ function updateProjectDisplay() {
     }
 
     if (displayProjectLocation) {
-        let location = '';
-        if (workflowState.projectCity) {
-            location = workflowState.projectCity;
-        }
-        if (workflowState.projectState) {
-            location += (location ? ', ' : '') + workflowState.projectState;
-        }
-        displayProjectLocation.textContent = location || '—';
+        let location = workflowState.projectState || '—';
+        displayProjectLocation.textContent = location;
     }
 }
 
@@ -5985,7 +6299,6 @@ function loadProjectFromStorage() {
             const projectName = document.getElementById('projectName');
             const projectNumber = document.getElementById('projectNumber');
             const projectState = document.getElementById('projectState');
-            const projectCity = document.getElementById('projectCity');
             const deliveryMethod = document.getElementById('deliveryMethod');
             const projectStartDate = document.getElementById('projectStartDate');
             const projectDueDate = document.getElementById('projectDueDate');
@@ -5994,7 +6307,6 @@ function loadProjectFromStorage() {
             if (projectName) projectName.value = workflowState.projectName || '';
             if (projectNumber) projectNumber.value = workflowState.projectNumber || '';
             if (projectState) projectState.value = workflowState.projectState || '';
-            if (projectCity) projectCity.value = workflowState.projectCity || '';
             if (deliveryMethod) deliveryMethod.value = workflowState.deliveryMethod || '';
             if (projectStartDate) projectStartDate.value = workflowState.startDate || '';
             if (projectDueDate) projectDueDate.value = workflowState.dueDate || '';
@@ -6021,7 +6333,6 @@ function resetWorkflow() {
         projectName: '',
         projectNumber: '',
         projectState: '',
-        projectCity: '',
         deliveryMethod: '',
         startDate: '',
         dueDate: '',
@@ -6037,7 +6348,6 @@ function resetWorkflow() {
     const projectName = document.getElementById('projectName');
     const projectNumber = document.getElementById('projectNumber');
     const projectState = document.getElementById('projectState');
-    const projectCity = document.getElementById('projectCity');
     const deliveryMethod = document.getElementById('deliveryMethod');
     const projectStartDate = document.getElementById('projectStartDate');
     const projectDueDate = document.getElementById('projectDueDate');
@@ -6046,7 +6356,6 @@ function resetWorkflow() {
     if (projectName) projectName.value = '';
     if (projectNumber) projectNumber.value = '';
     if (projectState) projectState.value = '';
-    if (projectCity) projectCity.value = '';
     if (deliveryMethod) deliveryMethod.value = '';
     if (projectStartDate) projectStartDate.value = '';
     if (projectDueDate) projectDueDate.value = '';
@@ -6165,7 +6474,7 @@ function exportProjectReport() {
         <h2>Project Information</h2>
         <p><strong>Project Name:</strong> ${workflowState.projectName || 'N/A'}</p>
         <p><strong>Project Type:</strong> ${workflowState.projectType || 'N/A'}</p>
-        <p><strong>Location:</strong> ${workflowState.projectCity || ''} ${workflowState.projectState || ''}</p>
+        <p><strong>Location:</strong> ${workflowState.projectState || 'N/A'}</p>
         <p><strong>Building Area:</strong> ${workflowState.projectSize ? workflowState.projectSize + ' sq ft' : 'N/A'}</p>
         <p><strong>Number of Floors:</strong> ${workflowState.projectFloors || 'N/A'}</p>
         <p><strong>Report Generated:</strong> ${new Date().toLocaleDateString()}</p>
@@ -6310,57 +6619,83 @@ function updateApplicableCodes() {
     if (!container) return;
 
     const state = workflowState.projectState;
-    const projectType = workflowState.projectType;
 
-    // If no state or project type selected, show placeholder
-    if (!state || !projectType) {
-        container.innerHTML = '<p class="info-placeholder">Select state and project type to view applicable codes</p>';
+    // If no state selected, show placeholder
+    if (!state) {
+        container.innerHTML = '<p class="info-placeholder">Select state to view applicable codes</p>';
         return;
     }
 
-    // Get the state codes (use DEFAULT if state not in database)
-    const stateCodes = stateCodesDatabase[state] || stateCodesDatabase['DEFAULT'];
-    const projectTypeReq = projectTypeCodeRequirements[projectType];
+    // Get the state codes from ICC database
+    const stateData = stateCodesDatabase[state];
 
-    if (!projectTypeReq) {
-        container.innerHTML = '<p class="info-placeholder">Project type not recognized</p>';
+    if (!stateData) {
+        container.innerHTML = '<p class="info-placeholder">State code data not available</p>';
         return;
     }
 
     // Build the codes display
     let htmlContent = '<div class="applicable-codes-list">';
+    htmlContent += `<div class="code-category"><h5>📋 Adopted Codes for ${stateData.name}:</h5>`;
+    htmlContent += '<p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Source: ICC Code Adoption Chart (January 2024)</p>';
+    htmlContent += '<ul class="code-list">';
 
-    // Add applicable building codes
-    htmlContent += '<div class="code-category"><h5>📋 Building & Safety Codes:</h5><ul class="code-list">';
+    // Iterate through all codes and display adopted ones
+    const codes = stateData.codes;
+    let hasAdoptedCodes = false;
 
-    projectTypeReq.requiredCodes.forEach(codeKey => {
-        const code = stateCodes[codeKey];
-        if (code) {
-            htmlContent += `<li class="code-item">
-                <strong>${code.name}</strong> - ${code.edition}
-                ${code.base ? `<span class="code-base">(Based on ${code.base})</span>` : ''}
-            </li>`;
+    Object.keys(codes).forEach(codeKey => {
+        const edition = codes[codeKey];
+
+        // Only show codes that are adopted (not null)
+        if (edition !== null) {
+            hasAdoptedCodes = true;
+            const codeName = codeNames[codeKey] || codeKey;
+
+            // Format the display
+            let displayText = '';
+            if (edition === 'Local') {
+                displayText = `<li class="code-item">
+                    <strong>${codeName}</strong> - <span style="color: #0066cc;">Local Adoption</span>
+                    <span class="code-base">(Varies by jurisdiction)</span>
+                </li>`;
+            } else {
+                displayText = `<li class="code-item">
+                    <strong>${codeName}</strong> - ${edition}
+                </li>`;
+            }
+
+            htmlContent += displayText;
         }
     });
 
-    htmlContent += '</ul></div>';
-
-    // Add ASHRAE standards
-    if (projectTypeReq.ashraeStandards && projectTypeReq.ashraeStandards.length > 0) {
-        htmlContent += '<div class="code-category"><h5>❄️ ASHRAE Standards:</h5><ul class="code-list">';
-        projectTypeReq.ashraeStandards.forEach(standard => {
-            htmlContent += `<li class="code-item">
-                <strong>ASHRAE ${standard.number}</strong> - ${standard.name}
-            </li>`;
-        });
-        htmlContent += '</ul></div>';
+    if (!hasAdoptedCodes) {
+        htmlContent += '<li class="code-item">No state-level code adoptions found. Check local jurisdictions.</li>';
     }
 
-    // Add special notes
-    if (projectTypeReq.specialNotes) {
-        htmlContent += `<div class="code-notes">
-            <strong>⚠️ Note:</strong> ${projectTypeReq.specialNotes}
-        </div>`;
+    htmlContent += '</ul></div>';
+
+    // Add project type specific ASHRAE standards if project type is selected
+    const projectType = workflowState.projectType;
+    if (projectType) {
+        const projectTypeReq = projectTypeCodeRequirements[projectType];
+
+        if (projectTypeReq && projectTypeReq.ashraeStandards && projectTypeReq.ashraeStandards.length > 0) {
+            htmlContent += '<div class="code-category"><h5>❄️ Recommended ASHRAE Standards:</h5><ul class="code-list">';
+            projectTypeReq.ashraeStandards.forEach(standard => {
+                htmlContent += `<li class="code-item">
+                    <strong>ASHRAE ${standard.number}</strong> - ${standard.name}
+                </li>`;
+            });
+            htmlContent += '</ul></div>';
+        }
+
+        // Add special notes
+        if (projectTypeReq && projectTypeReq.specialNotes) {
+            htmlContent += `<div class="code-notes">
+                <strong>⚠️ Note:</strong> ${projectTypeReq.specialNotes}
+            </div>`;
+        }
     }
 
     htmlContent += '</div>';
