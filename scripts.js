@@ -5329,6 +5329,191 @@ function calculateVAVBox() {
 // WORKFLOW HUB FUNCTIONALITY
 // ====================================
 
+// Building Code Database by State
+const stateCodesDatabase = {
+    'CA': {
+        name: 'California',
+        buildingCode: { name: 'California Building Code (CBC)', edition: '2022', base: 'IBC 2021' },
+        energyCode: { name: 'California Energy Code (Title 24, Part 6)', edition: '2022' },
+        mechanicalCode: { name: 'California Mechanical Code (CMC)', edition: '2022', base: 'IMC 2021' },
+        plumbingCode: { name: 'California Plumbing Code (CPC)', edition: '2022', base: 'UPC 2021' },
+        electricalCode: { name: 'California Electrical Code (CEC)', edition: '2022', base: 'NEC 2020' },
+        fireCode: { name: 'California Fire Code (CFC)', edition: '2022', base: 'IFC 2021' },
+        greenCode: { name: 'CALGreen (Title 24, Part 11)', edition: '2022' }
+    },
+    'TX': {
+        name: 'Texas',
+        buildingCode: { name: 'International Building Code (IBC)', edition: '2021' },
+        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2021' },
+        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2021' },
+        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2021' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
+        fireCode: { name: 'International Fire Code (IFC)', edition: '2021' }
+    },
+    'FL': {
+        name: 'Florida',
+        buildingCode: { name: 'Florida Building Code (FBC)', edition: '2023', base: 'IBC 2021' },
+        energyCode: { name: 'Florida Building Code - Energy Conservation', edition: '2023' },
+        mechanicalCode: { name: 'Florida Building Code - Mechanical', edition: '2023', base: 'IMC 2021' },
+        plumbingCode: { name: 'Florida Building Code - Plumbing', edition: '2023', base: 'IPC 2021' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
+        fireCode: { name: 'Florida Fire Prevention Code', edition: '2023', base: 'IFC 2021' }
+    },
+    'NY': {
+        name: 'New York',
+        buildingCode: { name: 'NYS Uniform Fire Prevention and Building Code', edition: '2020', base: 'IBC 2018' },
+        energyCode: { name: 'NYS Energy Conservation Construction Code', edition: '2020' },
+        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2018' },
+        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2018' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
+        fireCode: { name: 'New York State Fire Code', edition: '2020', base: 'IFC 2018' }
+    },
+    'IL': {
+        name: 'Illinois',
+        buildingCode: { name: 'International Building Code (IBC)', edition: '2021' },
+        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2021' },
+        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2021' },
+        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2021' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
+        fireCode: { name: 'International Fire Code (IFC)', edition: '2021' }
+    },
+    'PA': {
+        name: 'Pennsylvania',
+        buildingCode: { name: 'Uniform Construction Code (UCC)', edition: '2018', base: 'IBC 2018' },
+        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2018' },
+        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2018' },
+        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2018' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
+        fireCode: { name: 'International Fire Code (IFC)', edition: '2018' }
+    },
+    'OH': {
+        name: 'Ohio',
+        buildingCode: { name: 'Ohio Building Code (OBC)', edition: '2022', base: 'IBC 2021' },
+        energyCode: { name: 'Ohio Energy Conservation Code', edition: '2022' },
+        mechanicalCode: { name: 'Ohio Mechanical Code', edition: '2022', base: 'IMC 2021' },
+        plumbingCode: { name: 'Ohio Plumbing Code', edition: '2022', base: 'IPC 2021' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
+        fireCode: { name: 'Ohio Fire Code', edition: '2022', base: 'IFC 2021' }
+    },
+    'GA': {
+        name: 'Georgia',
+        buildingCode: { name: 'International Building Code (IBC)', edition: '2018' },
+        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2018' },
+        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2018' },
+        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2018' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
+        fireCode: { name: 'International Fire Code (IFC)', edition: '2018' }
+    },
+    'NC': {
+        name: 'North Carolina',
+        buildingCode: { name: 'North Carolina State Building Code', edition: '2018', base: 'IBC 2018' },
+        energyCode: { name: 'NC Energy Conservation Code', edition: '2018' },
+        mechanicalCode: { name: 'NC Mechanical Code', edition: '2018', base: 'IMC 2018' },
+        plumbingCode: { name: 'NC Plumbing Code', edition: '2018', base: 'IPC 2018' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
+        fireCode: { name: 'NC Fire Prevention Code', edition: '2018', base: 'IFC 2018' }
+    },
+    'MI': {
+        name: 'Michigan',
+        buildingCode: { name: 'Michigan Building Code', edition: '2015', base: 'IBC 2015' },
+        energyCode: { name: 'Michigan Energy Code', edition: '2015' },
+        mechanicalCode: { name: 'Michigan Mechanical Code', edition: '2015', base: 'IMC 2015' },
+        plumbingCode: { name: 'Michigan Plumbing Code', edition: '2015', base: 'IPC 2015' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2017' },
+        fireCode: { name: 'International Fire Code (IFC)', edition: '2015' }
+    },
+    // Default for states not specifically listed
+    'DEFAULT': {
+        name: 'Default',
+        buildingCode: { name: 'International Building Code (IBC)', edition: '2021' },
+        energyCode: { name: 'International Energy Conservation Code (IECC)', edition: '2021' },
+        mechanicalCode: { name: 'International Mechanical Code (IMC)', edition: '2021' },
+        plumbingCode: { name: 'International Plumbing Code (IPC)', edition: '2021' },
+        electricalCode: { name: 'National Electrical Code (NEC)', edition: '2020' },
+        fireCode: { name: 'International Fire Code (IFC)', edition: '2021' }
+    }
+};
+
+// Project Type Code Requirements
+const projectTypeCodeRequirements = {
+    'residential': {
+        name: 'Residential',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode'],
+        ashraeStandards: [
+            { number: '62.2', name: 'Ventilation for Low-Rise Residential' },
+            { number: '90.2', name: 'Energy-Efficient Design of Low-Rise Residential Buildings' }
+        ],
+        specialNotes: 'IRC may apply for single-family homes. Check local jurisdiction.'
+    },
+    'commercial': {
+        name: 'Commercial',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode'],
+        ashraeStandards: [
+            { number: '62.1', name: 'Ventilation for Acceptable Indoor Air Quality' },
+            { number: '90.1', name: 'Energy Standard for Buildings Except Low-Rise Residential' },
+            { number: '15', name: 'Safety Standard for Refrigeration Systems' }
+        ],
+        specialNotes: 'Accessibility requirements per ICC A117.1 and ADA standards.'
+    },
+    'industrial': {
+        name: 'Industrial',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode'],
+        ashraeStandards: [
+            { number: '62.1', name: 'Ventilation for Acceptable Indoor Air Quality' },
+            { number: '90.1', name: 'Energy Standard for Buildings' },
+            { number: '15', name: 'Safety Standard for Refrigeration Systems' }
+        ],
+        specialNotes: 'May require additional industrial codes and OSHA compliance.'
+    },
+    'healthcare': {
+        name: 'Healthcare',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode', 'greenCode'],
+        ashraeStandards: [
+            { number: '62.1', name: 'Ventilation for Acceptable Indoor Air Quality' },
+            { number: '90.1', name: 'Energy Standard for Buildings' },
+            { number: '170', name: 'Ventilation of Health Care Facilities' }
+        ],
+        specialNotes: 'FGI Guidelines for Design and Construction of Hospitals required.'
+    },
+    'education': {
+        name: 'Educational',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode'],
+        ashraeStandards: [
+            { number: '62.1', name: 'Ventilation for Acceptable Indoor Air Quality' },
+            { number: '90.1', name: 'Energy Standard for Buildings' }
+        ],
+        specialNotes: 'Additional accessibility and safety requirements for educational facilities.'
+    },
+    'hospitality': {
+        name: 'Hospitality',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode'],
+        ashraeStandards: [
+            { number: '62.1', name: 'Ventilation for Acceptable Indoor Air Quality' },
+            { number: '90.1', name: 'Energy Standard for Buildings' }
+        ],
+        specialNotes: 'Enhanced life safety requirements for assembly and lodging occupancies.'
+    },
+    'laboratory': {
+        name: 'Laboratory',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode'],
+        ashraeStandards: [
+            { number: '62.1', name: 'Ventilation for Acceptable Indoor Air Quality' },
+            { number: '90.1', name: 'Energy Standard for Buildings' },
+            { number: '15', name: 'Safety Standard for Refrigeration Systems' }
+        ],
+        specialNotes: 'NFPA 45 and specialized ventilation requirements apply.'
+    },
+    'data-center': {
+        name: 'Data Center',
+        requiredCodes: ['buildingCode', 'energyCode', 'mechanicalCode', 'plumbingCode', 'electricalCode', 'fireCode'],
+        ashraeStandards: [
+            { number: '90.1', name: 'Energy Standard for Buildings' },
+            { number: '90.4', name: 'Energy Standard for Data Centers' }
+        ],
+        specialNotes: 'ASHRAE TC 9.9 guidelines and enhanced electrical/fire protection.'
+    }
+};
+
 // Delivery Method Data
 const deliveryMethodData = {
     'design-bid-build': {
@@ -5437,6 +5622,7 @@ function initializeWorkflowHub() {
             this.classList.add('active');
             workflowState.projectType = this.dataset.type;
             saveProjectToStorage();
+            updateApplicableCodes();
         });
     });
 
@@ -5469,6 +5655,7 @@ function initializeWorkflowHub() {
             workflowState.projectState = this.value;
             saveProjectToStorage();
             updateProjectDisplay();
+            updateApplicableCodes();
         });
     }
 
@@ -6115,6 +6302,69 @@ function updateProgressTickmarks() {
         }
         cumulativePercent += percentage;
     });
+}
+
+// Update applicable codes display
+function updateApplicableCodes() {
+    const container = document.getElementById('applicableCodesContainer');
+    if (!container) return;
+
+    const state = workflowState.projectState;
+    const projectType = workflowState.projectType;
+
+    // If no state or project type selected, show placeholder
+    if (!state || !projectType) {
+        container.innerHTML = '<p class="info-placeholder">Select state and project type to view applicable codes</p>';
+        return;
+    }
+
+    // Get the state codes (use DEFAULT if state not in database)
+    const stateCodes = stateCodesDatabase[state] || stateCodesDatabase['DEFAULT'];
+    const projectTypeReq = projectTypeCodeRequirements[projectType];
+
+    if (!projectTypeReq) {
+        container.innerHTML = '<p class="info-placeholder">Project type not recognized</p>';
+        return;
+    }
+
+    // Build the codes display
+    let htmlContent = '<div class="applicable-codes-list">';
+
+    // Add applicable building codes
+    htmlContent += '<div class="code-category"><h5>📋 Building & Safety Codes:</h5><ul class="code-list">';
+
+    projectTypeReq.requiredCodes.forEach(codeKey => {
+        const code = stateCodes[codeKey];
+        if (code) {
+            htmlContent += `<li class="code-item">
+                <strong>${code.name}</strong> - ${code.edition}
+                ${code.base ? `<span class="code-base">(Based on ${code.base})</span>` : ''}
+            </li>`;
+        }
+    });
+
+    htmlContent += '</ul></div>';
+
+    // Add ASHRAE standards
+    if (projectTypeReq.ashraeStandards && projectTypeReq.ashraeStandards.length > 0) {
+        htmlContent += '<div class="code-category"><h5>❄️ ASHRAE Standards:</h5><ul class="code-list">';
+        projectTypeReq.ashraeStandards.forEach(standard => {
+            htmlContent += `<li class="code-item">
+                <strong>ASHRAE ${standard.number}</strong> - ${standard.name}
+            </li>`;
+        });
+        htmlContent += '</ul></div>';
+    }
+
+    // Add special notes
+    if (projectTypeReq.specialNotes) {
+        htmlContent += `<div class="code-notes">
+            <strong>⚠️ Note:</strong> ${projectTypeReq.specialNotes}
+        </div>`;
+    }
+
+    htmlContent += '</div>';
+    container.innerHTML = htmlContent;
 }
 
 // Update status bar with actual and expected progress

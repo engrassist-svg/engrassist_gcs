@@ -4953,6 +4953,68 @@ textarea.form-control {
     font-size: 1.2rem;
 }
 
+/* Applicable Codes Display */
+.applicable-codes-list {
+    margin-top: 1rem;
+}
+
+.code-category {
+    margin-bottom: 1.5rem;
+}
+
+.code-category h5 {
+    color: #2c3e50;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+}
+
+.code-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.code-item {
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-left: 3px solid #3498db;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.code-item strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.code-base {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-left: 0.5rem;
+}
+
+.code-notes {
+    background: linear-gradient(135deg, #fff3cd, #fff8e1);
+    border-left: 4px solid #f39c12;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.code-notes strong {
+    color: #e67e22;
+}
+
 /* Project Info Form */
 .project-info-form {
     display: grid;
