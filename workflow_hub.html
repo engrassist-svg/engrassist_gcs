@@ -100,88 +100,70 @@
                 <h2 class="section-title">Project Setup</h2>
 
                 <div class="workflow-setup">
-                    <!-- Location & Codes (Moved to Top) -->
+                    <!-- Location (Moved to Top) -->
                     <div class="setup-card">
-                        <h3 class="setup-card-title">📍 Project Location & Codes</h3>
+                        <h3 class="setup-card-title">📍 Project Location</h3>
                         <div class="location-selector">
-                            <div class="form-group">
-                                <label for="projectState">State/Province:</label>
-                                <select id="projectState" class="form-control">
-                                    <option value="">Select State...</option>
-                                    <option value="AL">Alabama</option>
-                                    <option value="AK">Alaska</option>
-                                    <option value="AZ">Arizona</option>
-                                    <option value="AR">Arkansas</option>
-                                    <option value="CA">California</option>
-                                    <option value="CO">Colorado</option>
-                                    <option value="CT">Connecticut</option>
-                                    <option value="DE">Delaware</option>
-                                    <option value="FL">Florida</option>
-                                    <option value="GA">Georgia</option>
-                                    <option value="HI">Hawaii</option>
-                                    <option value="ID">Idaho</option>
-                                    <option value="IL">Illinois</option>
-                                    <option value="IN">Indiana</option>
-                                    <option value="IA">Iowa</option>
-                                    <option value="KS">Kansas</option>
-                                    <option value="KY">Kentucky</option>
-                                    <option value="LA">Louisiana</option>
-                                    <option value="ME">Maine</option>
-                                    <option value="MD">Maryland</option>
-                                    <option value="MA">Massachusetts</option>
-                                    <option value="MI">Michigan</option>
-                                    <option value="MN">Minnesota</option>
-                                    <option value="MS">Mississippi</option>
-                                    <option value="MO">Missouri</option>
-                                    <option value="MT">Montana</option>
-                                    <option value="NE">Nebraska</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="NH">New Hampshire</option>
-                                    <option value="NJ">New Jersey</option>
-                                    <option value="NM">New Mexico</option>
-                                    <option value="NY">New York</option>
-                                    <option value="NC">North Carolina</option>
-                                    <option value="ND">North Dakota</option>
-                                    <option value="OH">Ohio</option>
-                                    <option value="OK">Oklahoma</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="PA">Pennsylvania</option>
-                                    <option value="RI">Rhode Island</option>
-                                    <option value="SC">South Carolina</option>
-                                    <option value="SD">South Dakota</option>
-                                    <option value="TN">Tennessee</option>
-                                    <option value="TX">Texas</option>
-                                    <option value="UT">Utah</option>
-                                    <option value="VT">Vermont</option>
-                                    <option value="VA">Virginia</option>
-                                    <option value="WA">Washington</option>
-                                    <option value="WV">West Virginia</option>
-                                    <option value="WI">Wisconsin</option>
-                                    <option value="WY">Wyoming</option>
-                                </select>
-                            </div>
-                            <div class="code-references">
-                                <h4>Applicable Codes:</h4>
-                                <div id="applicableCodesContainer">
-                                    <p class="info-placeholder">Select state to view applicable codes</p>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="projectCity">City:</label>
+                                    <input type="text" id="projectCity" class="form-control" placeholder="Enter city name">
                                 </div>
-                                <div class="code-links" style="margin-top: 1rem;">
-                                    <a href="https://up.codes/" target="_blank" class="code-link">
-                                        <span class="code-icon">📖</span>
-                                        <span>UpCodes - Search All Codes</span>
-                                    </a>
-                                    <a href="ashrae_standards.html" class="code-link">
-                                        <span class="code-icon">❄️</span>
-                                        <span>ASHRAE Standards</span>
-                                    </a>
-                                    <a href="code_requirements.html" class="code-link">
-                                        <span class="code-icon">⚡</span>
-                                        <span>NEC Requirements</span>
-                                    </a>
-                                    <a href="https://codes.iccsafe.org/" target="_blank" class="code-link">
-                                        <span class="code-icon">🏗️</span>
-                                        <span>International Codes</span>
-                                    </a>
+                                <div class="form-group">
+                                    <label for="projectState">State/Province:</label>
+                                    <select id="projectState" class="form-control">
+                                        <option value="">Select State...</option>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="GA">Georgia</option>
+                                        <option value="HI">Hawaii</option>
+                                        <option value="ID">Idaho</option>
+                                        <option value="IL">Illinois</option>
+                                        <option value="IN">Indiana</option>
+                                        <option value="IA">Iowa</option>
+                                        <option value="KS">Kansas</option>
+                                        <option value="KY">Kentucky</option>
+                                        <option value="LA">Louisiana</option>
+                                        <option value="ME">Maine</option>
+                                        <option value="MD">Maryland</option>
+                                        <option value="MA">Massachusetts</option>
+                                        <option value="MI">Michigan</option>
+                                        <option value="MN">Minnesota</option>
+                                        <option value="MS">Mississippi</option>
+                                        <option value="MO">Missouri</option>
+                                        <option value="MT">Montana</option>
+                                        <option value="NE">Nebraska</option>
+                                        <option value="NV">Nevada</option>
+                                        <option value="NH">New Hampshire</option>
+                                        <option value="NJ">New Jersey</option>
+                                        <option value="NM">New Mexico</option>
+                                        <option value="NY">New York</option>
+                                        <option value="NC">North Carolina</option>
+                                        <option value="ND">North Dakota</option>
+                                        <option value="OH">Ohio</option>
+                                        <option value="OK">Oklahoma</option>
+                                        <option value="OR">Oregon</option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="RI">Rhode Island</option>
+                                        <option value="SC">South Carolina</option>
+                                        <option value="SD">South Dakota</option>
+                                        <option value="TN">Tennessee</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="UT">Utah</option>
+                                        <option value="VT">Vermont</option>
+                                        <option value="VA">Virginia</option>
+                                        <option value="WA">Washington</option>
+                                        <option value="WV">West Virginia</option>
+                                        <option value="WI">Wisconsin</option>
+                                        <option value="WY">Wyoming</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -247,6 +229,15 @@
                                     <label for="projectDueDate">Due Date:</label>
                                     <input type="date" id="projectDueDate" class="form-control">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectDiscipline">Engineering Discipline:</label>
+                                <select id="projectDiscipline" class="form-control">
+                                    <option value="">Select discipline...</option>
+                                    <option value="mechanical">Mechanical</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="plumbing">Plumbing</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="projectNotes">Notes:</label>
@@ -728,6 +719,48 @@
                 <div class="phase-navigation">
                     <button class="btn btn-secondary" id="prevPhaseBtn" disabled>← Previous Phase</button>
                     <button class="btn btn-primary" id="nextPhaseBtn">Next Phase →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applicable Codes Section -->
+        <section class="content-section applicable-codes-section" id="applicableCodesSection">
+            <div class="container">
+                <h2 class="section-title">📖 Applicable Codes & Standards</h2>
+                <div class="codes-display-container">
+                    <div class="codes-column">
+                        <h3>State & Building Codes</h3>
+                        <div id="applicableCodesContainer">
+                            <p class="info-placeholder">Select state and project type to view applicable codes</p>
+                        </div>
+                    </div>
+                    <div class="codes-column">
+                        <h3>Municipal & County Codes</h3>
+                        <div id="municipalCodesContainer">
+                            <p class="info-placeholder">Enter city to view local codes</p>
+                        </div>
+                    </div>
+                    <div class="codes-column">
+                        <h3>Quick Links</h3>
+                        <div class="code-links-vertical">
+                            <a href="https://up.codes/" target="_blank" class="code-link">
+                                <span class="code-icon">📖</span>
+                                <span>UpCodes - Search All Codes</span>
+                            </a>
+                            <a href="ashrae_standards.html" class="code-link">
+                                <span class="code-icon">❄️</span>
+                                <span>ASHRAE Standards</span>
+                            </a>
+                            <a href="code_requirements.html" class="code-link">
+                                <span class="code-icon">⚡</span>
+                                <span>NEC Requirements</span>
+                            </a>
+                            <a href="https://codes.iccsafe.org/" target="_blank" class="code-link">
+                                <span class="code-icon">🏗️</span>
+                                <span>International Codes</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

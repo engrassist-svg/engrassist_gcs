@@ -5923,7 +5923,9 @@ let workflowState = {
     projectType: null,
     projectName: '',
     projectNumber: '',
+    projectCity: '',
     projectState: '',
+    projectDiscipline: '',
     deliveryMethod: '',
     startDate: '',
     dueDate: '',
@@ -5957,7 +5959,9 @@ function initializeWorkflowHub() {
     // Form inputs
     const projectName = document.getElementById('projectName');
     const projectNumber = document.getElementById('projectNumber');
+    const projectCity = document.getElementById('projectCity');
     const projectState = document.getElementById('projectState');
+    const projectDiscipline = document.getElementById('projectDiscipline');
     const deliveryMethod = document.getElementById('deliveryMethod');
     const projectStartDate = document.getElementById('projectStartDate');
     const projectDueDate = document.getElementById('projectDueDate');
@@ -5977,21 +5981,40 @@ function initializeWorkflowHub() {
         });
     }
 
+    if (projectCity) {
+        projectCity.addEventListener('change', function() {
+            workflowState.projectCity = this.value;
+            saveProjectToStorage();
+            updateProjectDisplay();
+            updateMunicipalCodes();
+        });
+    }
+
     if (projectState) {
         projectState.addEventListener('change', function() {
             workflowState.projectState = this.value;
             saveProjectToStorage();
             updateProjectDisplay();
             updateApplicableCodes();
+            updateMunicipalCodes();
         });
     }
 
+    if (projectDiscipline) {
+        projectDiscipline.addEventListener('change', function() {
+            workflowState.projectDiscipline = this.value;
+            saveProjectToStorage();
+            updateProjectDisplay();
+            filterTasksByDiscipline();
+        });
+    }
 
     if (deliveryMethod) {
         deliveryMethod.addEventListener('change', function() {
             workflowState.deliveryMethod = this.value;
             updateDeliveryMethodInfo(this.value);
             updateProgressTickmarks();
+            filterTasksByDiscipline();
             saveProjectToStorage();
         });
     }
@@ -6298,7 +6321,9 @@ function loadProjectFromStorage() {
             // Restore form values
             const projectName = document.getElementById('projectName');
             const projectNumber = document.getElementById('projectNumber');
+            const projectCity = document.getElementById('projectCity');
             const projectState = document.getElementById('projectState');
+            const projectDiscipline = document.getElementById('projectDiscipline');
             const deliveryMethod = document.getElementById('deliveryMethod');
             const projectStartDate = document.getElementById('projectStartDate');
             const projectDueDate = document.getElementById('projectDueDate');
@@ -6306,7 +6331,9 @@ function loadProjectFromStorage() {
 
             if (projectName) projectName.value = workflowState.projectName || '';
             if (projectNumber) projectNumber.value = workflowState.projectNumber || '';
+            if (projectCity) projectCity.value = workflowState.projectCity || '';
             if (projectState) projectState.value = workflowState.projectState || '';
+            if (projectDiscipline) projectDiscipline.value = workflowState.projectDiscipline || '';
             if (deliveryMethod) deliveryMethod.value = workflowState.deliveryMethod || '';
             if (projectStartDate) projectStartDate.value = workflowState.startDate || '';
             if (projectDueDate) projectDueDate.value = workflowState.dueDate || '';
@@ -6332,7 +6359,9 @@ function resetWorkflow() {
         projectType: null,
         projectName: '',
         projectNumber: '',
+        projectCity: '',
         projectState: '',
+        projectDiscipline: '',
         deliveryMethod: '',
         startDate: '',
         dueDate: '',
@@ -6347,7 +6376,9 @@ function resetWorkflow() {
     // Reset form
     const projectName = document.getElementById('projectName');
     const projectNumber = document.getElementById('projectNumber');
+    const projectCity = document.getElementById('projectCity');
     const projectState = document.getElementById('projectState');
+    const projectDiscipline = document.getElementById('projectDiscipline');
     const deliveryMethod = document.getElementById('deliveryMethod');
     const projectStartDate = document.getElementById('projectStartDate');
     const projectDueDate = document.getElementById('projectDueDate');
@@ -6355,7 +6386,9 @@ function resetWorkflow() {
 
     if (projectName) projectName.value = '';
     if (projectNumber) projectNumber.value = '';
+    if (projectCity) projectCity.value = '';
     if (projectState) projectState.value = '';
+    if (projectDiscipline) projectDiscipline.value = '';
     if (deliveryMethod) deliveryMethod.value = '';
     if (projectStartDate) projectStartDate.value = '';
     if (projectDueDate) projectDueDate.value = '';
@@ -6700,6 +6733,185 @@ function updateApplicableCodes() {
 
     htmlContent += '</div>';
     container.innerHTML = htmlContent;
+}
+
+// Update municipal codes display based on city and state
+function updateMunicipalCodes() {
+    const container = document.getElementById('municipalCodesContainer');
+    if (!container) return;
+
+    const city = workflowState.projectCity;
+    const state = workflowState.projectState;
+
+    // If no city selected, show placeholder
+    if (!city || !state) {
+        container.innerHTML = '<p class="info-placeholder">Enter city and state to view local codes</p>';
+        return;
+    }
+
+    // Municipal codes database (expandable)
+    const municipalCodesDatabase = {
+        'CA': {
+            'Los Angeles': {
+                buildingCode: 'Los Angeles Building Code (LABC)',
+                url: 'https://www.ladbs.org/codes-and-standards',
+                additional: ['Los Angeles Plumbing Code', 'Los Angeles Electrical Code']
+            },
+            'San Francisco': {
+                buildingCode: 'San Francisco Building Code',
+                url: 'https://www.sf.gov/building-codes',
+                additional: ['San Francisco Plumbing Code', 'San Francisco Electrical Code']
+            }
+        },
+        'NY': {
+            'New York': {
+                buildingCode: 'New York City Building Code',
+                url: 'https://www.nyc.gov/site/buildings/codes/building-code.page',
+                additional: ['NYC Plumbing Code', 'NYC Electrical Code', 'NYC Energy Conservation Code']
+            }
+        },
+        'IL': {
+            'Chicago': {
+                buildingCode: 'Chicago Building Code',
+                url: 'https://www.chicago.gov/city/en/depts/bldgs/supp_info/chicago_building_code.html',
+                additional: ['Chicago Plumbing Code', 'Chicago Electrical Code']
+            }
+        },
+        'TX': {
+            'Austin': {
+                buildingCode: 'City of Austin Building Code',
+                url: 'https://www.austintexas.gov/department/building-codes',
+                additional: []
+            },
+            'Houston': {
+                buildingCode: 'City of Houston Building Code',
+                url: 'https://www.houstontx.gov/codes/',
+                additional: []
+            }
+        },
+        'WA': {
+            'Seattle': {
+                buildingCode: 'Seattle Building Code',
+                url: 'https://www.seattle.gov/sdci/codes/building-code',
+                additional: ['Seattle Residential Code', 'Seattle Energy Code']
+            }
+        }
+    };
+
+    const cityData = municipalCodesDatabase[state]?.[city];
+
+    if (cityData) {
+        let htmlContent = '<div class="municipal-codes-list">';
+        htmlContent += `<div class="municipal-code-item">
+            <strong>${cityData.buildingCode}</strong><br>
+            <a href="${cityData.url}" target="_blank" class="municipal-code-link">View Online ↗</a>
+        </div>`;
+
+        if (cityData.additional && cityData.additional.length > 0) {
+            cityData.additional.forEach(code => {
+                htmlContent += `<div class="municipal-code-item">
+                    <strong>${code}</strong>
+                </div>`;
+            });
+        }
+        htmlContent += '</div>';
+        container.innerHTML = htmlContent;
+    } else {
+        container.innerHTML = `
+            <div class="info-placeholder">
+                <p><strong>${city}, ${state}</strong></p>
+                <p>Municipal codes for this location are not in our database.</p>
+                <p>Check with your local building department or visit:</p>
+                <a href="https://up.codes/" target="_blank" class="municipal-code-link">UpCodes.com ↗</a>
+            </div>
+        `;
+    }
+}
+
+// Filter tasks based on discipline and delivery method
+function filterTasksByDiscipline() {
+    const discipline = workflowState.projectDiscipline;
+    const deliveryMethod = workflowState.deliveryMethod;
+
+    // If no discipline selected, show all tasks
+    if (!discipline) {
+        document.querySelectorAll('.task-item').forEach(item => {
+            item.style.display = '';
+        });
+        return;
+    }
+
+    // Define discipline-specific keywords for filtering
+    const disciplineKeywords = {
+        'mechanical': ['hvac', 'mechanical', 'boiler', 'chiller', 'air', 'heating', 'cooling', 'ventilation', 'duct', 'coil', 'fan', 'pump', 'psychrometric', 'refrigeration', 'vav', 'ahu'],
+        'electrical': ['electrical', 'power', 'lighting', 'panel', 'circuit', 'voltage', 'transformer', 'generator', 'load', 'nec', 'conduit', 'wire', 'switchgear'],
+        'plumbing': ['plumbing', 'pipe', 'water', 'drain', 'sewage', 'fixture', 'riser', 'domestic', 'sanitary', 'storm', 'gas', 'ipc', 'upc']
+    };
+
+    // Define delivery-method-specific task relevance
+    const deliveryMethodTasks = {
+        'design-build': {
+            // In design-build, emphasize tasks that involve contractor coordination
+            emphasize: ['coordination', 'contractor', 'constructability', 'value engineering', 'schedule'],
+            deemphasize: ['bidding', 'competitive']
+        },
+        'cm-at-risk': {
+            emphasize: ['gmp', 'cost', 'construction manager', 'coordination'],
+            deemphasize: ['bidding']
+        }
+    };
+
+    const keywords = disciplineKeywords[discipline] || [];
+
+    document.querySelectorAll('.task-item').forEach(item => {
+        const taskText = item.textContent.toLowerCase();
+
+        // Check if task is relevant to discipline
+        const isRelevant = keywords.some(keyword => taskText.includes(keyword)) ||
+                          taskText.includes('all disciplines') ||
+                          taskText.includes('coordinate') ||
+                          taskText.includes('code') ||
+                          taskText.includes('design criteria') ||
+                          taskText.includes('project scope') ||
+                          taskText.includes('budget') ||
+                          taskText.includes('schedule');
+
+        // Always show general project management tasks
+        const isGeneralTask = taskText.includes('project') ||
+                             taskText.includes('scope') ||
+                             taskText.includes('budget') ||
+                             taskText.includes('schedule') ||
+                             taskText.includes('submittal') ||
+                             taskText.includes('rfi') ||
+                             taskText.includes('site visit') ||
+                             taskText.includes('commissioning') ||
+                             taskText.includes('closeout');
+
+        if (isRelevant || isGeneralTask) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    // Apply delivery method specific visibility (optional enhancement)
+    if (deliveryMethod && deliveryMethodTasks[deliveryMethod]) {
+        const methodData = deliveryMethodTasks[deliveryMethod];
+
+        document.querySelectorAll('.task-item').forEach(item => {
+            const taskText = item.textContent.toLowerCase();
+
+            // Hide tasks that are not relevant to this delivery method
+            if (methodData.deemphasize) {
+                methodData.deemphasize.forEach(term => {
+                    if (taskText.includes(term)) {
+                        item.style.opacity = '0.5';
+                        item.style.fontStyle = 'italic';
+                    }
+                });
+            }
+        });
+    }
 }
 
 // Update status bar with actual and expected progress

@@ -5015,6 +5015,73 @@ textarea.form-control {
     color: #e67e22;
 }
 
+/* Applicable Codes Section - Sticky */
+.applicable-codes-section {
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+}
+
+.codes-display-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.codes-column {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #3498db;
+}
+
+.codes-column h3 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+}
+
+.code-links-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.code-links-vertical .code-link {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Municipal Codes Display */
+#municipalCodesContainer {
+    min-height: 100px;
+}
+
+.municipal-code-item {
+    padding: 0.75rem;
+    background: white;
+    border-left: 3px solid #27ae60;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.municipal-code-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.municipal-code-link:hover {
+    text-decoration: underline;
+}
+
 /* Project Info Form */
 .project-info-form {
     display: grid;
@@ -5497,6 +5564,16 @@ textarea.form-control {
 
     .code-links {
         grid-template-columns: 1fr;
+    }
+
+    .codes-display-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .applicable-codes-section {
+        position: relative;
+        top: 0;
     }
 
     .project-actions {
