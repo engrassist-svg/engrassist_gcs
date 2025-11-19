@@ -5505,14 +5505,15 @@ textarea.form-control {
         padding: 0;
     }
 
+    /* On mobile, hide all progress steps and lines by default */
+    .progress-step,
     .progress-line {
-        width: 3px;
-        height: 30px;
-        margin: 0;
-        min-height: 30px;
+        display: none;
     }
 
-    .progress-step {
+    /* Only show the active step on mobile */
+    .progress-step.active {
+        display: flex;
         width: 100%;
         flex-direction: row;
         gap: 1rem;
@@ -5533,6 +5534,40 @@ textarea.form-control {
         font-size: 1.5rem;
     }
 
+    /* Add phase counter indicator on mobile */
+    .phase-title::after {
+        content: '';
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.5rem;
+        font-weight: normal;
+    }
+
+    .phase-panel[data-phase="project-setup"] .phase-title::after {
+        content: 'Step 1 of 6';
+    }
+
+    .phase-panel[data-phase="programming"] .phase-title::after {
+        content: 'Step 2 of 6';
+    }
+
+    .phase-panel[data-phase="schematic"] .phase-title::after {
+        content: 'Step 3 of 6';
+    }
+
+    .phase-panel[data-phase="design-dev"] .phase-title::after {
+        content: 'Step 4 of 6';
+    }
+
+    .phase-panel[data-phase="construction-docs"] .phase-title::after {
+        content: 'Step 5 of 6';
+    }
+
+    .phase-panel[data-phase="construction-admin"] .phase-title::after {
+        content: 'Step 6 of 6';
+    }
+
     .phase-tasks,
     .phase-tools {
         padding: 1.5rem;
@@ -5544,10 +5579,19 @@ textarea.form-control {
 
     .phase-navigation {
         flex-direction: column;
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        margin: 0 -2rem -2rem -2rem;
+        z-index: 10;
     }
 
     .phase-navigation .btn {
         max-width: none;
+        font-size: 1rem;
+        padding: 0.875rem 1.5rem;
     }
 
     .workflow-save {

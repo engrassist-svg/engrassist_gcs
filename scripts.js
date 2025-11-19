@@ -6042,14 +6042,6 @@ function initializeWorkflowHub() {
         });
     }
 
-    // Start Workflow Button
-    const startWorkflowBtn = document.getElementById('startWorkflowBtn');
-    if (startWorkflowBtn) {
-        startWorkflowBtn.addEventListener('click', function() {
-            startWorkflow();
-        });
-    }
-
     // Phase Navigation
     const prevPhaseBtn = document.getElementById('prevPhaseBtn');
     const nextPhaseBtn = document.getElementById('nextPhaseBtn');
@@ -6170,18 +6162,10 @@ function initializeWorkflowHub() {
         updateDeliveryMethodInfo(workflowState.deliveryMethod);
         updateProgressTickmarks();
     }
-}
 
-function startWorkflow() {
-    const workflowSection = document.getElementById('workflowSection');
-    if (workflowSection) {
-        workflowSection.style.display = 'block';
-        updateProjectDisplay();
-        updateWorkflowDisplay();
-
-        // Scroll to workflow section
-        workflowSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Initialize workflow display (workflow is visible by default)
+    updateProjectDisplay();
+    updateWorkflowDisplay();
 }
 
 function updateProjectDisplay() {
