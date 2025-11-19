@@ -6046,14 +6046,6 @@ function initializeWorkflowHub() {
     const startWorkflowBtn = document.getElementById('startWorkflowBtn');
     if (startWorkflowBtn) {
         startWorkflowBtn.addEventListener('click', function() {
-            if (!workflowState.projectType) {
-                alert('Please select a project type before starting the workflow.');
-                return;
-            }
-            if (!workflowState.projectName) {
-                alert('Please enter a project name before starting the workflow.');
-                return;
-            }
             startWorkflow();
         });
     }
@@ -6074,7 +6066,7 @@ function initializeWorkflowHub() {
 
     if (nextPhaseBtn) {
         nextPhaseBtn.addEventListener('click', function() {
-            if (workflowState.currentPhase < 4) {
+            if (workflowState.currentPhase < 5) {
                 workflowState.currentPhase++;
                 updateWorkflowDisplay();
                 saveProjectToStorage();
@@ -6138,10 +6130,15 @@ function initializeWorkflowHub() {
     const editProjectBtn = document.getElementById('editProjectBtn');
     if (editProjectBtn) {
         editProjectBtn.addEventListener('click', function() {
+            // Go back to project setup phase (phase 0)
+            workflowState.currentPhase = 0;
+            updateWorkflowDisplay();
+            saveProjectToStorage();
+
+            // Scroll to workflow section
             const workflowSection = document.getElementById('workflowSection');
             if (workflowSection) {
-                workflowSection.style.display = 'none';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                workflowSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
     }
@@ -6217,7 +6214,7 @@ function updateProjectDisplay() {
 }
 
 function updateWorkflowDisplay() {
-    const phases = ['programming', 'schematic', 'design-dev', 'construction-docs', 'construction-admin'];
+    const phases = ['project-setup', 'programming', 'schematic', 'design-dev', 'construction-docs', 'construction-admin'];
 
     // Update progress steps
     const progressSteps = document.querySelectorAll('.progress-step');
@@ -6257,7 +6254,7 @@ function updateWorkflowDisplay() {
     }
 
     if (nextPhaseBtn) {
-        nextPhaseBtn.disabled = workflowState.currentPhase === 4;
+        nextPhaseBtn.disabled = workflowState.currentPhase === 5;
     }
 
     // Load task states
@@ -6275,8 +6272,8 @@ function loadTaskStates() {
 }
 
 function updatePhaseCompletion() {
-    const phases = ['programming', 'schematic', 'design-dev', 'construction-docs', 'construction-admin'];
-    const phasePrefixes = ['prog', 'schem', 'dd', 'cd', 'ca'];
+    const phases = ['project-setup', 'programming', 'schematic', 'design-dev', 'construction-docs', 'construction-admin'];
+    const phasePrefixes = ['setup', 'prog', 'schem', 'dd', 'cd', 'ca'];
 
     phasePrefixes.forEach((prefix, phaseIndex) => {
         const phaseTasks = document.querySelectorAll(`[data-task^="${prefix}-"]`);
