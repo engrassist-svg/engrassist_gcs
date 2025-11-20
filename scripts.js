@@ -84,7 +84,8 @@ function initializeAllFeatures() {
     initializePageCounter();
     initializeDuctulator();
     initializeDesktopMode();
-    
+    initializeFirebase();
+
     // Add psychrometric initialization here
     setTimeout(initializePsychrometricChart, 500);
 }
@@ -102,6 +103,168 @@ const EMAILJS_TEMPLATE_ID = 'template_EngrAssist';
         emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 })();
+
+// ====================================
+// FIREBASE CONFIGURATION & AUTHENTICATION
+// ====================================
+
+// Firebase Configuration
+// TODO: Replace with your actual Firebase project credentials
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+// Global variables for Firebase
+let auth = null;
+let db = null;
+let currentUser = null;
+
+// Initialize Firebase when available
+function initializeFirebase() {
+    if (typeof firebase !== 'undefined') {
+        try {
+            firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
+
+            // Listen for auth state changes
+            auth.onAuthStateChanged(handleAuthStateChanged);
+
+            console.log('Firebase initialized successfully');
+        } catch (error) {
+            console.error('Error initializing Firebase:', error);
+        }
+    }
+}
+
+// Handle authentication state changes
+function handleAuthStateChanged(user) {
+    currentUser = user;
+    updateUIForAuthState(user);
+
+    if (user) {
+        console.log('User signed in:', user.email);
+        // Load user's projects if on workflow hub page
+        if (window.location.pathname.includes('workflow_hub')) {
+            loadProjectFromStorage();
+        }
+    } else {
+        console.log('User signed out');
+    }
+}
+
+// Update UI based on authentication state
+function updateUIForAuthState(user) {
+    const signInBtn = document.getElementById('signInBtn');
+    const userProfile = document.getElementById('userProfile');
+    const userName = document.getElementById('userName');
+    const userPhoto = document.getElementById('userPhoto');
+
+    // Mobile elements
+    const mobileUserProfile = document.getElementById('mobileUserProfile');
+    const mobileUserName = document.getElementById('mobileUserName');
+    const mobileUserEmail = document.getElementById('mobileUserEmail');
+    const mobileUserPhoto = document.getElementById('mobileUserPhoto');
+    const mobileSignInLink = document.getElementById('mobileSignInLink');
+    const mobileSignOutLink = document.getElementById('mobileSignOutLink');
+    const mobileWorkflowLink = document.getElementById('mobileWorkflowLink');
+    const mobileProjectsLink = document.getElementById('mobileProjectsLink');
+    const mobileDivider = document.getElementById('mobileDivider');
+
+    if (user) {
+        // User is signed in - Desktop
+        if (signInBtn) signInBtn.style.display = 'none';
+        if (userProfile) userProfile.style.display = 'block';
+        if (userName) userName.textContent = user.displayName || user.email.split('@')[0];
+        if (userPhoto) userPhoto.src = user.photoURL || 'images/default-avatar.png';
+
+        // User is signed in - Mobile
+        if (mobileUserProfile) mobileUserProfile.style.display = 'flex';
+        if (mobileUserName) mobileUserName.textContent = user.displayName || user.email.split('@')[0];
+        if (mobileUserEmail) mobileUserEmail.textContent = user.email;
+        if (mobileUserPhoto) mobileUserPhoto.src = user.photoURL || 'images/default-avatar.png';
+        if (mobileSignInLink) mobileSignInLink.style.display = 'none';
+        if (mobileSignOutLink) mobileSignOutLink.style.display = 'block';
+        if (mobileWorkflowLink) mobileWorkflowLink.style.display = 'block';
+        if (mobileProjectsLink) mobileProjectsLink.style.display = 'block';
+        if (mobileDivider) mobileDivider.style.display = 'block';
+    } else {
+        // User is signed out - Desktop
+        if (signInBtn) signInBtn.style.display = 'flex';
+        if (userProfile) userProfile.style.display = 'none';
+
+        // User is signed out - Mobile
+        if (mobileUserProfile) mobileUserProfile.style.display = 'none';
+        if (mobileSignInLink) mobileSignInLink.style.display = 'block';
+        if (mobileSignOutLink) mobileSignOutLink.style.display = 'none';
+        if (mobileWorkflowLink) mobileWorkflowLink.style.display = 'none';
+        if (mobileProjectsLink) mobileProjectsLink.style.display = 'none';
+        if (mobileDivider) mobileDivider.style.display = 'none';
+    }
+}
+
+// Sign in with Google
+async function signInWithGoogle() {
+    if (!auth) {
+        alert('Authentication not initialized. Please refresh the page.');
+        return;
+    }
+
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+        const result = await auth.signInWithPopup(provider);
+        console.log('Sign in successful:', result.user.email);
+        // Close mobile menu if open
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) mobileMenu.classList.remove('show');
+    } catch (error) {
+        console.error('Error signing in:', error);
+        alert('Error signing in: ' + error.message);
+    }
+}
+
+// Sign out
+async function signOut() {
+    if (!auth) return;
+
+    try {
+        await auth.signOut();
+        console.log('Sign out successful');
+        // Close mobile menu if open
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) mobileMenu.classList.remove('show');
+        // Close user dropdown if open
+        const userDropdown = document.getElementById('userDropdown');
+        if (userDropdown) userDropdown.classList.remove('show');
+    } catch (error) {
+        console.error('Error signing out:', error);
+        alert('Error signing out: ' + error.message);
+    }
+}
+
+// Toggle user dropdown menu
+function toggleUserMenu() {
+    const dropdown = document.getElementById('userDropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('show');
+    }
+}
+
+// Close user dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const userProfile = document.getElementById('userProfile');
+    const dropdown = document.getElementById('userDropdown');
+
+    if (dropdown && userProfile && !userProfile.contains(event.target)) {
+        dropdown.classList.remove('show');
+    }
+});
 
 // ====================================
 // UTILITY FUNCTIONS
@@ -6284,54 +6447,365 @@ function updatePhaseCompletion() {
     });
 }
 
-function saveProjectToStorage() {
-    try {
-        localStorage.setItem('workflowProject', JSON.stringify(workflowState));
-    } catch (e) {
-        console.error('Error saving project to localStorage:', e);
+// Save project to storage (Firebase if logged in, localStorage otherwise)
+async function saveProjectToStorage() {
+    if (currentUser && db) {
+        // Save to Firebase Firestore
+        await saveProjectToFirestore();
+    } else {
+        // Fall back to localStorage
+        try {
+            localStorage.setItem('workflowProject', JSON.stringify(workflowState));
+            console.log('Project saved to localStorage');
+        } catch (e) {
+            console.error('Error saving project to localStorage:', e);
+        }
     }
 }
 
-function loadProjectFromStorage() {
-    try {
-        const saved = localStorage.getItem('workflowProject');
-        if (saved) {
-            const loadedState = JSON.parse(saved);
-            workflowState = { ...workflowState, ...loadedState };
-
-            // Restore form values
-            const projectName = document.getElementById('projectName');
-            const projectNumber = document.getElementById('projectNumber');
-            const projectCity = document.getElementById('projectCity');
-            const projectState = document.getElementById('projectState');
-            const projectDiscipline = document.getElementById('projectDiscipline');
-            const deliveryMethod = document.getElementById('deliveryMethod');
-            const projectStartDate = document.getElementById('projectStartDate');
-            const projectDueDate = document.getElementById('projectDueDate');
-            const projectNotes = document.getElementById('projectNotes');
-
-            if (projectName) projectName.value = workflowState.projectName || '';
-            if (projectNumber) projectNumber.value = workflowState.projectNumber || '';
-            if (projectCity) projectCity.value = workflowState.projectCity || '';
-            if (projectState) projectState.value = workflowState.projectState || '';
-            if (projectDiscipline) projectDiscipline.value = workflowState.projectDiscipline || '';
-            if (deliveryMethod) deliveryMethod.value = workflowState.deliveryMethod || '';
-            if (projectStartDate) projectStartDate.value = workflowState.startDate || '';
-            if (projectDueDate) projectDueDate.value = workflowState.dueDate || '';
-            if (projectNotes) projectNotes.value = workflowState.notes || '';
-
-            // Restore project type selection
-            if (workflowState.projectType) {
-                const projectTypeBtns = document.querySelectorAll('.project-type-btn');
-                projectTypeBtns.forEach(btn => {
-                    if (btn.dataset.type === workflowState.projectType) {
-                        btn.classList.add('active');
-                    }
-                });
+// Load project from storage (Firebase if logged in, localStorage otherwise)
+async function loadProjectFromStorage() {
+    if (currentUser && db) {
+        // Load from Firebase Firestore
+        await loadCurrentProjectFromFirestore();
+    } else {
+        // Fall back to localStorage
+        try {
+            const saved = localStorage.getItem('workflowProject');
+            if (saved) {
+                const loadedState = JSON.parse(saved);
+                restoreProjectState(loadedState);
+                console.log('Project loaded from localStorage');
             }
+        } catch (e) {
+            console.error('Error loading project from localStorage:', e);
         }
-    } catch (e) {
-        console.error('Error loading project from localStorage:', e);
+    }
+}
+
+// Restore project state to UI
+function restoreProjectState(loadedState) {
+    workflowState = { ...workflowState, ...loadedState };
+
+    // Restore form values
+    const projectName = document.getElementById('projectName');
+    const projectNumber = document.getElementById('projectNumber');
+    const projectCity = document.getElementById('projectCity');
+    const projectState = document.getElementById('projectState');
+    const projectDiscipline = document.getElementById('projectDiscipline');
+    const deliveryMethod = document.getElementById('deliveryMethod');
+    const projectStartDate = document.getElementById('projectStartDate');
+    const projectDueDate = document.getElementById('projectDueDate');
+    const projectNotes = document.getElementById('projectNotes');
+
+    if (projectName) projectName.value = workflowState.projectName || '';
+    if (projectNumber) projectNumber.value = workflowState.projectNumber || '';
+    if (projectCity) projectCity.value = workflowState.projectCity || '';
+    if (projectState) projectState.value = workflowState.projectState || '';
+    if (projectDiscipline) projectDiscipline.value = workflowState.projectDiscipline || '';
+    if (deliveryMethod) deliveryMethod.value = workflowState.deliveryMethod || '';
+    if (projectStartDate) projectStartDate.value = workflowState.startDate || '';
+    if (projectDueDate) projectDueDate.value = workflowState.dueDate || '';
+    if (projectNotes) projectNotes.value = workflowState.notes || '';
+
+    // Restore project type selection
+    if (workflowState.projectType) {
+        const projectTypeBtns = document.querySelectorAll('.project-type-btn');
+        projectTypeBtns.forEach(btn => {
+            if (btn.dataset.type === workflowState.projectType) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    // Update progress display
+    updateProgressDisplay();
+}
+
+// ====================================
+// FIREBASE FIRESTORE FUNCTIONS
+// ====================================
+
+// Save current project to Firestore
+async function saveProjectToFirestore() {
+    if (!currentUser || !db) {
+        alert('Please sign in to save projects to the cloud');
+        return;
+    }
+
+    try {
+        const projectData = {
+            ...workflowState,
+            userId: currentUser.uid,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            projectId: workflowState.projectId || generateProjectId()
+        };
+
+        // Save to current project
+        workflowState.projectId = projectData.projectId;
+
+        await db.collection('projects').doc(projectData.projectId).set(projectData, { merge: true });
+
+        console.log('Project saved to Firestore:', projectData.projectId);
+        showNotification('Project saved to cloud ✓', 'success');
+    } catch (error) {
+        console.error('Error saving to Firestore:', error);
+        showNotification('Error saving project: ' + error.message, 'error');
+    }
+}
+
+// Load current/last project from Firestore
+async function loadCurrentProjectFromFirestore() {
+    if (!currentUser || !db) return;
+
+    try {
+        // Get the most recently updated project
+        const snapshot = await db.collection('projects')
+            .where('userId', '==', currentUser.uid)
+            .orderBy('updatedAt', 'desc')
+            .limit(1)
+            .get();
+
+        if (!snapshot.empty) {
+            const projectData = snapshot.docs[0].data();
+            restoreProjectState(projectData);
+            console.log('Project loaded from Firestore:', projectData.projectId);
+        }
+    } catch (error) {
+        console.error('Error loading from Firestore:', error);
+    }
+}
+
+// Load all user projects from Firestore
+async function loadAllUserProjects() {
+    if (!currentUser || !db) {
+        alert('Please sign in to view saved projects');
+        return [];
+    }
+
+    try {
+        const snapshot = await db.collection('projects')
+            .where('userId', '==', currentUser.uid)
+            .orderBy('updatedAt', 'desc')
+            .get();
+
+        const projects = [];
+        snapshot.forEach(doc => {
+            projects.push({ id: doc.id, ...doc.data() });
+        });
+
+        return projects;
+    } catch (error) {
+        console.error('Error loading projects:', error);
+        return [];
+    }
+}
+
+// Load specific project by ID
+async function loadProjectById(projectId) {
+    if (!currentUser || !db) return;
+
+    try {
+        const doc = await db.collection('projects').doc(projectId).get();
+
+        if (doc.exists) {
+            const projectData = doc.data();
+            if (projectData.userId === currentUser.uid) {
+                restoreProjectState(projectData);
+                console.log('Project loaded:', projectId);
+                showNotification('Project loaded ✓', 'success');
+            } else {
+                alert('You do not have permission to access this project');
+            }
+        } else {
+            alert('Project not found');
+        }
+    } catch (error) {
+        console.error('Error loading project:', error);
+        alert('Error loading project: ' + error.message);
+    }
+}
+
+// Delete project from Firestore
+async function deleteProjectById(projectId) {
+    if (!currentUser || !db) return;
+
+    if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+        return;
+    }
+
+    try {
+        await db.collection('projects').doc(projectId).delete();
+        console.log('Project deleted:', projectId);
+        showNotification('Project deleted', 'success');
+        return true;
+    } catch (error) {
+        console.error('Error deleting project:', error);
+        alert('Error deleting project: ' + error.message);
+        return false;
+    }
+}
+
+// Generate unique project ID
+function generateProjectId() {
+    return 'proj_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Show notification message
+function showNotification(message, type = 'info') {
+    // Create notification element if it doesn't exist
+    let notification = document.getElementById('notification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'notification';
+        notification.className = 'notification';
+        document.body.appendChild(notification);
+    }
+
+    notification.textContent = message;
+    notification.className = 'notification ' + type + ' show';
+
+    // Auto hide after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// ====================================
+// MY PROJECTS MODAL FUNCTIONS
+// ====================================
+
+// Show My Projects modal
+async function showMyProjects() {
+    if (!currentUser || !db) {
+        alert('Please sign in to view saved projects');
+        return;
+    }
+
+    const modal = document.getElementById('myProjectsModal');
+    const projectsList = document.getElementById('projectsList');
+
+    if (!modal || !projectsList) return;
+
+    // Show modal
+    modal.style.display = 'block';
+
+    // Show loading state
+    projectsList.innerHTML = `
+        <div class="loading-projects">
+            <div class="loading-spinner"></div>
+            <p>Loading your projects...</p>
+        </div>
+    `;
+
+    // Load projects
+    const projects = await loadAllUserProjects();
+
+    // Display projects
+    if (projects.length === 0) {
+        projectsList.innerHTML = `
+            <div class="no-projects">
+                <p>📂 No saved projects yet</p>
+                <p class="no-projects-subtitle">Start by creating a project in the Workflow Hub</p>
+            </div>
+        `;
+    } else {
+        projectsList.innerHTML = projects.map(project => `
+            <div class="project-card" data-project-id="${project.id}">
+                <div class="project-card-header">
+                    <div class="project-icon">${getProjectTypeIcon(project.projectType)}</div>
+                    <div class="project-info">
+                        <h3 class="project-title">${project.projectName || 'Untitled Project'}</h3>
+                        <p class="project-meta">
+                            ${project.projectType ? project.projectType.charAt(0).toUpperCase() + project.projectType.slice(1) : 'Unknown Type'}
+                            ${project.projectCity || project.projectState ? ' • ' + (project.projectCity || '') + (project.projectState ? ', ' + project.projectState : '') : ''}
+                        </p>
+                        <p class="project-date">Last updated: ${formatDate(project.updatedAt)}</p>
+                    </div>
+                </div>
+                <div class="project-card-actions">
+                    <button class="btn btn-sm btn-primary" onclick="loadAndCloseModal('${project.id}')">
+                        <span>📂</span> Load
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteAndRefresh('${project.id}')">
+                        <span>🗑️</span> Delete
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// Close My Projects modal
+function closeMyProjectsModal() {
+    const modal = document.getElementById('myProjectsModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Load project and close modal
+async function loadAndCloseModal(projectId) {
+    await loadProjectById(projectId);
+    closeMyProjectsModal();
+}
+
+// Delete project and refresh list
+async function deleteAndRefresh(projectId) {
+    const deleted = await deleteProjectById(projectId);
+    if (deleted) {
+        // Refresh the modal
+        showMyProjects();
+    }
+}
+
+// Get project type icon
+function getProjectTypeIcon(type) {
+    const icons = {
+        'residential': '🏠',
+        'commercial': '🏢',
+        'industrial': '🏭',
+        'healthcare': '🏥',
+        'education': '🏫',
+        'hospitality': '🏨',
+        'laboratory': '🔬',
+        'data-center': '💾'
+    };
+    return icons[type] || '📋';
+}
+
+// Format date for display
+function formatDate(timestamp) {
+    if (!timestamp) return 'Unknown';
+
+    // Handle Firestore timestamp
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+
+    const now = new Date();
+    const diff = now - date;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 7) {
+        return date.toLocaleDateString();
+    } else if (days > 0) {
+        return days === 1 ? '1 day ago' : `${days} days ago`;
+    } else if (hours > 0) {
+        return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+    } else if (minutes > 0) {
+        return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
+    } else {
+        return 'Just now';
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('myProjectsModal');
+    if (event.target === modal) {
+        closeMyProjectsModal();
     }
 }
 

@@ -811,6 +811,32 @@
 
     <div id="footer-placeholder"></div>
 
+    <!-- My Projects Modal -->
+    <div id="myProjectsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>My Saved Projects</h2>
+                <button class="modal-close" onclick="closeMyProjectsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="projectsList" class="projects-list">
+                    <div class="loading-projects">
+                        <div class="loading-spinner"></div>
+                        <p>Loading your projects...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMyProjectsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
     <script src="scripts.js?v=20251118"></script>
 </body>
 </html>

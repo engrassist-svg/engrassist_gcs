@@ -35,6 +35,39 @@
 
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
+
+            <!-- User Authentication -->
+            <li class="auth-container">
+                <!-- Show when logged out -->
+                <button id="signInBtn" class="auth-btn sign-in-btn" onclick="signInWithGoogle()" style="display: none;">
+                    <span class="google-icon">🔐</span>
+                    <span>Sign In</span>
+                </button>
+
+                <!-- Show when logged in -->
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <button class="user-profile-btn" onclick="toggleUserMenu()">
+                        <img id="userPhoto" class="user-photo" src="" alt="User">
+                        <span id="userName" class="user-name"></span>
+                        <span class="dropdown-arrow">▾</span>
+                    </button>
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="workflow_hub.html" class="dropdown-item">
+                            <span class="dropdown-icon">📊</span>
+                            <span>Workflow Hub</span>
+                        </a>
+                        <a href="#" onclick="showMyProjects(); return false;" class="dropdown-item">
+                            <span class="dropdown-icon">📁</span>
+                            <span>My Projects</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" onclick="signOut(); return false;" class="dropdown-item">
+                            <span class="dropdown-icon">🚪</span>
+                            <span>Sign Out</span>
+                        </a>
+                    </div>
+                </div>
+            </li>
         </ul>
 
         <!-- Mobile Menu Button (sandwich icon) -->
@@ -45,11 +78,20 @@
     <div class="mobile-menu" id="mobileMenu">
         <!-- Search inside mobile menu -->
         <div class="mobile-search-container">
-            <input type="search" 
-                   id="mobileSearch" 
-                   placeholder="Search tools..." 
+            <input type="search"
+                   id="mobileSearch"
+                   placeholder="Search tools..."
                    onkeyup="handleSearch(event)">
             <span class="mobile-search-icon">🔍</span>
+        </div>
+
+        <!-- Mobile User Profile (shown when logged in) -->
+        <div id="mobileUserProfile" class="mobile-user-profile" style="display: none;">
+            <img id="mobileUserPhoto" class="mobile-user-photo" src="" alt="User">
+            <div class="mobile-user-info">
+                <span id="mobileUserName" class="mobile-user-name"></span>
+                <span id="mobileUserEmail" class="mobile-user-email"></span>
+            </div>
         </div>
 
         <!-- Mobile Navigation Links -->
@@ -74,6 +116,13 @@
 
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
+
+            <!-- Mobile Auth Links -->
+            <li id="mobileWorkflowLink" style="display: none;"><a href="workflow_hub.html">📊 Workflow Hub</a></li>
+            <li id="mobileProjectsLink" style="display: none;"><a href="#" onclick="showMyProjects(); return false;">📁 My Projects</a></li>
+            <li class="mobile-divider" id="mobileDivider" style="display: none;"></li>
+            <li id="mobileSignInLink"><a href="#" onclick="signInWithGoogle(); return false;">🔐 Sign In</a></li>
+            <li id="mobileSignOutLink" style="display: none;"><a href="#" onclick="signOut(); return false;">🚪 Sign Out</a></li>
         </ul>
     </div>
 </header>
