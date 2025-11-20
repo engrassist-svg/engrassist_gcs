@@ -109,14 +109,14 @@ const EMAILJS_TEMPLATE_ID = 'template_EngrAssist';
 // ====================================
 
 // Firebase Configuration
-// TODO: Replace with your actual Firebase project credentials
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyD_amULqHWuusYIt0pLQw4fSkpcHVjUOBc",
+    authDomain: "engrassist-ca462.firebaseapp.com",
+    projectId: "engrassist-ca462",
+    storageBucket: "engrassist-ca462.firebasestorage.app",
+    messagingSenderId: "624782672996",
+    appId: "1:624782672996:web:185e19d6727e2fba920b71",
+    measurementId: "G-VXXJ35V6W6"
 };
 
 // Global variables for Firebase
