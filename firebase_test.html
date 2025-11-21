@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Test - EngrAssist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        #consoleLog {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .log-line {
+            margin: 5px 0;
+        }
+        .log-error { color: #ff6b6b; }
+        .log-success { color: #51cf66; }
+        .log-info { color: #74c0fc; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔥 Firebase Authentication Test</h1>
+        <p>This page tests if Firebase is properly configured.</p>
+
+        <div id="statusContainer"></div>
+
+        <div style="margin-top: 20px;">
+            <button onclick="testFirebaseInit()">1. Test Firebase Initialization</button>
+            <button onclick="testGoogleSignIn()">2. Test Google Sign In</button>
+            <button onclick="testSignOut()">3. Test Sign Out</button>
+            <button onclick="clearLogs()">Clear Logs</button>
+        </div>
+
+        <div id="userInfo" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px; display: none;">
+            <h3>Current User:</h3>
+            <p><strong>Name:</strong> <span id="displayName"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>UID:</strong> <span id="uid"></span></p>
+            <img id="photoURL" style="width: 50px; border-radius: 50%;">
+        </div>
+
+        <div id="consoleLog">
+            <div class="log-line log-info">Console output will appear here...</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_amULqHWuusYIt0pLQw4fSkpcHVjUOBc",
+            authDomain: "engrassist-ca462.firebaseapp.com",
+            projectId: "engrassist-ca462",
+            storageBucket: "engrassist-ca462.firebasestorage.app",
+            messagingSenderId: "624782672996",
+            appId: "1:624782672996:web:185e19d6727e2fba920b71",
+            measurementId: "G-VXXJ35V6W6"
+        };
+
+        let auth = null;
+        let db = null;
+
+        // Logging functions
+        function log(message, type = 'info') {
+            const consoleLog = document.getElementById('consoleLog');
+            const line = document.createElement('div');
+            line.className = 'log-line log-' + type;
+            line.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            consoleLog.appendChild(line);
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+            console.log(message);
+        }
+
+        function clearLogs() {
+            document.getElementById('consoleLog').innerHTML = '<div class="log-line log-info">Console cleared...</div>';
+        }
+
+        function showStatus(message, type) {
+            const container = document.getElementById('statusContainer');
+            const status = document.createElement('div');
+            status.className = 'status ' + type;
+            status.textContent = message;
+            container.appendChild(status);
+        }
+
+        function updateUserInfo(user) {
+            const userInfo = document.getElementById('userInfo');
+            if (user) {
+                document.getElementById('displayName').textContent = user.displayName || 'N/A';
+                document.getElementById('email').textContent = user.email;
+                document.getElementById('uid').textContent = user.uid;
+                document.getElementById('photoURL').src = user.photoURL || '';
+                userInfo.style.display = 'block';
+            } else {
+                userInfo.style.display = 'none';
+            }
+        }
+
+        // Test 1: Initialize Firebase
+        function testFirebaseInit() {
+            clearLogs();
+            log('Testing Firebase initialization...', 'info');
+
+            try {
+                // Check if Firebase is loaded
+                if (typeof firebase === 'undefined') {
+                    log('ERROR: Firebase SDK not loaded!', 'error');
+                    showStatus('Firebase SDK not loaded. Check your internet connection.', 'error');
+                    return;
+                }
+                log('✓ Firebase SDK loaded successfully', 'success');
+
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                log('✓ Firebase initialized successfully', 'success');
+
+                // Initialize Auth
+                auth = firebase.auth();
+                log('✓ Firebase Auth initialized', 'success');
+
+                // Initialize Firestore
+                db = firebase.firestore();
+                log('✓ Firestore initialized', 'success');
+
+                // Listen for auth state
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        log('✓ User is signed in: ' + user.email, 'success');
+                        updateUserInfo(user);
+                    } else {
+                        log('ℹ No user signed in', 'info');
+                        updateUserInfo(null);
+                    }
+                });
+
+                showStatus('✓ Firebase initialized successfully!', 'success');
+            } catch (error) {
+                log('ERROR: ' + error.message, 'error');
+                showStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Test 2: Google Sign In
+        async function testGoogleSignIn() {
+            log('Testing Google Sign In...', 'info');
+
+            if (!auth) {
+                log('ERROR: Firebase not initialized. Run Test 1 first.', 'error');
+                showStatus('Please run Test 1 first to initialize Firebase.', 'warning');
+                return;
+            }
+
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                log('Created Google Auth Provider', 'info');
+
+                log('Opening sign-in popup...', 'info');
+                const result = await auth.signInWithPopup(provider);
+
+                log('✓ Sign in successful!', 'success');
+                log('User: ' + result.user.email, 'success');
+                log('Display Name: ' + result.user.displayName, 'success');
+
+                showStatus('✓ Signed in as ' + result.user.email, 'success');
+                updateUserInfo(result.user);
+            } catch (error) {
+                log('ERROR: ' + error.code, 'error');
+                log('Message: ' + error.message, 'error');
+                showStatus('Sign in failed: ' + error.message, 'error');
+
+                if (error.code === 'auth/unauthorized-domain') {
+                    log('SOLUTION: Add this domain to Firebase Console > Authentication > Settings > Authorized domains', 'error');
+                }
+            }
+        }
+
+        // Test 3: Sign Out
+        async function testSignOut() {
+            log('Testing Sign Out...', 'info');
+
+            if (!auth) {
+                log('ERROR: Firebase not initialized. Run Test 1 first.', 'error');
+                return;
+            }
+
+            try {
+                await auth.signOut();
+                log('✓ Signed out successfully', 'success');
+                showStatus('✓ Signed out', 'success');
+                updateUserInfo(null);
+            } catch (error) {
+                log('ERROR: ' + error.message, 'error');
+                showStatus('Sign out failed: ' + error.message, 'error');
+            }
+        }
+
+        // Auto-initialize on page load
+        window.onload = function() {
+            log('Page loaded. Click "Test Firebase Initialization" to begin.', 'info');
+        };
+    </script>
+</body>
+</html>
