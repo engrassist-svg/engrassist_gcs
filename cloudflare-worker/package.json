@@ -1,0 +1,17 @@
+{
+  "name": "engrassist-api",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker API for EngrAssist workflow hub",
+  "main": "worker.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "keywords": ["cloudflare", "workers", "d1", "api"],
+  "author": "EngrAssist",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

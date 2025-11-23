@@ -1,0 +1,24 @@
+name = "engrassist-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "engrassist-db"
+database_id = "YOUR_DATABASE_ID" # Will be created during setup
+
+# Environment variables
+[vars]
+# Add any non-secret variables here
+
+# Secrets (set via: wrangler secret put JWT_SECRET)
+# JWT_SECRET = "your-secret-key" (do not put actual secret here!)
+
+# Routes (uncomment when deploying)
+# routes = [
+#   { pattern = "api.yourdomain.com/*", zone_name = "yourdomain.com" }
+# ]
+
+# Workers custom domain (alternative to routes)
+# workers_dev = true
