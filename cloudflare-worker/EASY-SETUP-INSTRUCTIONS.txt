@@ -1,0 +1,70 @@
+====================================================
+EASY CLOUDFLARE SETUP INSTRUCTIONS
+====================================================
+
+STEP 1: Find the Right Script for Your Computer
+------------------------------------------------
+
+Windows users:
+  - Double-click: setup-cloudflare.bat
+
+Mac/Linux users:
+  - Double-click: setup-cloudflare.sh
+  - If it doesn't run, open Terminal in this folder and type:
+    chmod +x setup-cloudflare.sh
+    ./setup-cloudflare.sh
+
+
+STEP 2: When the Script Runs
+------------------------------------------------
+
+1. A window will open asking for your API token
+
+2. Open your cloudflare-token.txt file (where you saved the token)
+
+3. Copy the entire token (it's a long random string)
+
+4. Paste it into the window and press Enter
+
+5. The script will do EVERYTHING automatically:
+   ✓ Set up authentication
+   ✓ Create the database
+   ✓ Set up the tables
+   ✓ Generate security keys
+   ✓ Test everything
+
+6. When it says "Setup Complete!" - you're done!
+
+
+STEP 3: After Setup is Complete
+------------------------------------------------
+
+To test your setup locally:
+  wrangler dev
+
+To deploy to production:
+  wrangler deploy
+
+
+TROUBLESHOOTING
+------------------------------------------------
+
+If the script says "command not found":
+  - Make sure you installed Wrangler first
+  - Installation: npm install -g wrangler
+
+If authentication fails:
+  - Double-check you copied the entire token
+  - Make sure the token hasn't expired
+  - Try getting a new token from Cloudflare
+
+
+NEED HELP?
+------------------------------------------------
+
+If something goes wrong:
+1. Take a screenshot of the error message
+2. Tell Claude what happened
+3. Claude will help you fix it!
+
+====================================================
