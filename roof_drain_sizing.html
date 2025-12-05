@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Roof drain sizing calculator: determine number of drains and sizes needed based on roof area and rainfall intensity.">
+    <meta name="keywords" content="roof drain, roof drainage, rainfall intensity, storm drain, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/roof_drain_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Roof Drain Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate required roof drains based on roof area and design rainfall intensity.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/roof_drain_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Roof Drain Sizing Calculator">
+    <meta name="twitter:description" content="Calculate roof drain requirements.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Roof Drain Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Roof Drain Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate number of roof drains and sizes needed based on roof area and rainfall intensity</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Roof Drain Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="roofArea">Roof Area (square feet):</label>
+                            <input type="number" id="roofArea" placeholder="Enter area" value="5000" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="rainfallIntensity">Rainfall Intensity (inches/hour):</label>
+                            <input type="number" id="rainfallIntensity" placeholder="Enter intensity" value="4" min="0.5" max="12" step="0.5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="drainType">Drain Type:</label>
+                            <select id="drainType">
+                                <option value="3" selected>3" Roof Drain</option>
+                                <option value="4">4" Roof Drain</option>
+                                <option value="5">5" Roof Drain</option>
+                                <option value="6">6" Roof Drain</option>
+                                <option value="8">8" Roof Drain</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="drainLocation">Drain Location:</label>
+                            <select id="drainLocation">
+                                <option value="horizontal" selected>Horizontal (Flat Roof)</option>
+                                <option value="vertical">Vertical (Roof Leader)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="roofSlope">Roof Slope:</label>
+                            <select id="roofSlope">
+                                <option value="flat" selected>Flat (0-1/4" per ft)</option>
+                                <option value="low">Low Slope (1/4" - 1" per ft)</option>
+                                <option value="pitched">Pitched (> 1" per ft)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="overflowRequired">Overflow Protection:</label>
+                            <select id="overflowRequired">
+                                <option value="yes" selected>Yes (Code required)</option>
+                                <option value="no">No (Scuppers provided)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateRoofDrains()">Calculate Roof Drains</button>
+
+                    <div id="roofDrainResults" class="boiler-results-section" style="display: none;">
+                        <h3>Roof Drain Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Total Flow Rate:</span>
+                            <span class="result-value" id="totalFlow">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Number of Drains Required:</span>
+                            <span class="result-value" id="numDrains">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Area per Drain:</span>
+                            <span class="result-value" id="areaPerDrain">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Recommended Drain Size:</span>
+                            <span class="result-value" id="recDrainSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Leader/Downspout Size:</span>
+                            <span class="result-value" id="leaderSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Overflow Drains Required:</span>
+                            <span class="result-value" id="overflowDrains">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>Roof drainage must be designed for the 100-year, 1-hour rainfall intensity for the location (or per local code). Controlled flow roof drains and siphonic systems have different sizing criteria. Secondary (overflow) drains or scuppers are required by most codes. Roof slope affects drainage patterns - ensure proper grading to drains. This calculator uses simplified methods for preliminary sizing. Consult IPC Chapter 11 or local storm drainage codes for detailed requirements.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Roof Drainage</h2>
+
+                        <h3>Why Proper Roof Drainage Matters</h3>
+                        <p>Inadequate roof drainage can lead to:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Structural Overload:</strong> Water accumulation adds significant weight to roof structure</li>
+                                <li><strong>Roof Damage:</strong> Ponding water accelerates roof membrane deterioration</li>
+                                <li><strong>Leaks:</strong> Standing water increases likelihood of penetration</li>
+                                <li><strong>Ice Dams:</strong> Improper drainage contributes to ice formation in cold climates</li>
+                            </ul>
+                        </div>
+
+                        <h3>Design Rainfall Intensity</h3>
+                        <p>Roof drains must be sized for the maximum expected rainfall. Most codes require:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Primary System:</strong> 100-year, 1-hour storm (or per local code)</li>
+                                <li><strong>Secondary System:</strong> Same storm or larger (100-year, 15-minute typical)</li>
+                                <li><strong>Location Specific:</strong> Rainfall intensity varies greatly by region</li>
+                                <li><strong>Climate Change:</strong> Some jurisdictions increasing design intensities</li>
+                            </ul>
+                        </div>
+
+                        <h3>Rainfall Formula</h3>
+                        <div class="info-box">
+                            <p><strong>Q = (A × I) / 96.3</strong></p>
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>Q</strong> = Flow rate (GPM)</li>
+                                <li><strong>A</strong> = Roof area (square feet)</li>
+                                <li><strong>I</strong> = Rainfall intensity (inches per hour)</li>
+                                <li><strong>96.3</strong> = Conversion constant</li>
+                            </ul>
+                        </div>
+
+                        <h3>Types of Roof Drains</h3>
+
+                        <div class="info-box">
+                            <h4>Conventional Roof Drains</h4>
+                            <p>Standard gravity-flow drains with dome strainer. Flow is subcritical (partially full pipe). Sized using IPC tables based on rainfall rate and drain size.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Controlled Flow Drains</h4>
+                            <p>Restrictor device limits flow rate to allow temporary ponding. Reduces pipe sizes but requires structural approval for additional water weight. Typically 15 GPM per drain.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Siphonic Drains</h4>
+                            <p>Engineered systems that create full-pipe siphonic flow. Much higher capacity than gravity drains. Requires specialized design by manufacturer. Can use smaller pipes and eliminate slope requirements.</p>
+                        </div>
+
+                        <h3>Roof Drain Capacity</h3>
+                        <p>Conventional roof drain capacity depends on:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li>Drain size (diameter)</li>
+                                <li>Rainfall intensity</li>
+                                <li>Drain location (horizontal roof vs. vertical leader)</li>
+                                <li>Water depth above drain (head)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Secondary Drainage (Overflow)</h3>
+                        <p>Building codes require secondary drainage to prevent roof collapse if primary drains clog:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Overflow Drains:</strong> Separate drains set 2" above primary drain level</li>
+                                <li><strong>Scuppers:</strong> Openings in parapet walls allowing overflow</li>
+                                <li><strong>Capacity:</strong> Secondary system sized for same or larger storm</li>
+                                <li><strong>Separate Discharge:</strong> Secondary drainage should discharge to visible location</li>
+                            </ul>
+                        </div>
+
+                        <h3>Roof Slope and Drainage</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Minimum Slope:</strong> 1/4" per foot to drains (typical code requirement)</li>
+                                <li><strong>Ponding:</strong> Areas where water accumulates more than 48 hours after rain</li>
+                                <li><strong>Cricket/Saddle:</strong> Ridge structure to divert water around rooftop equipment</li>
+                                <li><strong>Tapered Insulation:</strong> Can create positive slope on flat roofs</li>
+                            </ul>
+                        </div>
+
+                        <h3>Installation Considerations</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Install drains at low points of roof</li>
+                                <li>Extend drain collar through roof membrane and flashing</li>
+                                <li>Securely anchor drain to roof structure</li>
+                                <li>Provide strainer/dome to prevent debris entry</li>
+                                <li>Maintain minimum 1/4" per foot slope on horizontal storm drains</li>
+                                <li>Insulate interior drains in heated buildings to prevent condensation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Roof Drainage Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Roof Drainage Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Ponding Water</strong></td>
+                                    <td>Inadequate slope, deflected roof structure, clogged drains, too few drains</td>
+                                    <td>Survey roof with level, check drain flow, calculate drainage capacity vs. area</td>
+                                    <td>Add drains, improve slope with tapered insulation, clear blockages, repair sagging structure</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Drain Overflow</strong></td>
+                                    <td>Undersized drains, clogged strainers, excessive rainfall, insufficient number of drains</td>
+                                    <td>Verify rainfall intensity for area, calculate required vs. actual drains, inspect for debris</td>
+                                    <td>Add additional drains, upsize drains, install larger strainers, regular maintenance</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ice Dams</strong></td>
+                                    <td>Poor insulation, heat loss through roof, inadequate drainage, gutter blockage</td>
+                                    <td>Thermal imaging, inspect insulation, check ventilation, examine drainage pattern</td>
+                                    <td>Improve roof insulation, add ventilation, ensure proper drainage slope, heat trace if needed</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Slow Drainage</strong></td>
+                                    <td>Partially clogged drains, debris in leaders, inadequate slope on horizontal runs</td>
+                                    <td>Remove strainers and inspect, snake/flush leaders, verify pipe slope</td>
+                                    <td>Clean drains and leaders, install leaf guards, correct slope, regular maintenance schedule</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Preventive Maintenance</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Inspect and clean roof drains quarterly (more often if trees nearby)</li>
+                            <li>Remove debris from strainers and roof surface</li>
+                            <li>Flush leaders annually to clear accumulated sediment</li>
+                            <li>Inspect overflow drains/scuppers to ensure clear path</li>
+                            <li>Check roof slope and ponding after heavy rains</li>
+                            <li>Verify drain assemblies are secure and properly sealed</li>
+                            <li>Document drain locations and maintenance in building records</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Roof Drain Specifications</h2>
+
+                    <h3>Roof Drain Capacity - Horizontal Drains (IPC Table 1106.2)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Drain Size</th>
+                                    <th>2 in/hr</th>
+                                    <th>3 in/hr</th>
+                                    <th>4 in/hr</th>
+                                    <th>5 in/hr</th>
+                                    <th>6 in/hr</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2"</td><td>1,644 sf</td><td>1,096 sf</td><td>822 sf</td><td>657 sf</td><td>548 sf</td></tr>
+                                <tr><td>3"</td><td>3,760 sf</td><td>2,506 sf</td><td>1,880 sf</td><td>1,504 sf</td><td>1,253 sf</td></tr>
+                                <tr><td>4"</td><td>6,680 sf</td><td>4,453 sf</td><td>3,340 sf</td><td>2,672 sf</td><td>2,227 sf</td></tr>
+                                <tr><td>5"</td><td>10,200 sf</td><td>6,800 sf</td><td>5,100 sf</td><td>4,080 sf</td><td>3,400 sf</td></tr>
+                                <tr><td>6"</td><td>14,400 sf</td><td>9,600 sf</td><td>7,200 sf</td><td>5,760 sf</td><td>4,800 sf</td></tr>
+                                <tr><td>8"</td><td>25,000 sf</td><td>16,667 sf</td><td>12,500 sf</td><td>10,000 sf</td><td>8,333 sf</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Values show maximum roof area per drain</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Vertical Leader Capacity (IPC Table 1106.3)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Leader Size</th>
+                                    <th>2 in/hr</th>
+                                    <th>3 in/hr</th>
+                                    <th>4 in/hr</th>
+                                    <th>5 in/hr</th>
+                                    <th>6 in/hr</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2"</td><td>2,176 sf</td><td>1,450 sf</td><td>1,088 sf</td><td>870 sf</td><td>726 sf</td></tr>
+                                <tr><td>3"</td><td>8,800 sf</td><td>5,866 sf</td><td>4,400 sf</td><td>3,520 sf</td><td>2,933 sf</td></tr>
+                                <tr><td>4"</td><td>18,400 sf</td><td>12,266 sf</td><td>9,200 sf</td><td>7,360 sf</td><td>6,133 sf</td></tr>
+                                <tr><td>5"</td><td>34,600 sf</td><td>23,066 sf</td><td>17,300 sf</td><td>13,840 sf</td><td>11,533 sf</td></tr>
+                                <tr><td>6"</td><td>54,000 sf</td><td>36,000 sf</td><td>27,000 sf</td><td>21,600 sf</td><td>18,000 sf</td></tr>
+                                <tr><td>8"</td><td>116,000 sf</td><td>77,333 sf</td><td>58,000 sf</td><td>46,400 sf</td><td>38,666 sf</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Values show maximum roof area per leader</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Typical Rainfall Intensities by Region (100-yr, 1-hr)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Location</th>
+                                    <th>Rainfall Intensity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Seattle, WA</td><td>2.9 in/hr</td></tr>
+                                <tr><td>Portland, OR</td><td>2.7 in/hr</td></tr>
+                                <tr><td>San Francisco, CA</td><td>2.5 in/hr</td></tr>
+                                <tr><td>Los Angeles, CA</td><td>3.5 in/hr</td></tr>
+                                <tr><td>Phoenix, AZ</td><td>6.0 in/hr</td></tr>
+                                <tr><td>Denver, CO</td><td>4.0 in/hr</td></tr>
+                                <tr><td>Chicago, IL</td><td>4.5 in/hr</td></tr>
+                                <tr><td>New York, NY</td><td>4.2 in/hr</td></tr>
+                                <tr><td>Miami, FL</td><td>7.5 in/hr</td></tr>
+                                <tr><td>Houston, TX</td><td>6.5 in/hr</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Verify with local jurisdiction - values vary within regions</em></p>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Roof drainage design must comply with IPC Chapter 11, local building codes, and structural requirements. Design rainfall intensities vary by location and are specified by local building departments. This calculator provides preliminary estimates only. Actual roof drainage design should account for roof configuration, parapet heights, overflow provisions, and potential ponding loads. For commercial buildings and complex roof systems, consult a licensed professional engineer. Inadequate roof drainage can lead to structural failure.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateRoofDrains() {
+            const roofArea = parseFloat(document.getElementById('roofArea').value);
+            const rainfallIntensity = parseFloat(document.getElementById('rainfallIntensity').value);
+            const drainSize = parseFloat(document.getElementById('drainType').value);
+            const drainLocation = document.getElementById('drainLocation').value;
+            const overflowRequired = document.getElementById('overflowRequired').value;
+
+            if (!roofArea || !rainfallIntensity || roofArea <= 0 || rainfallIntensity <= 0) {
+                alert('Please enter valid roof area and rainfall intensity');
+                return;
+            }
+
+            // Calculate total flow rate: Q = (A × I) / 96.3
+            const totalFlow = (roofArea * rainfallIntensity) / 96.3;
+
+            // Drain capacity tables (simplified from IPC)
+            const horizontalCapacity = {
+                2: { 2: 1644, 3: 1096, 4: 822, 5: 657, 6: 548 },
+                3: { 2: 3760, 3: 2506, 4: 1880, 5: 1504, 6: 1253 },
+                4: { 2: 6680, 3: 4453, 4: 3340, 5: 2672, 6: 2227 },
+                5: { 2: 10200, 3: 6800, 4: 5100, 5: 4080, 6: 3400 },
+                6: { 2: 14400, 3: 9600, 4: 7200, 5: 5760, 6: 4800 },
+                8: { 2: 25000, 3: 16667, 4: 12500, 5: 10000, 6: 8333 }
+            };
+
+            const verticalCapacity = {
+                2: { 2: 2176, 3: 1450, 4: 1088, 5: 870, 6: 726 },
+                3: { 2: 8800, 3: 5866, 4: 4400, 5: 3520, 6: 2933 },
+                4: { 2: 18400, 3: 12266, 4: 9200, 5: 7360, 6: 6133 },
+                5: { 2: 34600, 3: 23066, 4: 17300, 5: 13840, 6: 11533 },
+                6: { 2: 54000, 3: 36000, 4: 27000, 5: 21600, 6: 18000 },
+                8: { 2: 116000, 3: 77333, 4: 58000, 5: 46400, 6: 38666 }
+            };
+
+            // Select appropriate capacity table
+            const capacityTable = drainLocation === 'horizontal' ? horizontalCapacity : verticalCapacity;
+
+            // Round rainfall to nearest table value
+            const intensityKey = Math.round(rainfallIntensity);
+            const intensityIndex = Math.min(Math.max(intensityKey, 2), 6);
+
+            // Get area capacity for selected drain size
+            const areaPerDrain = capacityTable[drainSize][intensityIndex];
+
+            // Calculate number of drains needed
+            const numDrains = Math.ceil(roofArea / areaPerDrain);
+
+            // Overflow drains
+            const overflowDrains = overflowRequired === 'yes' ? numDrains + ' (same as primary)' : 'Not required (scuppers provided)';
+
+            // Leader size (typically same as drain or one size larger)
+            const leaderSize = drainSize + '"' + (drainLocation === 'horizontal' ? ' (minimum)' : '');
+
+            // Display results
+            document.getElementById('totalFlow').textContent = totalFlow.toFixed(1) + ' GPM';
+            document.getElementById('numDrains').textContent = numDrains;
+            document.getElementById('areaPerDrain').textContent = areaPerDrain.toLocaleString() + ' sq ft';
+            document.getElementById('recDrainSize').textContent = drainSize + '" diameter';
+            document.getElementById('leaderSize').textContent = leaderSize;
+            document.getElementById('overflowDrains').textContent = overflowDrains;
+
+            document.getElementById('roofDrainResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

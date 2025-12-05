@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Trap sizing guide: determine required trap and drain sizes for plumbing fixtures based on type and code requirements.">
+    <meta name="keywords" content="trap sizing, P-trap, S-trap, fixture trap, drain size, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/trap_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Trap Sizing Guide - EngrAssist">
+    <meta property="og:description" content="Select proper trap size and drain pipe diameter for plumbing fixtures.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/trap_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Trap Sizing Guide">
+    <meta name="twitter:description" content="Select proper trap size and drain pipe for fixtures.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Trap Sizing Guide - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Trap Sizing Guide</h1>
+                <p class="hero-subtitle">Determine required trap size and minimum drain diameter for plumbing fixtures</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Trap Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fixtureType">Fixture Type:</label>
+                            <select id="fixtureType">
+                                <option value="lavatory">Lavatory (Bathroom Sink)</option>
+                                <option value="kitchen">Kitchen Sink</option>
+                                <option value="shower">Shower</option>
+                                <option value="bathtub">Bathtub</option>
+                                <option value="wc">Water Closet (Toilet)</option>
+                                <option value="urinal">Urinal</option>
+                                <option value="floor">Floor Drain</option>
+                                <option value="laundry">Laundry Tub/Sink</option>
+                                <option value="washer">Clothes Washer Standpipe</option>
+                                <option value="service">Service Sink</option>
+                                <option value="dishwasher">Dishwasher</option>
+                                <option value="bar">Bar Sink</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="usage">Usage Type:</label>
+                            <select id="usage">
+                                <option value="residential" selected>Residential/Private</option>
+                                <option value="commercial">Commercial/Public</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="drainMaterial">Drain Material:</label>
+                            <select id="drainMaterial">
+                                <option value="pvc" selected>PVC/ABS (Plastic)</option>
+                                <option value="copper">Copper DWV</option>
+                                <option value="cast">Cast Iron</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="trapType">Trap Configuration:</label>
+                            <select id="trapType">
+                                <option value="ptrap" selected>P-Trap (wall drain)</option>
+                                <option value="strap">S-Trap (floor drain - not code in many areas)</option>
+                                <option value="integral">Integral (built into fixture)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="determineTrapSize()">Determine Trap Size</button>
+
+                    <div id="trapResults" class="boiler-results-section" style="display: none;">
+                        <h3>Trap Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Required Trap Size:</span>
+                            <span class="result-value" id="trapSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Minimum Drain Size:</span>
+                            <span class="result-value" id="drainSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Drainage Fixture Units:</span>
+                            <span class="result-value" id="dfuValue">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Trap Seal Depth:</span>
+                            <span class="result-value" id="sealDepth">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Code Requirements:</span>
+                            <span class="result-value" id="codeReq">--</span>
+                        </div>
+
+                        <div id="trapNotes" class="info-box" style="margin-top: 1rem;">
+                            <h4>Installation Notes</h4>
+                            <p id="installNotes">--</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>All fixtures (except toilets with integral traps) require a trap to prevent sewer gases from entering the building. Trap size must not be larger than the drain it serves. Every trap must be protected by a vent. S-traps are prohibited by most modern codes due to self-siphoning. Always verify trap and drain sizing with local plumbing codes.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Fixture Traps</h2>
+
+                        <h3>What is a Trap?</h3>
+                        <p>A trap is a curved section of drain pipe that retains a water seal to prevent sewer gases, odors, and vermin from entering the building through the drainage system. The water in the trap creates an airtight seal while still allowing drainage flow.</p>
+
+                        <h3>Types of Traps</h3>
+
+                        <div class="info-box">
+                            <h4>P-Trap</h4>
+                            <p>Most common trap configuration. The outlet drains horizontally into the wall. Shaped like the letter "P" on its side. Required by all modern codes for most fixtures. Easy to vent properly.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>S-Trap</h4>
+                            <p>Older configuration where outlet drains vertically into the floor. Shaped like the letter "S". Prohibited by most modern codes because it can self-siphon and lose its trap seal. May only be acceptable in existing installations.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Integral Trap</h4>
+                            <p>Built into the fixture itself, most commonly in toilets. Also found in some urinals and commercial fixtures. Cannot be removed or replaced separately from the fixture.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Drum Trap</h4>
+                            <p>Cylindrical trap, once common for bathtubs. Now largely obsolete and prohibited by modern codes. Difficult to clean and maintain.</p>
+                        </div>
+
+                        <h3>Trap Seal Depth</h3>
+                        <p>The vertical distance from the crown weir (top of the trap curve) to the top of the dip (bottom of trap). Code requirements:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Minimum trap seal:</strong> 2 inches</li>
+                                <li><strong>Maximum trap seal:</strong> 4 inches</li>
+                                <li><strong>Standard P-trap:</strong> 2-3 inches typical</li>
+                            </ul>
+                        </div>
+
+                        <h3>Trap Sizing Principles</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Trap size must match or be smaller than the drain it serves</li>
+                                <li>Trap cannot be larger than fixture tailpiece/outlet</li>
+                                <li>Each fixture requires its own trap (except specific exemptions)</li>
+                                <li>Traps must be self-cleaning (no interior partitions)</li>
+                                <li>Trap must be accessible for cleaning and maintenance</li>
+                            </ul>
+                        </div>
+
+                        <h3>Standard Trap Sizes by Fixture</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Lavatory:</strong> 1-1/4" trap, 1-1/4" drain minimum</li>
+                                <li><strong>Kitchen Sink:</strong> 1-1/2" trap, 1-1/2" drain minimum</li>
+                                <li><strong>Shower:</strong> 2" trap, 2" drain minimum</li>
+                                <li><strong>Bathtub:</strong> 1-1/2" trap, 1-1/2" drain minimum</li>
+                                <li><strong>Water Closet:</strong> Integral trap, 3" or 4" drain</li>
+                                <li><strong>Urinal:</strong> 2" trap (or integral), 2" drain minimum</li>
+                                <li><strong>Floor Drain:</strong> 2" trap, 2" drain minimum</li>
+                                <li><strong>Clothes Washer:</strong> 2" trap, 2" drain minimum</li>
+                            </ul>
+                        </div>
+
+                        <h3>Trap Installation Requirements</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Install at fixture outlet, as close to fixture as practical</li>
+                                <li>Crown weir must be at or below fixture outlet</li>
+                                <li>No trap arm (horizontal section after trap) longer than code maximum</li>
+                                <li>Trap arm must slope toward drain (1/4" per foot typical)</li>
+                                <li>Every trap must be vented (individual, common, or wet vent)</li>
+                                <li>Accessible for rodding and cleaning (no concealment in walls without access)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Prohibited Trap Configurations</h3>
+                        <div class="warning-box">
+                            <ul>
+                                <li><strong>S-Traps:</strong> Prone to self-siphonage (prohibited in new construction)</li>
+                                <li><strong>Double Trapping:</strong> Two traps in series (causes air lock and drainage issues)</li>
+                                <li><strong>Bell Traps:</strong> Old-style floor traps with internal partitions (not self-cleaning)</li>
+                                <li><strong>Oversized Traps:</strong> Trap larger than drain (reduces flow velocity, solids accumulation)</li>
+                                <li><strong>Crown Venting:</strong> Vent connection at top of trap (destroys trap seal protection)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Trap Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Trap Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Sewer Gas Odors</strong></td>
+                                    <td>Lost trap seal (evaporation, siphonage), cracked trap, improper venting</td>
+                                    <td>Check water level in trap, inspect for cracks, verify venting, smell test at trap</td>
+                                    <td>Refill trap, replace cracked trap, install proper vent, add trap primer for infrequent use</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Slow Drainage</strong></td>
+                                    <td>Clogged trap, hair/debris accumulation, undersized trap, improper slope</td>
+                                    <td>Remove trap and inspect, snake drain, verify trap size vs. code, check slope</td>
+                                    <td>Clean trap, upsize if undersized, correct slope, install cleanout</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gurgling Sounds</strong></td>
+                                    <td>Inadequate venting, S-trap siphoning, partial blockage downstream</td>
+                                    <td>Check vent system, identify trap type, test for blockages</td>
+                                    <td>Install proper vent, replace S-trap with P-trap, clear blockages</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Leaking Trap</strong></td>
+                                    <td>Loose slip nuts, damaged washers, cracked trap body, corrosion</td>
+                                    <td>Visual inspection, tighten connections, check for cracks, test with water</td>
+                                    <td>Tighten slip nuts, replace washers, replace trap if cracked or corroded</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Maintenance Best Practices</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Periodically check trap seals, especially on infrequently used fixtures</li>
+                            <li>Pour water into floor drains monthly to maintain trap seal</li>
+                            <li>Install trap primers on floor drains in mechanical rooms</li>
+                            <li>Clean trap regularly to prevent hair and debris buildup</li>
+                            <li>Inspect trap connections annually for leaks and corrosion</li>
+                            <li>Ensure proper venting to prevent trap seal loss due to siphonage</li>
+                            <li>Replace old metal traps with modern plastic when renovating</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Trap Sizing Specifications</h2>
+
+                    <h3>Required Trap and Drain Sizes (IPC)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fixture Type</th>
+                                    <th>Trap Size</th>
+                                    <th>Min. Drain Size</th>
+                                    <th>DFU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Lavatory</td><td>1-1/4"</td><td>1-1/4"</td><td>1</td></tr>
+                                <tr><td>Kitchen Sink</td><td>1-1/2"</td><td>1-1/2"</td><td>2</td></tr>
+                                <tr><td>Shower Stall</td><td>2"</td><td>2"</td><td>2</td></tr>
+                                <tr><td>Bathtub</td><td>1-1/2"</td><td>1-1/2"</td><td>2</td></tr>
+                                <tr><td>Water Closet</td><td>Integral</td><td>3" or 4"</td><td>3-6</td></tr>
+                                <tr><td>Urinal</td><td>2"</td><td>2"</td><td>4</td></tr>
+                                <tr><td>Floor Drain (2")</td><td>2"</td><td>2"</td><td>2</td></tr>
+                                <tr><td>Laundry Tub</td><td>1-1/2"</td><td>1-1/2"</td><td>2</td></tr>
+                                <tr><td>Clothes Washer Standpipe</td><td>2"</td><td>2"</td><td>3</td></tr>
+                                <tr><td>Service Sink</td><td>2" or 3"</td><td>2" or 3"</td><td>3</td></tr>
+                                <tr><td>Dishwasher (Domestic)</td><td>1-1/2"</td><td>1-1/2"</td><td>2</td></tr>
+                                <tr><td>Bar Sink</td><td>1-1/4" or 1-1/2"</td><td>1-1/2"</td><td>1</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Trap Seal Requirements</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Minimum</th>
+                                    <th>Maximum</th>
+                                    <th>Code Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Trap Seal Depth</td>
+                                    <td>2 inches</td>
+                                    <td>4 inches</td>
+                                    <td>IPC 1002.4</td>
+                                </tr>
+                                <tr>
+                                    <td>Trap to Vent Distance (1-1/4")</td>
+                                    <td>--</td>
+                                    <td>2.5 feet</td>
+                                    <td>IPC Table 1002.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Trap to Vent Distance (1-1/2")</td>
+                                    <td>--</td>
+                                    <td>3.5 feet</td>
+                                    <td>IPC Table 1002.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Trap to Vent Distance (2")</td>
+                                    <td>--</td>
+                                    <td>5 feet</td>
+                                    <td>IPC Table 1002.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Trap to Vent Distance (3")</td>
+                                    <td>--</td>
+                                    <td>6 feet</td>
+                                    <td>IPC Table 1002.2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Common Trap Materials</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Application</th>
+                                    <th>Advantages</th>
+                                    <th>Disadvantages</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PVC/ABS Plastic</td>
+                                    <td>Most residential</td>
+                                    <td>Low cost, corrosion-resistant, easy to install</td>
+                                    <td>Can crack if overtightened, UV degrades if exposed</td>
+                                </tr>
+                                <tr>
+                                    <td>Chrome-plated Brass</td>
+                                    <td>Exposed applications</td>
+                                    <td>Attractive finish, durable</td>
+                                    <td>More expensive, finish can tarnish</td>
+                                </tr>
+                                <tr>
+                                    <td>Copper DWV</td>
+                                    <td>Older installations</td>
+                                    <td>Long-lasting, professional appearance</td>
+                                    <td>Expensive, requires soldering skills</td>
+                                </tr>
+                                <tr>
+                                    <td>Cast Iron</td>
+                                    <td>Commercial</td>
+                                    <td>Extremely durable, quiet</td>
+                                    <td>Heavy, expensive, requires special fittings</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Trap sizing and installation requirements are specified by local plumbing codes (IPC, UPC, or local amendments). This guide provides general information based on typical code requirements. Always verify trap sizing, installation methods, and materials with adopted local codes. Improper trap sizing or installation can result in drainage problems, sewer gas intrusion, and code violations. For questions about specific installations, consult a licensed plumber.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function determineTrapSize() {
+            const fixtureType = document.getElementById('fixtureType').value;
+            const usage = document.getElementById('usage').value;
+            const trapType = document.getElementById('trapType').value;
+
+            let trapSize = '';
+            let drainSize = '';
+            let dfuValue = '';
+            let sealDepth = '2-4 inches (code required)';
+            let codeReq = 'IPC Section 1002, UPC Section 1002';
+            let installNotes = '';
+
+            // Determine trap and drain sizes based on fixture type
+            switch(fixtureType) {
+                case 'lavatory':
+                    trapSize = '1-1/4"';
+                    drainSize = '1-1/4" minimum';
+                    dfuValue = usage === 'residential' ? '1 DFU' : '2 DFU';
+                    installNotes = 'P-trap most common. Pop-up drain assembly typically 1-1/4". Maximum 2.5 ft from trap to vent. Accessible under vanity or through access panel.';
+                    break;
+                case 'kitchen':
+                    trapSize = '1-1/2"';
+                    drainSize = '1-1/2" minimum';
+                    dfuValue = usage === 'residential' ? '2 DFU' : '4 DFU';
+                    installNotes = 'P-trap standard. If dishwasher connects, ensure proper air gap or high loop. Double bowl sinks can share single trap. Garbage disposal requires 1-1/2" trap minimum.';
+                    break;
+                case 'shower':
+                    trapSize = '2"';
+                    drainSize = '2" minimum';
+                    dfuValue = '2 DFU';
+                    installNotes = 'Trap typically located below shower floor. Must be accessible for cleaning (access panel required). Linear drains may have integral trap. Maximum 5 ft from trap to vent.';
+                    break;
+                case 'bathtub':
+                    trapSize = '1-1/2"';
+                    drainSize = '1-1/2" minimum';
+                    dfuValue = '2 DFU';
+                    installNotes = 'Trap located below tub. Drum traps obsolete - use P-trap. Overflow connects to drain before trap. Access panel or removable panel required for maintenance.';
+                    break;
+                case 'wc':
+                    trapSize = 'Integral (built into toilet)';
+                    drainSize = '3" or 4" minimum';
+                    dfuValue = usage === 'residential' ? '3 DFU' : '6 DFU';
+                    sealDepth = 'Integral to fixture (typically 2-3")';
+                    installNotes = 'Toilet has integral trap - no separate trap installed. Connect toilet flange to 3" or 4" drain. Wax ring or rubber gasket seals toilet to flange. No additional trap permitted (double-trapping).';
+                    break;
+                case 'urinal':
+                    trapSize = '2" (or integral)';
+                    drainSize = '2" minimum';
+                    dfuValue = '4 DFU';
+                    installNotes = 'Wall-hung urinals may have integral trap. Floor-mounted use separate 2" trap. Flush valve type requires adequate drain size. Waterless urinals have special trap cartridge.';
+                    break;
+                case 'floor':
+                    trapSize = '2"';
+                    drainSize = '2" minimum';
+                    dfuValue = '2 DFU';
+                    installNotes = 'Trap installed below floor. Must be accessible via removable grate and cleanout. Install trap primer for automatic refilling if infrequent use. Check trap seal monthly.';
+                    break;
+                case 'laundry':
+                    trapSize = '1-1/2"';
+                    drainSize = '1-1/2" minimum';
+                    dfuValue = '2 DFU';
+                    installNotes = 'Standard laundry tub uses 1-1/2" P-trap. If wall-hung, ensure adequate support. Can combine with clothes washer drain if properly sized.';
+                    break;
+                case 'washer':
+                    trapSize = '2"';
+                    drainSize = '2" minimum';
+                    dfuValue = '3 DFU';
+                    installNotes = 'Standpipe should be 18-30" above trap. 2" trap required for clothes washer discharge. Standpipe prevents overflow. Can be combined with laundry tub on 2" drain.';
+                    break;
+                case 'service':
+                    trapSize = '2" or 3"';
+                    drainSize = '2" or 3" minimum';
+                    dfuValue = '3 DFU';
+                    installNotes = 'Service sink (mop sink, janitor sink) typically uses 3" trap for higher flow and solids. Must be accessible. Deep seal trap recommended.';
+                    break;
+                case 'dishwasher':
+                    trapSize = '1-1/2" (connects to sink trap)';
+                    drainSize = '1-1/2" minimum';
+                    dfuValue = '2 DFU';
+                    installNotes = 'Dishwasher typically connects to kitchen sink drain before trap. High loop or air gap required to prevent backflow. Does not require separate trap.';
+                    break;
+                case 'bar':
+                    trapSize = '1-1/4" or 1-1/2"';
+                    drainSize = '1-1/2" minimum';
+                    dfuValue = '1 DFU';
+                    installNotes = 'Bar sink similar to lavatory but may use 1-1/2" for cocktail ice and debris. P-trap standard. Ensure adequate access for maintenance.';
+                    break;
+            }
+
+            // S-trap warning
+            if (trapType === 'strap') {
+                installNotes += ' <strong>WARNING: S-traps are prohibited by most modern codes due to self-siphoning. Replace with P-trap and proper venting.</strong>';
+            }
+
+            // Display results
+            document.getElementById('trapSize').textContent = trapSize;
+            document.getElementById('drainSize').textContent = drainSize;
+            document.getElementById('dfuValue').textContent = dfuValue;
+            document.getElementById('sealDepth').textContent = sealDepth;
+            document.getElementById('codeReq').textContent = codeReq;
+            document.getElementById('installNotes').innerHTML = installNotes;
+
+            document.getElementById('trapResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

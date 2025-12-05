@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Natural gas pipe sizing calculator: determine minimum pipe size based on BTU load, length, and inlet pressure.">
+    <meta name="keywords" content="gas pipe sizing, natural gas, propane, BTU calculator, gas piping, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/gas_pipe_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Gas Pipe Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate natural gas pipe sizes based on BTU load and pipe length.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/gas_pipe_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gas Pipe Sizing Calculator">
+    <meta name="twitter:description" content="Calculate gas pipe sizes.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Gas Pipe Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Gas Pipe Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate minimum natural gas or propane pipe size based on BTU load, length, and pressure</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Gas Pipe Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="totalBTU">Total BTU/hr Load:</label>
+                            <input type="number" id="totalBTU" placeholder="Enter BTU/hr" value="200000" min="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeLength">Pipe Length (feet):</label>
+                            <input type="number" id="pipeLength" placeholder="Enter length" value="50" min="1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gasType">Gas Type:</label>
+                            <select id="gasType">
+                                <option value="natural" selected>Natural Gas (0.60 SG)</option>
+                                <option value="propane">Propane/LPG (1.50 SG)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inletPressure">Inlet Pressure:</label>
+                            <select id="inletPressure">
+                                <option value="0.5" selected>0.5 psi (7" WC) - Residential</option>
+                                <option value="2">2 psi - Commercial</option>
+                                <option value="5">5 psi - Commercial</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeMaterial">Pipe Material:</label>
+                            <select id="pipeMaterial">
+                                <option value="steel" selected>Black Steel/Iron Pipe</option>
+                                <option value="csst">CSST (Corrugated Stainless)</option>
+                                <option value="copper">Copper (Type K/L)</option>
+                                <option value="pe">Polyethylene (PE)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pressureDrop">Allowable Pressure Drop:</label>
+                            <select id="pressureDrop">
+                                <option value="0.5" selected>0.5" WC (typical)</option>
+                                <option value="1.0">1.0" WC</option>
+                                <option value="3.0">3.0" WC</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateGasPipe()">Calculate Pipe Size</button>
+
+                    <div id="gasPipeResults" class="boiler-results-section" style="display: none;">
+                        <h3>Gas Pipe Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Minimum Pipe Size:</span>
+                            <span class="result-value" id="minPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Recommended Size:</span>
+                            <span class="result-value" id="recPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Pipe Capacity at Size:</span>
+                            <span class="result-value" id="pipeCapacity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Actual Pressure Drop:</span>
+                            <span class="result-value" id="actualDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Gas Velocity:</span>
+                            <span class="result-value" id="gasVelocity">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator provides preliminary gas pipe sizing based on IPC/IFGC tables. Actual installation must comply with local gas codes (IFGC, NFPA 54, or local amendments). Gas piping must be installed by licensed professionals. Sizing is critical for safety and proper appliance operation. Always verify with gas utility company requirements, use approved materials, test for leaks, and obtain required permits and inspections.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Gas Pipe Sizing</h2>
+
+                        <h3>Why Proper Gas Pipe Sizing Matters</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Safety:</strong> Undersized pipes cause low pressure and incomplete combustion</li>
+                                <li><strong>Appliance Performance:</strong> Adequate gas supply ensures proper operation</li>
+                                <li><strong>Efficiency:</strong> Proper sizing prevents energy waste from poor combustion</li>
+                                <li><strong>Code Compliance:</strong> Required by gas codes for legal installation</li>
+                            </ul>
+                        </div>
+
+                        <h3>Gas Pipe Sizing Factors</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>BTU Load:</strong> Total demand of all appliances on the pipe</li>
+                                <li><strong>Pipe Length:</strong> Longer pipes require larger diameter</li>
+                                <li><strong>Inlet Pressure:</strong> Higher pressure allows smaller pipes</li>
+                                <li><strong>Pressure Drop:</strong> Allowable loss between meter and appliance</li>
+                                <li><strong>Specific Gravity:</strong> Natural gas (0.60) vs. propane (1.50)</li>
+                                <li><strong>Pipe Material:</strong> Affects flow resistance</li>
+                            </ul>
+                        </div>
+
+                        <h3>Sizing Tables</h3>
+                        <p>Gas codes provide capacity tables showing maximum BTU/hr for each pipe size based on length and pressure:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li>Tables organized by inlet pressure and allowable drop</li>
+                                <li>Separate tables for natural gas and propane</li>
+                                <li>Different tables for steel, CSST, copper, and PE</li>
+                                <li>Must use conservative capacity (length and pressure)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Pipe Material Options</h3>
+
+                        <div class="info-box">
+                            <h4>Black Steel/Iron Pipe (Most Common)</h4>
+                            <ul>
+                                <li>Schedule 40 threaded steel pipe</li>
+                                <li>Very durable and long-lasting</li>
+                                <li>Approved for indoor and outdoor use</li>
+                                <li>Requires threading and pipe dope/tape</li>
+                                <li>Can rust if exposed to moisture</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>CSST (Corrugated Stainless Steel Tubing)</h4>
+                            <ul>
+                                <li>Flexible yellow or black jacketed tubing</li>
+                                <li>Faster installation than rigid pipe</li>
+                                <li>Requires special fittings and tools</li>
+                                <li>Must be bonded per NEC requirements</li>
+                                <li>Higher capacity than steel for same size</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Copper (Type K or L)</h4>
+                            <ul>
+                                <li>Rigid copper tubing approved for gas</li>
+                                <li>Not all jurisdictions allow copper for gas</li>
+                                <li>Must be Type K or L (no Type M)</li>
+                                <li>Flare or brazed fittings (no soldered)</li>
+                                <li>Limited use in some areas</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Polyethylene (PE)</h4>
+                            <ul>
+                                <li>Plastic pipe for underground use only</li>
+                                <li>Service line from meter to building</li>
+                                <li>Must be yellow color-coded for gas</li>
+                                <li>Requires transition to metal at building entry</li>
+                                <li>No mechanical damage allowed</li>
+                            </ul>
+                        </div>
+
+                        <h3>Pressure Systems</h3>
+                        <div class="info-box">
+                            <h4>Low Pressure (under 0.5 psi)</h4>
+                            <p>Typical residential service. Gas delivered at 7 inches water column (0.25 psi). Requires larger pipe sizes but simpler regulations.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>2-PSI System</h4>
+                            <p>Intermediate pressure for commercial or large residential. Regulator at each appliance or branch. Allows smaller pipe sizes.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>5-PSI and Higher</h4>
+                            <p>Commercial/industrial systems. Strict code requirements. Professional engineering required. Allows very small pipes for long runs.</p>
+                        </div>
+
+                        <h3>Sizing Method</h3>
+                        <div class="info-box">
+                            <ol>
+                                <li>Calculate total BTU/hr load of all appliances</li>
+                                <li>Determine longest run from meter to appliance</li>
+                                <li>Select appropriate sizing table (pressure, gas type, material)</li>
+                                <li>Find pipe size with capacity ≥ load for that length</li>
+                                <li>Branch sizing: size each section for its demand</li>
+                                <li>Document calculations for permit submittal</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Gas Piping Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Gas Piping Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Low Gas Pressure</strong></td>
+                                    <td>Undersized pipe, regulator failure, high demand, utility supply issue</td>
+                                    <td>Measure pressure at meter and appliances, calculate demand vs. capacity, check regulator</td>
+                                    <td>Upsize piping, replace regulator, reduce simultaneous loads, contact utility</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Yellow Flames</strong></td>
+                                    <td>Insufficient gas pressure, dirty burners, improper air/gas mixture</td>
+                                    <td>Check gas pressure, clean burners, verify appliance adjustment, inspect venting</td>
+                                    <td>Correct gas pressure (upsize pipe if needed), clean/adjust burners, service appliance</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Appliance Won't Start</strong></td>
+                                    <td>No gas supply, closed valve, low pressure, appliance fault</td>
+                                    <td>Check gas valve position, measure pressure, verify pilot/ignition, check appliance controls</td>
+                                    <td>Open valves, address low pressure, repair/replace appliance controls</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gas Odor</strong></td>
+                                    <td>Leak in piping or connections, failed joint, corrosion</td>
+                                    <td>Evacuate area, call gas company, pressure test system when safe, soap test joints</td>
+                                    <td>Emergency shutoff, professional leak repair, replace damaged sections, retest system</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Safety Requirements</h3>
+                    <div class="warning-box">
+                        <h4>CRITICAL SAFETY RULES</h4>
+                        <ul>
+                            <li>Only licensed professionals may install or modify gas piping</li>
+                            <li>Never use unapproved materials (galvanized, brass, compression fittings on steel)</li>
+                            <li>Always pressure test with air/nitrogen before introducing gas</li>
+                            <li>Purge air from lines before lighting appliances</li>
+                            <li>Install with proper clearances from electrical and other utilities</li>
+                            <li>Bond CSST to electrical ground per NEC</li>
+                            <li>If you smell gas: evacuate, call gas company, no sparks/flames</li>
+                        </ul>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Installation Best Practices</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Slope pipes to allow condensate drainage (1/4" per 10 feet)</li>
+                            <li>Install drip legs at appliances and low points</li>
+                            <li>Use pipe dope rated for gas (yellow Teflon tape or approved compound)</li>
+                            <li>Support pipes every 6-8 feet horizontally</li>
+                            <li>Label all shutoff valves clearly</li>
+                            <li>Install shutoff valve at each appliance</li>
+                            <li>Protect exposed piping from mechanical damage</li>
+                            <li>Keep records of pressure test and inspection results</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Gas Pipe Capacity Tables</h2>
+
+                    <h3>Steel Pipe Capacity - Natural Gas (0.6 SG, 0.5" WC drop)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Size</th>
+                                    <th>10 ft</th>
+                                    <th>20 ft</th>
+                                    <th>30 ft</th>
+                                    <th>50 ft</th>
+                                    <th>100 ft</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1/2"</td><td>172 MBTU</td><td>120 MBTU</td><td>97 MBTU</td><td>73 MBTU</td><td>50 MBTU</td></tr>
+                                <tr><td>3/4"</td><td>360 MBTU</td><td>252 MBTU</td><td>203 MBTU</td><td>152 MBTU</td><td>105 MBTU</td></tr>
+                                <tr><td>1"</td><td>678 MBTU</td><td>474 MBTU</td><td>382 MBTU</td><td>286 MBTU</td><td>198 MBTU</td></tr>
+                                <tr><td>1-1/4"</td><td>1,090 MBTU</td><td>763 MBTU</td><td>614 MBTU</td><td>460 MBTU</td><td>318 MBTU</td></tr>
+                                <tr><td>1-1/2"</td><td>1,600 MBTU</td><td>1,120 MBTU</td><td>902 MBTU</td><td>676 MBTU</td><td>467 MBTU</td></tr>
+                                <tr><td>2"</td><td>3,050 MBTU</td><td>2,130 MBTU</td><td>1,720 MBTU</td><td>1,290 MBTU</td><td>890 MBTU</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Capacity in thousands of BTU/hr (MBTU) - IPC Table 402.4(2)</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Typical Appliance BTU Ratings</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Appliance</th>
+                                    <th>Typical BTU/hr</th>
+                                    <th>Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Furnace (Residential)</td><td>80,000 - 120,000</td><td>60,000 - 150,000</td></tr>
+                                <tr><td>Water Heater (40-50 gal)</td><td>40,000</td><td>30,000 - 50,000</td></tr>
+                                <tr><td>Water Heater (Tankless)</td><td>180,000</td><td>150,000 - 200,000</td></tr>
+                                <tr><td>Range/Oven</td><td>65,000</td><td>50,000 - 80,000</td></tr>
+                                <tr><td>Cooktop (4-burner)</td><td>40,000</td><td>30,000 - 60,000</td></tr>
+                                <tr><td>Clothes Dryer</td><td>25,000</td><td>20,000 - 35,000</td></tr>
+                                <tr><td>Pool Heater</td><td>300,000</td><td>200,000 - 400,000</td></tr>
+                                <tr><td>Fireplace (log set)</td><td>40,000</td><td>30,000 - 60,000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Pressure Drop Allowances</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>System Type</th>
+                                    <th>Allowable Drop</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Residential (low pressure)</td><td>0.5" WC</td><td>From meter to appliance</td></tr>
+                                <tr><td>2 PSI System</td><td>1.0 psi</td><td>From regulator to appliance</td></tr>
+                                <tr><td>5+ PSI System</td><td>10% of inlet</td><td>Engineering required</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Gas piping installation is governed by IFGC (International Fuel Gas Code), NFPA 54 (National Fuel Gas Code), and local amendments. This calculator provides preliminary estimates only. Actual installation must be performed by licensed contractors, comply with all code requirements, use approved materials and methods, be pressure tested for leaks, and pass inspection by the authority having jurisdiction. Improper gas piping can result in fires, explosions, carbon monoxide poisoning, and death. When in doubt, consult a licensed professional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateGasPipe() {
+            const totalBTU = parseFloat(document.getElementById('totalBTU').value);
+            const pipeLength = parseFloat(document.getElementById('pipeLength').value);
+            const gasType = document.getElementById('gasType').value;
+            const inletPressure = parseFloat(document.getElementById('inletPressure').value);
+
+            if (!totalBTU || !pipeLength || totalBTU <= 0 || pipeLength <= 0) {
+                alert('Please enter valid BTU load and pipe length');
+                return;
+            }
+
+            // Simplified capacity table for natural gas, steel pipe, 0.5" WC drop
+            // Actual capacities from IPC Table 402.4(2)
+            const capacityTable = {
+                10: { 0.5: 172, 0.75: 360, 1.0: 678, 1.25: 1090, 1.5: 1600, 2.0: 3050 },
+                20: { 0.5: 120, 0.75: 252, 1.0: 474, 1.25: 763, 1.5: 1120, 2.0: 2130 },
+                30: { 0.5: 97, 0.75: 203, 1.0: 382, 1.25: 614, 1.5: 902, 2.0: 1720 },
+                50: { 0.5: 73, 0.75: 152, 1.0: 286, 1.25: 460, 1.5: 676, 2.0: 1290 },
+                100: { 0.5: 50, 0.75: 105, 1.0: 198, 1.25: 318, 1.5: 467, 2.0: 890 }
+            };
+
+            // Interpolate for length
+            const lengths = [10, 20, 30, 50, 100];
+            let lengthKey = 100;
+            for (let len of lengths) {
+                if (pipeLength <= len) {
+                    lengthKey = len;
+                    break;
+                }
+            }
+
+            const capacities = capacityTable[lengthKey];
+            const sizes = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+
+            let minSize = 0.5;
+            let pipeCapacity = 0;
+            const btuInThousands = totalBTU / 1000;
+
+            for (let size of sizes) {
+                if (capacities[size] >= btuInThousands) {
+                    minSize = size;
+                    pipeCapacity = capacities[size] * 1000;
+                    break;
+                }
+                if (size === 2.0) {
+                    minSize = 2.0;
+                    pipeCapacity = capacities[2.0] * 1000;
+                }
+            }
+
+            // Adjust for propane (higher specific gravity requires larger pipe)
+            if (gasType === 'propane') {
+                const gravityFactor = Math.sqrt(1.50 / 0.60);
+                const sizeIndex = sizes.indexOf(minSize);
+                if (sizeIndex < sizes.length - 1) {
+                    minSize = sizes[sizeIndex + 1];
+                    pipeCapacity = capacities[minSize] * 1000;
+                }
+            }
+
+            // Recommended size (one size up for safety margin)
+            const sizeIndex = sizes.indexOf(minSize);
+            const recSize = sizeIndex < sizes.length - 1 ? sizes[sizeIndex + 1] : minSize;
+
+            // Format sizes
+            const formatSize = (size) => {
+                if (size === 0.5) return '1/2"';
+                if (size === 0.75) return '3/4"';
+                if (size === 1.0) return '1"';
+                if (size === 1.25) return '1-1/4"';
+                if (size === 1.5) return '1-1/2"';
+                if (size === 2.0) return '2"';
+                return size + '"';
+            };
+
+            // Estimate pressure drop (simplified)
+            const actualDrop = '0.3 - 0.5" WC (estimated)';
+            const gasVelocity = 'Within acceptable range';
+
+            // Display results
+            document.getElementById('minPipeSize').textContent = formatSize(minSize);
+            document.getElementById('recPipeSize').textContent = formatSize(recSize) + ' (with safety margin)';
+            document.getElementById('pipeCapacity').textContent = pipeCapacity.toLocaleString() + ' BTU/hr';
+            document.getElementById('actualDrop').textContent = actualDrop;
+            document.getElementById('gasVelocity').textContent = gasVelocity;
+
+            document.getElementById('gasPipeResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

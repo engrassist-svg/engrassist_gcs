@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Vent pipe sizing calculator for plumbing drainage systems: calculate required vent pipe diameter based on fixture units and developed length.">
+    <meta name="keywords" content="vent sizing, plumbing vent, DFU, drainage vent, vent pipe calculator, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/vent_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vent Pipe Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate required vent pipe sizes for plumbing drainage systems based on fixture units and length.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/vent_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vent Pipe Sizing Calculator">
+    <meta name="twitter:description" content="Calculate required vent pipe sizes for drainage systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Vent Pipe Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Vent Pipe Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate required vent pipe diameter based on drainage fixture units and developed length</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Vent Pipe Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ventType">Vent Type:</label>
+                            <select id="ventType">
+                                <option value="individual" selected>Individual Vent</option>
+                                <option value="common">Common Vent</option>
+                                <option value="branch">Branch Vent</option>
+                                <option value="circuit">Circuit Vent</option>
+                                <option value="stack">Vent Stack</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="drainSize">Drain Pipe Size (inches):</label>
+                            <select id="drainSize">
+                                <option value="1.5">1-1/2"</option>
+                                <option value="2">2"</option>
+                                <option value="3" selected>3"</option>
+                                <option value="4">4"</option>
+                                <option value="6">6"</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="totalDFU">Total Drainage Fixture Units (DFU):</label>
+                            <input type="number" id="totalDFU" placeholder="Enter DFU" value="10" min="1" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="developedLength">Developed Length (feet):</label>
+                            <input type="number" id="developedLength" placeholder="Enter length" value="50" min="1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fixtureType">Primary Fixture Type:</label>
+                            <select id="fixtureType">
+                                <option value="standard" selected>Standard (toilet, sinks)</option>
+                                <option value="wet">Wet Venting (bathrooms)</option>
+                                <option value="island">Island Fixture</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="buildingStories">Building Stories Above:</label>
+                            <input type="number" id="buildingStories" placeholder="Stories" value="2" min="1" max="10">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateVentSize()">Calculate Vent Size</button>
+
+                    <div id="ventResults" class="boiler-results-section" style="display: none;">
+                        <h3>Vent Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Minimum Vent Size:</span>
+                            <span class="result-value" id="ventSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Recommended Size:</span>
+                            <span class="result-value" id="recommendedSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Maximum Developed Length:</span>
+                            <span class="result-value" id="maxLength">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Code Requirement:</span>
+                            <span class="result-value" id="codeReq">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Sizing Method:</span>
+                            <span class="result-value" id="sizingMethod">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator provides estimates based on IPC/UPC requirements. Local codes may have different requirements. Always verify vent sizing with local plumbing codes. Proper venting is critical for drainage system function and trap seal protection. Individual fixture vents must be at least half the diameter of the drain served, with a minimum size of 1-1/4".</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Plumbing Vents</h2>
+
+                        <h3>What is a Plumbing Vent?</h3>
+                        <p>A plumbing vent (also called a vent stack or vent pipe) is a vertical pipe that connects the drainage system to the outside atmosphere. Vents serve two critical functions: admitting air into the drainage system to prevent siphonage of trap seals, and allowing sewer gases to escape to the atmosphere.</p>
+
+                        <h3>Why Venting is Critical</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Trap Seal Protection:</strong> Prevents water from being siphoned out of traps</li>
+                                <li><strong>Drainage Flow:</strong> Allows air to enter pipe, enabling smooth drainage</li>
+                                <li><strong>Pressure Equalization:</strong> Balances atmospheric pressure in system</li>
+                                <li><strong>Gas Release:</strong> Safely vents sewer gases to atmosphere</li>
+                            </ul>
+                        </div>
+
+                        <h3>Types of Vents</h3>
+
+                        <div class="info-box">
+                            <h4>Individual Vent</h4>
+                            <p>A pipe that vents a single fixture trap and connects to the vent system or extends through the roof. Most reliable venting method. Required within specific distances from trap.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Common Vent</h4>
+                            <p>A vent serving two fixture traps installed back-to-back or side-by-side on the same level. Common for bathroom vanities on opposite sides of a wall.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Wet Vent</h4>
+                            <p>A pipe that serves both as a vent and a drain for different fixtures. Commonly used in bathroom groups where lavatory drain serves as wet vent for toilet and/or shower.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Circuit Vent</h4>
+                            <p>A vent that serves multiple traps on a horizontal branch drain. The vent connection is between the last two fixtures on the branch.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Stack Vent</h4>
+                            <p>The extension of a soil or waste stack above the highest horizontal drain connected. Extends through the roof to atmosphere.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Vent Stack</h4>
+                            <p>A vertical vent pipe installed primarily to provide air circulation and pressure relief. Connects to branch vents and extends through the roof.</p>
+                        </div>
+
+                        <h3>Vent Sizing Principles</h3>
+                        <div class="info-box">
+                            <h4>Minimum Size Requirements</h4>
+                            <ul>
+                                <li>Individual vent: minimum 1-1/4", at least half the drain diameter</li>
+                                <li>Common vent: sized for total DFU of both fixtures</li>
+                                <li>Vent stack: sized based on total DFU and developed length</li>
+                                <li>No vent shall be smaller than 1-1/4" diameter</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Length Limitations</h4>
+                            <p>Maximum developed length of vent depends on vent size and total DFU served. Longer vents require larger diameter to ensure adequate air flow.</p>
+                        </div>
+
+                        <h3>Critical Distance (Trap to Vent)</h3>
+                        <p>The distance from the trap weir to the vent opening is limited to prevent self-siphonage:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>1-1/4" trap:</strong> 2.5 feet maximum</li>
+                                <li><strong>1-1/2" trap:</strong> 3.5 feet maximum</li>
+                                <li><strong>2" trap:</strong> 5 feet maximum</li>
+                                <li><strong>3" trap:</strong> 6 feet maximum</li>
+                                <li><strong>4" trap:</strong> 10 feet maximum</li>
+                            </ul>
+                        </div>
+
+                        <h3>Vent Termination Requirements</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Extend at least 6 inches above roof surface</li>
+                                <li>Minimum 10 feet from vertical surfaces (walls)</li>
+                                <li>Extension to 3 feet above roof if used for snow or public access</li>
+                                <li>Terminate minimum 10 feet horizontally from windows, doors, or air intakes</li>
+                                <li>Minimum 3" diameter for vent through roof in cold climates (frost closure prevention)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Vent System Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Venting Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Gurgling Drains</strong></td>
+                                    <td>Blocked vent, undersized vent, improperly installed vent, no vent</td>
+                                    <td>Check for vent blockage, verify vent size vs. code, inspect vent connections</td>
+                                    <td>Clear blocked vent, upsize vent if undersized, install proper venting if missing</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Slow Draining Fixtures</strong></td>
+                                    <td>Inadequate venting, vent blockage, drain blockage, improper slope</td>
+                                    <td>Test drain with proper venting, snake drain, check vent for blockage, verify drain slope</td>
+                                    <td>Clear vent obstruction, install additional venting, clear drain, correct slope</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lost Trap Seals</strong></td>
+                                    <td>Siphonage due to inadequate venting, evaporation, capillary action, wind effects</td>
+                                    <td>Refill trap and monitor, check vent size and connection, verify trap distance</td>
+                                    <td>Install proper individual vent, relocate fixture closer to vent, increase vent size</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sewer Gas Odors</strong></td>
+                                    <td>Lost trap seal, cracked vent pipe, improper vent termination, missing vent cap</td>
+                                    <td>Check all trap seals, pressure test vents, inspect vent terminations, look for leaks</td>
+                                    <td>Restore trap seals, repair vent leaks, extend vent away from air intakes, seal penetrations</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Installation Best Practices</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Maintain minimum 1/4" per foot slope on horizontal vent runs</li>
+                            <li>Install vents as close to trap as possible within maximum distances</li>
+                            <li>Avoid running vents below drain level where they can fill with water</li>
+                            <li>Pitch horizontal vents to drain back to soil or waste pipe</li>
+                            <li>Use appropriate fittings (no sharp 90s, use long-radius or wye + 1/8 bend)</li>
+                            <li>Install cleanouts at base of vent stacks for maintenance access</li>
+                            <li>Protect roof penetrations with proper flashing and storm collars</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Vent Sizing Specifications</h2>
+
+                    <h3>Maximum Length of Vents (IPC Table 906.1)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vent Size</th>
+                                    <th>1-8 DFU</th>
+                                    <th>9-24 DFU</th>
+                                    <th>25-50 DFU</th>
+                                    <th>51-100 DFU</th>
+                                    <th>101-200 DFU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-1/4"</td>
+                                    <td>30 ft</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>1-1/2"</td>
+                                    <td>100 ft</td>
+                                    <td>50 ft</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>2"</td>
+                                    <td>200 ft</td>
+                                    <td>150 ft</td>
+                                    <td>100 ft</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>2-1/2"</td>
+                                    <td>500 ft</td>
+                                    <td>300 ft</td>
+                                    <td>200 ft</td>
+                                    <td>125 ft</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>3"</td>
+                                    <td>Unlimited</td>
+                                    <td>600 ft</td>
+                                    <td>500 ft</td>
+                                    <td>300 ft</td>
+                                    <td>250 ft</td>
+                                </tr>
+                                <tr>
+                                    <td>4"</td>
+                                    <td>Unlimited</td>
+                                    <td>Unlimited</td>
+                                    <td>Unlimited</td>
+                                    <td>1,000 ft</td>
+                                    <td>900 ft</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Distance from Trap to Vent</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fixture Drain Size</th>
+                                    <th>Slope (in/ft)</th>
+                                    <th>Maximum Distance to Vent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-1/4"</td>
+                                    <td>1/4</td>
+                                    <td>2.5 feet</td>
+                                </tr>
+                                <tr>
+                                    <td>1-1/2"</td>
+                                    <td>1/4</td>
+                                    <td>3.5 feet</td>
+                                </tr>
+                                <tr>
+                                    <td>2"</td>
+                                    <td>1/4</td>
+                                    <td>5 feet</td>
+                                </tr>
+                                <tr>
+                                    <td>3"</td>
+                                    <td>1/8</td>
+                                    <td>6 feet</td>
+                                </tr>
+                                <tr>
+                                    <td>4"</td>
+                                    <td>1/8</td>
+                                    <td>10 feet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Minimum Vent Sizes by Application</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Application</th>
+                                    <th>Minimum Vent Size</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Individual fixture vent</td>
+                                    <td>1-1/4"</td>
+                                    <td>Not less than 1/2 drain size</td>
+                                </tr>
+                                <tr>
+                                    <td>Vent through roof</td>
+                                    <td>3" (cold climates)</td>
+                                    <td>Prevents frost closure</td>
+                                </tr>
+                                <tr>
+                                    <td>Stack vent</td>
+                                    <td>Same as soil stack</td>
+                                    <td>Continuation of stack</td>
+                                </tr>
+                                <tr>
+                                    <td>Common vent</td>
+                                    <td>Size for total DFU</td>
+                                    <td>Both fixtures on same level</td>
+                                </tr>
+                                <tr>
+                                    <td>Wet vent</td>
+                                    <td>Size for drainage + venting</td>
+                                    <td>Typically one size larger</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Vent sizing requirements vary by local plumbing code (IPC, UPC, or local amendments). This calculator provides general guidance based on typical code requirements. Always verify vent sizing with adopted local codes and consult manufacturer requirements for special fixtures. Improper venting can cause drainage problems, trap seal loss, and code violations. For complex installations, consult a licensed plumber or professional engineer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateVentSize() {
+            const ventType = document.getElementById('ventType').value;
+            const drainSize = parseFloat(document.getElementById('drainSize').value);
+            const totalDFU = parseFloat(document.getElementById('totalDFU').value);
+            const developedLength = parseFloat(document.getElementById('developedLength').value);
+            const fixtureType = document.getElementById('fixtureType').value;
+
+            if (!totalDFU || !developedLength || totalDFU <= 0 || developedLength <= 0) {
+                alert('Please enter valid DFU and developed length');
+                return;
+            }
+
+            let minVentSize = 1.25;
+            let recommendedSize;
+            let maxLength;
+            let sizingMethod = '';
+
+            // Individual vent sizing - minimum half the drain size
+            if (ventType === 'individual') {
+                minVentSize = Math.max(1.25, drainSize / 2);
+                sizingMethod = 'Individual vent: minimum 1/2 drain diameter';
+            } else if (ventType === 'wet') {
+                // Wet vents typically one size larger
+                minVentSize = Math.max(2, drainSize);
+                sizingMethod = 'Wet vent: sized for drainage flow';
+            } else {
+                // Size based on DFU and length using IPC Table 906.1
+                if (totalDFU <= 8) {
+                    if (developedLength <= 30) minVentSize = 1.25;
+                    else if (developedLength <= 100) minVentSize = 1.5;
+                    else if (developedLength <= 200) minVentSize = 2;
+                    else if (developedLength <= 500) minVentSize = 2.5;
+                    else minVentSize = 3;
+                } else if (totalDFU <= 24) {
+                    if (developedLength <= 50) minVentSize = 1.5;
+                    else if (developedLength <= 150) minVentSize = 2;
+                    else if (developedLength <= 300) minVentSize = 2.5;
+                    else if (developedLength <= 600) minVentSize = 3;
+                    else minVentSize = 4;
+                } else if (totalDFU <= 50) {
+                    if (developedLength <= 100) minVentSize = 2;
+                    else if (developedLength <= 200) minVentSize = 2.5;
+                    else if (developedLength <= 500) minVentSize = 3;
+                    else minVentSize = 4;
+                } else if (totalDFU <= 100) {
+                    if (developedLength <= 125) minVentSize = 2.5;
+                    else if (developedLength <= 300) minVentSize = 3;
+                    else if (developedLength <= 1000) minVentSize = 4;
+                    else minVentSize = 6;
+                } else {
+                    if (developedLength <= 250) minVentSize = 3;
+                    else if (developedLength <= 900) minVentSize = 4;
+                    else minVentSize = 6;
+                }
+                sizingMethod = 'Based on IPC Table 906.1 (DFU vs. Length)';
+            }
+
+            // Recommended size (one size up for safety margin)
+            const standardSizes = [1.25, 1.5, 2, 2.5, 3, 4, 6];
+            const currentIndex = standardSizes.indexOf(minVentSize);
+            recommendedSize = currentIndex < standardSizes.length - 1 ? standardSizes[currentIndex + 1] : minVentSize;
+
+            // Calculate maximum length for the minimum vent size
+            if (totalDFU <= 8 && minVentSize === 1.25) maxLength = 30;
+            else if (totalDFU <= 8 && minVentSize === 1.5) maxLength = 100;
+            else if (totalDFU <= 8 && minVentSize === 2) maxLength = 200;
+            else if (totalDFU <= 8 && minVentSize === 2.5) maxLength = 500;
+            else if (totalDFU <= 8 && minVentSize >= 3) maxLength = 'Unlimited';
+            else if (totalDFU <= 24 && minVentSize === 1.5) maxLength = 50;
+            else if (totalDFU <= 24 && minVentSize === 2) maxLength = 150;
+            else if (totalDFU <= 24 && minVentSize === 2.5) maxLength = 300;
+            else if (totalDFU <= 24 && minVentSize === 3) maxLength = 600;
+            else if (totalDFU <= 24 && minVentSize >= 4) maxLength = 'Unlimited';
+            else if (totalDFU <= 50 && minVentSize === 2) maxLength = 100;
+            else if (totalDFU <= 50 && minVentSize === 2.5) maxLength = 200;
+            else if (totalDFU <= 50 && minVentSize === 3) maxLength = 500;
+            else if (totalDFU <= 50 && minVentSize >= 4) maxLength = 'Unlimited';
+            else maxLength = 'See IPC Table';
+
+            const codeReq = 'IPC Section 906, UPC Section 906';
+
+            // Display results
+            document.getElementById('ventSize').textContent = minVentSize + '"';
+            document.getElementById('recommendedSize').textContent = recommendedSize + '" (with safety margin)';
+            document.getElementById('maxLength').textContent = maxLength + (typeof maxLength === 'number' ? ' feet' : '');
+            document.getElementById('codeReq').textContent = codeReq;
+            document.getElementById('sizingMethod').textContent = sizingMethod;
+
+            document.getElementById('ventResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
