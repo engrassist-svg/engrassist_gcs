@@ -5067,7 +5067,8 @@ function switchTab(tabName, event) {
     });
 }
 
-// Toggle calculation method (fixture units vs direct GPM)
+// Toggle calculation method (fixture units vs direct GPM) - DEPRECATED
+// Use switchCalculationMode instead for button-based selectors
 function toggleCalcMethod() {
     const method = document.getElementById('calcMethod').value;
     const fixtureTable = document.querySelector('.pipe-table-wrapper');
@@ -5079,6 +5080,69 @@ function toggleCalcMethod() {
     } else {
         fixtureTable.style.display = 'none';
         directGPM.style.display = 'flex';
+    }
+}
+
+// Switch calculation mode using button selector (for plumbing calculators)
+// mode: 'dfu' or 'fixtureUnits' for fixture unit mode, 'gpm' for GPM mode
+// event: the click event from the button
+function switchCalculationMode(mode, event) {
+    // Update button states
+    const modeButtons = document.querySelectorAll('.mode-button');
+    modeButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+
+    // Show/hide input sections based on mode
+    // For drain sizing page (uses 'dfu' and 'gpm')
+    const dfuInputs = document.getElementById('dfu-inputs');
+    const gpmInputsSection = document.getElementById('gpm-inputs');
+
+    // For plumbing pipe sizing page (uses 'fixtureUnits' and 'gpm')
+    const fixtureTable = document.querySelector('.pipe-table-wrapper');
+    const directGPMInput = document.getElementById('directGPMInput');
+
+    if (mode === 'dfu' || mode === 'fixtureUnits') {
+        // Show fixture unit inputs
+        if (dfuInputs) {
+            dfuInputs.classList.add('active');
+        }
+        if (gpmInputsSection) {
+            gpmInputsSection.classList.remove('active');
+        }
+        if (fixtureTable) {
+            fixtureTable.style.display = 'block';
+        }
+        if (directGPMInput) {
+            directGPMInput.style.display = 'none';
+        }
+    } else if (mode === 'gpm') {
+        // Show GPM inputs
+        if (dfuInputs) {
+            dfuInputs.classList.remove('active');
+        }
+        if (gpmInputsSection) {
+            gpmInputsSection.classList.add('active');
+        }
+        if (fixtureTable) {
+            fixtureTable.style.display = 'none';
+        }
+        if (directGPMInput) {
+            directGPMInput.style.display = 'flex';
+        }
+    }
+
+    // Hide results when switching modes (if present)
+    const drainResults = document.getElementById('drainResults');
+    const pipeSizingResults = document.getElementById('pipeSizingResults');
+    if (drainResults) {
+        drainResults.classList.remove('visible');
+    }
+    if (pipeSizingResults) {
+        pipeSizingResults.style.display = 'none';
     }
 }
 
