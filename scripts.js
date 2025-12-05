@@ -2873,10 +2873,10 @@ const psychPointColors = [
 // Chart dimensions and scales
 const psychChartConfig = {
     width: 1000,
-    height: 700,
+    height: 750,
     marginLeft: 80,
     marginRight: 50,
-    marginTop: 50,
+    marginTop: 120,  // Increased for title and enthalpy scale
     marginBottom: 80,
     tMin: 30,
     tMax: 120,
@@ -3147,8 +3147,9 @@ function psychDrawChart() {
         width: psychChartConfig.width - psychChartConfig.marginLeft - psychChartConfig.marginRight,
         height: psychChartConfig.height - psychChartConfig.marginTop - psychChartConfig.marginBottom,
         fill: '#ffffff',
-        stroke: '#bdc3c7',
-        'stroke-width': 1
+        stroke: '#2c3e50',
+        'stroke-width': 2,
+        rx: 2
     });
     svg.appendChild(chartBg);
 
@@ -3160,54 +3161,136 @@ function psychDrawChart() {
     psychDrawRelativeHumidityLines(svg);
     psychDrawSaturationCurve(svg);
     psychDrawAxes(svg);
+    psychDrawEnthalpyScale(svg);
     psychDrawConnections(svg);
     psychDrawPoints(svg);
 }
 
 function psychDrawTemperatureGrid(svg) {
+    const chartBottom = psychChartConfig.height - psychChartConfig.marginBottom;
+    const chartTop = psychChartConfig.marginTop;
+
+    // Draw grid lines and tick marks
     for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 5) {
         const x = psychTempToX(t);
         const isMajor = t % 10 === 0;
+
+        // Grid line
         const line = psychCreateSVGElement('line', {
-            x1: x, y1: psychChartConfig.marginTop,
-            x2: x, y2: psychChartConfig.height - psychChartConfig.marginBottom,
+            x1: x, y1: chartTop,
+            x2: x, y2: chartBottom,
             class: isMajor ? 'chart-grid-line-major' : 'chart-grid-line'
         });
         svg.appendChild(line);
+
+        // Bottom tick mark
+        const tickLength = isMajor ? 10 : 5;
+        const tick = psychCreateSVGElement('line', {
+            x1: x, y1: chartBottom,
+            x2: x, y2: chartBottom + tickLength,
+            stroke: '#2c3e50',
+            'stroke-width': isMajor ? 2 : 1
+        });
+        svg.appendChild(tick);
+
+        // Top tick mark
+        const topTick = psychCreateSVGElement('line', {
+            x1: x, y1: chartTop,
+            x2: x, y2: chartTop - tickLength,
+            stroke: '#2c3e50',
+            'stroke-width': isMajor ? 2 : 1
+        });
+        svg.appendChild(topTick);
+
+        // Label for major tick marks
         if (isMajor) {
             const label = psychCreateSVGElement('text', {
                 x: x,
-                y: psychChartConfig.height - psychChartConfig.marginBottom + 20,
-                class: 'chart-label',
-                'text-anchor': 'middle'
+                y: chartBottom + 25,
+                'text-anchor': 'middle',
+                'font-size': '12px',
+                'font-weight': '600',
+                fill: '#2c3e50'
             });
             label.textContent = t;
             svg.appendChild(label);
+        } else {
+            // Minor labels (smaller font)
+            const minorLabel = psychCreateSVGElement('text', {
+                x: x,
+                y: chartBottom + 18,
+                'text-anchor': 'middle',
+                'font-size': '9px',
+                'font-weight': '400',
+                fill: '#7f8c8d'
+            });
+            minorLabel.textContent = t;
+            svg.appendChild(minorLabel);
         }
     }
 }
 
 function psychDrawHumidityGrid(svg) {
+    const chartLeft = psychChartConfig.marginLeft;
+    const chartRight = psychChartConfig.width - psychChartConfig.marginRight;
+
     // Draw grid lines for humidity ratio (lb/lb)
     for (let w = 0; w <= psychChartConfig.wMax; w += 0.002) {
         const y = psychHumidityToY(w);
         const isMajor = (w * 1000) % 4 === 0;
+
+        // Grid line
         const line = psychCreateSVGElement('line', {
-            x1: psychChartConfig.marginLeft, y1: y,
-            x2: psychChartConfig.width - psychChartConfig.marginRight, y2: y,
+            x1: chartLeft, y1: y,
+            x2: chartRight, y2: y,
             class: isMajor ? 'chart-grid-line-major' : 'chart-grid-line'
         });
         svg.appendChild(line);
+
+        // Left tick mark
+        const tickLength = isMajor ? 10 : 5;
+        const tick = psychCreateSVGElement('line', {
+            x1: chartLeft - tickLength, y1: y,
+            x2: chartLeft, y2: y,
+            stroke: '#2c3e50',
+            'stroke-width': isMajor ? 2 : 1
+        });
+        svg.appendChild(tick);
+
+        // Right tick mark
+        const rightTick = psychCreateSVGElement('line', {
+            x1: chartRight, y1: y,
+            x2: chartRight + tickLength, y2: y,
+            stroke: '#2c3e50',
+            'stroke-width': isMajor ? 2 : 1
+        });
+        svg.appendChild(rightTick);
+
+        // Label for major tick marks
         if (isMajor) {
             const label = psychCreateSVGElement('text', {
-                x: psychChartConfig.marginLeft - 10,
+                x: chartLeft - 15,
                 y: y + 4,
-                class: 'chart-label',
-                'text-anchor': 'end'
+                'text-anchor': 'end',
+                'font-size': '11px',
+                'font-weight': '600',
+                fill: '#2c3e50'
             });
             // Display as lb/lb × 1000 for readability
             label.textContent = (w * 1000).toFixed(0);
             svg.appendChild(label);
+        } else {
+            // Minor labels (smaller font)
+            const minorLabel = psychCreateSVGElement('text', {
+                x: chartLeft - 15,
+                y: y + 3,
+                'text-anchor': 'end',
+                'font-size': '8px',
+                'font-weight': '400',
+                fill: '#95a5a6'
+            });
+            minorLabel.textContent = (w * 1000).toFixed(0);
+            svg.appendChild(minorLabel);
         }
     }
 }
@@ -3310,7 +3393,7 @@ function psychDrawRelativeHumidityLines(svg) {
 }
 
 function psychDrawWetBulbLines(svg) {
-    for (let t_wb = 40; t_wb <= 100; t_wb += 10) {
+    for (let t_wb = 35; t_wb <= 110; t_wb += 5) {
         let pathData = 'M';
         let isFirst = true;
         let labelX, labelY;
@@ -3334,21 +3417,24 @@ function psychDrawWetBulbLines(svg) {
                 pointCount++;
             }
         }
+        const isMajor = t_wb % 10 === 0;
         const path = psychCreateSVGElement('path', {
             d: pathData,
-            class: 'chart-wb-line'
+            class: 'chart-wb-line',
+            'stroke-width': isMajor ? 1.1 : 0.7,
+            opacity: isMajor ? 0.6 : 0.4
         });
         svg.appendChild(path);
 
-        // Add label near the saturation curve
-        if (labelX && labelY) {
+        // Add label near the saturation curve for major lines only
+        if (labelX && labelY && isMajor) {
             const label = psychCreateSVGElement('text', {
                 x: labelX - 15,
                 y: labelY - 5,
                 class: 'chart-line-label',
                 fill: '#8e44ad',
                 'font-size': '10px',
-                'font-weight': '500'
+                'font-weight': '600'
             });
             label.textContent = `${t_wb}°F WB`;
             svg.appendChild(label);
@@ -3395,6 +3481,82 @@ function psychDrawEnthalpyLines(svg) {
             });
             label.textContent = `${h} BTU/lb`;
             svg.appendChild(label);
+        }
+    }
+}
+
+function psychDrawEnthalpyScale(svg) {
+    // Draw enthalpy scale along the top of the chart
+    const scaleY = psychChartConfig.marginTop - 30;
+
+    // Draw scale background line
+    const scaleLine = psychCreateSVGElement('line', {
+        x1: psychChartConfig.marginLeft,
+        y1: scaleY,
+        x2: psychChartConfig.width - psychChartConfig.marginRight,
+        y2: scaleY,
+        stroke: '#d35400',
+        'stroke-width': 2,
+        opacity: 0.3
+    });
+    svg.appendChild(scaleLine);
+
+    const scaleLabel = psychCreateSVGElement('text', {
+        x: psychChartConfig.marginLeft - 20,
+        y: scaleY - 10,
+        'text-anchor': 'start',
+        'font-size': '11px',
+        'font-weight': '700',
+        fill: '#d35400'
+    });
+    scaleLabel.textContent = 'ENTHALPY (BTU/lb dry air)';
+    svg.appendChild(scaleLabel);
+
+    // Draw scale line and tick marks for enthalpy values
+    for (let h = 15; h <= 60; h += 5) {
+        // Find where this enthalpy line intersects the top of the chart
+        // For a given enthalpy h, solve for T where W is at the top of visible range
+        const W = psychChartConfig.wMax;
+        const T = (h - W * (1061 + 0.444 * psychChartConfig.tMin)) / (0.240 + 0.444 * W);
+
+        // Find the intersection with the top boundary
+        let intersectX = null;
+        for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 0.5) {
+            const w = (h - 0.240 * t) / (1061 + 0.444 * t);
+            if (w >= psychChartConfig.wMax - 0.001 && w <= psychChartConfig.wMax + 0.001) {
+                intersectX = psychTempToX(t);
+                break;
+            }
+        }
+
+        if (intersectX) {
+            const isMajor = h % 10 === 0;
+            const tickLength = isMajor ? 8 : 4;
+
+            // Draw tick mark
+            const tick = psychCreateSVGElement('line', {
+                x1: intersectX,
+                y1: scaleY,
+                x2: intersectX,
+                y2: scaleY + tickLength,
+                stroke: '#d35400',
+                'stroke-width': isMajor ? 2 : 1
+            });
+            svg.appendChild(tick);
+
+            // Draw label for major ticks
+            if (isMajor) {
+                const label = psychCreateSVGElement('text', {
+                    x: intersectX,
+                    y: scaleY - 3,
+                    'text-anchor': 'middle',
+                    'font-size': '10px',
+                    'font-weight': '600',
+                    fill: '#d35400'
+                });
+                label.textContent = h;
+                svg.appendChild(label);
+            }
         }
     }
 }
@@ -3461,25 +3623,69 @@ function psychDrawSpecificVolumeLines(svg) {
 }
 
 function psychDrawAxes(svg) {
+    // Chart Title
+    const chartTitle = psychCreateSVGElement('text', {
+        x: psychChartConfig.width / 2,
+        y: 25,
+        'text-anchor': 'middle',
+        'font-size': '18px',
+        'font-weight': '700',
+        fill: '#2c3e50'
+    });
+    chartTitle.textContent = 'PSYCHROMETRIC CHART';
+    svg.appendChild(chartTitle);
+
+    // Chart number and elevation info
+    const elevationText = psychCurrentPressure === psychPressures.sealevel
+        ? 'NORMAL TEMPERATURE - SEA LEVEL (29.921 inHg)'
+        : '5000 FT ELEVATION (24.896 inHg)';
+    const chartSubtitle = psychCreateSVGElement('text', {
+        x: psychChartConfig.width / 2,
+        y: 45,
+        'text-anchor': 'middle',
+        'font-size': '13px',
+        'font-weight': '600',
+        fill: '#34495e'
+    });
+    chartSubtitle.textContent = elevationText;
+    svg.appendChild(chartSubtitle);
+
+    // Barometric pressure display
+    const pressureText = psychCreateSVGElement('text', {
+        x: psychChartConfig.width / 2,
+        y: 62,
+        'text-anchor': 'middle',
+        'font-size': '11px',
+        'font-weight': '500',
+        fill: '#7f8c8d'
+    });
+    pressureText.textContent = `Barometric Pressure: ${psychCurrentPressure.toFixed(3)} psia`;
+    svg.appendChild(pressureText);
+
     // X-axis label
     const xLabel = psychCreateSVGElement('text', {
         x: psychChartConfig.width / 2,
         y: psychChartConfig.height - 10,
         class: 'chart-axis-label',
-        'text-anchor': 'middle'
+        'text-anchor': 'middle',
+        'font-size': '14px',
+        'font-weight': '600',
+        fill: '#2c3e50'
     });
-    xLabel.textContent = 'Dry Bulb Temperature (°F)';
+    xLabel.textContent = 'DRY BULB TEMPERATURE (°F)';
     svg.appendChild(xLabel);
-    
+
     // Y-axis label - CORRECTED to show actual units
     const yLabel = psychCreateSVGElement('text', {
         x: 20,
         y: psychChartConfig.height / 2,
-        class: 'chart-axis-label',
         'text-anchor': 'middle',
+        'font-size': '13px',
+        'font-weight': '600',
+        fill: '#2c3e50',
         transform: `rotate(-90, 20, ${psychChartConfig.height / 2})`
     });
-    yLabel.textContent = 'Humidity Ratio (lb water / lb dry air × 1000)';
+    yLabel.textContent = 'HUMIDITY RATIO (lb water / lb dry air × 1000)';
     svg.appendChild(yLabel);
 
     // Add chart legend in top-right corner
