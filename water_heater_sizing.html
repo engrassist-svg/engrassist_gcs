@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Water heater sizing calculator: determine required tank size and recovery rate based on occupancy, bathrooms, and usage patterns.">
+    <meta name="keywords" content="water heater sizing, tank size calculator, recovery rate, GPH, first hour rating, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/water_heater_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Water Heater Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate required water heater tank size and recovery rate for residential and commercial applications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/water_heater_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Water Heater Sizing Calculator">
+    <meta name="twitter:description" content="Calculate required water heater tank size and recovery rate.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Water Heater Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Water Heater Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate required tank capacity and recovery rate based on occupancy and usage patterns</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Water Heater Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bathrooms">Number of Bathrooms:</label>
+                            <input type="number" id="bathrooms" placeholder="Enter bathrooms" value="2" min="1" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="occupants">Number of Occupants:</label>
+                            <input type="number" id="occupants" placeholder="Enter occupants" value="4" min="1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="usagePattern">Usage Pattern:</label>
+                            <select id="usagePattern">
+                                <option value="low">Low (1-2 showers/day)</option>
+                                <option value="moderate" selected>Moderate (2-3 showers/day)</option>
+                                <option value="high">High (3+ showers/day)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="simultaneousUse">Simultaneous Use Factor:</label>
+                            <select id="simultaneousUse">
+                                <option value="low">Low (staggered use)</option>
+                                <option value="moderate" selected>Moderate (typical family)</option>
+                                <option value="high">High (peak morning use)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fuelType">Fuel Type:</label>
+                            <select id="fuelType">
+                                <option value="gas" selected>Natural Gas</option>
+                                <option value="electric">Electric</option>
+                                <option value="propane">Propane</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inletTemp">Inlet Water Temperature (°F):</label>
+                            <input type="number" id="inletTemp" placeholder="Enter temperature" value="50" min="35" max="70">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateWaterHeater()">Calculate Water Heater Size</button>
+
+                    <div id="waterHeaterResults" class="boiler-results-section" style="display: none;">
+                        <h3>Water Heater Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Peak Hour Demand:</span>
+                            <span class="result-value" id="peakDemand">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Recommended Tank Size:</span>
+                            <span class="result-value" id="tankSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Required Recovery Rate:</span>
+                            <span class="result-value" id="recoveryRate">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">First Hour Rating (FHR):</span>
+                            <span class="result-value" id="firstHourRating">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Recommended Input (BTU/hr):</span>
+                            <span class="result-value" id="inputBTU">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator provides estimates based on typical residential usage patterns. Actual requirements may vary based on specific usage habits, fixture types, and local conditions. For commercial applications or special circumstances, consult a professional engineer. Always verify sizing meets local code requirements.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Water Heater Sizing</h2>
+
+                        <h3>What is Water Heater Sizing?</h3>
+                        <p>Water heater sizing involves determining the appropriate storage capacity (gallons) and recovery rate (gallons per hour) needed to meet hot water demand. Proper sizing ensures adequate hot water during peak usage while avoiding oversizing that wastes energy.</p>
+
+                        <h3>Key Sizing Parameters</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Tank Capacity:</strong> Volume of hot water stored (gallons)</li>
+                                <li><strong>Recovery Rate:</strong> Gallons heated per hour (GPH)</li>
+                                <li><strong>First Hour Rating (FHR):</strong> Gallons available in first hour of use</li>
+                                <li><strong>Input Rating:</strong> Heating power (BTU/hr or kW)</li>
+                            </ul>
+                        </div>
+
+                        <h3>First Hour Rating (FHR)</h3>
+                        <p>The FHR is the most important specification for sizing residential water heaters. It represents the amount of hot water the heater can supply in one hour starting with a full tank.</p>
+                        <div class="info-box">
+                            <p><strong>FHR = Tank Capacity × 0.7 + Recovery Rate</strong></p>
+                            <p>The FHR should meet or exceed your peak hour demand.</p>
+                        </div>
+
+                        <h3>Typical Hot Water Usage</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Shower:</strong> 10-20 gallons (8-10 minutes)</li>
+                                <li><strong>Bath:</strong> 15-25 gallons</li>
+                                <li><strong>Dishwasher:</strong> 4-6 gallons per cycle</li>
+                                <li><strong>Clothes Washer:</strong> 7-15 gallons per load (hot wash)</li>
+                                <li><strong>Kitchen Sink:</strong> 2-4 gallons</li>
+                                <li><strong>Bathroom Sink:</strong> 1-2 gallons</li>
+                            </ul>
+                        </div>
+
+                        <h3>Sizing Methods</h3>
+                        <div class="info-box">
+                            <h4>Occupancy Method</h4>
+                            <p>For residential: 10-15 gallons per person for first two occupants, then add 5-10 gallons for each additional person.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Peak Demand Method</h4>
+                            <p>Calculate maximum hot water use during busiest hour (typically morning). Size water heater to meet this peak demand.</p>
+                        </div>
+
+                        <h3>Recovery Rate Calculation</h3>
+                        <div class="info-box">
+                            <p><strong>Gas/Propane:</strong> Recovery Rate (GPH) = (Input BTU/hr × Efficiency) ÷ (Temperature Rise × 8.33)</p>
+                            <p><strong>Electric:</strong> Recovery Rate (GPH) = (Input Watts × 3.412 × Efficiency) ÷ (Temperature Rise × 8.33)</p>
+                            <p>Where temperature rise is typically 90°F (from 50°F inlet to 140°F output)</p>
+                        </div>
+
+                        <h3>Fuel Type Considerations</h3>
+                        <div class="info-box">
+                            <h4>Natural Gas/Propane</h4>
+                            <ul>
+                                <li>Faster recovery rate (higher BTU input)</li>
+                                <li>Typical efficiency: 60-70% (standard), 90-98% (condensing)</li>
+                                <li>Typical input: 30,000-75,000 BTU/hr</li>
+                                <li>Recovery: 40-70 GPH</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Electric</h4>
+                            <ul>
+                                <li>Slower recovery rate</li>
+                                <li>Efficiency: 95-98%</li>
+                                <li>Typical input: 3,500-5,500 watts</li>
+                                <li>Recovery: 18-25 GPH</li>
+                            </ul>
+                        </div>
+
+                        <h3>Tankless vs. Tank-Type</h3>
+                        <div class="info-box">
+                            <h4>Tankless Water Heaters</h4>
+                            <ul>
+                                <li>Sized by flow rate (GPM) not storage</li>
+                                <li>Must heat water fast enough for simultaneous fixtures</li>
+                                <li>Typical residential: 5-10 GPM capacity needed</li>
+                                <li>Energy factor (EF) typically 0.82-0.98</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Water Heater Sizing Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Water Heater Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Running Out of Hot Water</strong></td>
+                                    <td>Undersized tank, low recovery rate, excessive demand, sediment buildup</td>
+                                    <td>Check FHR vs. peak demand, measure recovery time, inspect for sediment</td>
+                                    <td>Upsize water heater, increase input rating, flush tank, stagger usage</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Long Recovery Time</strong></td>
+                                    <td>Insufficient BTU input, sediment buildup, failing heating element, thermostat set too low</td>
+                                    <td>Verify input rating, check elements/burner, measure recovery rate, inspect thermostat</td>
+                                    <td>Increase burner/element size, flush sediment, replace elements, adjust thermostat</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Water Too Hot</strong></td>
+                                    <td>Thermostat set too high, faulty thermostat, no mixing valve</td>
+                                    <td>Check thermostat setting (should be 120-140°F), test temperature at fixtures</td>
+                                    <td>Adjust thermostat to 120-130°F, install mixing valve, replace faulty thermostat</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>High Energy Bills</strong></td>
+                                    <td>Oversized heater, poor insulation, leaking tank, continuous recirculation</td>
+                                    <td>Check for standby losses, inspect insulation, look for leaks, review usage patterns</td>
+                                    <td>Add tank insulation, repair leaks, install timer on recirculation, consider tankless</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Prevention Strategies</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Size based on peak hour demand plus 25% safety factor</li>
+                            <li>Annual tank flushing to prevent sediment buildup</li>
+                            <li>Install expansion tank to protect against thermal expansion</li>
+                            <li>Set temperature to 120-130°F to prevent scalding and save energy</li>
+                            <li>Insulate tank and first 6 feet of hot/cold pipes</li>
+                            <li>Install timer on recirculation pump to reduce standby losses</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Water Heater Specifications</h2>
+
+                    <h3>Typical Residential Water Heater Sizes</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Occupants</th>
+                                    <th>Bathrooms</th>
+                                    <th>Gas Tank Size</th>
+                                    <th>Electric Tank Size</th>
+                                    <th>Tankless Flow Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-2</td>
+                                    <td>1-1.5</td>
+                                    <td>30-40 gal</td>
+                                    <td>40-50 gal</td>
+                                    <td>5-6 GPM</td>
+                                </tr>
+                                <tr>
+                                    <td>2-3</td>
+                                    <td>2</td>
+                                    <td>40-50 gal</td>
+                                    <td>50-66 gal</td>
+                                    <td>6-7 GPM</td>
+                                </tr>
+                                <tr>
+                                    <td>3-4</td>
+                                    <td>2-2.5</td>
+                                    <td>50 gal</td>
+                                    <td>66-80 gal</td>
+                                    <td>7-8 GPM</td>
+                                </tr>
+                                <tr>
+                                    <td>4-5</td>
+                                    <td>3</td>
+                                    <td>50-75 gal</td>
+                                    <td>80 gal</td>
+                                    <td>8-9 GPM</td>
+                                </tr>
+                                <tr>
+                                    <td>5+</td>
+                                    <td>3+</td>
+                                    <td>75-100 gal</td>
+                                    <td>100-120 gal</td>
+                                    <td>9-11 GPM</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Recovery Rate by Fuel Type</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tank Size</th>
+                                    <th>Gas Input (BTU/hr)</th>
+                                    <th>Gas Recovery (GPH)</th>
+                                    <th>Electric Input (Watts)</th>
+                                    <th>Electric Recovery (GPH)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>30 gal</td>
+                                    <td>30,000-36,000</td>
+                                    <td>36-43</td>
+                                    <td>3,500-4,500</td>
+                                    <td>18-23</td>
+                                </tr>
+                                <tr>
+                                    <td>40 gal</td>
+                                    <td>36,000-38,000</td>
+                                    <td>38-41</td>
+                                    <td>4,500</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>50 gal</td>
+                                    <td>40,000</td>
+                                    <td>41</td>
+                                    <td>5,500</td>
+                                    <td>22</td>
+                                </tr>
+                                <tr>
+                                    <td>75 gal</td>
+                                    <td>75,000</td>
+                                    <td>72</td>
+                                    <td>5,500</td>
+                                    <td>23</td>
+                                </tr>
+                                <tr>
+                                    <td>100 gal</td>
+                                    <td>76,000</td>
+                                    <td>73</td>
+                                    <td>5,500</td>
+                                    <td>24</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Recovery based on 90°F temperature rise</em></p>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Water heater sizing depends on many factors including usage patterns, fixture types, simultaneous use, and local water temperature. These values are typical estimates for preliminary design. Always consult manufacturer specifications, verify with actual usage data, and follow local plumbing code requirements. For commercial applications, consult a professional engineer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateWaterHeater() {
+            const bathrooms = parseFloat(document.getElementById('bathrooms').value);
+            const occupants = parseFloat(document.getElementById('occupants').value);
+            const usagePattern = document.getElementById('usagePattern').value;
+            const simultaneousUse = document.getElementById('simultaneousUse').value;
+            const fuelType = document.getElementById('fuelType').value;
+            const inletTemp = parseFloat(document.getElementById('inletTemp').value);
+
+            if (!bathrooms || !occupants || bathrooms <= 0 || occupants <= 0) {
+                alert('Please enter valid number of bathrooms and occupants');
+                return;
+            }
+
+            // Calculate peak hour demand
+            let baseDemand = occupants * 12; // Base: 12 gallons per person
+
+            // Adjust for usage pattern
+            const usageMultiplier = {
+                'low': 0.8,
+                'moderate': 1.0,
+                'high': 1.3
+            };
+            baseDemand *= usageMultiplier[usagePattern];
+
+            // Adjust for simultaneous use
+            const simultaneousMultiplier = {
+                'low': 1.0,
+                'moderate': 1.15,
+                'high': 1.3
+            };
+            const peakDemand = baseDemand * simultaneousMultiplier[simultaneousUse];
+
+            // Calculate tank size based on fuel type
+            let tankSize;
+            if (fuelType === 'gas' || fuelType === 'propane') {
+                tankSize = peakDemand * 0.7; // Gas has better recovery
+            } else {
+                tankSize = peakDemand * 1.0; // Electric needs larger tank
+            }
+
+            // Round to standard sizes
+            const standardSizes = [30, 40, 50, 66, 75, 80, 100, 120];
+            tankSize = standardSizes.find(size => size >= tankSize) || 120;
+
+            // Calculate temperature rise
+            const tempRise = 140 - inletTemp; // Target 140°F output
+
+            // Calculate recovery rate based on typical inputs
+            let recoveryRate, inputBTU;
+            if (fuelType === 'gas' || fuelType === 'propane') {
+                // Typical gas input based on tank size
+                if (tankSize <= 40) inputBTU = 36000;
+                else if (tankSize <= 50) inputBTU = 40000;
+                else if (tankSize <= 75) inputBTU = 75000;
+                else inputBTU = 76000;
+
+                const efficiency = 0.65; // 65% for standard gas
+                recoveryRate = (inputBTU * efficiency) / (tempRise * 8.33);
+            } else {
+                // Electric
+                const inputWatts = tankSize <= 40 ? 4500 : 5500;
+                inputBTU = inputWatts * 3.412;
+                const efficiency = 0.96;
+                recoveryRate = (inputWatts * 3.412 * efficiency) / (tempRise * 8.33);
+            }
+
+            // Calculate First Hour Rating
+            const firstHourRating = (tankSize * 0.7) + recoveryRate;
+
+            // Display results
+            document.getElementById('peakDemand').textContent = peakDemand.toFixed(1) + ' gallons';
+            document.getElementById('tankSize').textContent = tankSize + ' gallons';
+            document.getElementById('recoveryRate').textContent = recoveryRate.toFixed(1) + ' GPH';
+            document.getElementById('firstHourRating').textContent = firstHourRating.toFixed(1) + ' gallons';
+            document.getElementById('inputBTU').textContent = inputBTU.toLocaleString() + ' BTU/hr';
+
+            document.getElementById('waterHeaterResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

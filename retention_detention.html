@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Stormwater retention and detention calculator: calculate required basin volume based on impervious area and release rate.">
+    <meta name="keywords" content="retention, detention, stormwater, basin volume, BMP, storm drainage, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/retention_detention.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Retention/Detention Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate stormwater retention and detention basin volumes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/retention_detention.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Retention/Detention Calculator">
+    <meta name="twitter:description" content="Calculate stormwater basin volumes.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Retention/Detention Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Stormwater Retention/Detention Calculator</h1>
+                <p class="hero-subtitle">Calculate required basin volume for stormwater management based on impervious area and discharge rate</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Retention/Detention Volume Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="imperviousArea">Impervious Area (square feet):</label>
+                            <input type="number" id="imperviousArea" placeholder="Enter area" value="50000" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="basinType">Basin Type:</label>
+                            <select id="basinType">
+                                <option value="detention" selected>Detention (temporary storage)</option>
+                                <option value="retention">Retention (permanent pool)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rainfallDepth">Design Rainfall Depth (inches):</label>
+                            <input type="number" id="rainfallDepth" placeholder="Enter depth" value="3.0" min="0.1" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="releaseRate">Release Rate (CFS):</label>
+                            <input type="number" id="releaseRate" placeholder="Enter rate" value="2.0" min="0" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration">Storm Duration (hours):</label>
+                            <input type="number" id="duration" placeholder="Enter hours" value="6" min="1" max="48">
+                        </div>
+                        <div class="form-group">
+                            <label for="runoffCoeff">Runoff Coefficient (C):</label>
+                            <select id="runoffCoeff">
+                                <option value="0.95" selected>Pavement/Roof (0.95)</option>
+                                <option value="0.75">Gravel/Compacted (0.75)</option>
+                                <option value="0.50">Lawn/Turf (0.50)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="safetyFactor">Safety Factor:</label>
+                            <select id="safetyFactor">
+                                <option value="1.0">1.0 (no factor)</option>
+                                <option value="1.15" selected>1.15 (15% extra)</option>
+                                <option value="1.25">1.25 (25% extra)</option>
+                                <option value="1.5">1.5 (50% extra)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="avgDepth">Average Basin Depth (feet):</label>
+                            <input type="number" id="avgDepth" placeholder="Enter depth" value="4" min="0.5" max="20" step="0.5">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateBasin()">Calculate Basin Volume</button>
+
+                    <div id="basinResults" class="boiler-results-section" style="display: none;">
+                        <h3>Basin Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Required Storage Volume:</span>
+                            <span class="result-value" id="requiredVolume">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Basin Surface Area Needed:</span>
+                            <span class="result-value" id="surfaceArea">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Peak Inflow Rate:</span>
+                            <span class="result-value" id="peakInflow">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Outlet/Orifice Size:</span>
+                            <span class="result-value" id="outletSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Estimated Drawdown Time:</span>
+                            <span class="result-value" id="drawdownTime">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Volume Reduction:</span>
+                            <span class="result-value" id="volumeReduction">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator provides preliminary estimates for stormwater basin sizing using simplified methods. Actual detention/retention design requires detailed hydrologic and hydraulic analysis including routing calculations, stage-storage-discharge relationships, and compliance with local stormwater regulations. Basin design must account for water quality requirements, emergency overflow, maintenance access, and safety features. Always consult a licensed professional engineer for stormwater management facility design.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Stormwater Retention and Detention</h2>
+
+                        <h3>Retention vs. Detention</h3>
+                        <div class="info-box">
+                            <h4>Retention Basin</h4>
+                            <p><strong>Permanent Pool:</strong> Maintains water level between storms. Water leaves through infiltration and evaporation only (no surface discharge).</p>
+                            <ul>
+                                <li>Also called retention pond or wet pond</li>
+                                <li>Provides water quality treatment</li>
+                                <li>Creates wildlife habitat</li>
+                                <li>Requires deeper excavation for permanent pool</li>
+                                <li>May require liner if infiltration is not desired</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Detention Basin</h4>
+                            <p><strong>Temporary Storage:</strong> Captures stormwater and releases it slowly through controlled outlet. Basin empties between storms.</p>
+                            <ul>
+                                <li>Also called detention pond or dry pond</li>
+                                <li>Reduces peak discharge rates</li>
+                                <li>Dry between storms (can be used for recreation)</li>
+                                <li>Less water quality treatment than retention</li>
+                                <li>Lower maintenance than wet ponds</li>
+                            </ul>
+                        </div>
+
+                        <h3>Why Detention/Retention is Required</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Peak Flow Control:</strong> Development increases runoff - detention reduces peak discharge to pre-development rates</li>
+                                <li><strong>Downstream Protection:</strong> Prevents flooding and erosion in downstream drainage systems</li>
+                                <li><strong>Water Quality:</strong> Settles suspended solids and pollutants before discharge</li>
+                                <li><strong>Regulatory Compliance:</strong> Required by MS4 permits, local ordinances, and state regulations</li>
+                            </ul>
+                        </div>
+
+                        <h3>Volume Calculation Methods</h3>
+                        <div class="info-box">
+                            <h4>Simplified Method (Volumetric)</h4>
+                            <p><strong>V = (C × I × A × T) - (Q × T)</strong></p>
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>V</strong> = Required storage volume (cubic feet)</li>
+                                <li><strong>C</strong> = Runoff coefficient</li>
+                                <li><strong>I</strong> = Rainfall intensity (in/hr)</li>
+                                <li><strong>A</strong> = Drainage area (acres)</li>
+                                <li><strong>T</strong> = Storm duration (hours)</li>
+                                <li><strong>Q</strong> = Release rate (CFS)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Rational Method</h4>
+                            <p>Estimates peak runoff for small watersheds. Used for preliminary detention sizing.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Hydrograph Routing (Detailed Design)</h4>
+                            <p>Computer modeling that routes full storm hydrograph through basin using stage-storage-discharge relationships. Required for final design.</p>
+                        </div>
+
+                        <h3>Design Requirements</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Outlet Structure:</strong> Orifice, weir, or restricted pipe to control release rate</li>
+                                <li><strong>Emergency Overflow:</strong> Spillway to safely pass flows exceeding design storm</li>
+                                <li><strong>Side Slopes:</strong> Typically 4:1 or flatter for safety and stability</li>
+                                <li><strong>Access:</strong> Maintenance access road to outlet and basin bottom</li>
+                                <li><strong>Fencing:</strong> May be required for safety if depth exceeds threshold</li>
+                                <li><strong>Vegetation:</strong> Grass, wetland plants, or erosion control</li>
+                            </ul>
+                        </div>
+
+                        <h3>Water Quality Considerations</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Water Quality Volume:</strong> First flush of runoff with highest pollutant concentration</li>
+                                <li><strong>Retention Time:</strong> Minimum 24-48 hours for settling</li>
+                                <li><strong>Depth Zones:</strong> Permanent pool 4-6 feet deep optimal for treatment</li>
+                                <li><strong>Forebay:</strong> Separate inlet area for sediment deposition</li>
+                                <li><strong>Vegetation:</strong> Wetland plants enhance treatment</li>
+                            </ul>
+                        </div>
+
+                        <h3>Alternative BMPs</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Bioretention:</strong> Landscaped depressions with engineered soil</li>
+                                <li><strong>Permeable Pavement:</strong> Allows infiltration through surface</li>
+                                <li><strong>Green Roofs:</strong> Vegetation on building roofs retains rainfall</li>
+                                <li><strong>Rain Gardens:</strong> Small-scale bioretention for residential</li>
+                                <li><strong>Underground Storage:</strong> Vaults or large pipes for space-constrained sites</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Basin Troubleshooting & Maintenance</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Basin Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Basin Not Draining</strong></td>
+                                    <td>Clogged outlet, debris blockage, sediment accumulation, frozen pipe</td>
+                                    <td>Inspect outlet structure, check for debris, measure sediment depth</td>
+                                    <td>Clean outlet, remove debris, dredge sediment, thaw frozen pipes, install trash rack</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Overflow/Flooding</strong></td>
+                                    <td>Undersized basin, clogged outlet, increased upstream development</td>
+                                    <td>Calculate basin volume vs. drainage area, inspect outlet capacity, review watershed changes</td>
+                                    <td>Expand basin, clear outlet, add overflow capacity, address upstream changes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Erosion</strong></td>
+                                    <td>Inadequate inlet protection, excessive velocity, poor vegetation, steep slopes</td>
+                                    <td>Inspect inlet and outlet areas, check flow patterns, evaluate side slopes</td>
+                                    <td>Install rip-rap, improve vegetation, add energy dissipation, flatten slopes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Water Quality Issues</strong></td>
+                                    <td>Algae growth, stagnant water, nutrient loading, inadequate depth</td>
+                                    <td>Test water quality, measure retention time, check depth zones</td>
+                                    <td>Add aeration, plant wetland vegetation, reduce nutrient sources, increase depth</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Maintenance Requirements</h3>
+                    <div class="info-box">
+                        <h4>Regular Maintenance (Quarterly)</h4>
+                        <ul>
+                            <li>Inspect inlet and outlet structures for debris</li>
+                            <li>Remove trash and sediment from forebay</li>
+                            <li>Mow grass areas and maintain vegetation</li>
+                            <li>Check for erosion and repair promptly</li>
+                            <li>Verify outlet is functioning properly</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Annual Maintenance</h4>
+                        <ul>
+                            <li>Survey sediment accumulation</li>
+                            <li>Inspect structural integrity of outlet and emergency spillway</li>
+                            <li>Check side slope stability</li>
+                            <li>Evaluate vegetation health and diversity</li>
+                            <li>Update as-built drawings if modifications made</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Long-Term Maintenance (Every 5-10 Years)</h4>
+                        <ul>
+                            <li>Dredge accumulated sediment (when depth reduced 25%)</li>
+                            <li>Major vegetation restoration if needed</li>
+                            <li>Repair or replace outlet structures</li>
+                            <li>Reevaluate capacity vs. current watershed conditions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Design Specifications</h2>
+
+                    <h3>Typical Detention Basin Sizing</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Drainage Area</th>
+                                    <th>Typical Volume</th>
+                                    <th>Typical Surface Area</th>
+                                    <th>Typical Depth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1 acre (commercial)</td><td>2,500-3,500 CF</td><td>800-1,200 SF</td><td>3-4 ft</td></tr>
+                                <tr><td>5 acres (commercial)</td><td>12,000-18,000 CF</td><td>4,000-6,000 SF</td><td>3-5 ft</td></tr>
+                                <tr><td>10 acres (mixed use)</td><td>25,000-35,000 CF</td><td>8,000-12,000 SF</td><td>4-6 ft</td></tr>
+                                <tr><td>25 acres (subdivision)</td><td>60,000-90,000 CF</td><td>15,000-25,000 SF</td><td>4-6 ft</td></tr>
+                                <tr><td>50 acres (development)</td><td>125,000-175,000 CF</td><td>30,000-45,000 SF</td><td>5-7 ft</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Highly variable based on local requirements, imperviousness, and release rates</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Outlet Orifice Sizing</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Release Rate (CFS)</th>
+                                    <th>Orifice Diameter</th>
+                                    <th>Head Required (ft)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0.5</td><td>4"</td><td>2.0</td></tr>
+                                <tr><td>1.0</td><td>6"</td><td>2.0</td></tr>
+                                <tr><td>2.0</td><td>8"</td><td>2.5</td></tr>
+                                <tr><td>5.0</td><td>12"</td><td>3.0</td></tr>
+                                <tr><td>10.0</td><td>18"</td><td>3.0</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Based on orifice equation: Q = CA√(2gh), C=0.6</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Design Storm Requirements by Jurisdiction Type</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Jurisdiction</th>
+                                    <th>Water Quality</th>
+                                    <th>Peak Control</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Typical Municipal</td><td>1-yr, 24-hr</td><td>10-yr, 25-yr, 100-yr</td><td>Varies widely</td></tr>
+                                <tr><td>MS4 Permit Areas</td><td>First 1" rainfall</td><td>2-yr to 100-yr</td><td>Water quality focus</td></tr>
+                                <tr><td>Coastal/High Rainfall</td><td>1.5" first flush</td><td>25-yr, 100-yr</td><td>Stricter requirements</td></tr>
+                                <tr><td>Arid Regions</td><td>0.5" to 1"</td><td>10-yr, 100-yr</td><td>Focus on peak control</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Stormwater detention and retention basin design is governed by local, state, and federal regulations. Requirements vary significantly by jurisdiction. This calculator provides very preliminary estimates only. Actual design requires detailed hydrologic modeling, hydraulic routing calculations, geotechnical investigation, water quality analysis, and compliance demonstration. Detention/retention basins are regulated structures that may be classified as dams requiring state engineer approval. Design must address public safety, long-term maintenance, and environmental protection. Always engage a licensed professional engineer for stormwater management facility design.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateBasin() {
+            const imperviousArea = parseFloat(document.getElementById('imperviousArea').value);
+            const rainfallDepth = parseFloat(document.getElementById('rainfallDepth').value);
+            const releaseRate = parseFloat(document.getElementById('releaseRate').value);
+            const duration = parseFloat(document.getElementById('duration').value);
+            const runoffCoeff = parseFloat(document.getElementById('runoffCoeff').value);
+            const safetyFactor = parseFloat(document.getElementById('safetyFactor').value);
+            const avgDepth = parseFloat(document.getElementById('avgDepth').value);
+
+            if (!imperviousArea || !rainfallDepth || imperviousArea <= 0) {
+                alert('Please enter valid impervious area and rainfall depth');
+                return;
+            }
+
+            // Convert area to acres
+            const areaAcres = imperviousArea / 43560;
+
+            // Calculate runoff volume (cubic feet)
+            const runoffVolume = (rainfallDepth / 12) * imperviousArea * runoffCoeff;
+
+            // Calculate volume released during storm
+            const releasedVolume = releaseRate * duration * 3600;
+
+            // Required storage = runoff - released (with safety factor)
+            let requiredVolume = (runoffVolume - releasedVolume) * safetyFactor;
+            if (requiredVolume < 0) requiredVolume = runoffVolume * safetyFactor * 0.5; // Minimum storage
+
+            // Basin surface area based on average depth
+            const surfaceArea = requiredVolume / avgDepth;
+
+            // Peak inflow rate (simplified rational method)
+            const rainfallIntensity = rainfallDepth / duration; // Average intensity
+            const peakInflow = runoffCoeff * rainfallIntensity * areaAcres * 1.008; // CFS
+
+            // Estimate orifice size needed for release rate
+            // Q = CA√(2gh), assume C=0.6, h=3 ft
+            const g = 32.2;
+            const head = 3.0;
+            const orificeArea = releaseRate / (0.6 * Math.sqrt(2 * g * head));
+            const orificeDiameter = Math.sqrt(4 * orificeArea / Math.PI) * 12; // inches
+
+            // Drawdown time (simplified)
+            const drawdownTime = requiredVolume / (releaseRate * 3600); // hours
+
+            // Volume reduction
+            const volumeReduction = ((runoffVolume - releasedVolume) / runoffVolume * 100).toFixed(0);
+
+            // Display results
+            document.getElementById('requiredVolume').textContent = requiredVolume.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' cubic feet';
+            document.getElementById('surfaceArea').textContent = surfaceArea.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' sq ft (' + (surfaceArea / 43560).toFixed(2) + ' acres)';
+            document.getElementById('peakInflow').textContent = peakInflow.toFixed(2) + ' CFS';
+            document.getElementById('outletSize').textContent = orificeDiameter.toFixed(1) + '" diameter orifice (approximate)';
+            document.getElementById('drawdownTime').textContent = drawdownTime.toFixed(1) + ' hours';
+            document.getElementById('volumeReduction').textContent = volumeReduction + '% peak flow reduction';
+
+            document.getElementById('basinResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

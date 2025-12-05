@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Water supply fixture unit calculator: calculate total WSFU loads for plumbing systems and convert to GPM flow rates.">
+    <meta name="keywords" content="fixture units, WSFU calculator, water supply, plumbing fixtures, GPM conversion, Hunter curve">
+    <link rel="canonical" href="https://engrassist.com/fixture_units.html">
+
+    <title>Fixture Unit Calculator - EngrAssist</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="page-loading"><div class="loading-spinner"></div></div>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Fixture Unit Calculator</h1>
+                <p class="hero-subtitle">Calculate total water supply fixture units (WSFU) and convert to flow rate (GPM) using Hunter's Curve</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">Calculator</button>
+                    <button class="tab-button" onclick="switchTab('information', event)">Information</button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">Troubleshooting</button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">Specifications</button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Fixture Unit Calculator</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem;">Enter Fixture Quantities</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wcTank">Water Closets (Tank Type):</label>
+                            <input type="number" id="wcTank" value="0" min="0">
+                            <small>2.5 WSFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="wcFlush">Water Closets (Flush Valve):</label>
+                            <input type="number" id="wcFlush" value="0" min="0">
+                            <small>6.0 WSFU each</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lavatory">Lavatories:</label>
+                            <input type="number" id="lavatory" value="0" min="0">
+                            <small>0.5 WSFU each (hot + cold)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="shower">Showers:</label>
+                            <input type="number" id="shower" value="0" min="0">
+                            <small>1.0 WSFU each (hot + cold)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bathtub">Bathtubs:</label>
+                            <input type="number" id="bathtub" value="0" min="0">
+                            <small>1.0 WSFU each (hot + cold)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="kitchenSink">Kitchen Sinks:</label>
+                            <input type="number" id="kitchenSink" value="0" min="0">
+                            <small>0.75 WSFU each (hot + cold)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dishwasher">Dishwashers:</label>
+                            <input type="number" id="dishwasher" value="0" min="0">
+                            <small>1.4 WSFU each (hot only)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="clothesWasher">Clothes Washers:</label>
+                            <input type="number" id="clothesWasher" value="0" min="0">
+                            <small>1.0 WSFU each (hot + cold)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hoseBibb">Hose Bibbs (3/4"):</label>
+                            <input type="number" id="hoseBibb" value="0" min="0">
+                            <small>2.5 WSFU each (cold only)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="urinal">Urinals:</label>
+                            <input type="number" id="urinal" value="0" min="0">
+                            <small>4.0 WSFU each (cold only)</small>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateFixtureUnits()">Calculate Total WSFU</button>
+
+                    <div id="fixtureResults" class="boiler-results-section" style="display: none;">
+                        <h3>Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Total Cold Water WSFU:</span>
+                            <span class="result-value" id="coldWSFU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Total Hot Water WSFU:</span>
+                            <span class="result-value" id="hotWSFU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Total Combined WSFU:</span>
+                            <span class="result-value" id="totalWSFU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Estimated Cold Water Flow:</span>
+                            <span class="result-value" id="coldGPM">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Estimated Hot Water Flow:</span>
+                            <span class="result-value" id="hotGPM">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Total Flow (Combined):</span>
+                            <span class="result-value" id="totalGPM">--</span>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 2rem;">
+                        <h4>About Fixture Units</h4>
+                        <p>Water Supply Fixture Units (WSFU) are standardized values that represent the probable water demand of plumbing fixtures. The conversion to GPM uses Hunter's Curve, which accounts for the probability that not all fixtures will be used simultaneously.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Fixture Units</h2>
+
+                        <h3>What are Water Supply Fixture Units (WSFU)?</h3>
+                        <p>Water Supply Fixture Units (WSFU) are dimensionless values assigned to plumbing fixtures to represent their probable water demand. Developed by Roy B. Hunter in 1940, the WSFU system allows engineers to size water distribution systems based on probable simultaneous use rather than assuming all fixtures operate at once.</p>
+
+                        <div class="info-box">
+                            <h4>WSFU Values Account For:</h4>
+                            <ul>
+                                <li><strong>Flow Rate:</strong> GPM demanded by each fixture type</li>
+                                <li><strong>Duration:</strong> How long fixtures typically run</li>
+                                <li><strong>Frequency:</strong> How often fixtures are used</li>
+                                <li><strong>Diversity:</strong> Probability of simultaneous use</li>
+                            </ul>
+                        </div>
+
+                        <h3>Standard WSFU Values (IPC/UPC)</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Water Closet (Tank):</strong> 2.5 WSFU (cold only)</li>
+                                <li><strong>Water Closet (Flush Valve):</strong> 6.0 WSFU (cold only)</li>
+                                <li><strong>Lavatory:</strong> 0.5 WSFU (hot and cold separately)</li>
+                                <li><strong>Shower:</strong> 1.0 WSFU (hot and cold separately)</li>
+                                <li><strong>Bathtub:</strong> 1.0 WSFU (hot and cold separately)</li>
+                                <li><strong>Kitchen Sink:</strong> 0.75 WSFU (hot and cold separately)</li>
+                                <li><strong>Dishwasher:</strong> 1.4 WSFU (hot only)</li>
+                                <li><strong>Clothes Washer:</strong> 1.0 WSFU (hot and cold separately)</li>
+                                <li><strong>Hose Bibb:</strong> 2.5 WSFU (cold only)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Hunter's Curve: Converting WSFU to GPM</h3>
+                        <p>Hunter's Curve is an empirical relationship that converts total fixture units to probable flow rate. The relationship is non-linear because the probability of simultaneous use decreases as more fixtures are added to a system.</p>
+
+                        <div class="info-box">
+                            <h4>Approximate WSFU to GPM Conversion:</h4>
+                            <ul>
+                                <li>1-5 WSFU ≈ 3-7 GPM</li>
+                                <li>10 WSFU ≈ 8-9 GPM</li>
+                                <li>20 WSFU ≈ 14-15 GPM</li>
+                                <li>30 WSFU ≈ 20-21 GPM</li>
+                                <li>50 WSFU ≈ 30 GPM</li>
+                                <li>100 WSFU ≈ 50 GPM</li>
+                                <li>200 WSFU ≈ 77 GPM</li>
+                            </ul>
+                        </div>
+
+                        <h3>Hot vs. Cold Water Fixture Units</h3>
+                        <p>Fixtures are assigned separate WSFU values for hot and cold water. Some fixtures use only cold water (toilets, hose bibbs), while others use both hot and cold (sinks, showers).</p>
+
+                        <div class="warning-box">
+                            <h4>Important Design Considerations</h4>
+                            <ul>
+                                <li>Size hot and cold water systems separately based on their respective WSFU totals</li>
+                                <li>Hot water systems typically have lower total WSFU than cold water</li>
+                                <li>Recirculation systems should be considered for long hot water runs</li>
+                                <li>Modern low-flow fixtures may result in conservative sizing with traditional WSFU values</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Fixture Unit Troubleshooting</h2>
+
+                    <div class="info-box">
+                        <h4>Common Issues When Using Fixture Units</h4>
+                        <ul>
+                            <li><strong>Undersizing:</strong> Not accounting for all fixtures or future expansion</li>
+                            <li><strong>Oversizing:</strong> Using conservative WSFU values with modern low-flow fixtures</li>
+                            <li><strong>Missing Fixtures:</strong> Forgetting utility sinks, janitor closets, outdoor faucets</li>
+                            <li><strong>Wrong Values:</strong> Using drainage fixture units (DFU) instead of WSFU</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>Best Practices</h4>
+                        <ul>
+                            <li>Create detailed fixture schedule before calculating WSFU</li>
+                            <li>Account for future expansion in commercial buildings</li>
+                            <li>Verify WSFU values match adopted plumbing code</li>
+                            <li>Calculate hot and cold water WSFU separately</li>
+                            <li>Consider actual fixture flow rates for final verification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Fixture Unit Specifications</h2>
+
+                    <h3>Complete WSFU Table (IPC)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fixture Type</th>
+                                    <th>Cold Water WSFU</th>
+                                    <th>Hot Water WSFU</th>
+                                    <th>Total WSFU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Water Closet (Tank)</td><td>2.5</td><td>0</td><td>2.5</td></tr>
+                                <tr><td>Water Closet (Flush Valve)</td><td>6.0</td><td>0</td><td>6.0</td></tr>
+                                <tr><td>Lavatory</td><td>0.5</td><td>0.5</td><td>1.0</td></tr>
+                                <tr><td>Shower</td><td>1.0</td><td>1.0</td><td>2.0</td></tr>
+                                <tr><td>Bathtub</td><td>1.0</td><td>1.0</td><td>2.0</td></tr>
+                                <tr><td>Kitchen Sink</td><td>0.75</td><td>0.75</td><td>1.5</td></tr>
+                                <tr><td>Dishwasher (Domestic)</td><td>0</td><td>1.4</td><td>1.4</td></tr>
+                                <tr><td>Clothes Washer (Domestic)</td><td>1.0</td><td>1.0</td><td>2.0</td></tr>
+                                <tr><td>Hose Bibb (3/4")</td><td>2.5</td><td>0</td><td>2.5</td></tr>
+                                <tr><td>Urinal (Flush Valve)</td><td>4.0</td><td>0</td><td>4.0</td></tr>
+                                <tr><td>Service Sink</td><td>1.5</td><td>1.5</td><td>3.0</td></tr>
+                                <tr><td>Commercial Dishwasher</td><td>0</td><td>4.0</td><td>4.0</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">WSFU to GPM Conversion Table</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr><th>Total WSFU</th><th>Demand (GPM)</th><th>Total WSFU</th><th>Demand (GPM)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>3.0</td><td>40</td><td>25</td></tr>
+                                <tr><td>2</td><td>4.0</td><td>50</td><td>30</td></tr>
+                                <tr><td>3</td><td>5.0</td><td>60</td><td>35</td></tr>
+                                <tr><td>5</td><td>6.5</td><td>80</td><td>43</td></tr>
+                                <tr><td>10</td><td>9.0</td><td>100</td><td>50</td></tr>
+                                <tr><td>15</td><td>12.0</td><td>150</td><td>65</td></tr>
+                                <tr><td>20</td><td>15.0</td><td>200</td><td>77</td></tr>
+                                <tr><td>30</td><td>21.0</td><td>250</td><td>90</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateFixtureUnits() {
+            // Get fixture quantities
+            const wcTank = parseFloat(document.getElementById('wcTank').value) || 0;
+            const wcFlush = parseFloat(document.getElementById('wcFlush').value) || 0;
+            const lavatory = parseFloat(document.getElementById('lavatory').value) || 0;
+            const shower = parseFloat(document.getElementById('shower').value) || 0;
+            const bathtub = parseFloat(document.getElementById('bathtub').value) || 0;
+            const kitchenSink = parseFloat(document.getElementById('kitchenSink').value) || 0;
+            const dishwasher = parseFloat(document.getElementById('dishwasher').value) || 0;
+            const clothesWasher = parseFloat(document.getElementById('clothesWasher').value) || 0;
+            const hoseBibb = parseFloat(document.getElementById('hoseBibb').value) || 0;
+            const urinal = parseFloat(document.getElementById('urinal').value) || 0;
+
+            // Calculate cold water WSFU
+            const coldWSFU = (wcTank * 2.5) + (wcFlush * 6.0) + (lavatory * 0.5) + (shower * 1.0) +
+                           (bathtub * 1.0) + (kitchenSink * 0.75) + (clothesWasher * 1.0) +
+                           (hoseBibb * 2.5) + (urinal * 4.0);
+
+            // Calculate hot water WSFU
+            const hotWSFU = (lavatory * 0.5) + (shower * 1.0) + (bathtub * 1.0) +
+                          (kitchenSink * 0.75) + (dishwasher * 1.4) + (clothesWasher * 1.0);
+
+            const totalWSFU = coldWSFU + hotWSFU;
+
+            // Convert to GPM using Hunter's Curve approximation
+            function wsfuToGPM(wsfu) {
+                if (wsfu <= 0) return 0;
+                // Simplified Hunter's Curve approximation
+                return Math.sqrt(wsfu) * 3.0;
+            }
+
+            const coldGPM = wsfuToGPM(coldWSFU);
+            const hotGPM = wsfuToGPM(hotWSFU);
+            const totalGPM = wsfuToGPM(totalWSFU);
+
+            // Display results
+            document.getElementById('coldWSFU').textContent = coldWSFU.toFixed(1);
+            document.getElementById('hotWSFU').textContent = hotWSFU.toFixed(1);
+            document.getElementById('totalWSFU').textContent = totalWSFU.toFixed(1);
+            document.getElementById('coldGPM').textContent = coldGPM.toFixed(1) + ' GPM';
+            document.getElementById('hotGPM').textContent = hotGPM.toFixed(1) + ' GPM';
+            document.getElementById('totalGPM').textContent = totalGPM.toFixed(1) + ' GPM';
+
+            document.getElementById('fixtureResults').style.display = 'block';
+        }
+
+        function switchTab(tabName, event) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            const tab = document.getElementById(tabName + '-tab');
+            if (tab) tab.classList.add('active');
+            if (event?.target) event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

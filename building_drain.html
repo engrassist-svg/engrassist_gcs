@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Building drain and sewer calculator: determine minimum pipe size based on DFU, slope, and pipe material.">
+    <meta name="keywords" content="building drain, building sewer, DFU, pipe slope, drainage calculator, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/building_drain.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Building Drain/Sewer Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate minimum building drain and sewer pipe size based on fixture units and slope.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/building_drain.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Building Drain/Sewer Calculator">
+    <meta name="twitter:description" content="Calculate building drain and sewer pipe sizes.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Building Drain/Sewer Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js?adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Building Drain/Sewer Calculator</h1>
+                <p class="hero-subtitle">Calculate minimum pipe size for building drains and sewers based on DFU, slope, and material</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Building Drain/Sewer Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="totalDFU">Total Drainage Fixture Units (DFU):</label>
+                            <input type="number" id="totalDFU" placeholder="Enter total DFU" value="50" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="slope">Pipe Slope (inches per foot):</label>
+                            <select id="slope">
+                                <option value="0.125">1/8" per foot</option>
+                                <option value="0.25" selected>1/4" per foot</option>
+                                <option value="0.5">1/2" per foot</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeMaterial">Pipe Material:</label>
+                            <select id="pipeMaterial">
+                                <option value="pvc" selected>PVC/ABS</option>
+                                <option value="cast">Cast Iron</option>
+                                <option value="vitrified">Vitrified Clay</option>
+                                <option value="concrete">Concrete</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeLocation">Pipe Location:</label>
+                            <select id="pipeLocation">
+                                <option value="drain" selected>Building Drain (inside)</option>
+                                <option value="sewer">Building Sewer (outside)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeLength">Approximate Length (feet):</label>
+                            <input type="number" id="pipeLength" placeholder="Enter length" value="100" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="cleanouts">Number of Cleanouts:</label>
+                            <input type="number" id="cleanouts" placeholder="Number" value="2" min="0">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateBuildingDrain()">Calculate Pipe Size</button>
+
+                    <div id="drainResults" class="boiler-results-section" style="display: none;">
+                        <h3>Building Drain/Sewer Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Minimum Pipe Size:</span>
+                            <span class="result-value" id="minPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Recommended Size:</span>
+                            <span class="result-value" id="recPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Maximum Capacity at Size:</span>
+                            <span class="result-value" id="maxCapacity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Estimated Flow Rate:</span>
+                            <span class="result-value" id="flowRate">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Total Elevation Drop:</span>
+                            <span class="result-value" id="elevDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Cleanout Spacing:</span>
+                            <span class="result-value" id="cleanoutSpacing">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator provides minimum pipe sizes based on IPC/UPC requirements. Actual size may need to be larger due to site conditions, future expansion, or local code amendments. Building drains must be properly supported, sloped uniformly, and protected from damage. Cleanouts are required at code-specified intervals and change of direction points. Always verify with local plumbing inspector before installation.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Building Drains and Sewers</h2>
+
+                        <h3>Definitions</h3>
+                        <div class="info-box">
+                            <h4>Building Drain</h4>
+                            <p>The lowest horizontal piping of the building drainage system that receives discharge from soil, waste, and other drainage pipes inside the building and conveys it to the building sewer. Located inside the building foundation.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Building Sewer</h4>
+                            <p>The pipe from the building drain that extends to the public sewer, private sewer, individual sewage disposal system, or other point of disposal. Begins 5 feet outside the building foundation (varies by code).</p>
+                        </div>
+
+                        <h3>Sizing Principles</h3>
+                        <p>Building drains and sewers are sized based on:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Total DFU:</strong> Sum of all drainage fixture units in the building</li>
+                                <li><strong>Slope:</strong> Fall per unit length (minimum 1/4" per foot for most residential)</li>
+                                <li><strong>Pipe Material:</strong> Affects flow characteristics (roughness coefficient)</li>
+                                <li><strong>Future Expansion:</strong> Consider oversizing for potential additions</li>
+                            </ul>
+                        </div>
+
+                        <h3>Slope Requirements</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Pipes 2-1/2" and smaller:</strong> Minimum 1/4" per foot</li>
+                                <li><strong>3" pipe:</strong> Minimum 1/8" per foot (1/4" preferred)</li>
+                                <li><strong>4" and larger:</strong> Minimum 1/8" per foot</li>
+                                <li><strong>Maximum slope:</strong> Generally not limited, but excessive slope can cause solids separation</li>
+                                <li><strong>Uniform slope:</strong> Avoid bellies and sags where solids can accumulate</li>
+                            </ul>
+                        </div>
+
+                        <h3>Minimum Pipe Sizes</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Building drain serving toilet:</strong> 3" minimum</li>
+                                <li><strong>Building drain without toilet:</strong> 2" minimum (limited applications)</li>
+                                <li><strong>Building sewer:</strong> 4" minimum (most codes)</li>
+                                <li><strong>Single family residence:</strong> 3" minimum typical, 4" preferred</li>
+                            </ul>
+                        </div>
+
+                        <h3>Cleanout Requirements</h3>
+                        <div class="info-box">
+                            <h4>Location Requirements</h4>
+                            <ul>
+                                <li>At base of each stack</li>
+                                <li>Change of direction greater than 45 degrees</li>
+                                <li>Maximum 100 feet spacing on horizontal runs</li>
+                                <li>Upper terminal of horizontal drain</li>
+                                <li>Where building drain/sewer connect</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Cleanout Sizing</h4>
+                            <ul>
+                                <li>Cleanout must be same size as pipe up to 4"</li>
+                                <li>For pipes larger than 4", cleanout can be 4" minimum</li>
+                                <li>Must be accessible and serviceable</li>
+                                <li>Can be extended to grade or accessible location</li>
+                            </ul>
+                        </div>
+
+                        <h3>Pipe Materials</h3>
+                        <div class="info-box">
+                            <h4>PVC/ABS (Most Common)</h4>
+                            <ul>
+                                <li>Lightweight, easy to install</li>
+                                <li>Corrosion resistant</li>
+                                <li>Smooth interior surface</li>
+                                <li>Lower cost</li>
+                                <li>Schedule 40 for above-ground, SDR 35 or Schedule 40 for below-ground</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Cast Iron</h4>
+                            <ul>
+                                <li>Extremely durable</li>
+                                <li>Quiet operation (sound dampening)</li>
+                                <li>Fire resistant</li>
+                                <li>More expensive and heavier</li>
+                                <li>Service weight or extra heavy</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Vitrified Clay</h4>
+                            <ul>
+                                <li>Traditional sewer pipe material</li>
+                                <li>Excellent corrosion resistance</li>
+                                <li>Long service life</li>
+                                <li>Brittle, susceptible to damage during installation</li>
+                                <li>Less common in modern construction</li>
+                            </ul>
+                        </div>
+
+                        <h3>Installation Best Practices</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Maintain uniform slope throughout run</li>
+                                <li>Provide adequate support (hangers every 4 feet typical)</li>
+                                <li>Protect from freezing (minimum depth or insulation)</li>
+                                <li>Avoid running under building footings if possible</li>
+                                <li>Test system with water or air test before covering</li>
+                                <li>Backfill carefully around sewer to avoid damage</li>
+                                <li>Mark sewer location for future reference</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Building Drain/Sewer Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Frequent Backups</strong></td>
+                                    <td>Undersized pipe, blockage, tree roots, broken pipe, insufficient slope</td>
+                                    <td>Camera inspection, calculate DFU vs. pipe size, check for bellies, root intrusion</td>
+                                    <td>Upsize pipe, clear blockage, remove roots, repair/replace damaged section, correct slope</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Slow Drainage</strong></td>
+                                    <td>Partial blockage, grease buildup, sagging pipe, insufficient slope</td>
+                                    <td>Snake drain, camera inspection, verify slope with laser level</td>
+                                    <td>Hydro-jet cleaning, enzyme treatment for grease, repair sagging sections</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gurgling in Fixtures</strong></td>
+                                    <td>Blocked vent, blocked building drain, improper venting</td>
+                                    <td>Check vent system, inspect drain for blockages, verify proper venting</td>
+                                    <td>Clear vent blockage, clear drain, install proper venting</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sewer Gas Odors</strong></td>
+                                    <td>Cracked pipe, lost trap seals, cleanout leaking, improper venting</td>
+                                    <td>Smoke test system, check trap seals, inspect cleanout caps, verify vent termination</td>
+                                    <td>Repair cracks, refill traps, replace cleanout caps, extend/repair vents</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Maintenance Strategies</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Annual camera inspection for commercial buildings</li>
+                            <li>Periodic hydro-jetting to prevent grease buildup</li>
+                            <li>Root treatment for properties with trees near sewer lines</li>
+                            <li>Keep detailed as-built drawings of drain/sewer routing</li>
+                            <li>Mark cleanout locations for easy access</li>
+                            <li>Educate occupants on proper disposal (no grease, wipes, etc.)</li>
+                            <li>Monitor for settling or ground movement that could affect slope</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Building Drain/Sewer Specifications</h2>
+
+                    <h3>Building Drain Capacity (IPC Table 704.1)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Size</th>
+                                    <th>1/8" Slope (DFU)</th>
+                                    <th>1/4" Slope (DFU)</th>
+                                    <th>1/2" Slope (DFU)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>3"</td><td>36</td><td>42</td><td>50</td></tr>
+                                <tr><td>4"</td><td>180</td><td>216</td><td>250</td></tr>
+                                <tr><td>5"</td><td>390</td><td>480</td><td>575</td></tr>
+                                <tr><td>6"</td><td>700</td><td>840</td><td>1,000</td></tr>
+                                <tr><td>8"</td><td>1,400</td><td>1,920</td><td>2,300</td></tr>
+                                <tr><td>10"</td><td>2,500</td><td>3,600</td><td>4,200</td></tr>
+                                <tr><td>12"</td><td>3,900</td><td>5,600</td><td>6,700</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Building Sewer Capacity (IPC Table 704.1)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Size</th>
+                                    <th>1/8" Slope (DFU)</th>
+                                    <th>1/4" Slope (DFU)</th>
+                                    <th>1/2" Slope (DFU)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>4"</td><td>--</td><td>216</td><td>250</td></tr>
+                                <tr><td>5"</td><td>--</td><td>480</td><td>575</td></tr>
+                                <tr><td>6"</td><td>--</td><td>840</td><td>1,000</td></tr>
+                                <tr><td>8"</td><td>1,400</td><td>1,920</td><td>2,300</td></tr>
+                                <tr><td>10"</td><td>2,500</td><td>3,600</td><td>4,200</td></tr>
+                                <tr><td>12"</td><td>3,900</td><td>5,600</td><td>6,700</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Note: Most codes require 4" minimum for building sewer</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Cleanout Spacing Requirements</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Application</th>
+                                    <th>Maximum Spacing</th>
+                                    <th>Code Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Horizontal Building Drain</td><td>100 feet</td><td>IPC 708.3</td></tr>
+                                <tr><td>Change of Direction > 45°</td><td>At each change</td><td>IPC 708.3.3</td></tr>
+                                <tr><td>Base of Stack</td><td>Each stack</td><td>IPC 708.3.1</td></tr>
+                                <tr><td>Building Sewer to Drain Connection</td><td>Required</td><td>IPC 708.3.4</td></tr>
+                                <tr><td>Residential Outside Cleanout</td><td>Required</td><td>Local codes vary</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Building drain and sewer sizing requirements are established by local plumbing codes which may differ from IPC/UPC. This calculator provides general guidance only. Actual installation must account for site conditions, soil type, frost depth, setback requirements, and local code amendments. Improper sizing, slope, or installation can result in chronic drainage problems and expensive repairs. For new construction or major renovations, consult a licensed professional engineer or plumber, and obtain required permits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateBuildingDrain() {
+            const totalDFU = parseFloat(document.getElementById('totalDFU').value);
+            const slope = parseFloat(document.getElementById('slope').value);
+            const pipeLength = parseFloat(document.getElementById('pipeLength').value);
+            const pipeLocation = document.getElementById('pipeLocation').value;
+
+            if (!totalDFU || !pipeLength || totalDFU <= 0) {
+                alert('Please enter valid DFU and pipe length');
+                return;
+            }
+
+            // Determine minimum pipe size based on DFU and slope
+            let minSize = 3;
+            let maxCapacity = 0;
+
+            // Building drain/sewer capacity table (IPC 704.1)
+            const capacity = {
+                0.125: { 3: 36, 4: 180, 5: 390, 6: 700, 8: 1400, 10: 2500, 12: 3900 },
+                0.25: { 3: 42, 4: 216, 5: 480, 6: 840, 8: 1920, 10: 3600, 12: 5600 },
+                0.5: { 3: 50, 4: 250, 5: 575, 6: 1000, 8: 2300, 10: 4200, 12: 6700 }
+            };
+
+            const slopeKey = slope;
+            const sizes = [3, 4, 5, 6, 8, 10, 12];
+
+            for (let size of sizes) {
+                if (capacity[slopeKey][size] >= totalDFU) {
+                    minSize = size;
+                    maxCapacity = capacity[slopeKey][size];
+                    break;
+                }
+                if (size === 12) {
+                    minSize = 12;
+                    maxCapacity = capacity[slopeKey][12];
+                }
+            }
+
+            // Building sewer minimum is typically 4"
+            if (pipeLocation === 'sewer' && minSize < 4) {
+                minSize = 4;
+                maxCapacity = capacity[slopeKey][4];
+            }
+
+            // Recommended size (one size up for safety)
+            const sizeIndex = sizes.indexOf(minSize);
+            const recSize = sizeIndex < sizes.length - 1 ? sizes[sizeIndex + 1] : minSize;
+
+            // Estimate flow rate (rough approximation: DFU / 2 to DFU / 3)
+            const flowRate = (totalDFU / 2.5).toFixed(1);
+
+            // Calculate elevation drop
+            const elevDrop = (pipeLength * slope).toFixed(2);
+
+            // Cleanout spacing
+            const cleanoutSpacing = minSize <= 4 ? '100 ft maximum, at changes > 45°' : '100 ft maximum';
+
+            // Display results
+            document.getElementById('minPipeSize').textContent = minSize + '"';
+            document.getElementById('recPipeSize').textContent = recSize + '" (for safety margin)';
+            document.getElementById('maxCapacity').textContent = maxCapacity + ' DFU';
+            document.getElementById('flowRate').textContent = flowRate + ' GPM (estimated)';
+            document.getElementById('elevDrop').textContent = elevDrop + ' inches over ' + pipeLength + ' feet';
+            document.getElementById('cleanoutSpacing').textContent = cleanoutSpacing;
+
+            document.getElementById('drainResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

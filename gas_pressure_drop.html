@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Gas pressure drop calculator: calculate pressure loss in natural gas or propane piping based on BTU load, pipe size, and length.">
+    <meta name="keywords" content="gas pressure drop, pressure loss, natural gas, propane, BTU, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/gas_pressure_drop.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Gas Pressure Drop Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate pressure drop in gas piping systems.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/gas_pressure_drop.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gas Pressure Drop Calculator">
+    <meta name="twitter:description" content="Calculate gas piping pressure drop.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Gas Pressure Drop Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Gas Pressure Drop Calculator</h1>
+                <p class="hero-subtitle">Calculate pressure loss in gas piping based on flow rate, pipe size, length, and gas properties</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Gas Pressure Drop Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="btuLoad">BTU/hr Load:</label>
+                            <input type="number" id="btuLoad" placeholder="Enter BTU/hr" value="100000" min="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeSize">Pipe Size:</label>
+                            <select id="pipeSize">
+                                <option value="0.5">1/2"</option>
+                                <option value="0.75" selected>3/4"</option>
+                                <option value="1">1"</option>
+                                <option value="1.25">1-1/4"</option>
+                                <option value="1.5">1-1/2"</option>
+                                <option value="2">2"</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeLength">Pipe Length (feet):</label>
+                            <input type="number" id="pipeLength" placeholder="Enter length" value="50" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="gasType">Gas Type:</label>
+                            <select id="gasType">
+                                <option value="0.60" selected>Natural Gas (SG=0.60)</option>
+                                <option value="1.50">Propane (SG=1.50)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inletPressure">Inlet Pressure:</label>
+                            <select id="inletPressure">
+                                <option value="7" selected>7" WC (0.25 psi) - Typical Residential</option>
+                                <option value="14">14" WC (0.5 psi)</option>
+                                <option value="2">2 psi (55" WC)</option>
+                                <option value="5">5 psi (138" WC)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeMaterial">Pipe Material:</label>
+                            <select id="pipeMaterial">
+                                <option value="steel" selected>Black Steel/Iron</option>
+                                <option value="csst">CSST (Corrugated)</option>
+                                <option value="copper">Copper</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fittingCount">Number of 90° Elbows:</label>
+                            <input type="number" id="fittingCount" placeholder="Enter count" value="4" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="valveCount">Number of Valves:</label>
+                            <input type="number" id="valveCount" placeholder="Enter count" value="1" min="0">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculatePressureDrop()">Calculate Pressure Drop</button>
+
+                    <div id="pressureDropResults" class="boiler-results-section" style="display: none;">
+                        <h3>Pressure Drop Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Pipe Pressure Drop:</span>
+                            <span class="result-value" id="pipeDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Fitting Pressure Drop:</span>
+                            <span class="result-value" id="fittingDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Total Pressure Drop:</span>
+                            <span class="result-value" id="totalDrop">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Outlet Pressure:</span>
+                            <span class="result-value" id="outletPressure">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Drop as % of Inlet:</span>
+                            <span class="result-value" id="dropPercent">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Status:</span>
+                            <span class="result-value" id="dropStatus">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator provides estimates for pressure drop in gas piping. Actual pressure drop depends on many factors including pipe roughness, temperature, elevation changes, and exact fitting geometry. Maximum allowable pressure drop is typically 0.5 inches water column for low-pressure systems, or 10% of inlet pressure for higher pressure systems. Always verify system performance with pressure gauges and consult gas codes for specific requirements.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Gas Pressure Drop</h2>
+
+                        <h3>What is Pressure Drop?</h3>
+                        <p>Pressure drop (also called pressure loss or friction loss) is the reduction in gas pressure as it flows through pipes and fittings. Unlike water systems where moderate pressure drop is acceptable, gas systems require minimal pressure drop to ensure proper appliance operation.</p>
+
+                        <h3>Why Pressure Drop Matters in Gas Systems</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Appliance Performance:</strong> Gas appliances are designed for specific inlet pressures</li>
+                                <li><strong>Safety:</strong> Low pressure causes incomplete combustion and carbon monoxide</li>
+                                <li><strong>Efficiency:</strong> Inadequate pressure wastes fuel and reduces efficiency</li>
+                                <li><strong>Code Compliance:</strong> Maximum allowable drop specified by gas codes</li>
+                            </ul>
+                        </div>
+
+                        <h3>Allowable Pressure Drop</h3>
+                        <div class="info-box">
+                            <h4>Low Pressure Systems (under 0.5 psi)</h4>
+                            <ul>
+                                <li><strong>Maximum drop:</strong> 0.5 inches water column (0.018 psi)</li>
+                                <li><strong>Typical systems:</strong> 7" WC inlet pressure</li>
+                                <li><strong>Minimum at appliance:</strong> 5-6" WC for proper operation</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>2 PSI Systems</h4>
+                            <ul>
+                                <li><strong>Maximum drop:</strong> 1.0 psi from meter to line regulator</li>
+                                <li><strong>After regulator:</strong> 0.5" WC to appliance</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>High Pressure Systems (5+ psi)</h4>
+                            <ul>
+                                <li><strong>Maximum drop:</strong> 10% of inlet pressure</li>
+                                <li><strong>Requires:</strong> Professional engineering</li>
+                            </ul>
+                        </div>
+
+                        <h3>Factors Affecting Pressure Drop</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Flow Rate:</strong> Higher BTU load = higher pressure drop</li>
+                                <li><strong>Pipe Diameter:</strong> Smaller pipes have exponentially higher drop</li>
+                                <li><strong>Pipe Length:</strong> Drop proportional to length</li>
+                                <li><strong>Specific Gravity:</strong> Heavier gases (propane) have higher drop</li>
+                                <li><strong>Fittings:</strong> Each elbow, tee, or valve adds pressure drop</li>
+                                <li><strong>Pipe Material:</strong> Rougher interiors create more friction</li>
+                            </ul>
+                        </div>
+
+                        <h3>Pressure Drop Equations</h3>
+                        <div class="info-box">
+                            <h4>Simplified Mueller Equation (Low Pressure)</h4>
+                            <p>Used in gas code sizing tables for steel pipe:</p>
+                            <p><strong>ΔP = 0.0000216 × (SG × L × Q²) / D⁵</strong></p>
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>ΔP</strong> = Pressure drop (inches water column)</li>
+                                <li><strong>SG</strong> = Specific gravity (0.60 for natural gas)</li>
+                                <li><strong>L</strong> = Length (feet)</li>
+                                <li><strong>Q</strong> = Flow rate (cubic feet per hour)</li>
+                                <li><strong>D</strong> = Inside diameter (inches)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Converting BTU to Cubic Feet</h3>
+                        <div class="info-box">
+                            <p><strong>Natural Gas:</strong> Q (CFH) = BTU/hr ÷ 1,000 (approximately)</p>
+                            <p><strong>Propane:</strong> Q (CFH) = BTU/hr ÷ 2,500 (approximately)</p>
+                            <p>Natural gas heating value ≈ 1,000 BTU/CF<br>
+                            Propane heating value ≈ 2,500 BTU/CF</p>
+                        </div>
+
+                        <h3>Equivalent Length of Fittings</h3>
+                        <p>Fittings create additional pressure drop expressed as equivalent length of straight pipe:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>90° Elbow:</strong> 2-3 feet equivalent length</li>
+                                <li><strong>45° Elbow:</strong> 1-1.5 feet</li>
+                                <li><strong>Tee (flow through):</strong> 1-1.5 feet</li>
+                                <li><strong>Tee (branch):</strong> 4-6 feet</li>
+                                <li><strong>Gate Valve:</strong> 1 foot</li>
+                                <li><strong>Ball Valve:</strong> 1-2 feet</li>
+                            </ul>
+                        </div>
+
+                        <h3>Measuring Gas Pressure</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Manometer:</strong> U-tube or digital device measuring inches water column</li>
+                                <li><strong>Test Gauge:</strong> Low-pressure gauge (0-15" WC typical)</li>
+                                <li><strong>Test Points:</strong> Measure at meter outlet, before each appliance, and at system end</li>
+                                <li><strong>Test Conditions:</strong> Measure with all appliances operating for maximum demand</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Pressure Drop Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Pressure Drop Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Excessive Pressure Drop</strong></td>
+                                    <td>Undersized pipe, long runs, too many fittings, partially closed valve</td>
+                                    <td>Measure pressure at meter and appliances, calculate expected vs. actual, check valve positions</td>
+                                    <td>Upsize piping, minimize fittings, verify all valves fully open, shorten runs if possible</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Appliance Malfunction</strong></td>
+                                    <td>Insufficient inlet pressure due to pressure drop</td>
+                                    <td>Measure pressure at appliance inlet during operation, compare to appliance requirements</td>
+                                    <td>Reduce pressure drop (larger pipes), check upstream for restrictions</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Yellow/Orange Flames</strong></td>
+                                    <td>Low gas pressure causing incomplete combustion</td>
+                                    <td>Check manifold pressure, measure inlet pressure, inspect for obstructions</td>
+                                    <td>Correct pressure drop issue, clean burners, adjust air/gas mixture at appliance</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intermittent Problems</strong></td>
+                                    <td>Pressure drop only during peak demand (multiple appliances)</td>
+                                    <td>Measure pressure with different load combinations, check meter capacity</td>
+                                    <td>Upsize system piping, add parallel runs for high-demand branches</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Diagnostic Procedures</h3>
+                    <div class="info-box">
+                        <h4>Pressure Testing Protocol</h4>
+                        <ol>
+                            <li>Install pressure gauge or manometer at gas meter outlet</li>
+                            <li>Measure static pressure (no flow) - should match utility specification</li>
+                            <li>Turn on all appliances to create maximum demand</li>
+                            <li>Measure pressure at meter outlet under load</li>
+                            <li>Measure pressure at furthest/highest demand appliance</li>
+                            <li>Calculate total pressure drop = meter pressure - appliance pressure</li>
+                            <li>Compare to allowable drop (0.5" WC for residential low pressure)</li>
+                        </ol>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Solutions for Excessive Drop</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Upsize Pipes:</strong> Increase diameter of undersized sections</li>
+                            <li><strong>Reduce Fittings:</strong> Use long-radius elbows, minimize direction changes</li>
+                            <li><strong>Parallel Runs:</strong> Install second pipe for high-load branches</li>
+                            <li><strong>Relocate Appliances:</strong> Move closer to meter if possible</li>
+                            <li><strong>Increase Inlet Pressure:</strong> Upgrade to 2 PSI system with line regulators</li>
+                            <li><strong>Separate Branches:</strong> Run dedicated lines to high-demand appliances</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Pressure Drop Specifications</h2>
+
+                    <h3>Allowable Pressure Drop by System Type</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>System Type</th>
+                                    <th>Typical Inlet</th>
+                                    <th>Max Drop</th>
+                                    <th>Min at Appliance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Residential Low Pressure</td><td>7" WC</td><td>0.5" WC</td><td>5-6" WC</td></tr>
+                                <tr><td>Commercial Low Pressure</td><td>7-14" WC</td><td>0.5-1.0" WC</td><td>5-6" WC</td></tr>
+                                <tr><td>2 PSI (Line Regulated)</td><td>2 psi (55" WC)</td><td>1.0 psi to regulator</td><td>5-6" WC after reg</td></tr>
+                                <tr><td>5 PSI System</td><td>5 psi (138" WC)</td><td>0.5 psi (10%)</td><td>Per appliance/reg</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Pressure Drop per 100 feet (Natural Gas, Steel Pipe)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>BTU/hr Load</th>
+                                    <th>1/2" Pipe</th>
+                                    <th>3/4" Pipe</th>
+                                    <th>1" Pipe</th>
+                                    <th>1-1/4" Pipe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>50,000</td><td>0.3" WC</td><td>0.05" WC</td><td>0.01" WC</td><td>0.00" WC</td></tr>
+                                <tr><td>100,000</td><td>1.0" WC</td><td>0.18" WC</td><td>0.05" WC</td><td>0.02" WC</td></tr>
+                                <tr><td>200,000</td><td>3.6" WC</td><td>0.65" WC</td><td>0.18" WC</td><td>0.06" WC</td></tr>
+                                <tr><td>300,000</td><td>7.7" WC</td><td>1.4" WC</td><td>0.39" WC</td><td>0.13" WC</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Approximate values for steel pipe, 0.6 SG natural gas</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Gas Properties</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Gas Type</th>
+                                    <th>Specific Gravity</th>
+                                    <th>Heating Value</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Natural Gas</td><td>0.60</td><td>~1,000 BTU/CF</td><td>Primarily methane</td></tr>
+                                <tr><td>Propane (LPG)</td><td>1.50</td><td>~2,500 BTU/CF</td><td>Heavier than air</td></tr>
+                                <tr><td>Butane</td><td>2.00</td><td>~3,200 BTU/CF</td><td>Limited use</td></tr>
+                                <tr><td>Manufactured Gas</td><td>0.65</td><td>~500 BTU/CF</td><td>Obsolete</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Gas pressure drop calculations must comply with IFGC, NFPA 54, and local gas codes. This calculator provides estimates for preliminary analysis. Actual gas piping design requires use of approved calculation methods, proper material selection, pressure testing, and professional installation. Inadequate gas pressure can cause appliance malfunction, incomplete combustion, and carbon monoxide production. Excessive pressure drop violates code requirements. For any gas piping system, consult qualified professionals and obtain required permits and inspections.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculatePressureDrop() {
+            const btuLoad = parseFloat(document.getElementById('btuLoad').value);
+            const pipeSize = parseFloat(document.getElementById('pipeSize').value);
+            const pipeLength = parseFloat(document.getElementById('pipeLength').value);
+            const specificGravity = parseFloat(document.getElementById('gasType').value);
+            const inletPressure = parseFloat(document.getElementById('inletPressure').value);
+            const fittingCount = parseFloat(document.getElementById('fittingCount').value) || 0;
+            const valveCount = parseFloat(document.getElementById('valveCount').value) || 0;
+
+            if (!btuLoad || !pipeLength || btuLoad <= 0 || pipeLength <= 0) {
+                alert('Please enter valid BTU load and pipe length');
+                return;
+            }
+
+            // Convert BTU to CFH (cubic feet per hour)
+            const heatingValue = specificGravity === 0.60 ? 1000 : 2500; // Natural gas or propane
+            const flowRate = btuLoad / heatingValue; // CFH
+
+            // Get pipe inside diameter (Schedule 40 steel)
+            const pipeDiameters = {
+                0.5: 0.622,
+                0.75: 0.824,
+                1.0: 1.049,
+                1.25: 1.380,
+                1.5: 1.610,
+                2.0: 2.067
+            };
+            const insideDiameter = pipeDiameters[pipeSize];
+
+            // Simplified Mueller equation for pressure drop (inches WC per 100 ft)
+            // ΔP/100 = 0.0000216 × (SG × Q²) / D⁵
+            const dropPer100 = 0.0000216 * (specificGravity * Math.pow(flowRate, 2)) / Math.pow(insideDiameter, 5);
+            const pipeDrop = (pipeLength / 100) * dropPer100;
+
+            // Equivalent length for fittings
+            const elbowEquivLength = { 0.5: 2, 0.75: 2.5, 1.0: 3, 1.25: 3.5, 1.5: 4, 2.0: 5 };
+            const valveEquivLength = { 0.5: 1, 0.75: 1, 1.0: 1.5, 1.25: 1.5, 1.5: 2, 2.0: 2 };
+
+            const fittingLength = (fittingCount * elbowEquivLength[pipeSize]) + (valveCount * valveEquivLength[pipeSize]);
+            const fittingDrop = (fittingLength / 100) * dropPer100;
+
+            const totalDrop = pipeDrop + fittingDrop;
+
+            // Calculate outlet pressure
+            let outletPressure;
+            let dropPercent;
+            if (inletPressure < 1) {
+                // Inlet in inches WC
+                outletPressure = inletPressure - totalDrop;
+                dropPercent = (totalDrop / inletPressure * 100).toFixed(1);
+            } else {
+                // Convert psi to inches WC for calculation
+                const inletWC = inletPressure * 27.7;
+                outletPressure = (inletWC - totalDrop) / 27.7;
+                dropPercent = (totalDrop / inletWC * 100).toFixed(1);
+            }
+
+            // Status
+            let dropStatus = '';
+            let statusColor = '';
+            if (totalDrop <= 0.5) {
+                dropStatus = 'Acceptable';
+                statusColor = 'green';
+            } else if (totalDrop <= 1.0) {
+                dropStatus = 'Marginal - consider upsizing';
+                statusColor = 'orange';
+            } else {
+                dropStatus = 'Excessive - upsize required';
+                statusColor = 'red';
+            }
+
+            // Display results
+            document.getElementById('pipeDrop').textContent = pipeDrop.toFixed(2) + '" WC';
+            document.getElementById('fittingDrop').textContent = fittingDrop.toFixed(2) + '" WC';
+            document.getElementById('totalDrop').textContent = totalDrop.toFixed(2) + '" WC';
+            document.getElementById('outletPressure').textContent = outletPressure.toFixed(2) + (inletPressure < 1 ? '" WC' : ' psi');
+            document.getElementById('dropPercent').textContent = dropPercent + '%';
+            document.getElementById('dropStatus').textContent = dropStatus;
+            document.getElementById('dropStatus').style.color = statusColor === 'red' ? '#e74c3c' : statusColor === 'orange' ? '#f39c12' : '#27ae60';
+
+            document.getElementById('pressureDropResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

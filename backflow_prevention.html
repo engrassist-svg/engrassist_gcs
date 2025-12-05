@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Backflow prevention device selector: determine required backflow preventer type based on hazard level and application.">
+    <meta name="keywords" content="backflow prevention, RPZ, DCVA, PVB, AVB, backflow preventer, cross-connection, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/backflow_prevention.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Backflow Prevention Guide - EngrAssist">
+    <meta property="og:description" content="Select the correct backflow prevention device for your application based on hazard level.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/backflow_prevention.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Backflow Prevention Guide">
+    <meta name="twitter:description" content="Select the correct backflow prevention device for your application.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Backflow Prevention Guide - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Backflow Prevention Guide</h1>
+                <p class="hero-subtitle">Select the correct backflow prevention device based on hazard level and application type</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Backflow Prevention Device Selector</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hazardLevel">Hazard Level:</label>
+                            <select id="hazardLevel">
+                                <option value="high">High Hazard (Health Hazard)</option>
+                                <option value="moderate">Moderate Hazard (Non-Health)</option>
+                                <option value="low" selected>Low Hazard (Nuisance)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicationType">Application Type:</label>
+                            <select id="applicationType">
+                                <option value="residential" selected>Residential</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="irrigation">Irrigation/Lawn Sprinkler</option>
+                                <option value="fire">Fire Sprinkler System</option>
+                                <option value="boiler">Boiler/Heating System</option>
+                                <option value="industrial">Industrial Process</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pressureCondition">Pressure Condition:</label>
+                            <select id="pressureCondition">
+                                <option value="continuous" selected>Continuous Pressure</option>
+                                <option value="noncontinuous">Non-Continuous Pressure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="backpressure">Backpressure Potential:</label>
+                            <select id="backpressure">
+                                <option value="yes">Yes (pumps, elevation)</option>
+                                <option value="no" selected>No (atmospheric)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="selectBackflowDevice()">Determine Required Device</button>
+
+                    <div id="backflowResults" class="boiler-results-section" style="display: none;">
+                        <h3>Recommended Backflow Prevention Device</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Device Type:</span>
+                            <span class="result-value" id="deviceType">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Full Name:</span>
+                            <span class="result-value" id="fullName">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Protection Level:</span>
+                            <span class="result-value" id="protectionLevel">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Installation Requirement:</span>
+                            <span class="result-value" id="installation">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Testing Required:</span>
+                            <span class="result-value" id="testing">--</span>
+                        </div>
+
+                        <div id="deviceDescription" class="info-box" style="margin-top: 1rem;">
+                            <h4>Device Description</h4>
+                            <p id="description">--</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This guide provides general recommendations based on typical applications. Local plumbing codes and water authority requirements may differ. Always verify backflow prevention requirements with local authorities having jurisdiction. Installation must comply with manufacturer specifications and local codes. Annual testing by certified testers is typically required for testable devices.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Backflow Prevention</h2>
+
+                        <h3>What is Backflow?</h3>
+                        <p>Backflow is the unwanted reverse flow of water or other substances from a plumbing fixture, vessel, or system back into the potable water supply. This cross-connection can contaminate drinking water with chemicals, fertilizers, human waste, or other hazardous materials.</p>
+
+                        <h3>Types of Backflow</h3>
+                        <div class="info-box">
+                            <h4>Backsiphonage</h4>
+                            <p>Occurs when negative pressure (vacuum) in the supply line pulls contaminated water backward into the potable supply. Caused by water main breaks, high withdrawal rates, or supply line repairs.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Backpressure</h4>
+                            <p>Occurs when downstream pressure exceeds supply pressure, forcing contaminated water back into the potable supply. Caused by pumps, thermal expansion, elevation differences, or pressure vessel discharge.</p>
+                        </div>
+
+                        <h3>Hazard Levels</h3>
+                        <div class="info-box">
+                            <h4>High Hazard (Health Hazard)</h4>
+                            <p>Substances that pose a serious health threat if ingested. Examples: sewage, toxic chemicals, radioactive materials, industrial fluids. Requires highest level of protection.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Moderate Hazard (Non-Health Hazard)</h4>
+                            <p>Substances objectionable but not immediately dangerous to health. Examples: process water, softened water, swimming pool water, irrigation water.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Low Hazard</h4>
+                            <p>Nuisance conditions with minimal contamination risk. Examples: residential fixtures with air gap, simple garden hoses without chemical injectors.</p>
+                        </div>
+
+                        <h3>Types of Backflow Prevention Devices</h3>
+
+                        <div class="info-box">
+                            <h4>RPZ (Reduced Pressure Zone Assembly)</h4>
+                            <ul>
+                                <li><strong>Protection:</strong> Highest level - high hazard, backpressure and backsiphonage</li>
+                                <li><strong>Applications:</strong> Industrial, fire sprinklers, irrigation with chemicals</li>
+                                <li><strong>Installation:</strong> Above ground, accessible, 12" minimum above grade</li>
+                                <li><strong>Testing:</strong> Annual by certified tester</li>
+                                <li><strong>Features:</strong> Relief valve discharges on failure, testable</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>DCVA (Double Check Valve Assembly)</h4>
+                            <ul>
+                                <li><strong>Protection:</strong> Moderate - low to moderate hazard, backpressure and backsiphonage</li>
+                                <li><strong>Applications:</strong> Commercial buildings, fire sprinklers (non-chemical), boilers</li>
+                                <li><strong>Installation:</strong> Above or below ground (if approved)</li>
+                                <li><strong>Testing:</strong> Annual by certified tester</li>
+                                <li><strong>Features:</strong> Two check valves in series with test cocks</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>PVB (Pressure Vacuum Breaker)</h4>
+                            <ul>
+                                <li><strong>Protection:</strong> Backsiphonage only (not backpressure)</li>
+                                <li><strong>Applications:</strong> Irrigation systems, residential hose bibbs</li>
+                                <li><strong>Installation:</strong> Must be 12" above highest downstream outlet</li>
+                                <li><strong>Testing:</strong> Annual by certified tester</li>
+                                <li><strong>Features:</strong> Cannot have shutoff valve downstream, testable</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>AVB (Atmospheric Vacuum Breaker)</h4>
+                            <ul>
+                                <li><strong>Protection:</strong> Backsiphonage only, non-continuous pressure</li>
+                                <li><strong>Applications:</strong> Toilets, urinals, individual fixtures</li>
+                                <li><strong>Installation:</strong> Must be 6" above flood level rim</li>
+                                <li><strong>Testing:</strong> Not testable, replace if suspected failure</li>
+                                <li><strong>Features:</strong> Simple, inexpensive, cannot be under continuous pressure</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Air Gap</h4>
+                            <ul>
+                                <li><strong>Protection:</strong> Absolute - highest level of protection</li>
+                                <li><strong>Applications:</strong> Sinks, drinking fountains, cooling towers</li>
+                                <li><strong>Installation:</strong> Vertical separation between outlet and flood level</li>
+                                <li><strong>Testing:</strong> Visual inspection only</li>
+                                <li><strong>Features:</strong> No mechanical parts, foolproof but space-intensive</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Backflow Prevention Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Backflow Preventer Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>RPZ Relief Valve Discharging</strong></td>
+                                    <td>Check valve fouling, debris, excessive pressure differential, failed relief valve</td>
+                                    <td>Test differential pressure, inspect check valves, verify supply pressure</td>
+                                    <td>Clean or replace check valves, replace relief valve, reduce supply pressure if excessive</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Failed Annual Test</strong></td>
+                                    <td>Worn seals, debris in checks, spring failure, damaged diaphragm</td>
+                                    <td>Disassemble and inspect all components, check for debris and wear</td>
+                                    <td>Replace repair kit (seals, springs, diaphragms), flush system, re-test</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Low Pressure Downstream</strong></td>
+                                    <td>Undersized device, check valves stuck partially closed, debris obstruction</td>
+                                    <td>Verify proper sizing for flow rate, test pressure drop across device, inspect for debris</td>
+                                    <td>Upsize device if undersized, clean or replace check valves, flush system</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Water Hammer</strong></td>
+                                    <td>Fast-closing valves downstream, no air chambers, excessive pressure</td>
+                                    <td>Identify valve closing speed, check for water hammer arrestors, measure pressure</td>
+                                    <td>Install water hammer arrestors, slow valve closing, install pressure reducing valve</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Installation Best Practices</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Install with proper clearances for testing and maintenance access</li>
+                            <li>RPZ must be minimum 12" above grade with adequate drainage for relief valve discharge</li>
+                            <li>PVB must be 12" above highest downstream outlet, no downstream shutoff valves</li>
+                            <li>Provide shutoff valves on both sides for testing and maintenance</li>
+                            <li>Ensure proper orientation (most devices must be installed horizontally)</li>
+                            <li>Protect outdoor devices from freezing with insulation or heat trace</li>
+                            <li>Keep detailed records of testing and maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Backflow Prevention Specifications</h2>
+
+                    <h3>Device Selection Matrix</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Application</th>
+                                    <th>Hazard Level</th>
+                                    <th>Backpressure</th>
+                                    <th>Recommended Device</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Fire Sprinkler (chemical additive)</td>
+                                    <td>High</td>
+                                    <td>Yes</td>
+                                    <td>RPZ</td>
+                                </tr>
+                                <tr>
+                                    <td>Fire Sprinkler (water only)</td>
+                                    <td>Moderate</td>
+                                    <td>Yes</td>
+                                    <td>DCVA or RPZ</td>
+                                </tr>
+                                <tr>
+                                    <td>Irrigation (no chemicals)</td>
+                                    <td>Moderate</td>
+                                    <td>No</td>
+                                    <td>PVB</td>
+                                </tr>
+                                <tr>
+                                    <td>Irrigation (with fertilizer)</td>
+                                    <td>High</td>
+                                    <td>Possible</td>
+                                    <td>RPZ</td>
+                                </tr>
+                                <tr>
+                                    <td>Boiler Feed</td>
+                                    <td>Moderate-High</td>
+                                    <td>Yes</td>
+                                    <td>RPZ</td>
+                                </tr>
+                                <tr>
+                                    <td>Residential Service</td>
+                                    <td>Low-Moderate</td>
+                                    <td>No</td>
+                                    <td>DCVA</td>
+                                </tr>
+                                <tr>
+                                    <td>Commercial Service</td>
+                                    <td>Moderate</td>
+                                    <td>Possible</td>
+                                    <td>DCVA or RPZ</td>
+                                </tr>
+                                <tr>
+                                    <td>Industrial Process</td>
+                                    <td>High</td>
+                                    <td>Yes</td>
+                                    <td>RPZ or Air Gap</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Typical Pressure Loss Across Devices</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Device Type</th>
+                                    <th>Size</th>
+                                    <th>Pressure Loss @ 10 GPM</th>
+                                    <th>Pressure Loss @ 50 GPM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>RPZ</td>
+                                    <td>3/4"</td>
+                                    <td>8-12 psi</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>RPZ</td>
+                                    <td>1"</td>
+                                    <td>4-8 psi</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>RPZ</td>
+                                    <td>2"</td>
+                                    <td>2-4 psi</td>
+                                    <td>8-12 psi</td>
+                                </tr>
+                                <tr>
+                                    <td>DCVA</td>
+                                    <td>3/4"</td>
+                                    <td>3-5 psi</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>DCVA</td>
+                                    <td>1"</td>
+                                    <td>2-4 psi</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>DCVA</td>
+                                    <td>2"</td>
+                                    <td>1-2 psi</td>
+                                    <td>5-8 psi</td>
+                                </tr>
+                                <tr>
+                                    <td>PVB</td>
+                                    <td>3/4"</td>
+                                    <td>2-4 psi</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>PVB</td>
+                                    <td>1"</td>
+                                    <td>1-3 psi</td>
+                                    <td>--</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Actual pressure loss varies by manufacturer and model</em></p>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Backflow prevention requirements are determined by local plumbing codes, water authority regulations, and specific site conditions. This guide provides general information only. Always consult with local authorities having jurisdiction, follow manufacturer installation instructions, and use certified testers for annual testing. Improper backflow prevention can result in contamination of potable water supplies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function selectBackflowDevice() {
+            const hazardLevel = document.getElementById('hazardLevel').value;
+            const applicationType = document.getElementById('applicationType').value;
+            const pressureCondition = document.getElementById('pressureCondition').value;
+            const backpressure = document.getElementById('backpressure').value;
+
+            let deviceType = '';
+            let fullName = '';
+            let protectionLevel = '';
+            let installation = '';
+            let testing = '';
+            let description = '';
+
+            // Determine device based on inputs
+            if (hazardLevel === 'high' || (applicationType === 'industrial' && hazardLevel !== 'low')) {
+                deviceType = 'RPZ';
+                fullName = 'Reduced Pressure Zone Assembly';
+                protectionLevel = 'High Hazard - Maximum Protection';
+                installation = 'Above ground, min. 12" above grade, with drainage';
+                testing = 'Annual testing by certified tester required';
+                description = 'Provides maximum protection against both backpressure and backsiphonage. Features two check valves with a relief valve between them that discharges if pressure differential fails. Required for high hazard applications.';
+            } else if (backpressure === 'yes' && hazardLevel === 'moderate') {
+                if (applicationType === 'irrigation') {
+                    deviceType = 'RPZ';
+                    fullName = 'Reduced Pressure Zone Assembly';
+                    protectionLevel = 'High Protection for Irrigation';
+                    installation = 'Above ground, min. 12" above grade, with drainage';
+                    testing = 'Annual testing by certified tester required';
+                    description = 'Required for irrigation systems with backpressure potential or chemical injection. More reliable than PVB for this application.';
+                } else {
+                    deviceType = 'DCVA';
+                    fullName = 'Double Check Valve Assembly';
+                    protectionLevel = 'Moderate Hazard - Standard Protection';
+                    installation = 'Above ground or below ground (if approved)';
+                    testing = 'Annual testing by certified tester required';
+                    description = 'Provides protection against backpressure and backsiphonage for moderate hazard applications. Features two independently acting check valves with test cocks for verification.';
+                }
+            } else if (applicationType === 'irrigation' && pressureCondition === 'continuous') {
+                deviceType = 'PVB';
+                fullName = 'Pressure Vacuum Breaker';
+                protectionLevel = 'Backsiphonage Protection Only';
+                installation = 'Min. 12" above highest outlet, no downstream shutoff';
+                testing = 'Annual testing by certified tester required';
+                description = 'Most common for residential irrigation systems. Protects against backsiphonage but not backpressure. Must be installed above all downstream outlets with no shutoff valves downstream.';
+            } else if (pressureCondition === 'noncontinuous') {
+                deviceType = 'AVB';
+                fullName = 'Atmospheric Vacuum Breaker';
+                protectionLevel = 'Backsiphonage - Non-Continuous Pressure';
+                installation = 'Min. 6" above flood level rim';
+                testing = 'Not testable - visual inspection only';
+                description = 'Simple, inexpensive device for individual fixtures under non-continuous pressure. Commonly used on toilets, urinals, and hose bibbs. Must be installed above flood level and cannot be under continuous pressure.';
+            } else if (applicationType === 'residential') {
+                deviceType = 'DCVA';
+                fullName = 'Double Check Valve Assembly';
+                protectionLevel = 'Low to Moderate Hazard';
+                installation = 'Indoor or outdoor, accessible for testing';
+                testing = 'Annual testing by certified tester required';
+                description = 'Common for residential service protection. Provides adequate protection for typical residential hazards while having lower pressure loss than RPZ.';
+            } else {
+                deviceType = 'DCVA or RPZ';
+                fullName = 'Double Check Valve Assembly or Reduced Pressure Zone';
+                protectionLevel = 'Moderate Protection - Verify with Local Authority';
+                installation = 'Above ground, accessible location';
+                testing = 'Annual testing by certified tester required';
+                description = 'Application requires professional evaluation. Local water authority and plumbing code will determine specific requirements. RPZ provides higher protection but has greater pressure loss.';
+            }
+
+            // Display results
+            document.getElementById('deviceType').textContent = deviceType;
+            document.getElementById('fullName').textContent = fullName;
+            document.getElementById('protectionLevel').textContent = protectionLevel;
+            document.getElementById('installation').textContent = installation;
+            document.getElementById('testing').textContent = testing;
+            document.getElementById('description').textContent = description;
+
+            document.getElementById('backflowResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

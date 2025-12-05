@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Storm drain pipe sizing calculator: determine pipe diameter based on drainage area, rainfall intensity, and slope.">
+    <meta name="keywords" content="storm drain, storm pipe, rainfall, drainage area, pipe sizing, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/storm_pipe_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Storm Pipe Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate storm drain pipe sizes based on drainage area and rainfall intensity.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/storm_pipe_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Storm Pipe Sizing Calculator">
+    <meta property name="twitter:description" content="Calculate storm drain pipe sizes.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Storm Pipe Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Storm Drain Pipe Sizing Calculator</h1>
+                <p class="hero-subtitle">Calculate required storm drain pipe diameter based on drainage area, rainfall intensity, and slope</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Storm Pipe Sizing Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="drainageArea">Drainage Area (square feet):</label>
+                            <input type="number" id="drainageArea" placeholder="Enter area" value="10000" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="rainfallIntensity">Rainfall Intensity (inches/hour):</label>
+                            <input type="number" id="rainfallIntensity" placeholder="Enter intensity" value="4" min="0.5" max="12" step="0.5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="runoffCoeff">Runoff Coefficient (C):</label>
+                            <select id="runoffCoeff">
+                                <option value="0.95">Roof/Pavement (C=0.95)</option>
+                                <option value="0.75" selected>Gravel/Compacted Soil (C=0.75)</option>
+                                <option value="0.50">Lawn/Turf (C=0.50)</option>
+                                <option value="0.30">Woods/Forest (C=0.30)</option>
+                                <option value="0.20">Permeable Surfaces (C=0.20)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeSlope">Pipe Slope (inches per foot):</label>
+                            <select id="pipeSlope">
+                                <option value="0.125">1/8" per foot</option>
+                                <option value="0.25" selected>1/4" per foot</option>
+                                <option value="0.5">1/2" per foot</option>
+                                <option value="1">1" per foot</option>
+                                <option value="2">2" per foot</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeMaterial">Pipe Material:</label>
+                            <select id="pipeMaterial">
+                                <option value="150">PVC/HDPE (n=0.012)</option>
+                                <option value="130" selected>Corrugated Plastic (n=0.015)</option>
+                                <option value="120">Concrete (n=0.013)</option>
+                                <option value="110">Corrugated Metal (n=0.024)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeLength">Approximate Length (feet):</label>
+                            <input type="number" id="pipeLength" placeholder="Enter length" value="150" min="1">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateStormPipe()">Calculate Pipe Size</button>
+
+                    <div id="stormPipeResults" class="boiler-results-section" style="display: none;">
+                        <h3>Storm Pipe Sizing Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Design Flow Rate:</span>
+                            <span class="result-value" id="flowRate">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Minimum Pipe Size:</span>
+                            <span class="result-value" id="minPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Recommended Size:</span>
+                            <span class="result-value" id="recPipeSize">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Flow Velocity:</span>
+                            <span class="result-value" id="velocity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Pipe Capacity at Size:</span>
+                            <span class="result-value" id="pipeCapacity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Elevation Drop:</span>
+                            <span class="result-value" id="elevDrop">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator uses the Rational Method for preliminary storm drain sizing. Actual design should account for time of concentration, inlet capacity, and local hydrology. Storm drainage systems must be designed for the design storm frequency specified by local codes (typically 10-year to 100-year). This calculator provides estimates only - consult a civil engineer for final storm drainage design. Consider peak flow from upstream areas and provide adequate inlet capacity.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Storm Drain Sizing</h2>
+
+                        <h3>The Rational Method</h3>
+                        <p>The most common method for sizing storm drains for small watersheds (typically under 200 acres):</p>
+                        <div class="info-box">
+                            <p><strong>Q = C × I × A</strong></p>
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>Q</strong> = Peak runoff rate (cubic feet per second, CFS)</li>
+                                <li><strong>C</strong> = Runoff coefficient (dimensionless, 0 to 1)</li>
+                                <li><strong>I</strong> = Rainfall intensity (inches per hour)</li>
+                                <li><strong>A</strong> = Drainage area (acres)</li>
+                            </ul>
+                            <p>Note: To convert CFS to GPM, multiply by 448.8</p>
+                        </div>
+
+                        <h3>Runoff Coefficient (C)</h3>
+                        <p>Represents the fraction of rainfall that becomes runoff. Depends on surface type:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Roofs, Pavement, Concrete:</strong> C = 0.90-0.95 (very little absorption)</li>
+                                <li><strong>Gravel, Compacted Soil:</strong> C = 0.70-0.85</li>
+                                <li><strong>Lawns, Turf (flat):</strong> C = 0.40-0.50</li>
+                                <li><strong>Lawns, Turf (sloped):</strong> C = 0.50-0.60</li>
+                                <li><strong>Woods, Forest:</strong> C = 0.20-0.40</li>
+                                <li><strong>Permeable Pavement:</strong> C = 0.15-0.30</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Composite C Value</h4>
+                            <p>For areas with mixed surfaces, calculate weighted average:</p>
+                            <p><strong>C = (C₁×A₁ + C₂×A₂ + ... + Cₙ×Aₙ) / (A₁ + A₂ + ... + Aₙ)</strong></p>
+                        </div>
+
+                        <h3>Rainfall Intensity</h3>
+                        <p>Design rainfall intensity depends on:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Design Storm Frequency:</strong> 2-yr, 5-yr, 10-yr, 25-yr, 50-yr, or 100-yr storm</li>
+                                <li><strong>Storm Duration:</strong> Equals time of concentration for the watershed</li>
+                                <li><strong>Location:</strong> Regional rainfall data from NOAA Atlas 14 or local requirements</li>
+                            </ul>
+                        </div>
+
+                        <h3>Manning's Equation for Pipe Capacity</h3>
+                        <p>Used to determine pipe size needed for calculated flow rate:</p>
+                        <div class="info-box">
+                            <p><strong>Q = (1.486/n) × A × R^(2/3) × S^(1/2)</strong></p>
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>Q</strong> = Flow rate (CFS)</li>
+                                <li><strong>n</strong> = Manning's roughness coefficient</li>
+                                <li><strong>A</strong> = Cross-sectional area (sq ft)</li>
+                                <li><strong>R</strong> = Hydraulic radius (ft)</li>
+                                <li><strong>S</strong> = Slope (ft/ft)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Manning's n Values</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>PVC, HDPE (smooth):</strong> n = 0.010-0.013</li>
+                                <li><strong>Corrugated HDPE:</strong> n = 0.012-0.015</li>
+                                <li><strong>Concrete Pipe:</strong> n = 0.011-0.015</li>
+                                <li><strong>Corrugated Metal Pipe:</strong> n = 0.022-0.026</li>
+                                <li><strong>Vitrified Clay:</strong> n = 0.011-0.015</li>
+                            </ul>
+                        </div>
+
+                        <h3>Design Storm Frequency</h3>
+                        <p>Selection depends on consequences of flooding:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>2-year to 10-year:</strong> Minor drainage, parking lots, low-risk areas</li>
+                                <li><strong>25-year:</strong> Commercial areas, residential streets</li>
+                                <li><strong>50-year:</strong> Major commercial, industrial areas</li>
+                                <li><strong>100-year:</strong> Critical facilities, areas where flooding causes major damage</li>
+                            </ul>
+                        </div>
+
+                        <h3>Velocity Limits</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Minimum Velocity:</strong> 2-3 ft/s to prevent sediment deposition</li>
+                                <li><strong>Maximum Velocity:</strong> 10-15 ft/s to prevent erosion (depends on pipe material)</li>
+                                <li><strong>Self-Cleaning Velocity:</strong> 3 ft/s or greater preferred</li>
+                            </ul>
+                        </div>
+
+                        <h3>Inlet and Junction Considerations</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Inlet capacity must match or exceed pipe capacity</li>
+                                <li>Grate inlets subject to clogging - use 50% efficiency factor</li>
+                                <li>Curb inlets more reliable for street drainage</li>
+                                <li>Manholes required at junctions, changes in direction, and grade</li>
+                                <li>Maximum spacing: 400-600 feet between access points</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Storm Drainage Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Storm Drain Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Surface Flooding</strong></td>
+                                    <td>Undersized pipes, clogged inlets, inadequate slope, insufficient inlets</td>
+                                    <td>Calculate capacity vs. actual flow, inspect inlets, verify slope, count inlet openings</td>
+                                    <td>Upsize pipes, clear inlets, add inlets, increase pipe slope if possible</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sediment Buildup</strong></td>
+                                    <td>Low velocity, insufficient slope, erosion from upstream areas</td>
+                                    <td>Measure flow velocity, check pipe slope, inspect for erosion sources</td>
+                                    <td>Increase slope, install sediment traps, stabilize erosion sources, hydro-jet cleaning</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pipe Erosion/Damage</strong></td>
+                                    <td>Excessive velocity, poor bedding, corrosive soils, settlement</td>
+                                    <td>Calculate velocity, camera inspection, soil testing, survey for settlement</td>
+                                    <td>Install erosion protection, repair/replace damaged sections, improve bedding, address settlement</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Inlet Clogging</strong></td>
+                                    <td>Debris accumulation, inadequate grate size, leaf/trash collection</td>
+                                    <td>Inspect grates and sumps, check upstream for debris sources</td>
+                                    <td>Regular maintenance, install larger grates or debris screens, eliminate debris sources</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Maintenance Best Practices</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Inspect and clean inlets before and after storm season</li>
+                            <li>Video inspect pipes every 3-5 years (annually for critical systems)</li>
+                            <li>Remove sediment buildup when depth exceeds 25% of pipe diameter</li>
+                            <li>Maintain records of inlet and pipe locations (GPS coordinates)</li>
+                            <li>Mark manholes and cleanouts for easy access</li>
+                            <li>Stabilize drainage areas to minimize erosion and sediment</li>
+                            <li>Install oil/water separators in parking areas to protect water quality</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Storm Pipe Specifications</h2>
+
+                    <h3>Pipe Capacity by Size and Slope (CFS)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Size</th>
+                                    <th>0.5% Slope</th>
+                                    <th>1.0% Slope</th>
+                                    <th>2.0% Slope</th>
+                                    <th>4.0% Slope</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>6"</td><td>0.7</td><td>1.0</td><td>1.4</td><td>2.0</td></tr>
+                                <tr><td>8"</td><td>1.5</td><td>2.1</td><td>3.0</td><td>4.2</td></tr>
+                                <tr><td>10"</td><td>2.7</td><td>3.8</td><td>5.4</td><td>7.6</td></tr>
+                                <tr><td>12"</td><td>4.2</td><td>6.0</td><td>8.5</td><td>12.0</td></tr>
+                                <tr><td>15"</td><td>7.4</td><td>10.5</td><td>14.8</td><td>21.0</td></tr>
+                                <tr><td>18"</td><td>11.5</td><td>16.3</td><td>23.0</td><td>32.6</td></tr>
+                                <tr><td>24"</td><td>23.2</td><td>32.8</td><td>46.4</td><td>65.6</td></tr>
+                                <tr><td>30"</td><td>39.9</td><td>56.5</td><td>79.9</td><td>113.0</td></tr>
+                                <tr><td>36"</td><td>61.4</td><td>86.9</td><td>122.9</td><td>173.8</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Based on Manning's equation, n=0.013 (concrete/PVC), flowing full</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Minimum Slopes for Storm Drains</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Size</th>
+                                    <th>Minimum Slope</th>
+                                    <th>For 3 ft/s Velocity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>6"</td><td>0.50%</td><td>0.60%</td></tr>
+                                <tr><td>8"</td><td>0.40%</td><td>0.45%</td></tr>
+                                <tr><td>10"</td><td>0.35%</td><td>0.36%</td></tr>
+                                <tr><td>12"</td><td>0.30%</td><td>0.30%</td></tr>
+                                <tr><td>15"</td><td>0.25%</td><td>0.24%</td></tr>
+                                <tr><td>18"</td><td>0.22%</td><td>0.20%</td></tr>
+                                <tr><td>24"</td><td>0.18%</td><td>0.15%</td></tr>
+                                <tr><td>30"</td><td>0.15%</td><td>0.12%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Typical Design Storm Frequencies</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Application</th>
+                                    <th>Design Storm</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Parking Lots (minor)</td><td>2-5 year</td><td>Nuisance flooding acceptable</td></tr>
+                                <tr><td>Residential Streets</td><td>10-25 year</td><td>Per local standards</td></tr>
+                                <tr><td>Commercial Areas</td><td>25-50 year</td><td>Higher consequence</td></tr>
+                                <tr><td>Major Streets/Highways</td><td>50-100 year</td><td>Public safety concern</td></tr>
+                                <tr><td>Critical Facilities</td><td>100-500 year</td><td>Hospitals, emergency services</td></tr>
+                                <tr><td>Roof Drains (primary)</td><td>100 year, 1-hr</td><td>IPC requirement</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Storm drainage design is a specialized field requiring knowledge of hydrology, hydraulics, and local regulations. This calculator provides preliminary estimates only using simplified methods. Actual design must account for time of concentration, inlet capacity, backwater effects, downstream conditions, water quality requirements, and local design standards. For any storm drainage project, consult a licensed professional engineer. Improper storm drainage design can result in flooding, property damage, and liability.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateStormPipe() {
+            const drainageArea = parseFloat(document.getElementById('drainageArea').value);
+            const rainfallIntensity = parseFloat(document.getElementById('rainfallIntensity').value);
+            const runoffCoeff = parseFloat(document.getElementById('runoffCoeff').value);
+            const slope = parseFloat(document.getElementById('pipeSlope').value);
+            const pipeLength = parseFloat(document.getElementById('pipeLength').value);
+
+            if (!drainageArea || !rainfallIntensity || drainageArea <= 0) {
+                alert('Please enter valid drainage area and rainfall intensity');
+                return;
+            }
+
+            // Convert area from sq ft to acres
+            const areaAcres = drainageArea / 43560;
+
+            // Rational Method: Q = C × I × A (CFS)
+            const flowRateCFS = runoffCoeff * rainfallIntensity * areaAcres;
+            const flowRateGPM = flowRateCFS * 448.8;
+
+            // Manning's equation to size pipe (simplified)
+            // Q = (1.486/n) × A × R^(2/3) × S^(1/2)
+            // For circular pipe flowing full: A = π × d²/4, R = d/4
+            // Simplified: Q ≈ 0.46 × d^(8/3) × S^(1/2) for n=0.013
+
+            const n = 0.013; // PVC/concrete
+            const slopeFraction = slope / 12; // Convert inches per foot to decimal
+
+            // Solve for diameter (iterative approximation)
+            const standardSizes = [6, 8, 10, 12, 15, 18, 21, 24, 30, 36, 42, 48];
+            let minSize = 6;
+            let pipeCapacity = 0;
+
+            for (let d of standardSizes) {
+                const dFeet = d / 12;
+                const area = Math.PI * Math.pow(dFeet, 2) / 4;
+                const hydraulicRadius = dFeet / 4;
+                const capacity = (1.486 / n) * area * Math.pow(hydraulicRadius, 2/3) * Math.pow(slopeFraction, 0.5);
+
+                if (capacity >= flowRateCFS) {
+                    minSize = d;
+                    pipeCapacity = capacity;
+                    break;
+                }
+
+                if (d === 48) {
+                    minSize = 48;
+                    pipeCapacity = capacity;
+                }
+            }
+
+            // Recommended size (one size up for safety margin)
+            const sizeIndex = standardSizes.indexOf(minSize);
+            const recSize = sizeIndex < standardSizes.length - 1 ? standardSizes[sizeIndex + 1] : minSize;
+
+            // Calculate velocity
+            const dFeet = minSize / 12;
+            const area = Math.PI * Math.pow(dFeet, 2) / 4;
+            const velocity = flowRateCFS / area;
+
+            // Elevation drop
+            const elevDrop = (pipeLength * slope).toFixed(2);
+
+            // Display results
+            document.getElementById('flowRate').textContent = flowRateCFS.toFixed(2) + ' CFS (' + flowRateGPM.toFixed(1) + ' GPM)';
+            document.getElementById('minPipeSize').textContent = minSize + '" diameter';
+            document.getElementById('recPipeSize').textContent = recSize + '" (with safety margin)';
+            document.getElementById('velocity').textContent = velocity.toFixed(2) + ' ft/s';
+            document.getElementById('pipeCapacity').textContent = pipeCapacity.toFixed(2) + ' CFS (' + (pipeCapacity * 448.8).toFixed(1) + ' GPM)';
+            document.getElementById('elevDrop').textContent = elevDrop + ' inches over ' + pipeLength + ' feet';
+
+            document.getElementById('stormPipeResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

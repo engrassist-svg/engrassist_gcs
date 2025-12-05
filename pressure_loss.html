@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Pressure loss calculator for water pipes: calculate friction loss, pressure drop, and flow velocity in domestic water systems.">
+    <meta name="keywords" content="pressure loss, friction loss, water pipe, pressure drop calculator, Hazen-Williams, pipe friction, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/pressure_loss.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Pressure Loss Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate pressure loss and friction in water piping systems.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/pressure_loss.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pressure Loss Calculator">
+    <meta name="twitter:description" content="Calculate pressure loss and friction in water piping systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Pressure Loss Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Pressure Loss Calculator</h1>
+                <p class="hero-subtitle">Calculate friction loss and pressure drop in water piping systems using the Hazen-Williams equation</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Pressure Loss Calculator</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="flowRate">Flow Rate (GPM):</label>
+                            <input type="number" id="flowRate" placeholder="Enter flow rate" value="10" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeSize">Pipe Size:</label>
+                            <select id="pipeSize">
+                                <option value="0.5">1/2"</option>
+                                <option value="0.75" selected>3/4"</option>
+                                <option value="1">1"</option>
+                                <option value="1.25">1-1/4"</option>
+                                <option value="1.5">1-1/2"</option>
+                                <option value="2">2"</option>
+                                <option value="2.5">2-1/2"</option>
+                                <option value="3">3"</option>
+                                <option value="4">4"</option>
+                                <option value="6">6"</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pipeLength">Pipe Length (feet):</label>
+                            <input type="number" id="pipeLength" placeholder="Enter length" value="100" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="pipeMaterial">Pipe Material:</label>
+                            <select id="pipeMaterial">
+                                <option value="150">Copper (C=150)</option>
+                                <option value="140">PEX (C=140)</option>
+                                <option value="130">CPVC (C=130)</option>
+                                <option value="120">Galvanized Steel (C=120)</option>
+                                <option value="100">Old Steel (C=100)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fittingsCount">Number of 90° Elbows:</label>
+                            <input type="number" id="fittingsCount" placeholder="Enter count" value="4" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="valvesCount">Number of Gate Valves:</label>
+                            <input type="number" id="valvesCount" placeholder="Enter count" value="1" min="0">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculatePressureLoss()">Calculate Pressure Loss</button>
+
+                    <div id="pressureLossResults" class="boiler-results-section" style="display: none;">
+                        <h3>Pressure Loss Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Flow Velocity:</span>
+                            <span class="result-value" id="velocity">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Pressure Loss (Friction):</span>
+                            <span class="result-value" id="frictionLoss">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Fitting & Valve Loss:</span>
+                            <span class="result-value" id="fittingLoss">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Total Pressure Loss:</span>
+                            <span class="result-value" id="totalLoss">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Velocity Status:</span>
+                            <span class="result-value" id="velocityStatus">--</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Important Notes</h4>
+                        <p>This calculator uses the Hazen-Williams equation for friction loss. Results are estimates for preliminary design. Always verify with detailed hydraulic calculations and consult local codes. Maximum recommended velocities: 8 ft/s for cold water in copper, 5 ft/s for hot water.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Pressure Loss in Water Pipes</h2>
+
+                        <h3>What is Pressure Loss?</h3>
+                        <p>Pressure loss (also called friction loss or head loss) is the reduction in water pressure as it flows through pipes, fittings, and valves. This loss is caused by friction between the water and the pipe walls, as well as turbulence created by fittings and direction changes.</p>
+
+                        <h3>Why Pressure Loss Matters</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Fixture Performance:</strong> Excessive pressure loss results in poor fixture performance (weak showers, slow-filling toilets)</li>
+                                <li><strong>System Design:</strong> Must account for pressure loss to ensure adequate pressure at all fixtures</li>
+                                <li><strong>Energy Efficiency:</strong> High pressure loss wastes pump energy in systems with pumps</li>
+                                <li><strong>Pipe Sizing:</strong> Undersized pipes cause excessive pressure loss; oversized pipes waste money</li>
+                            </ul>
+                        </div>
+
+                        <h3>Hazen-Williams Equation</h3>
+                        <p>The Hazen-Williams equation is the most common method for calculating pressure loss in water distribution systems:</p>
+                        <div class="info-box">
+                            <p><strong>P = 4.52 × L × (Q^1.85) / (C^1.85 × d^4.87)</strong></p>
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>P</strong> = Pressure loss (psi)</li>
+                                <li><strong>L</strong> = Pipe length (feet)</li>
+                                <li><strong>Q</strong> = Flow rate (GPM)</li>
+                                <li><strong>C</strong> = Hazen-Williams coefficient (pipe roughness)</li>
+                                <li><strong>d</strong> = Inside diameter (inches)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Hazen-Williams C-Factor Values</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Copper (new):</strong> C = 150</li>
+                                <li><strong>PEX:</strong> C = 140-150</li>
+                                <li><strong>CPVC:</strong> C = 130-140</li>
+                                <li><strong>Galvanized Steel (new):</strong> C = 120</li>
+                                <li><strong>Galvanized Steel (old):</strong> C = 80-100</li>
+                                <li><strong>Cast Iron:</strong> C = 100-130</li>
+                            </ul>
+                        </div>
+
+                        <h3>Factors Affecting Pressure Loss</h3>
+                        <div class="info-box">
+                            <h4>Flow Rate</h4>
+                            <p>Pressure loss increases exponentially with flow rate (Q^1.85). Doubling the flow rate increases pressure loss by about 3.6 times.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Pipe Diameter</h4>
+                            <p>Pressure loss decreases dramatically with larger diameter (d^4.87). Increasing pipe size from 3/4" to 1" reduces pressure loss by about 75%.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Pipe Length</h4>
+                            <p>Pressure loss is directly proportional to length. Developed length includes actual pipe length plus equivalent length of fittings and valves.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Pipe Roughness</h4>
+                            <p>Rougher pipes (lower C-factor) have higher friction loss. Pipe roughness increases with age due to corrosion and mineral deposits.</p>
+                        </div>
+
+                        <h3>Equivalent Length of Fittings</h3>
+                        <p>Fittings and valves create additional pressure loss due to turbulence and direction changes. This is often expressed as "equivalent length" - the length of straight pipe that would create the same loss.</p>
+
+                        <div class="info-box">
+                            <h4>Typical Equivalent Lengths (feet of pipe)</h4>
+                            <ul>
+                                <li><strong>90° Elbow:</strong> 2-3 feet (3/4"), 3-5 feet (1")</li>
+                                <li><strong>45° Elbow:</strong> 1-2 feet</li>
+                                <li><strong>Tee (flow through branch):</strong> 4-6 feet</li>
+                                <li><strong>Gate Valve (fully open):</strong> 1-2 feet</li>
+                                <li><strong>Ball Valve (fully open):</strong> 1-3 feet</li>
+                                <li><strong>Check Valve:</strong> 8-15 feet</li>
+                            </ul>
+                        </div>
+
+                        <h3>Velocity Limits</h3>
+                        <p>Water velocity should be limited to prevent erosion, noise, and water hammer:</p>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Copper - Cold Water:</strong> 8 ft/s maximum</li>
+                                <li><strong>Copper - Hot Water:</strong> 5 ft/s maximum (erosion-corrosion risk)</li>
+                                <li><strong>PEX:</strong> 10 ft/s maximum (cold), 8 ft/s (hot)</li>
+                                <li><strong>Steel:</strong> 5 ft/s maximum</li>
+                                <li><strong>Recommended Range:</strong> 4-8 ft/s for efficiency and quiet operation</li>
+                            </ul>
+                        </div>
+
+                        <h3>Design Guidelines</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li>Budget 5-10 psi loss per 100 feet of pipe for initial sizing</li>
+                                <li>Total system loss should not exceed available pressure minus required fixture pressure</li>
+                                <li>Account for meter loss, PRV loss, and elevation changes</li>
+                                <li>Use actual developed length (pipe + equivalent length of fittings)</li>
+                                <li>Consider future pipe aging when selecting C-factor</li>
+                                <li>Verify velocity is within acceptable range</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Pressure Loss Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Pressure Loss Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Excessive Pressure Drop</strong></td>
+                                    <td>Undersized pipes, clogged pipes, excessive fittings, partially closed valves</td>
+                                    <td>Measure pressure at multiple points, check valve positions, inspect for restrictions</td>
+                                    <td>Upsize piping, clean or replace clogged sections, minimize fittings, open valves fully</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Low Pressure at Fixtures</strong></td>
+                                    <td>Cumulative pressure loss too high, insufficient supply pressure, undersized distribution</td>
+                                    <td>Calculate total system pressure loss, measure supply pressure, review pipe sizing</td>
+                                    <td>Increase pipe sizes, reduce run lengths, install booster pump if needed</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pressure Loss Increasing Over Time</strong></td>
+                                    <td>Pipe corrosion, mineral deposits, galvanized steel aging</td>
+                                    <td>Compare current vs. original pressure readings, inspect exposed pipes, check water quality</td>
+                                    <td>Replace aging pipes, install water softener, consider pipe materials less prone to buildup</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Uneven Pressure Distribution</strong></td>
+                                    <td>Varying pipe sizes, long runs to some fixtures, improper system layout</td>
+                                    <td>Map piping system, measure pressure at each fixture, identify longest/smallest runs</td>
+                                    <td>Balance system with proper pipe sizing, consider parallel runs, install pressure balancing valves</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Prevention Strategies</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Size pipes properly during initial design to avoid excessive friction loss</li>
+                            <li>Use smooth-bore pipes (copper, PEX) rather than rough pipes (old galvanized)</li>
+                            <li>Minimize number of fittings and use long-radius elbows where possible</li>
+                            <li>Install water treatment if water quality causes mineral buildup</li>
+                            <li>Keep detailed pressure loss calculations for future reference</li>
+                            <li>Monitor system pressure annually to detect degradation early</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Pressure Loss Specifications</h2>
+
+                    <h3>Standard Pressure Loss Values (PSI per 100 feet)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Flow Rate</th>
+                                    <th>1/2" Pipe</th>
+                                    <th>3/4" Pipe</th>
+                                    <th>1" Pipe</th>
+                                    <th>1-1/4" Pipe</th>
+                                    <th>1-1/2" Pipe</th>
+                                    <th>2" Pipe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5 GPM</td>
+                                    <td>6.4</td>
+                                    <td>1.4</td>
+                                    <td>0.4</td>
+                                    <td>0.1</td>
+                                    <td>0.1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <tr>
+                                    <td>10 GPM</td>
+                                    <td>22.2</td>
+                                    <td>4.8</td>
+                                    <td>1.4</td>
+                                    <td>0.5</td>
+                                    <td>0.2</td>
+                                    <td>0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>15 GPM</td>
+                                    <td>46.3</td>
+                                    <td>10.0</td>
+                                    <td>2.8</td>
+                                    <td>1.0</td>
+                                    <td>0.5</td>
+                                    <td>0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>20 GPM</td>
+                                    <td>78.2</td>
+                                    <td>16.8</td>
+                                    <td>4.8</td>
+                                    <td>1.6</td>
+                                    <td>0.8</td>
+                                    <td>0.2</td>
+                                </tr>
+                                <tr>
+                                    <td>30 GPM</td>
+                                    <td>--</td>
+                                    <td>34.5</td>
+                                    <td>9.8</td>
+                                    <td>3.3</td>
+                                    <td>1.6</td>
+                                    <td>0.4</td>
+                                </tr>
+                                <tr>
+                                    <td>40 GPM</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>16.5</td>
+                                    <td>5.5</td>
+                                    <td>2.7</td>
+                                    <td>0.7</td>
+                                </tr>
+                                <tr>
+                                    <td>50 GPM</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>25.0</td>
+                                    <td>8.3</td>
+                                    <td>4.1</td>
+                                    <td>1.1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Based on Copper Type L pipe, C=150</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Equivalent Length of Fittings (feet)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fitting Type</th>
+                                    <th>1/2"</th>
+                                    <th>3/4"</th>
+                                    <th>1"</th>
+                                    <th>1-1/4"</th>
+                                    <th>1-1/2"</th>
+                                    <th>2"</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>90° Elbow</td>
+                                    <td>1.5</td>
+                                    <td>2</td>
+                                    <td>2.5</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>45° Elbow</td>
+                                    <td>0.8</td>
+                                    <td>1</td>
+                                    <td>1.3</td>
+                                    <td>1.5</td>
+                                    <td>2</td>
+                                    <td>2.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Tee (through run)</td>
+                                    <td>0.6</td>
+                                    <td>0.8</td>
+                                    <td>1</td>
+                                    <td>1.2</td>
+                                    <td>1.5</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Tee (through branch)</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>8</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>Gate Valve (open)</td>
+                                    <td>0.4</td>
+                                    <td>0.5</td>
+                                    <td>0.6</td>
+                                    <td>0.8</td>
+                                    <td>1</td>
+                                    <td>1.3</td>
+                                </tr>
+                                <tr>
+                                    <td>Ball Valve (open)</td>
+                                    <td>0.5</td>
+                                    <td>0.7</td>
+                                    <td>0.9</td>
+                                    <td>1.1</td>
+                                    <td>1.4</td>
+                                    <td>1.8</td>
+                                </tr>
+                                <tr>
+                                    <td>Check Valve</td>
+                                    <td>8</td>
+                                    <td>11</td>
+                                    <td>14</td>
+                                    <td>17</td>
+                                    <td>20</td>
+                                    <td>27</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>These values are approximations for preliminary design. Actual pressure loss depends on many factors including specific pipe material, age, water quality, and exact fitting geometry. Always perform detailed hydraulic calculations for final design and consult with a professional engineer or licensed plumber.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculatePressureLoss() {
+            const Q = parseFloat(document.getElementById('flowRate').value);
+            const nominalSize = parseFloat(document.getElementById('pipeSize').value);
+            const L = parseFloat(document.getElementById('pipeLength').value);
+            const C = parseFloat(document.getElementById('pipeMaterial').value);
+            const elbows = parseFloat(document.getElementById('fittingsCount').value) || 0;
+            const valves = parseFloat(document.getElementById('valvesCount').value) || 0;
+
+            if (!Q || !L || Q <= 0 || L <= 0) {
+                alert('Please enter valid flow rate and pipe length');
+                return;
+            }
+
+            // Get actual inside diameter for Type L copper
+            const pipeDiameters = {
+                0.5: 0.545,
+                0.75: 0.785,
+                1.0: 1.025,
+                1.25: 1.265,
+                1.5: 1.505,
+                2.0: 1.985,
+                2.5: 2.465,
+                3.0: 2.945,
+                4.0: 3.905,
+                6.0: 5.845
+            };
+
+            const d = pipeDiameters[nominalSize];
+
+            // Hazen-Williams equation: P = 4.52 * L * (Q^1.85) / (C^1.85 * d^4.87)
+            const frictionLossPer100ft = 4.52 * 100 * Math.pow(Q, 1.85) / (Math.pow(C, 1.85) * Math.pow(d, 4.87));
+            const frictionLoss = (L / 100) * frictionLossPer100ft;
+
+            // Calculate velocity: V = 0.408 * Q / d^2
+            const velocity = 0.408 * Q / Math.pow(d, 2);
+
+            // Equivalent length for fittings (simplified)
+            const elbowEquivLength = {
+                0.5: 1.5, 0.75: 2, 1.0: 2.5, 1.25: 3, 1.5: 4, 2.0: 5, 2.5: 6, 3.0: 7, 4.0: 9, 6.0: 13
+            };
+            const valveEquivLength = {
+                0.5: 0.4, 0.75: 0.5, 1.0: 0.6, 1.25: 0.8, 1.5: 1, 2.0: 1.3, 2.5: 1.6, 3.0: 2, 4.0: 2.6, 6.0: 4
+            };
+
+            const fittingLength = (elbows * elbowEquivLength[nominalSize]) + (valves * valveEquivLength[nominalSize]);
+            const fittingLoss = (fittingLength / 100) * frictionLossPer100ft;
+
+            const totalLoss = frictionLoss + fittingLoss;
+
+            // Velocity status
+            let velocityStatus = '';
+            let velocityColor = '';
+            if (velocity < 2) {
+                velocityStatus = 'Too Low (oversized)';
+                velocityColor = 'orange';
+            } else if (velocity <= 8) {
+                velocityStatus = 'Acceptable';
+                velocityColor = 'green';
+            } else if (velocity <= 10) {
+                velocityStatus = 'High (check material)';
+                velocityColor = 'orange';
+            } else {
+                velocityStatus = 'Too High (erosion risk)';
+                velocityColor = 'red';
+            }
+
+            // Display results
+            document.getElementById('velocity').textContent = velocity.toFixed(2) + ' ft/s';
+            document.getElementById('frictionLoss').textContent = frictionLoss.toFixed(2) + ' psi';
+            document.getElementById('fittingLoss').textContent = fittingLoss.toFixed(2) + ' psi';
+            document.getElementById('totalLoss').textContent = totalLoss.toFixed(2) + ' psi';
+            document.getElementById('velocityStatus').textContent = velocityStatus;
+            document.getElementById('velocityStatus').style.color = velocityColor === 'red' ? '#e74c3c' : velocityColor === 'orange' ? '#f39c12' : '#27ae60';
+
+            document.getElementById('pressureLossResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

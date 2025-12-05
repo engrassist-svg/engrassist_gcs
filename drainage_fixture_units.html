@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Drainage fixture unit calculator: calculate total DFU loads for drainage pipe sizing and sanitary sewer design.">
+    <meta name="keywords" content="drainage fixture units, DFU calculator, drainage load, plumbing drain, sanitary sewer, plumbing calculator">
+    <link rel="canonical" href="https://engrassist.com/drainage_fixture_units.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Drainage Fixture Unit Calculator - EngrAssist">
+    <meta property="og:description" content="Calculate total drainage fixture units (DFU) for sizing drainage pipes and building sewers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/drainage_fixture_units.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Drainage Fixture Unit Calculator">
+    <meta name="twitter:description" content="Calculate total DFU for drainage pipe sizing.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Drainage Fixture Unit Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Drainage Fixture Unit Calculator</h1>
+                <p class="hero-subtitle">Calculate total drainage fixture units (DFU) for sizing drainage pipes and building sewers</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Drainage Fixture Unit Calculator</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem;">Enter Fixture Quantities</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wcPrivate">Water Closets (Private):</label>
+                            <input type="number" id="wcPrivate" value="0" min="0">
+                            <small>3 DFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="wcPublic">Water Closets (Public):</label>
+                            <input type="number" id="wcPublic" value="0" min="0">
+                            <small>6 DFU each</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lavPrivate">Lavatories (Private):</label>
+                            <input type="number" id="lavPrivate" value="0" min="0">
+                            <small>1 DFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="lavPublic">Lavatories (Public):</label>
+                            <input type="number" id="lavPublic" value="0" min="0">
+                            <small>2 DFU each</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shower">Showers:</label>
+                            <input type="number" id="shower" value="0" min="0">
+                            <small>2 DFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="bathtub">Bathtubs:</label>
+                            <input type="number" id="bathtub" value="0" min="0">
+                            <small>2 DFU each</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="kitchenSink">Kitchen Sinks:</label>
+                            <input type="number" id="kitchenSink" value="0" min="0">
+                            <small>2 DFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="dishwasher">Dishwashers (Domestic):</label>
+                            <input type="number" id="dishwasher" value="0" min="0">
+                            <small>2 DFU each</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clothesWasher">Clothes Washers (2" standpipe):</label>
+                            <input type="number" id="clothesWasher" value="0" min="0">
+                            <small>3 DFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="floorDrain">Floor Drains (2"):</label>
+                            <input type="number" id="floorDrain" value="0" min="0">
+                            <small>2 DFU each</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="urinal">Urinals:</label>
+                            <input type="number" id="urinal" value="0" min="0">
+                            <small>4 DFU each</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceSink">Service Sinks:</label>
+                            <input type="number" id="serviceSink" value="0" min="0">
+                            <small>3 DFU each</small>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="calculateDrainageUnits()">Calculate Total DFU</button>
+
+                    <div id="drainageResults" class="boiler-results-section" style="display: none;">
+                        <h3>Drainage Load Results</h3>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Total Drainage Fixture Units:</span>
+                            <span class="result-value" id="totalDFU">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-orange">
+                            <span class="result-label">Min. Building Drain (1/4" slope):</span>
+                            <span class="result-value" id="buildingDrain">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-purple">
+                            <span class="result-label">Min. Building Sewer:</span>
+                            <span class="result-value" id="buildingSewer">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-green">
+                            <span class="result-label">Estimated Peak Flow:</span>
+                            <span class="result-value" id="peakFlow">--</span>
+                        </div>
+
+                        <div class="boiler-result-item boiler-result-blue">
+                            <span class="result-label">Drainage System Type:</span>
+                            <span class="result-value" id="systemType">--</span>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 2rem;">
+                        <h4>About Drainage Fixture Units (DFU)</h4>
+                        <p>Drainage Fixture Units represent the probable discharge of fixtures into the drainage system. DFU values account for the volume and duration of discharge. Use total DFU to size horizontal branches, vertical stacks, building drains, and building sewers.</p>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <div class="article-content">
+                        <h2>Understanding Drainage Fixture Units</h2>
+
+                        <h3>What are Drainage Fixture Units (DFU)?</h3>
+                        <p>Drainage Fixture Units (DFU) are standardized values that represent the probable discharge flow from plumbing fixtures into the drainage system. Like WSFU for water supply, DFU accounts for the fact that not all fixtures discharge simultaneously, allowing realistic drainage system sizing.</p>
+
+                        <h3>DFU vs. WSFU</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>WSFU:</strong> Water Supply Fixture Units - for sizing water distribution piping</li>
+                                <li><strong>DFU:</strong> Drainage Fixture Units - for sizing drainage and vent piping</li>
+                                <li>Values differ because drainage considers discharge volume and duration</li>
+                                <li>DFU values are generally higher than WSFU values for the same fixture</li>
+                            </ul>
+                        </div>
+
+                        <h3>Standard DFU Values (IPC/UPC)</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Water Closet (Private):</strong> 3 DFU</li>
+                                <li><strong>Water Closet (Public):</strong> 6 DFU</li>
+                                <li><strong>Lavatory (Private):</strong> 1 DFU</li>
+                                <li><strong>Lavatory (Public):</strong> 2 DFU</li>
+                                <li><strong>Shower:</strong> 2 DFU</li>
+                                <li><strong>Bathtub:</strong> 2 DFU</li>
+                                <li><strong>Kitchen Sink:</strong> 2 DFU</li>
+                                <li><strong>Dishwasher (Domestic):</strong> 2 DFU</li>
+                                <li><strong>Clothes Washer (2"):</strong> 3 DFU</li>
+                                <li><strong>Floor Drain (2"):</strong> 2 DFU</li>
+                                <li><strong>Urinal:</strong> 4 DFU</li>
+                                <li><strong>Service Sink:</strong> 3 DFU</li>
+                            </ul>
+                        </div>
+
+                        <h3>Using DFU for Pipe Sizing</h3>
+                        <p>Total DFU is used to size various components of the drainage system:</p>
+
+                        <div class="info-box">
+                            <h4>Horizontal Branches</h4>
+                            <p>Branch drains collecting discharge from multiple fixtures. Size based on total DFU and slope (typically 1/4" per foot minimum).</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Stacks (Vertical Drainage)</h4>
+                            <p>Vertical pipes receiving discharge from horizontal branches. Soil stacks receive toilets; waste stacks receive other fixtures. Sized based on total DFU on stack and number of stories.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Building Drain</h4>
+                            <p>Horizontal pipe inside building collecting discharge from stacks and branches. Sized based on total DFU and slope (1/4" per foot typical).</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Building Sewer</h4>
+                            <p>Pipe from building drain to public sewer or septic tank. Typically same size or larger than building drain. Minimum slope requirements apply.</p>
+                        </div>
+
+                        <h3>Slope Requirements</h3>
+                        <div class="info-box">
+                            <ul>
+                                <li><strong>Pipes 2-1/2" and smaller:</strong> Minimum 1/4" per foot slope</li>
+                                <li><strong>Pipes 3" and larger:</strong> Minimum 1/8" per foot slope (1/4" preferred)</li>
+                                <li><strong>Building sewer:</strong> Minimum 1/4" per foot for pipes under 6"</li>
+                                <li><strong>Maximum slope:</strong> Generally limited to prevent solids separation</li>
+                            </ul>
+                        </div>
+
+                        <h3>Peak Flow Estimation</h3>
+                        <p>While DFU is used for pipe sizing, actual flow rate can be estimated:</p>
+                        <div class="info-box">
+                            <p><strong>Approximate Formula:</strong> GPM ≈ DFU / 2 to DFU / 3</p>
+                            <p>This rough estimate helps verify sizing with actual flow capacity. Exact relationship varies with fixture mix and usage patterns.</p>
+                        </div>
+
+                        <h3>Special Considerations</h3>
+                        <div class="warning-box">
+                            <ul>
+                                <li><strong>Continuous Flow:</strong> Some fixtures (commercial dishwashers, certain processes) have continuous discharge requiring special sizing</li>
+                                <li><strong>Grease Interceptors:</strong> Required for food service - add to DFU calculation</li>
+                                <li><strong>Multiple Dwellings:</strong> Additional diversity factors may apply for large buildings</li>
+                                <li><strong>Commercial Kitchens:</strong> Often require larger pipes than DFU indicates due to grease and food solids</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Drainage System Troubleshooting</h2>
+
+                    <div class="troubleshooting-table">
+                        <h3>Common Drainage Problems</h3>
+                        <table class="efficiency-table">
+                            <thead>
+                                <tr>
+                                    <th>Symptom</th>
+                                    <th>Possible Causes</th>
+                                    <th>Diagnostic Steps</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Slow Drainage</strong></td>
+                                    <td>Partial blockage, undersized pipe, improper slope, inadequate venting</td>
+                                    <td>Snake drain, verify pipe size vs. DFU, check slope with level, test venting</td>
+                                    <td>Clear blockage, upsize pipe if undersized, correct slope, improve venting</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Frequent Backups</strong></td>
+                                    <td>Undersized drainage, chronic blockage, insufficient slope, vent issues</td>
+                                    <td>Calculate actual DFU vs. pipe capacity, camera inspection, verify slope, check vents</td>
+                                    <td>Upsize drainage pipes, regular maintenance, correct slope, add venting</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gurgling Sounds</strong></td>
+                                    <td>Inadequate venting, partial blockage, air intake issues</td>
+                                    <td>Verify vent system, check for blockages, inspect AAVs if present</td>
+                                    <td>Install proper venting, clear blockages, replace faulty AAVs</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Overflowing Cleanouts</strong></td>
+                                    <td>Complete blockage downstream, collapsed pipe, roots in sewer</td>
+                                    <td>Camera inspection, snake from cleanout, pressure test if necessary</td>
+                                    <td>Clear blockage, excavate and replace damaged section, root treatment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Prevention Best Practices</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Size drainage pipes properly based on total DFU during design</li>
+                            <li>Maintain proper slope throughout installation (verify with levels)</li>
+                            <li>Install cleanouts at strategic locations for maintenance access</li>
+                            <li>Provide adequate venting for all drainage components</li>
+                            <li>Use proper fittings (long-sweep elbows, wyes, not short 90s)</li>
+                            <li>Regular maintenance and inspection, especially for commercial buildings</li>
+                            <li>Educate building occupants on proper disposal practices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Drainage Fixture Unit Specifications</h2>
+
+                    <h3>Complete DFU Table (IPC)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fixture Type</th>
+                                    <th>Drainage DFU</th>
+                                    <th>Minimum Trap Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Water Closet (Private)</td><td>3</td><td>3" or 4"</td></tr>
+                                <tr><td>Water Closet (Public)</td><td>6</td><td>3" or 4"</td></tr>
+                                <tr><td>Lavatory (Private)</td><td>1</td><td>1-1/4"</td></tr>
+                                <tr><td>Lavatory (Public)</td><td>2</td><td>1-1/4"</td></tr>
+                                <tr><td>Shower</td><td>2</td><td>2"</td></tr>
+                                <tr><td>Bathtub</td><td>2</td><td>1-1/2"</td></tr>
+                                <tr><td>Kitchen Sink (Domestic)</td><td>2</td><td>1-1/2"</td></tr>
+                                <tr><td>Kitchen Sink (Commercial)</td><td>4</td><td>2"</td></tr>
+                                <tr><td>Dishwasher (Domestic)</td><td>2</td><td>1-1/2"</td></tr>
+                                <tr><td>Clothes Washer (2")</td><td>3</td><td>2"</td></tr>
+                                <tr><td>Floor Drain (2")</td><td>2</td><td>2"</td></tr>
+                                <tr><td>Urinal (Wall)</td><td>4</td><td>2"</td></tr>
+                                <tr><td>Service Sink</td><td>3</td><td>2" or 3"</td></tr>
+                                <tr><td>Drinking Fountain</td><td>1</td><td>1-1/4"</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Building Drain Sizing (1/4" slope)</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Diameter</th>
+                                    <th>Maximum DFU (1/4" slope)</th>
+                                    <th>Maximum DFU (1/2" slope)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>2"</td><td>--</td><td>--</td></tr>
+                                <tr><td>2-1/2"</td><td>--</td><td>--</td></tr>
+                                <tr><td>3"</td><td>42</td><td>50</td></tr>
+                                <tr><td>4"</td><td>216</td><td>250</td></tr>
+                                <tr><td>5"</td><td>480</td><td>575</td></tr>
+                                <tr><td>6"</td><td>840</td><td>1,000</td></tr>
+                                <tr><td>8"</td><td>1,920</td><td>2,300</td></tr>
+                                <tr><td>10"</td><td>3,600</td><td>4,200</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Based on IPC Table 704.1</em></p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Horizontal Branch Sizing</h3>
+                    <div class="reference-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pipe Diameter</th>
+                                    <th>Maximum DFU (Any Slope)</th>
+                                    <th>Max. Toilets on Branch</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1-1/2"</td><td>3</td><td>--</td></tr>
+                                <tr><td>2"</td><td>6</td><td>--</td></tr>
+                                <tr><td>2-1/2"</td><td>12</td><td>--</td></tr>
+                                <tr><td>3"</td><td>20</td><td>2</td></tr>
+                                <tr><td>4"</td><td>160</td><td>8</td></tr>
+                                <tr><td>5"</td><td>360</td><td>--</td></tr>
+                                <tr><td>6"</td><td>620</td><td>--</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 2rem;">
+                        <h4>Professional Disclaimer</h4>
+                        <p>Drainage fixture unit values and sizing requirements vary by local plumbing code. This calculator uses typical IPC values. Always verify DFU values and pipe sizing tables with adopted local codes. Actual drainage capacity depends on pipe material, slope, length, fittings, and installation quality. For complex systems or commercial buildings, consult a licensed professional engineer or plumber.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        function calculateDrainageUnits() {
+            // Get fixture quantities
+            const wcPrivate = parseFloat(document.getElementById('wcPrivate').value) || 0;
+            const wcPublic = parseFloat(document.getElementById('wcPublic').value) || 0;
+            const lavPrivate = parseFloat(document.getElementById('lavPrivate').value) || 0;
+            const lavPublic = parseFloat(document.getElementById('lavPublic').value) || 0;
+            const shower = parseFloat(document.getElementById('shower').value) || 0;
+            const bathtub = parseFloat(document.getElementById('bathtub').value) || 0;
+            const kitchenSink = parseFloat(document.getElementById('kitchenSink').value) || 0;
+            const dishwasher = parseFloat(document.getElementById('dishwasher').value) || 0;
+            const clothesWasher = parseFloat(document.getElementById('clothesWasher').value) || 0;
+            const floorDrain = parseFloat(document.getElementById('floorDrain').value) || 0;
+            const urinal = parseFloat(document.getElementById('urinal').value) || 0;
+            const serviceSink = parseFloat(document.getElementById('serviceSink').value) || 0;
+
+            // Calculate total DFU
+            const totalDFU = (wcPrivate * 3) + (wcPublic * 6) + (lavPrivate * 1) + (lavPublic * 2) +
+                           (shower * 2) + (bathtub * 2) + (kitchenSink * 2) + (dishwasher * 2) +
+                           (clothesWasher * 3) + (floorDrain * 2) + (urinal * 4) + (serviceSink * 3);
+
+            // Determine building drain size (1/4" slope)
+            let drainSize = '';
+            if (totalDFU <= 42) drainSize = '3"';
+            else if (totalDFU <= 216) drainSize = '4"';
+            else if (totalDFU <= 480) drainSize = '5"';
+            else if (totalDFU <= 840) drainSize = '6"';
+            else if (totalDFU <= 1920) drainSize = '8"';
+            else if (totalDFU <= 3600) drainSize = '10"';
+            else drainSize = '12" or larger';
+
+            // Building sewer typically same as drain or larger
+            const sewerSize = drainSize;
+
+            // Estimate peak flow (rough approximation)
+            const peakFlow = (totalDFU / 2.5).toFixed(1) + ' GPM (estimated)';
+
+            // Determine system type
+            let systemType = '';
+            if (wcPublic > 0 || totalDFU > 50) {
+                systemType = 'Commercial/Public';
+            } else {
+                systemType = 'Residential/Private';
+            }
+
+            // Display results
+            document.getElementById('totalDFU').textContent = totalDFU.toFixed(1);
+            document.getElementById('buildingDrain').textContent = drainSize;
+            document.getElementById('buildingSewer').textContent = sewerSize;
+            document.getElementById('peakFlow').textContent = peakFlow;
+            document.getElementById('systemType').textContent = systemType;
+
+            document.getElementById('drainageResults').style.display = 'block';
+        }
+
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) targetTab.classList.add('active');
+
+            if (event && event.target) event.target.classList.add('active');
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
