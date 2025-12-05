@@ -6126,3 +6126,57 @@ textarea.form-control {
     }
 }
 
+/* ====================================
+   CALCULATION MODE SELECTOR STYLES
+   ==================================== */
+
+/* Blue button selector for switching between calculation modes (used in plumbing calculators) */
+.calculation-mode-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    justify-content: center;
+}
+
+.mode-button {
+    background: white;
+    border: 2px solid #ddd;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.mode-button:hover {
+    background: #f8f9fa;
+    border-color: #3498db;
+}
+
+.mode-button.active {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border-color: #2980b9;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.calculation-inputs {
+    display: none;
+}
+
+.calculation-inputs.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .calculation-mode-selector {
+        flex-direction: column;
+    }
+
+    .mode-button {
+        width: 100%;
+    }
+}
+

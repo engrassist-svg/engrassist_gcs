@@ -356,46 +356,7 @@
             color: #3498db;
         }
 
-        .calculation-mode-selector {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-            justify-content: center;
-        }
-
-        .mode-button {
-            background: white;
-            border: 2px solid #ddd;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .mode-button.active {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border-color: #2980b9;
-        }
-
-        .calculation-inputs {
-            display: none;
-        }
-
-        .calculation-inputs.active {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .calculation-mode-selector {
-                flex-direction: column;
-            }
-
-            .mode-button {
-                width: 100%;
-            }
-        }
+        /* Calculation mode selector styles moved to styles.css */
 
         /* Tab Navigation Styles */
         .tab-navigation {
@@ -1670,28 +1631,7 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Calculation mode switching
-        function switchCalculationMode(mode) {
-            // Update button states
-            const modeButtons = document.querySelectorAll('.mode-button');
-            modeButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Show/hide input sections
-            document.getElementById('dfu-inputs').classList.remove('active');
-            document.getElementById('gpm-inputs').classList.remove('active');
-
-            if (mode === 'dfu') {
-                document.getElementById('dfu-inputs').classList.add('active');
-            } else {
-                document.getElementById('gpm-inputs').classList.add('active');
-            }
-
-            // Hide results when switching modes
-            document.getElementById('drainResults').classList.remove('visible');
-        }
+        // Calculation mode switching function moved to scripts.js
 
         // Drain sizing calculation by DFU
         function calculateDrainByDFU() {

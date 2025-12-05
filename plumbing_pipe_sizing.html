@@ -436,14 +436,16 @@
                 <div id="calculator-tab" class="tab-content active">
                     <h2 class="section-title">Pipe Sizing Calculator</h2>
 
+                    <div class="calculation-mode-selector">
+                        <button class="mode-button active" onclick="switchCalculationMode('fixtureUnits', event)">
+                            Calculate by Fixture Units (WSFU)
+                        </button>
+                        <button class="mode-button" onclick="switchCalculationMode('gpm', event)">
+                            Calculate by GPM
+                        </button>
+                    </div>
+
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="calcMethod">Calculation Method:</label>
-                            <select id="calcMethod" onchange="toggleCalcMethod()">
-                                <option value="fixtureUnits">Fixture Units (WSFU)</option>
-                                <option value="gpm">Direct GPM Entry</option>
-                            </select>
-                        </div>
                         <div class="form-group">
                             <label for="pipeType">Pipe Material:</label>
                             <select id="pipeType">
@@ -475,9 +477,11 @@
                         </div>
                     </div>
 
-                    <h3 style="color: #2c3e50; margin-top: 2rem;">Water Demand Entry</h3>
+                    <!-- Fixture Units Input Mode -->
+                    <div id="fixtureUnits-inputs" class="calculation-inputs active">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Water Demand Entry</h3>
 
-                    <div class="pipe-table-wrapper">
+                        <div class="pipe-table-wrapper">
                         <table class="pipe-table">
                             <thead>
                                 <tr>
@@ -566,15 +570,21 @@
                             </tbody>
                         </table>
                     </div>
+                    </div>
 
-                    <div id="directGPMInput" class="form-row" style="display: none;">
-                        <div class="form-group">
-                            <label for="coldGPM">Cold Water Flow (GPM):</label>
-                            <input type="number" id="coldGPM" placeholder="Enter GPM" value="0" min="0" step="0.1">
-                        </div>
-                        <div class="form-group">
-                            <label for="hotGPM">Hot Water Flow (GPM):</label>
-                            <input type="number" id="hotGPM" placeholder="Enter GPM" value="0" min="0" step="0.1">
+                    <!-- GPM Input Mode -->
+                    <div id="gpm-inputs" class="calculation-inputs">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Enter Flow Rate</h3>
+
+                        <div id="directGPMInput" class="form-row">
+                            <div class="form-group">
+                                <label for="coldGPM">Cold Water Flow (GPM):</label>
+                                <input type="number" id="coldGPM" placeholder="Enter GPM" value="0" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="hotGPM">Hot Water Flow (GPM):</label>
+                                <input type="number" id="hotGPM" placeholder="Enter GPM" value="0" min="0" step="0.1">
+                            </div>
                         </div>
                     </div>
 
