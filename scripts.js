@@ -60,16 +60,211 @@ function initializeTemplates() {
 function highlightCurrentPage() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-menu a, .mobile-menu a');
-    
+
     navLinks.forEach(link => {
         const linkPage = link.getAttribute('href');
-        if (linkPage === currentPage || 
+        if (linkPage === currentPage ||
             (currentPage === '' && linkPage === 'index.html')) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
         }
     });
+}
+
+// ====================================
+// BREADCRUMB NAVIGATION
+// ====================================
+
+function initializeBreadcrumbs() {
+    const breadcrumbNav = document.getElementById('breadcrumbNav');
+    if (!breadcrumbNav) return;
+
+    const path = window.location.pathname;
+    const currentPage = path.split('/').pop() || 'index.html';
+
+    // Don't show breadcrumbs on home page
+    if (currentPage === 'index.html' || currentPage === '' || path === '/') {
+        breadcrumbNav.classList.add('hidden');
+        return;
+    }
+
+    // Determine path prefix for nested pages
+    const pathPrefix = path.includes('/articles/') ? '../' : '';
+
+    // Build breadcrumb trail
+    const breadcrumbs = generateBreadcrumbs(currentPage, path);
+
+    // Create breadcrumb HTML
+    const breadcrumbHTML = `
+        <ol>
+            ${breadcrumbs.map((crumb, index) => {
+                if (index === breadcrumbs.length - 1) {
+                    // Last item (current page) - no link
+                    return `<li><span class="breadcrumb-current">${crumb.label}</span></li>`;
+                } else {
+                    // Parent items - with link and separator
+                    return `
+                        <li>
+                            <a href="${crumb.url}">${crumb.label}</a>
+                            <span class="breadcrumb-separator">›</span>
+                        </li>
+                    `;
+                }
+            }).join('')}
+        </ol>
+    `;
+
+    breadcrumbNav.innerHTML = breadcrumbHTML;
+}
+
+function generateBreadcrumbs(currentPage, fullPath) {
+    const breadcrumbs = [];
+    const pathPrefix = fullPath.includes('/articles/') ? '../' : '';
+
+    // Always start with Home
+    breadcrumbs.push({
+        label: 'Home',
+        url: pathPrefix + 'index.html'
+    });
+
+    // Page name mappings for better display
+    const pageMap = {
+        // Main category pages
+        'mechanical_page.html': 'Mechanical',
+        'electrical_page.html': 'Electrical',
+        'plumbing_page.html': 'Plumbing',
+
+        // Mechanical tools
+        'ductulator.html': 'Ductulator',
+        'psychrometric.html': 'Psychrometric Chart',
+        'fan_laws_calculator.html': 'Fan Laws Calculator',
+        'air_flow_conversion.html': 'Air Flow Conversion',
+        'pipe_sizing.html': 'Pipe Sizing',
+        'cooling_heating_loads.html': 'Cooling & Heating Loads',
+        'unit_converter.html': 'Unit Converter',
+        'refrigeration_calculator.html': 'Refrigeration Calculator',
+        'heat_load_calculator.html': 'Heat Load Calculator',
+        'cfm_calculator.html': 'CFM Calculator',
+        'btu_calculator.html': 'BTU Calculator',
+        'tonnage_calculator.html': 'Tonnage Calculator',
+        'ventilation_calculator.html': 'Ventilation Calculator',
+        'duct_velocity_calculator.html': 'Duct Velocity Calculator',
+        'static_pressure_calculator.html': 'Static Pressure Calculator',
+        'grille_register_sizing.html': 'Grille & Register Sizing',
+
+        // Electrical tools
+        'voltage_drop_calculator.html': 'Voltage Drop Calculator',
+        'wire_sizing_calculator.html': 'Wire Sizing Calculator',
+        'conduit_fill_calculator.html': 'Conduit Fill Calculator',
+        'electrical_load_calculator.html': 'Electrical Load Calculator',
+        'ohms_law_calculator.html': 'Ohms Law Calculator',
+        'power_factor_calculator.html': 'Power Factor Calculator',
+        'three_phase_calculator.html': 'Three Phase Calculator',
+        'circuit_breaker_sizing.html': 'Circuit Breaker Sizing',
+        'transformer_calculator.html': 'Transformer Calculator',
+        'motor_calculator.html': 'Motor Calculator',
+
+        // Plumbing tools
+        'water_heater_sizing.html': 'Water Heater Sizing',
+        'water_pipe_sizing.html': 'Water Pipe Sizing',
+        'drain_waste_vent.html': 'Drain Waste Vent',
+        'pump_calculator.html': 'Pump Calculator',
+        'fixture_unit_calculator.html': 'Fixture Unit Calculator',
+        'water_pressure_calculator.html': 'Water Pressure Calculator',
+        'gpm_calculator.html': 'GPM Calculator',
+        'water_flow_calculator.html': 'Water Flow Calculator',
+        'pipe_friction_loss.html': 'Pipe Friction Loss',
+        'expansion_tank_sizing.html': 'Expansion Tank Sizing',
+
+        // Utility pages
+        'about.html': 'About',
+        'contact.html': 'Contact',
+        'privacy.html': 'Privacy Policy',
+        'terms.html': 'Terms of Service',
+        'workflow_hub.html': 'Workflow Hub',
+
+        // Articles
+        'rooftop-units.html': 'Rooftop Units',
+        'cooling-load-calculation.html': 'Cooling Load Calculation',
+        'duct-design.html': 'Duct Design',
+        'hvac-zoning.html': 'HVAC Zoning',
+        'air-balancing.html': 'Air Balancing',
+        'refrigeration-cycle.html': 'Refrigeration Cycle',
+        'chilled-water-systems.html': 'Chilled Water Systems',
+        'vrf-systems.html': 'VRF Systems',
+        'heat-pumps.html': 'Heat Pumps'
+    };
+
+    // Determine parent category for tools
+    const mechanicalTools = [
+        'ductulator.html', 'psychrometric.html', 'fan_laws_calculator.html',
+        'air_flow_conversion.html', 'cooling_heating_loads.html', 'unit_converter.html',
+        'refrigeration_calculator.html', 'heat_load_calculator.html', 'cfm_calculator.html',
+        'btu_calculator.html', 'tonnage_calculator.html', 'ventilation_calculator.html',
+        'duct_velocity_calculator.html', 'static_pressure_calculator.html', 'grille_register_sizing.html'
+    ];
+
+    const electricalTools = [
+        'voltage_drop_calculator.html', 'wire_sizing_calculator.html', 'conduit_fill_calculator.html',
+        'electrical_load_calculator.html', 'ohms_law_calculator.html', 'power_factor_calculator.html',
+        'three_phase_calculator.html', 'circuit_breaker_sizing.html', 'transformer_calculator.html',
+        'motor_calculator.html'
+    ];
+
+    const plumbingTools = [
+        'water_heater_sizing.html', 'water_pipe_sizing.html', 'drain_waste_vent.html',
+        'pump_calculator.html', 'fixture_unit_calculator.html', 'water_pressure_calculator.html',
+        'gpm_calculator.html', 'water_flow_calculator.html', 'pipe_friction_loss.html',
+        'expansion_tank_sizing.html', 'pipe_sizing.html'
+    ];
+
+    // Check if in articles directory
+    if (fullPath.includes('/articles/')) {
+        breadcrumbs.push({
+            label: 'Articles',
+            url: pathPrefix + 'index.html#articles'
+        });
+    }
+    // Add category breadcrumb for tools
+    else if (mechanicalTools.includes(currentPage)) {
+        breadcrumbs.push({
+            label: 'Mechanical',
+            url: 'mechanical_page.html'
+        });
+    }
+    else if (electricalTools.includes(currentPage)) {
+        breadcrumbs.push({
+            label: 'Electrical',
+            url: 'electrical_page.html'
+        });
+    }
+    else if (plumbingTools.includes(currentPage)) {
+        breadcrumbs.push({
+            label: 'Plumbing',
+            url: 'plumbing_page.html'
+        });
+    }
+
+    // Add current page
+    const currentLabel = pageMap[currentPage] || formatPageName(currentPage);
+    breadcrumbs.push({
+        label: currentLabel,
+        url: currentPage
+    });
+
+    return breadcrumbs;
+}
+
+// Helper function to format page names
+function formatPageName(filename) {
+    return filename
+        .replace('.html', '')
+        .replace(/_/g, ' ')
+        .replace(/-/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 }
 
 // Initialize all page features
@@ -85,6 +280,7 @@ function initializeAllFeatures() {
     initializeDuctulator();
     initializeDesktopMode();
     initializeAuth();
+    initializeBreadcrumbs();
 
     // Add psychrometric initialization here
     setTimeout(initializePsychrometricChart, 500);
