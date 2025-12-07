@@ -168,6 +168,9 @@ function generateBreadcrumbs(currentPage, fullPath) {
         // Plumbing tools
         'water_heater_sizing.html': 'Water Heater Sizing',
         'water_pipe_sizing.html': 'Water Pipe Sizing',
+        'plumbing_pipe_sizing.html': 'Pipe Sizing',
+        'gas_pipe_sizing.html': 'Gas Pipe Sizing',
+        'storm_pipe_sizing.html': 'Storm Pipe Sizing',
         'drain_waste_vent.html': 'Drain Waste Vent',
         'pump_calculator.html': 'Pump Calculator',
         'fixture_unit_calculator.html': 'Fixture Unit Calculator',
@@ -213,7 +216,8 @@ function generateBreadcrumbs(currentPage, fullPath) {
     ];
 
     const plumbingTools = [
-        'water_heater_sizing.html', 'water_pipe_sizing.html', 'drain_waste_vent.html',
+        'water_heater_sizing.html', 'water_pipe_sizing.html', 'plumbing_pipe_sizing.html',
+        'gas_pipe_sizing.html', 'storm_pipe_sizing.html', 'drain_waste_vent.html',
         'pump_calculator.html', 'fixture_unit_calculator.html', 'water_pressure_calculator.html',
         'gpm_calculator.html', 'water_flow_calculator.html', 'pipe_friction_loss.html',
         'expansion_tank_sizing.html', 'pipe_sizing.html'
