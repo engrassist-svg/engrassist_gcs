@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Professional circuit sizing calculator for electrical systems. Calculate conductor size, conduit size, and overcurrent protection per NEC requirements.">
+    <meta name="keywords" content="circuit sizing, conductor sizing, conduit sizing, breaker sizing, electrical calculator, NEC, ampacity, wire size">
+    <link rel="canonical" href="https://engrassist.com/circuit_sizing.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Circuit Sizing Calculator - EngrAssist">
+    <meta property="og:description" content="Professional circuit sizing calculator for conductors, conduits, and overcurrent protection per NEC.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/circuit_sizing.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Circuit Sizing Calculator - EngrAssist">
+    <meta name="twitter:description" content="Professional circuit sizing calculator for electrical systems.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Circuit Sizing Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Circuit Sizing Calculator</h1>
+                <p class="hero-subtitle">Comprehensive circuit sizing tool for conductors, conduit, and overcurrent protection. Calculate proper sizing per NEC requirements for safe and code-compliant electrical installations.</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Circuit Sizing Calculator</h2>
+
+                    <h3 style="color: #2c3e50; margin-top: 2rem;">Circuit Parameters</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loadType">Load Type:</label>
+                            <select id="loadType" onchange="updateCircuitSizing()">
+                                <option value="continuous">Continuous Load (≥3 hours)</option>
+                                <option value="noncontinuous">Non-Continuous Load</option>
+                                <option value="motor">Motor Load</option>
+                                <option value="motorAC">Air Conditioner/Heat Pump</option>
+                                <option value="welder">Welder</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phaseType">Circuit Type:</label>
+                            <select id="phaseType" onchange="updateCircuitSizing()">
+                                <option value="1ph">Single-Phase</option>
+                                <option value="3ph">Three-Phase</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="voltage">System Voltage (V):</label>
+                            <select id="voltage" onchange="updateCircuitSizing()">
+                                <option value="120">120V</option>
+                                <option value="208">208V</option>
+                                <option value="240">240V</option>
+                                <option value="277">277V</option>
+                                <option value="480">480V</option>
+                                <option value="600">600V</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="loadRating">Load Rating:</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="number" id="loadRating" placeholder="Enter load" step="0.1" min="0" oninput="updateCircuitSizing()">
+                                <select id="loadUnit" onchange="updateCircuitSizing()">
+                                    <option value="amps">Amps</option>
+                                    <option value="kw">kW</option>
+                                    <option value="hp">HP</option>
+                                    <option value="kva">kVA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="conductorMaterial">Conductor Material:</label>
+                            <select id="conductorMaterial" onchange="updateCircuitSizing()">
+                                <option value="copper">Copper</option>
+                                <option value="aluminum">Aluminum</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="insulationType">Insulation Rating:</label>
+                            <select id="insulationType" onchange="updateCircuitSizing()">
+                                <option value="60">60°C (140°F) - TW</option>
+                                <option value="75" selected>75°C (167°F) - THWN, THW</option>
+                                <option value="90">90°C (194°F) - THHN, XHHW</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ambientTemp">Ambient Temperature (°F):</label>
+                            <input type="number" id="ambientTemp" placeholder="Enter temperature" value="86" oninput="updateCircuitSizing()">
+                        </div>
+                        <div class="form-group">
+                            <label for="numConductors">Number of Current-Carrying Conductors:</label>
+                            <input type="number" id="numConductors" placeholder="Enter number" value="3" min="1" oninput="updateCircuitSizing()">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="conduitType">Conduit Type:</label>
+                            <select id="conduitType" onchange="updateCircuitSizing()">
+                                <option value="emt">EMT (Electrical Metallic Tubing)</option>
+                                <option value="rigid">Rigid Metal Conduit (RMC)</option>
+                                <option value="imc">IMC (Intermediate Metal Conduit)</option>
+                                <option value="pvc">PVC Schedule 40</option>
+                                <option value="pvc80">PVC Schedule 80</option>
+                                <option value="flex">Flexible Metal Conduit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="circuitLength">Circuit Length (ft):</label>
+                            <input type="number" id="circuitLength" placeholder="For voltage drop check" value="100" min="0" oninput="updateCircuitSizing()">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="groundWire">Include Ground Wire in Conduit:</label>
+                            <select id="groundWire" onchange="updateCircuitSizing()">
+                                <option value="yes">Yes</option>
+                                <option value="no">No (Conduit as ground)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="terminalRating">Terminal Rating:</label>
+                            <select id="terminalRating" onchange="updateCircuitSizing()">
+                                <option value="60">60°C</option>
+                                <option value="75" selected>75°C</option>
+                                <option value="90">90°C</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-calculate" onclick="calculateCircuitSizing()">Calculate Circuit Sizing</button>
+
+                    <div id="circuitResults" class="results-section" style="display: none;">
+                        <h3>Circuit Sizing Results</h3>
+
+                        <div class="result-subsection">
+                            <h4>Load Calculations</h4>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Actual Load Current:</span>
+                                    <span class="result-value" id="actualCurrent">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Continuous Load Factor:</span>
+                                    <span class="result-value" id="continuousFactor">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Design Current (125% if continuous):</span>
+                                    <span class="result-value" id="designCurrent">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-subsection">
+                            <h4>Conductor Sizing</h4>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Temperature Correction Factor:</span>
+                                    <span class="result-value" id="tempCorrectionFactor">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Adjustment Factor (more than 3 conductors):</span>
+                                    <span class="result-value" id="adjustmentFactor">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Required Ampacity Before Factors:</span>
+                                    <span class="result-value" id="requiredAmpacity">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Minimum Conductor Size:</span>
+                                    <span class="result-value" id="conductorSize">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Conductor Ampacity (after derating):</span>
+                                    <span class="result-value" id="conductorAmpacity">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-subsection">
+                            <h4>Overcurrent Protection</h4>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Minimum Breaker/Fuse Size:</span>
+                                    <span class="result-value" id="minBreakerSize">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Recommended Breaker/Fuse Size:</span>
+                                    <span class="result-value" id="breakerSize">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-subsection">
+                            <h4>Conduit Sizing</h4>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Number of Conductors in Conduit:</span>
+                                    <span class="result-value" id="totalConductors">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Minimum Conduit Size:</span>
+                                    <span class="result-value" id="conduitSize">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-subsection">
+                            <h4>Ground Conductor</h4>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Minimum Equipment Ground Size:</span>
+                                    <span class="result-value" id="groundSize">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-subsection">
+                            <h4>Voltage Drop Check</h4>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Estimated Voltage Drop:</span>
+                                    <span class="result-value" id="voltageDrop">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop %:</span>
+                                    <span class="result-value" id="voltageDropPercent">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">NEC Recommendation:</span>
+                                    <span class="result-value" id="vdCompliance">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-summary">
+                            <h4>Summary</h4>
+                            <p id="circuitSummary">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <h2 class="section-title">Circuit Sizing Information</h2>
+
+                    <div class="article-content">
+                        <h3>Overview of Circuit Sizing</h3>
+                        <p>Proper circuit sizing is essential for electrical safety, code compliance, and system reliability. The sizing process involves selecting appropriate conductors, overcurrent protection devices, and raceways based on the load characteristics and installation conditions.</p>
+
+                        <h3>NEC Requirements for Conductor Sizing</h3>
+                        <p>The National Electrical Code (NEC) provides specific requirements for conductor sizing:</p>
+
+                        <h4>1. Ampacity Requirements (NEC 310.15)</h4>
+                        <ul>
+                            <li>Conductors must have an ampacity not less than the maximum load to be served</li>
+                            <li>Base ampacity is determined from NEC Table 310.16 or 310.17</li>
+                            <li>Apply correction factors for ambient temperature (NEC 310.15(B)(2)(a))</li>
+                            <li>Apply adjustment factors for number of conductors (NEC 310.15(B)(3)(a))</li>
+                        </ul>
+
+                        <h4>2. Continuous Load Requirements (NEC 210.19, 215.2)</h4>
+                        <ul>
+                            <li>Continuous load = operates for 3 hours or more</li>
+                            <li>Conductors must be sized at 125% of continuous load</li>
+                            <li>Plus 100% of non-continuous load</li>
+                            <li>This prevents overheating from extended operation</li>
+                        </ul>
+
+                        <h4>3. Terminal Temperature Ratings (NEC 110.14(C))</h4>
+                        <ul>
+                            <li>Conductor ampacity limited by terminal temperature rating</li>
+                            <li>Circuits ≤100A: typically limited to 60°C ampacity</li>
+                            <li>Circuits >100A: typically limited to 75°C ampacity</li>
+                            <li>Unless equipment is marked for higher temperature</li>
+                        </ul>
+
+                        <h3>Overcurrent Protection Sizing</h3>
+                        <p>Overcurrent protection devices (circuit breakers or fuses) must be sized per NEC requirements:</p>
+
+                        <h4>General Loads (NEC 240.4)</h4>
+                        <ul>
+                            <li>Standard sizes: 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 2500, 3000, 4000, 5000, 6000A</li>
+                            <li>Protection must not exceed conductor ampacity</li>
+                            <li>Next standard size up permitted if calculated size doesn't match standard size (240.4(B))</li>
+                        </ul>
+
+                        <h4>Small Conductors (NEC 240.4(D))</h4>
+                        <ul>
+                            <li>14 AWG copper: maximum 15A protection</li>
+                            <li>12 AWG copper: maximum 20A protection</li>
+                            <li>10 AWG copper: maximum 30A protection</li>
+                        </ul>
+
+                        <h4>Motor Circuits (NEC 430)</h4>
+                        <ul>
+                            <li>Conductors: 125% of motor full-load current (FLC)</li>
+                            <li>Short-circuit protection: typically 175-300% of FLC depending on type</li>
+                            <li>Overload protection: typically 115-125% of FLC</li>
+                        </ul>
+
+                        <h3>Conduit Sizing</h3>
+                        <p>Raceway sizing is based on NEC Chapter 9 and Annex C:</p>
+
+                        <h4>Conduit Fill Requirements (NEC 300.17)</h4>
+                        <ul>
+                            <li>Maximum fill: 40% for 3 or more conductors</li>
+                            <li>Maximum fill: 31% for 2 conductors</li>
+                            <li>Maximum fill: 53% for 1 conductor</li>
+                            <li>Based on total cross-sectional area of conductors including insulation</li>
+                        </ul>
+
+                        <h4>Conductor Area (NEC Chapter 9, Table 5)</h4>
+                        <ul>
+                            <li>Includes conductor and insulation thickness</li>
+                            <li>Different insulation types have different overall diameters</li>
+                            <li>Compact conductors have smaller cross-sectional area</li>
+                        </ul>
+
+                        <h3>Grounding Conductor Sizing</h3>
+                        <p>Equipment grounding conductors per NEC 250.122:</p>
+                        <ul>
+                            <li>Sized based on rating of overcurrent device ahead of equipment</li>
+                            <li>Must be increased if phase conductors are increased for voltage drop</li>
+                            <li>Minimum sizes provided in NEC Table 250.122</li>
+                        </ul>
+
+                        <h3>Voltage Drop Considerations</h3>
+                        <p>While not a code requirement, NEC recommends limiting voltage drop:</p>
+                        <ul>
+                            <li>Branch circuits: 3% maximum recommended</li>
+                            <li>Feeders: 2% maximum recommended</li>
+                            <li>Combined: 5% maximum recommended</li>
+                            <li>May require upsizing conductors beyond ampacity requirements</li>
+                        </ul>
+
+                        <h3>Correction and Adjustment Factors</h3>
+
+                        <h4>Temperature Correction Factors (NEC 310.15(B)(2)(a))</h4>
+                        <p>Adjust ampacity when ambient temperature differs from 30°C (86°F):</p>
+                        <ul>
+                            <li>Higher ambient = reduced ampacity</li>
+                            <li>Lower ambient = increased ampacity (but limited by terminal rating)</li>
+                            <li>Different factors for 60°C, 75°C, and 90°C insulation</li>
+                        </ul>
+
+                        <h4>Adjustment Factors (NEC 310.15(B)(3)(a))</h4>
+                        <p>Reduce ampacity for more than 3 current-carrying conductors in raceway:</p>
+                        <ul>
+                            <li>4-6 conductors: 80% adjustment</li>
+                            <li>7-9 conductors: 70% adjustment</li>
+                            <li>10-20 conductors: 50% adjustment</li>
+                            <li>Neutrals may not count if load is balanced</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Circuit Sizing Troubleshooting</h2>
+
+                    <div class="article-content">
+                        <h3>Common Circuit Sizing Problems</h3>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Breaker Trips Under Normal Load</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Circuit breaker trips when load is energized</li>
+                                <li>No obvious short circuit or ground fault</li>
+                                <li>Load appears to be within rated capacity</li>
+                            </ul>
+                            <p><strong>Possible Causes:</strong></p>
+                            <ul>
+                                <li>Continuous load not sized at 125%</li>
+                                <li>Breaker undersized for the actual load</li>
+                                <li>Multiple loads on circuit exceed capacity</li>
+                                <li>High inrush current from motors or transformers</li>
+                                <li>Defective circuit breaker</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Calculate actual connected load including continuous loads at 125%</li>
+                                <li>Verify breaker size matches design requirements</li>
+                                <li>Use time-delay or motor-rated breakers for motor loads</li>
+                                <li>Reduce loads on circuit or install additional circuits</li>
+                                <li>Test breaker and replace if defective</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Conductors Overheating</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Hot conductors or wire insulation</li>
+                                <li>Discolored or melted insulation</li>
+                                <li>Burning smell from panel or junction boxes</li>
+                                <li>Breaker warm to touch but not tripping</li>
+                            </ul>
+                            <p><strong>Possible Causes:</strong></p>
+                            <ul>
+                                <li>Conductors undersized for load</li>
+                                <li>Temperature correction factor not applied</li>
+                                <li>Adjustment factor for conduit fill not applied</li>
+                                <li>Poor connections creating resistance</li>
+                                <li>Harmonics in system heating neutral conductor</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Recalculate required conductor size with all factors</li>
+                                <li>Check ambient temperature in conduit/raceway locations</li>
+                                <li>Verify number of current-carrying conductors</li>
+                                <li>Inspect and tighten all connections</li>
+                                <li>For harmonic loads, consider upsizing neutral</li>
+                                <li>Replace undersized conductors immediately</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Cannot Pull Conductors Through Conduit</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Conductors bind or jam in conduit</li>
+                                <li>Excessive force required to pull wire</li>
+                                <li>Insulation damage during installation</li>
+                            </ul>
+                            <p><strong>Possible Causes:</strong></p>
+                            <ul>
+                                <li>Conduit undersized for number/size of conductors</li>
+                                <li>Exceeded maximum conduit fill percentage</li>
+                                <li>Too many bends in conduit run</li>
+                                <li>Sharp edges or burrs in conduit</li>
+                                <li>Incorrect conductor type for application</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Recalculate conduit fill per NEC Chapter 9</li>
+                                <li>Upsize conduit to next larger size</li>
+                                <li>Reduce number of bends or install pull boxes</li>
+                                <li>Ream conduit ends and remove burrs</li>
+                                <li>Use pulling lubricant rated for electrical applications</li>
+                                <li>Consider different conductor insulation type</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Equipment Not Operating at Full Capacity</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Motors running slower than rated speed</li>
+                                <li>Equipment cycling on thermal overload</li>
+                                <li>Reduced performance from end devices</li>
+                                <li>Low voltage at equipment terminals</li>
+                            </ul>
+                            <p><strong>Possible Causes:</strong></p>
+                            <ul>
+                                <li>Excessive voltage drop in circuit</li>
+                                <li>Conductors sized for ampacity but not voltage drop</li>
+                                <li>Circuit length exceeds design assumptions</li>
+                                <li>Actual load higher than design load</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Calculate voltage drop for actual circuit length</li>
+                                <li>Upsize conductors to reduce voltage drop</li>
+                                <li>Relocate equipment closer to power source</li>
+                                <li>Use voltage drop calculator to verify NEC recommendations</li>
+                                <li>Consider buck-boost transformer for critical loads</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Ground Fault Protection Nuisance Tripping</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <li>GFCI or ground fault breaker trips with no apparent ground fault</li>
+                                <li>Tripping occurs during normal operation</li>
+                                <li>Multiple equipment on circuit causes tripping</li>
+                            </ul>
+                            <p><strong>Possible Causes:</strong></p>
+                            <ul>
+                                <li>Equipment ground conductor undersized</li>
+                                <li>Normal leakage current exceeds GFCI rating</li>
+                                <li>Multiple devices with small leakage currents</li>
+                                <li>Moisture in connections or equipment</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Verify equipment ground sized per NEC 250.122</li>
+                                <li>Separate circuits for equipment with high leakage</li>
+                                <li>Use appropriate GFCI sensitivity for application</li>
+                                <li>Check for moisture and correct any infiltration</li>
+                                <li>Install separate ground fault protection per circuit</li>
+                            </ul>
+                        </div>
+
+                        <h3>Design Review Checklist</h3>
+                        <p>Before installation, verify:</p>
+                        <ul>
+                            <li>☐ Load type correctly identified (continuous/non-continuous)</li>
+                            <li>☐ Continuous loads sized at 125%</li>
+                            <li>☐ Temperature correction factor applied if ambient ≠ 86°F</li>
+                            <li>☐ Adjustment factor applied for >3 conductors in raceway</li>
+                            <li>☐ Terminal temperature rating considered (110.14(C))</li>
+                            <li>☐ Overcurrent protection matches or protects conductor</li>
+                            <li>☐ Conduit fill within NEC limits</li>
+                            <li>☐ Equipment ground sized per Table 250.122</li>
+                            <li>☐ Voltage drop calculated and within recommendations</li>
+                            <li>☐ Special requirements for motors, welders, etc. applied</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Circuit Sizing Specifications & Tables</h2>
+
+                    <div class="article-content">
+                        <h3>Conductor Ampacity Tables</h3>
+                        <p>Based on NEC Table 310.16 - Conductors in Raceway, Cable, or Earth (Not More Than Three Current-Carrying Conductors)</p>
+
+                        <h4>Copper Conductors (THWN, THW, THHN)</h4>
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Size (AWG/kcmil)</th>
+                                        <th>60°C (A)</th>
+                                        <th>75°C (A)</th>
+                                        <th>90°C (A)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>14</td><td>20</td><td>20</td><td>25</td></tr>
+                                    <tr><td>12</td><td>25</td><td>25</td><td>30</td></tr>
+                                    <tr><td>10</td><td>30</td><td>35</td><td>40</td></tr>
+                                    <tr><td>8</td><td>40</td><td>50</td><td>55</td></tr>
+                                    <tr><td>6</td><td>55</td><td>65</td><td>75</td></tr>
+                                    <tr><td>4</td><td>70</td><td>85</td><td>95</td></tr>
+                                    <tr><td>3</td><td>85</td><td>100</td><td>115</td></tr>
+                                    <tr><td>2</td><td>95</td><td>115</td><td>130</td></tr>
+                                    <tr><td>1</td><td>110</td><td>130</td><td>150</td></tr>
+                                    <tr><td>1/0</td><td>125</td><td>150</td><td>170</td></tr>
+                                    <tr><td>2/0</td><td>145</td><td>175</td><td>195</td></tr>
+                                    <tr><td>3/0</td><td>165</td><td>200</td><td>225</td></tr>
+                                    <tr><td>4/0</td><td>195</td><td>230</td><td>260</td></tr>
+                                    <tr><td>250</td><td>215</td><td>255</td><td>290</td></tr>
+                                    <tr><td>300</td><td>240</td><td>285</td><td>320</td></tr>
+                                    <tr><td>350</td><td>260</td><td>310</td><td>350</td></tr>
+                                    <tr><td>400</td><td>280</td><td>335</td><td>380</td></tr>
+                                    <tr><td>500</td><td>320</td><td>380</td><td>430</td></tr>
+                                    <tr><td>600</td><td>355</td><td>420</td><td>475</td></tr>
+                                    <tr><td>750</td><td>400</td><td>475</td><td>535</td></tr>
+                                    <tr><td>1000</td><td>455</td><td>545</td><td>615</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Standard Overcurrent Protection Device Sizes</h3>
+                        <p>Per NEC 240.6(A):</p>
+                        <div class="info-callout">
+                            <strong>Standard Ampere Ratings:</strong> 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 2500, 3000, 4000, 5000, 6000 amperes
+                        </div>
+
+                        <h3>Temperature Correction Factors</h3>
+                        <p>Apply when ambient temperature differs from 30°C (86°F) - Based on NEC Table 310.15(B)(1):</p>
+
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ambient Temp (°F)</th>
+                                        <th>60°C Rated</th>
+                                        <th>75°C Rated</th>
+                                        <th>90°C Rated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>68 or less</td><td>1.08</td><td>1.04</td><td>1.04</td></tr>
+                                    <tr><td>69-77</td><td>1.04</td><td>1.02</td><td>1.02</td></tr>
+                                    <tr><td>78-86</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+                                    <tr><td>87-95</td><td>0.96</td><td>0.97</td><td>0.97</td></tr>
+                                    <tr><td>96-104</td><td>0.91</td><td>0.94</td><td>0.95</td></tr>
+                                    <tr><td>105-113</td><td>0.87</td><td>0.91</td><td>0.92</td></tr>
+                                    <tr><td>114-122</td><td>0.82</td><td>0.87</td><td>0.89</td></tr>
+                                    <tr><td>123-131</td><td>0.76</td><td>0.82</td><td>0.86</td></tr>
+                                    <tr><td>132-140</td><td>0.71</td><td>0.76</td><td>0.82</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Conductor Bundling Adjustment Factors</h3>
+                        <p>Apply when more than 3 current-carrying conductors in raceway - Based on NEC Table 310.15(B)(3)(a):</p>
+
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Number of Conductors</th>
+                                        <th>Adjustment Factor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1-3</td><td>1.00 (100%)</td></tr>
+                                    <tr><td>4-6</td><td>0.80 (80%)</td></tr>
+                                    <tr><td>7-9</td><td>0.70 (70%)</td></tr>
+                                    <tr><td>10-20</td><td>0.50 (50%)</td></tr>
+                                    <tr><td>21-30</td><td>0.45 (45%)</td></tr>
+                                    <tr><td>31-40</td><td>0.40 (40%)</td></tr>
+                                    <tr><td>41 and above</td><td>0.35 (35%)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Equipment Grounding Conductor Sizing</h3>
+                        <p>Based on NEC Table 250.122 - Size based on rating of overcurrent device:</p>
+
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>OCPD Rating (A)</th>
+                                        <th>Copper (AWG)</th>
+                                        <th>Aluminum (AWG)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>15</td><td>14</td><td>12</td></tr>
+                                    <tr><td>20</td><td>12</td><td>10</td></tr>
+                                    <tr><td>30</td><td>10</td><td>8</td></tr>
+                                    <tr><td>40</td><td>10</td><td>8</td></tr>
+                                    <tr><td>60</td><td>10</td><td>8</td></tr>
+                                    <tr><td>100</td><td>8</td><td>6</td></tr>
+                                    <tr><td>200</td><td>6</td><td>4</td></tr>
+                                    <tr><td>300</td><td>4</td><td>2</td></tr>
+                                    <tr><td>400</td><td>3</td><td>1</td></tr>
+                                    <tr><td>500</td><td>2</td><td>1/0</td></tr>
+                                    <tr><td>600</td><td>1</td><td>2/0</td></tr>
+                                    <tr><td>800</td><td>1/0</td><td>3/0</td></tr>
+                                    <tr><td>1000</td><td>2/0</td><td>4/0</td></tr>
+                                    <tr><td>1200</td><td>3/0</td><td>250</td></tr>
+                                    <tr><td>1600</td><td>4/0</td><td>350</td></tr>
+                                    <tr><td>2000</td><td>250</td><td>400</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>NEC Reference Articles</h3>
+                        <ul>
+                            <li><strong>Article 110.14(C):</strong> Terminal temperature ratings</li>
+                            <li><strong>Article 210.19:</strong> Branch circuit conductor sizing</li>
+                            <li><strong>Article 215.2:</strong> Feeder conductor sizing</li>
+                            <li><strong>Article 240.4:</strong> Protection of conductors</li>
+                            <li><strong>Article 240.6:</strong> Standard ampere ratings</li>
+                            <li><strong>Article 250.122:</strong> Equipment grounding conductor sizing</li>
+                            <li><strong>Article 300.17:</strong> Conduit fill</li>
+                            <li><strong>Article 310.15:</strong> Ampacities of conductors</li>
+                            <li><strong>Article 430:</strong> Motor circuit requirements</li>
+                            <li><strong>Chapter 9, Table 1:</strong> Percent of cross section of conduit and tubing for conductors</li>
+                            <li><strong>Chapter 9, Tables 4-8:</strong> Conduit and conductor dimensions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This tool is provided for educational and preliminary design purposes only.
+                        All calculations and designs should be verified by a licensed professional engineer.
+                        Users are responsible for ensuring compliance with local codes and standards.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
