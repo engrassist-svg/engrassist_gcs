@@ -39,10 +39,7 @@
             <!-- User Authentication -->
             <li class="auth-container">
                 <!-- Show when logged out -->
-                <button id="signInBtn" class="auth-btn sign-in-btn" onclick="signInWithGoogle()" style="display: none;">
-                    <span class="google-icon">🔐</span>
-                    <span>Sign In</span>
-                </button>
+                <a href="#" id="signInBtn" onclick="signInWithGoogle(); return false;" style="display: none;">Sign In</a>
 
                 <!-- Show when logged in -->
                 <div id="userProfile" class="user-profile" style="display: none;">
