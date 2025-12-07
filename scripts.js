@@ -136,24 +136,18 @@ function generateBreadcrumbs(currentPage, fullPath) {
         'plumbing_page.html': 'Plumbing',
 
         // Mechanical tools
-        'ductulator.html': 'Ductulator',
         'psychrometric.html': 'Psychrometric Chart',
-        'fan_laws_calculator.html': 'Fan Laws Calculator',
-        'air_flow_conversion.html': 'Air Flow Conversion',
-        'pipe_sizing.html': 'Pipe Sizing',
-        'cooling_heating_loads.html': 'Cooling & Heating Loads',
-        'unit_converter.html': 'Unit Converter',
-        'refrigeration_calculator.html': 'Refrigeration Calculator',
-        'heat_load_calculator.html': 'Heat Load Calculator',
-        'cfm_calculator.html': 'CFM Calculator',
-        'btu_calculator.html': 'BTU Calculator',
-        'tonnage_calculator.html': 'Tonnage Calculator',
-        'ventilation_calculator.html': 'Ventilation Calculator',
-        'duct_velocity_calculator.html': 'Duct Velocity Calculator',
-        'static_pressure_calculator.html': 'Static Pressure Calculator',
-        'grille_register_sizing.html': 'Grille & Register Sizing',
+        'load_calculation.html': 'HVAC Load Calculator',
+        'ductulator.html': 'Duct Sizing Calculator',
+        'fan_selection.html': 'Fan Selection Tool',
+        'air_balance.html': 'Air Balancing Calculator',
+        'pipe_sizing.html': 'Pipe Sizing Calculator',
+        'pump_sizing.html': 'Pump Selection Tool',
+        'coil_selection.html': 'Coil Selection Calculator',
+        'boiler_sizing.html': 'Boiler Sizing Calculator',
+        'chiller_sizing.html': 'Chiller Sizing Calculator',
 
-        // Electrical tools
+        // Electrical tools (currently under construction)
         'voltage_drop_calculator.html': 'Voltage Drop Calculator',
         'wire_sizing_calculator.html': 'Wire Sizing Calculator',
         'conduit_fill_calculator.html': 'Conduit Fill Calculator',
@@ -166,19 +160,22 @@ function generateBreadcrumbs(currentPage, fullPath) {
         'motor_calculator.html': 'Motor Calculator',
 
         // Plumbing tools
+        'plumbing_pipe_sizing.html': 'Pipe Sizing Calculator',
+        'pressure_loss.html': 'Pressure Loss Calculator',
+        'fixture_units.html': 'Fixture Unit Calculator',
         'water_heater_sizing.html': 'Water Heater Sizing',
-        'water_pipe_sizing.html': 'Water Pipe Sizing',
-        'plumbing_pipe_sizing.html': 'Pipe Sizing',
-        'gas_pipe_sizing.html': 'Gas Pipe Sizing',
+        'backflow_prevention.html': 'Backflow Prevention Guide',
+        'drain_sizing.html': 'Drain Pipe Sizing',
+        'vent_sizing.html': 'Vent Sizing Calculator',
+        'drainage_fixture_units.html': 'Drainage Fixture Units',
+        'trap_sizing.html': 'Trap Sizing Guide',
+        'building_drain.html': 'Building Drain Calculator',
+        'roof_drain_sizing.html': 'Roof Drain Sizing',
         'storm_pipe_sizing.html': 'Storm Pipe Sizing',
-        'drain_waste_vent.html': 'Drain Waste Vent',
-        'pump_calculator.html': 'Pump Calculator',
-        'fixture_unit_calculator.html': 'Fixture Unit Calculator',
-        'water_pressure_calculator.html': 'Water Pressure Calculator',
-        'gpm_calculator.html': 'GPM Calculator',
-        'water_flow_calculator.html': 'Water Flow Calculator',
-        'pipe_friction_loss.html': 'Pipe Friction Loss',
-        'expansion_tank_sizing.html': 'Expansion Tank Sizing',
+        'rainfall_intensity.html': 'Rainfall Intensity Data',
+        'retention_detention.html': 'Retention/Detention',
+        'gas_pipe_sizing.html': 'Gas Pipe Sizing',
+        'gas_pressure_drop.html': 'Gas Pressure Drop',
 
         // Utility pages
         'about.html': 'About',
@@ -201,26 +198,40 @@ function generateBreadcrumbs(currentPage, fullPath) {
 
     // Determine parent category for tools
     const mechanicalTools = [
-        'ductulator.html', 'psychrometric.html', 'fan_laws_calculator.html',
-        'air_flow_conversion.html', 'cooling_heating_loads.html', 'unit_converter.html',
-        'refrigeration_calculator.html', 'heat_load_calculator.html', 'cfm_calculator.html',
-        'btu_calculator.html', 'tonnage_calculator.html', 'ventilation_calculator.html',
-        'duct_velocity_calculator.html', 'static_pressure_calculator.html', 'grille_register_sizing.html'
+        'psychrometric.html',
+        'load_calculation.html',
+        'ductulator.html',
+        'fan_selection.html',
+        'air_balance.html',
+        'pipe_sizing.html',
+        'pump_sizing.html',
+        'coil_selection.html',
+        'boiler_sizing.html',
+        'chiller_sizing.html'
     ];
 
     const electricalTools = [
-        'voltage_drop_calculator.html', 'wire_sizing_calculator.html', 'conduit_fill_calculator.html',
-        'electrical_load_calculator.html', 'ohms_law_calculator.html', 'power_factor_calculator.html',
-        'three_phase_calculator.html', 'circuit_breaker_sizing.html', 'transformer_calculator.html',
-        'motor_calculator.html'
+        // Electrical tools are currently under construction
+        // Will be populated when tools are available
     ];
 
     const plumbingTools = [
-        'water_heater_sizing.html', 'water_pipe_sizing.html', 'plumbing_pipe_sizing.html',
-        'gas_pipe_sizing.html', 'storm_pipe_sizing.html', 'drain_waste_vent.html',
-        'pump_calculator.html', 'fixture_unit_calculator.html', 'water_pressure_calculator.html',
-        'gpm_calculator.html', 'water_flow_calculator.html', 'pipe_friction_loss.html',
-        'expansion_tank_sizing.html', 'pipe_sizing.html'
+        'plumbing_pipe_sizing.html',
+        'pressure_loss.html',
+        'fixture_units.html',
+        'water_heater_sizing.html',
+        'backflow_prevention.html',
+        'drain_sizing.html',
+        'vent_sizing.html',
+        'drainage_fixture_units.html',
+        'trap_sizing.html',
+        'building_drain.html',
+        'roof_drain_sizing.html',
+        'storm_pipe_sizing.html',
+        'rainfall_intensity.html',
+        'retention_detention.html',
+        'gas_pipe_sizing.html',
+        'gas_pressure_drop.html'
     ];
 
     // Check if in articles directory
