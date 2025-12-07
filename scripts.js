@@ -2,9 +2,15 @@
 // TEMPLATE LOADING SYSTEM - OPTIMIZED
 // ====================================
 
-// Load templates efficiently with Promise-based approach
+// Cache-busting version - update this timestamp when deploying changes
+const TEMPLATE_VERSION = '20251207';
+
+// Load templates efficiently with Promise-based approach and cache-busting
 function loadTemplate(elementId, templateFile) {
-    return fetch(templateFile)
+    // Add cache-busting query parameter to force fresh fetch
+    const cacheBustedUrl = `${templateFile}?v=${TEMPLATE_VERSION}`;
+
+    return fetch(cacheBustedUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Failed to load ${templateFile}: ${response.status}`);

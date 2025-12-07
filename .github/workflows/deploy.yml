@@ -92,8 +92,8 @@ jobs:
           gsutil -m setmeta -h "Cache-Control:public, max-age=31536000, immutable" \
             "gs://${{ secrets.GCP_BUCKET_NAME }}/images/*" || true
 
-          # Templates (1 week)
-          gsutil -m setmeta -h "Cache-Control:public, max-age=604800" \
+          # Templates (5 minutes - frequently updated)
+          gsutil -m setmeta -h "Cache-Control:public, max-age=300" \
             gs://${{ secrets.GCP_BUCKET_NAME }}/header.html \
             gs://${{ secrets.GCP_BUCKET_NAME }}/footer.html || true
 

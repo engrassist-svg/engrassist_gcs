@@ -1,4 +1,4 @@
-const CACHE_NAME = 'engrassist-v2-20251022';
+const CACHE_NAME = 'engrassist-v2-20251207';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -31,9 +31,37 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Network-first strategy for HTML files (always get latest version)
+// Cache-first strategy for CSS, JS, and images (versioned and immutable)
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+  const url = new URL(event.request.url);
+
+  // Use network-first for HTML files to ensure fresh content
+  if (event.request.destination === 'document' ||
+      url.pathname.endsWith('.html') ||
+      url.pathname === '/') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Cache the fresh response for offline access
+          if (response && response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Fall back to cache if network fails
+          return caches.match(event.request);
+        })
+    );
+  } else {
+    // Cache-first for static assets (CSS, JS, images)
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => response || fetch(event.request))
+    );
+  }
 });
