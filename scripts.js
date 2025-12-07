@@ -8348,3 +8348,553 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+
+// ============================================================================
+// ELECTRICAL TOOLS - Voltage Drop Calculator
+// ============================================================================
+
+// Conductor resistance data (ohms per 1000 ft at 75°C)
+const conductorResistance = {
+    copper: {
+        '14': 3.14, '12': 1.98, '10': 1.24, '8': 0.778, '6': 0.491,
+        '4': 0.308, '3': 0.245, '2': 0.194, '1': 0.154,
+        '1/0': 0.122, '2/0': 0.0967, '3/0': 0.0766, '4/0': 0.0608,
+        '250': 0.0515, '300': 0.0429, '350': 0.0367, '400': 0.0321,
+        '500': 0.0258, '600': 0.0214, '750': 0.0171, '1000': 0.0129
+    },
+    aluminum: {
+        '12': 3.25, '10': 2.04, '8': 1.28, '6': 0.808,
+        '4': 0.508, '3': 0.403, '2': 0.319, '1': 0.253,
+        '1/0': 0.201, '2/0': 0.159, '3/0': 0.126, '4/0': 0.100,
+        '250': 0.0847, '300': 0.0707, '350': 0.0605, '400': 0.0529,
+        '500': 0.0424, '600': 0.0353
+    }
+};
+
+function calculateVoltageDrop1ph() {
+    // Get inputs
+    const voltageSelect = document.getElementById('voltage1ph').value;
+    const customVoltage = parseFloat(document.getElementById('customVoltage1ph').value);
+    const voltage = voltageSelect === 'custom' ? customVoltage : parseFloat(voltageSelect);
+    const current = parseFloat(document.getElementById('current1ph').value);
+    const wireSize = document.getElementById('wireSize1ph').value;
+    const material = document.getElementById('conductorMaterial1ph').value;
+    const length = parseFloat(document.getElementById('oneWayLength1ph').value);
+    const powerFactor = parseFloat(document.getElementById('powerFactor1ph').value);
+    const temp = parseFloat(document.getElementById('temperature1ph').value);
+
+    // Validate inputs
+    if (!voltage || !current || !wireSize || !length) {
+        return;
+    }
+
+    // Get resistance
+    const resistance = conductorResistance[material][wireSize];
+    if (!resistance) {
+        showNotification('Invalid wire size selection');
+        return;
+    }
+
+    // Temperature correction (simplified)
+    const tempFactor = 1 + 0.00323 * (temp - 75) / 1000;
+    const adjustedR = resistance * tempFactor;
+
+    // Calculate voltage drop for single-phase
+    // VD = 2 * K * I * L * R for simplified calculation
+    const K = 1; // Constant for calculation in consistent units
+    const reactance = 0.05; // Simplified reactance in ohms per 1000 ft
+    const sinTheta = Math.sqrt(1 - powerFactor * powerFactor);
+
+    // Effective impedance
+    const impedance = adjustedR * powerFactor + reactance * sinTheta;
+
+    const voltageDrop = 2 * K * current * (length / 1000) * impedance;
+    const voltageDropPercent = (voltageDrop / voltage) * 100;
+    const voltageAtLoad = voltage - voltageDrop;
+
+    // Display results
+    document.getElementById('results1ph').style.display = 'block';
+    document.getElementById('voltageDrop1ph').textContent = voltageDrop.toFixed(2) + ' V';
+    document.getElementById('voltageDropPercent1ph').textContent = voltageDropPercent.toFixed(2) + '%';
+    document.getElementById('voltageAtLoad1ph').textContent = voltageAtLoad.toFixed(1) + ' V';
+
+    // NEC compliance check
+    let compliance = '';
+    if (voltageDropPercent <= 3) {
+        compliance = '✓ Within NEC recommendation (≤3%)';
+    } else if (voltageDropPercent <= 5) {
+        compliance = '⚠ Exceeds branch circuit recommendation (3%), but within combined limit (5%)';
+    } else {
+        compliance = '✗ Exceeds NEC recommendation (>5%)';
+    }
+    document.getElementById('necCompliance1ph').textContent = compliance;
+}
+
+function calculateVoltageDrop3ph() {
+    const voltageSelect = document.getElementById('voltage3ph').value;
+    const customVoltage = parseFloat(document.getElementById('customVoltage3ph').value);
+    const voltage = voltageSelect === 'custom' ? customVoltage : parseFloat(voltageSelect);
+    const current = parseFloat(document.getElementById('current3ph').value);
+    const wireSize = document.getElementById('wireSize3ph').value;
+    const material = document.getElementById('conductorMaterial3ph').value;
+    const length = parseFloat(document.getElementById('oneWayLength3ph').value);
+    const powerFactor = parseFloat(document.getElementById('powerFactor3ph').value);
+    const temp = parseFloat(document.getElementById('temperature3ph').value);
+
+    if (!voltage || !current || !wireSize || !length) {
+        return;
+    }
+
+    const resistance = conductorResistance[material][wireSize];
+    if (!resistance) {
+        showNotification('Invalid wire size selection');
+        return;
+    }
+
+    const tempFactor = 1 + 0.00323 * (temp - 75) / 1000;
+    const adjustedR = resistance * tempFactor;
+
+    const reactance = 0.05;
+    const sinTheta = Math.sqrt(1 - powerFactor * powerFactor);
+    const impedance = adjustedR * powerFactor + reactance * sinTheta;
+
+    // Three-phase voltage drop: VD = √3 * I * L * Z / 1000
+    const voltageDrop = Math.sqrt(3) * current * (length / 1000) * impedance;
+    const voltageDropPercent = (voltageDrop / voltage) * 100;
+    const voltageAtLoad = voltage - voltageDrop;
+
+    document.getElementById('results3ph').style.display = 'block';
+    document.getElementById('voltageDrop3ph').textContent = voltageDrop.toFixed(2) + ' V';
+    document.getElementById('voltageDropPercent3ph').textContent = voltageDropPercent.toFixed(2) + '%';
+    document.getElementById('voltageAtLoad3ph').textContent = voltageAtLoad.toFixed(1) + ' V';
+
+    let compliance = '';
+    if (voltageDropPercent <= 3) {
+        compliance = '✓ Within NEC recommendation (≤3%)';
+    } else if (voltageDropPercent <= 5) {
+        compliance = '⚠ Exceeds branch circuit recommendation (3%), but within combined limit (5%)';
+    } else {
+        compliance = '✗ Exceeds NEC recommendation (>5%)';
+    }
+    document.getElementById('necCompliance3ph').textContent = compliance;
+}
+
+function calculateVoltageDropDC() {
+    const voltageSelect = document.getElementById('voltageDC').value;
+    const customVoltage = parseFloat(document.getElementById('customVoltageDC').value);
+    const voltage = voltageSelect === 'custom' ? customVoltage : parseFloat(voltageSelect);
+    const current = parseFloat(document.getElementById('currentDC').value);
+    const wireSize = document.getElementById('wireSizeDC').value;
+    const material = document.getElementById('conductorMaterialDC').value;
+    const length = parseFloat(document.getElementById('oneWayLengthDC').value);
+    const temp = parseFloat(document.getElementById('temperatureDC').value);
+
+    if (!voltage || !current || !wireSize || !length) {
+        return;
+    }
+
+    const resistance = conductorResistance[material][wireSize];
+    if (!resistance) {
+        showNotification('Invalid wire size selection');
+        return;
+    }
+
+    const tempFactor = 1 + 0.00323 * (temp - 75) / 1000;
+    const adjustedR = resistance * tempFactor;
+
+    // DC voltage drop: VD = 2 * I * L * R / 1000
+    const voltageDrop = 2 * current * (length / 1000) * adjustedR;
+    const voltageDropPercent = (voltageDrop / voltage) * 100;
+    const voltageAtLoad = voltage - voltageDrop;
+
+    document.getElementById('resultsDC').style.display = 'block';
+    document.getElementById('voltageDropDC').textContent = voltageDrop.toFixed(2) + ' V';
+    document.getElementById('voltageDropPercentDC').textContent = voltageDropPercent.toFixed(2) + '%';
+    document.getElementById('voltageAtLoadDC').textContent = voltageAtLoad.toFixed(2) + ' V';
+
+    let recommendation = '';
+    if (voltageDropPercent <= 2) {
+        recommendation = '✓ Excellent - Low voltage drop';
+    } else if (voltageDropPercent <= 3) {
+        recommendation = '✓ Good - Within typical recommendations';
+    } else if (voltageDropPercent <= 5) {
+        recommendation = '⚠ Consider upsizing conductor';
+    } else {
+        recommendation = '✗ Excessive drop - Upsize conductor';
+    }
+    document.getElementById('recommendationDC').textContent = recommendation;
+}
+
+// Enable/disable custom voltage inputs
+document.addEventListener('DOMContentLoaded', function() {
+    const voltage1ph = document.getElementById('voltage1ph');
+    const customVoltage1ph = document.getElementById('customVoltage1ph');
+    const voltage3ph = document.getElementById('voltage3ph');
+    const customVoltage3ph = document.getElementById('customVoltage3ph');
+    const voltageDC = document.getElementById('voltageDC');
+    const customVoltageDC = document.getElementById('customVoltageDC');
+
+    if (voltage1ph) {
+        voltage1ph.addEventListener('change', function() {
+            customVoltage1ph.disabled = this.value !== 'custom';
+            if (this.value === 'custom') customVoltage1ph.focus();
+        });
+    }
+
+    if (voltage3ph) {
+        voltage3ph.addEventListener('change', function() {
+            customVoltage3ph.disabled = this.value !== 'custom';
+            if (this.value === 'custom') customVoltage3ph.focus();
+        });
+    }
+
+    if (voltageDC) {
+        voltageDC.addEventListener('change', function() {
+            customVoltageDC.disabled = this.value !== 'custom';
+            if (this.value === 'custom') customVoltageDC.focus();
+        });
+    }
+});
+
+
+// ============================================================================
+// ELECTRICAL TOOLS - Circuit Sizing Calculator
+// ============================================================================
+
+// Conductor ampacity data (75°C rating)
+const conductorAmpacity = {
+    copper: {
+        '14': 20, '12': 25, '10': 35, '8': 50, '6': 65,
+        '4': 85, '3': 100, '2': 115, '1': 130,
+        '1/0': 150, '2/0': 175, '3/0': 200, '4/0': 230,
+        '250': 255, '300': 285, '350': 310, '400': 335,
+        '500': 380, '600': 420, '750': 475, '1000': 545
+    },
+    aluminum: {
+        '12': 20, '10': 30, '8': 40, '6': 50,
+        '4': 65, '3': 75, '2': 90, '1': 100,
+        '1/0': 120, '2/0': 135, '3/0': 155, '4/0': 180,
+        '250': 205, '300': 230, '350': 250, '400': 270,
+        '500': 310, '600': 340, '750': 385, '1000': 445
+    }
+};
+
+const standardBreakerSizes = [15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100,
+    110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800,
+    1000, 1200, 1600, 2000, 2500, 3000, 4000];
+
+const tempCorrectionFactors = {
+    60: { 60: 1.08, 70: 1.04, 80: 1.00, 90: 0.96, 100: 0.91, 110: 0.87, 120: 0.82 },
+    75: { 60: 1.04, 70: 1.02, 80: 1.00, 90: 0.97, 100: 0.94, 110: 0.91, 120: 0.87 },
+    90: { 60: 1.04, 70: 1.02, 80: 1.00, 90: 0.97, 100: 0.95, 110: 0.92, 120: 0.89 }
+};
+
+const adjustmentFactors = {
+    3: 1.00, 4: 0.80, 5: 0.80, 6: 0.80,
+    7: 0.70, 8: 0.70, 9: 0.70,
+    10: 0.50, 15: 0.50, 20: 0.50
+};
+
+function updateCircuitSizing() {
+    // Auto-calculate when inputs change
+}
+
+function calculateCircuitSizing() {
+    // Get inputs
+    const loadType = document.getElementById('loadType').value;
+    const phaseType = document.getElementById('phaseType').value;
+    const voltage = parseFloat(document.getElementById('voltage').value);
+    const loadRating = parseFloat(document.getElementById('loadRating').value);
+    const loadUnit = document.getElementById('loadUnit').value;
+    const material = document.getElementById('conductorMaterial').value;
+    const insulationType = parseInt(document.getElementById('insulationType').value);
+    const ambientTemp = parseFloat(document.getElementById('ambientTemp').value);
+    const numConductors = parseInt(document.getElementById('numConductors').value);
+    const circuitLength = parseFloat(document.getElementById('circuitLength').value);
+
+    if (!loadRating || !voltage) {
+        showNotification('Please enter load rating and voltage');
+        return;
+    }
+
+    // Convert load to amps
+    let actualCurrent = 0;
+    if (loadUnit === 'amps') {
+        actualCurrent = loadRating;
+    } else if (loadUnit === 'kw') {
+        if (phaseType === '1ph') {
+            actualCurrent = (loadRating * 1000) / voltage;
+        } else {
+            actualCurrent = (loadRating * 1000) / (Math.sqrt(3) * voltage);
+        }
+    } else if (loadUnit === 'hp') {
+        // Approximate: 1 HP ≈ 746W, assume 85% efficiency and 0.85 PF
+        const watts = loadRating * 746 / 0.85;
+        if (phaseType === '1ph') {
+            actualCurrent = watts / (voltage * 0.85);
+        } else {
+            actualCurrent = watts / (Math.sqrt(3) * voltage * 0.85);
+        }
+    } else if (loadUnit === 'kva') {
+        if (phaseType === '1ph') {
+            actualCurrent = (loadRating * 1000) / voltage;
+        } else {
+            actualCurrent = (loadRating * 1000) / (Math.sqrt(3) * voltage);
+        }
+    }
+
+    // Apply continuous load factor
+    let continuousFactor = 1.0;
+    if (loadType === 'continuous') {
+        continuousFactor = 1.25;
+    } else if (loadType === 'motor' || loadType === 'motorAC') {
+        continuousFactor = 1.25;
+    }
+
+    const designCurrent = actualCurrent * continuousFactor;
+
+    // Temperature correction
+    const tempRange = Math.floor(ambientTemp / 10) * 10;
+    const tempFactor = tempCorrectionFactors[insulationType][tempRange] || 1.0;
+
+    // Adjustment factor for number of conductors
+    let adjustFactor = 1.0;
+    for (let key in adjustmentFactors) {
+        if (numConductors <= parseInt(key)) {
+            adjustFactor = adjustmentFactors[key];
+            break;
+        }
+    }
+
+    // Required ampacity before derating
+    const requiredAmpacity = designCurrent / (tempFactor * adjustFactor);
+
+    // Find minimum conductor size
+    let selectedSize = null;
+    let selectedAmpacity = 0;
+    const ampacityTable = conductorAmpacity[material];
+
+    for (let size in ampacityTable) {
+        if (ampacityTable[size] >= requiredAmpacity) {
+            selectedSize = size;
+            selectedAmpacity = ampacityTable[size];
+            break;
+        }
+    }
+
+    if (!selectedSize) {
+        showNotification('Load exceeds maximum conductor size');
+        return;
+    }
+
+    // Select breaker size
+    const minBreakerSize = Math.ceil(designCurrent);
+    let breakerSize = null;
+    for (let size of standardBreakerSizes) {
+        if (size >= minBreakerSize && size >= selectedAmpacity) {
+            breakerSize = size;
+            break;
+        }
+    }
+
+    // Estimate voltage drop
+    const resistance = conductorResistance[material][selectedSize] || 1.0;
+    let voltageDrop = 0;
+    if (phaseType === '1ph') {
+        voltageDrop = 2 * actualCurrent * (circuitLength / 1000) * resistance;
+    } else {
+        voltageDrop = Math.sqrt(3) * actualCurrent * (circuitLength / 1000) * resistance;
+    }
+    const voltageDropPercent = (voltageDrop / voltage) * 100;
+
+    // Display results
+    document.getElementById('circuitResults').style.display = 'block';
+    document.getElementById('actualCurrent').textContent = actualCurrent.toFixed(1) + ' A';
+    document.getElementById('continuousFactor').textContent = continuousFactor === 1.25 ? '125%' : '100%';
+    document.getElementById('designCurrent').textContent = designCurrent.toFixed(1) + ' A';
+    document.getElementById('tempCorrectionFactor').textContent = tempFactor.toFixed(2);
+    document.getElementById('adjustmentFactor').textContent = adjustFactor.toFixed(2);
+    document.getElementById('requiredAmpacity').textContent = requiredAmpacity.toFixed(0) + ' A';
+    document.getElementById('conductorSize').textContent = selectedSize + ' AWG ' + material;
+    document.getElementById('conductorAmpacity').textContent = (selectedAmpacity * tempFactor * adjustFactor).toFixed(0) + ' A';
+    document.getElementById('minBreakerSize').textContent = minBreakerSize + ' A';
+    document.getElementById('breakerSize').textContent = breakerSize + ' A';
+
+    // Conduit sizing (simplified)
+    const numWires = phaseType === '1ph' ? 2 : 3;
+    const totalConductors = numWires + (document.getElementById('groundWire').value === 'yes' ? 1 : 0);
+    document.getElementById('totalConductors').textContent = totalConductors;
+
+    // Simplified conduit sizing
+    let conduitSize = '3/4"';
+    if (selectedAmpacity > 100) conduitSize = '1"';
+    if (selectedAmpacity > 200) conduitSize = '1-1/4"';
+    if (selectedAmpacity > 400) conduitSize = '2"';
+    document.getElementById('conduitSize').textContent = conduitSize + ' ' + document.getElementById('conduitType').value.toUpperCase();
+
+    // Ground wire sizing (simplified - based on breaker size)
+    let groundSize = '14';
+    if (breakerSize > 15) groundSize = '12';
+    if (breakerSize > 20) groundSize = '10';
+    if (breakerSize > 60) groundSize = '8';
+    if (breakerSize > 100) groundSize = '6';
+    if (breakerSize > 200) groundSize = '4';
+    document.getElementById('groundSize').textContent = groundSize + ' AWG ' + material;
+
+    // Voltage drop check
+    document.getElementById('voltageDrop').textContent = voltageDrop.toFixed(2) + ' V';
+    document.getElementById('voltageDropPercent').textContent = voltageDropPercent.toFixed(2) + '%';
+
+    let vdCompliance = '';
+    if (voltageDropPercent <= 3) {
+        vdCompliance = '✓ Within NEC recommendation';
+    } else {
+        vdCompliance = '⚠ Consider upsizing conductor';
+    }
+    document.getElementById('vdCompliance').textContent = vdCompliance;
+
+    // Summary
+    const summary = `For a ${actualCurrent.toFixed(0)}A ${loadType} ${phaseType} load at ${voltage}V, use ${selectedSize} AWG ${material} conductors in ${conduitSize} ${document.getElementById('conduitType').value.toUpperCase()} conduit, protected by a ${breakerSize}A breaker, with ${groundSize} AWG equipment ground.`;
+    document.getElementById('circuitSummary').textContent = summary;
+}
+
+
+// ============================================================================
+// ELECTRICAL TOOLS - Load Calculation
+// ============================================================================
+
+function updateElecLoadCommercial() {
+    // Auto-update when inputs change
+}
+
+function calculateElecLoadCommercial() {
+    const buildingType = parseFloat(document.getElementById('buildingType').value);
+    const totalArea = parseFloat(document.getElementById('totalArea').value);
+    const hvacLoad = parseFloat(document.getElementById('hvacLoadComm').value) || 0;
+    const motorLoad = parseFloat(document.getElementById('motorLoadComm').value) || 0;
+    const otherLoad = parseFloat(document.getElementById('otherLoadComm').value) || 0;
+    const voltage = document.getElementById('voltageComm').value;
+
+    if (!totalArea) {
+        showNotification('Please enter floor area');
+        return;
+    }
+
+    // Calculate general lighting load
+    const lightingVA = totalArea * buildingType;
+    const lightingKW = lightingVA / 1000;
+
+    // Total connected load
+    const totalConnectedKW = lightingKW + hvacLoad + motorLoad + otherLoad;
+
+    // Apply demand factors (simplified - would vary by building type)
+    let demandFactor = 1.0;
+    if (lightingKW > 50) {
+        // First 50 kW at 100%, remainder at 75%
+        const demandKW = 50 + (lightingKW - 50) * 0.75 + hvacLoad + motorLoad + otherLoad;
+        demandFactor = demandKW / totalConnectedKW;
+    }
+
+    const demandLoadKW = totalConnectedKW * demandFactor;
+
+    // Calculate current based on voltage
+    let systemVoltage = 208;
+    let demandCurrent = 0;
+    if (voltage === '208') {
+        systemVoltage = 208;
+        demandCurrent = (demandLoadKW * 1000) / (Math.sqrt(3) * 208);
+    } else if (voltage === '240') {
+        systemVoltage = 240;
+        demandCurrent = (demandLoadKW * 1000) / 240;
+    } else if (voltage === '480') {
+        systemVoltage = 480;
+        demandCurrent = (demandLoadKW * 1000) / (Math.sqrt(3) * 480);
+    }
+
+    // Find service size
+    const minService = Math.ceil(demandCurrent / 100) * 100;
+    const serviceSizes = [100, 200, 400, 600, 800, 1000, 1200, 1600, 2000, 2500, 3000];
+    let recommendedService = serviceSizes[0];
+    for (let size of serviceSizes) {
+        if (size >= demandCurrent) {
+            recommendedService = size;
+            break;
+        }
+    }
+
+    // Display results
+    document.getElementById('commercialElecResults').style.display = 'block';
+    document.getElementById('lightingLoadComm').textContent = lightingKW.toFixed(1) + ' kW';
+    document.getElementById('totalConnComm').textContent = totalConnectedKW.toFixed(1) + ' kW';
+    document.getElementById('demandLoadComm').textContent = demandLoadKW.toFixed(1) + ' kW';
+    document.getElementById('demandCurrentComm').textContent = demandCurrent.toFixed(0) + ' A';
+    document.getElementById('minServiceComm').textContent = minService + ' A';
+    document.getElementById('recServiceComm').textContent = recommendedService + ' A';
+}
+
+function updateElecLoadResidential() {
+    // Auto-update when inputs change
+}
+
+function calculateElecLoadResidential() {
+    const dwellingArea = parseFloat(document.getElementById('dwellingArea').value);
+    const smallAppl = parseInt(document.getElementById('smallAppl').value);
+    const laundry = parseInt(document.getElementById('laundry').value);
+    const range = parseFloat(document.getElementById('range').value) || 0;
+    const dryer = parseFloat(document.getElementById('dryer').value) || 0;
+    const waterHeater = parseFloat(document.getElementById('waterHeater').value) || 0;
+    const dishwasher = parseFloat(document.getElementById('dishwasher').value) || 0;
+    const acLoad = parseFloat(document.getElementById('acLoad').value) || 0;
+    const acUnit = document.getElementById('acUnit').value;
+    const heatLoad = parseFloat(document.getElementById('heatLoad').value) || 0;
+
+    if (!dwellingArea) {
+        showNotification('Please enter dwelling area');
+        return;
+    }
+
+    // Calculate general loads (NEC 220.82)
+    const generalLighting = dwellingArea * 3 / 1000; // 3 VA/sq ft in kW
+    const smallApplKW = smallAppl * 1.5; // 1500 VA per circuit
+    const laundryKW = laundry * 1.5;
+
+    const generalTotal = generalLighting + smallApplKW + laundryKW + range + dryer + waterHeater + dishwasher;
+
+    // Apply demand factor: first 10 kVA at 100%, remainder at 40%
+    let generalDemand = 0;
+    if (generalTotal <= 10) {
+        generalDemand = generalTotal;
+    } else {
+        generalDemand = 10 + (generalTotal - 10) * 0.4;
+    }
+
+    // HVAC - convert tons to kW if needed
+    let acKW = acLoad;
+    if (acUnit === 'tons') {
+        acKW = acLoad * 3.5; // Approximate: 1 ton ≈ 3.5 kW
+    }
+
+    // Use larger of heating or cooling
+    const hvacLoad = Math.max(acKW, heatLoad);
+
+    // Total demand
+    const totalDemand = generalDemand + hvacLoad;
+    const demandCurrent = (totalDemand * 1000) / 240;
+
+    // Service sizing
+    let recommendedService = 100;
+    if (demandCurrent > 100) recommendedService = 125;
+    if (demandCurrent > 125) recommendedService = 150;
+    if (demandCurrent > 150) recommendedService = 200;
+    if (demandCurrent > 200) recommendedService = 320;
+    if (demandCurrent > 320) recommendedService = 400;
+
+    // Display results
+    document.getElementById('residentialElecResults').style.display = 'block';
+    document.getElementById('generalDemandRes').textContent = generalDemand.toFixed(1) + ' kW';
+    document.getElementById('totalDemandRes').textContent = totalDemand.toFixed(1) + ' kW';
+    document.getElementById('demandCurrentRes').textContent = demandCurrent.toFixed(0) + ' A';
+    document.getElementById('minServiceRes').textContent = Math.ceil(demandCurrent) + ' A';
+    document.getElementById('recServiceRes').textContent = recommendedService + ' A';
+}

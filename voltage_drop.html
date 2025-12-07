@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Professional voltage drop calculator for electrical circuits. Calculate voltage drop for single-phase, three-phase AC and DC circuits. Based on NEC standards.">
+    <meta name="keywords" content="voltage drop calculator, electrical calculator, NEC voltage drop, single phase, three phase, circuit design, conductor sizing">
+    <link rel="canonical" href="https://engrassist.com/voltage_drop.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Voltage Drop Calculator - EngrAssist">
+    <meta property="og:description" content="Professional voltage drop calculator for electrical circuits. Calculate voltage drop for AC and DC circuits based on NEC standards.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/voltage_drop.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Voltage Drop Calculator - EngrAssist">
+    <meta name="twitter:description" content="Professional voltage drop calculator for electrical circuits.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Voltage Drop Calculator - EngrAssist</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript -->
+    <script src="scripts.js" defer></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Voltage Drop Calculator</h1>
+                <p class="hero-subtitle">Calculate voltage drop for single-phase, three-phase AC and DC electrical circuits. Ensure compliance with NEC voltage drop requirements for optimal circuit performance.</p>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Voltage Drop Calculator</h2>
+
+                    <div class="calculation-mode-selector">
+                        <button class="mode-button active" onclick="switchCalculationMode('singlePhaseAC', event)">
+                            Single-Phase AC
+                        </button>
+                        <button class="mode-button" onclick="switchCalculationMode('threePhaseAC', event)">
+                            Three-Phase AC
+                        </button>
+                        <button class="mode-button" onclick="switchCalculationMode('dc', event)">
+                            DC Circuit
+                        </button>
+                    </div>
+
+                    <!-- Single-Phase AC Calculator -->
+                    <div id="singlePhaseAC-inputs" class="calculation-inputs active">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Single-Phase AC Circuit Parameters</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="voltage1ph">System Voltage (V):</label>
+                                <select id="voltage1ph" onchange="calculateVoltageDrop1ph()">
+                                    <option value="120">120V</option>
+                                    <option value="208">208V</option>
+                                    <option value="240">240V</option>
+                                    <option value="277">277V</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="customVoltage1ph">Custom Voltage (V):</label>
+                                <input type="number" id="customVoltage1ph" placeholder="Enter custom voltage" min="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="current1ph">Load Current (A):</label>
+                                <input type="number" id="current1ph" placeholder="Enter current in amps" step="0.1" min="0" oninput="calculateVoltageDrop1ph()">
+                            </div>
+                            <div class="form-group">
+                                <label for="wireSize1ph">Conductor Size:</label>
+                                <select id="wireSize1ph" onchange="calculateVoltageDrop1ph()">
+                                    <option value="">Select wire size</option>
+                                    <option value="14">14 AWG</option>
+                                    <option value="12">12 AWG</option>
+                                    <option value="10">10 AWG</option>
+                                    <option value="8">8 AWG</option>
+                                    <option value="6">6 AWG</option>
+                                    <option value="4">4 AWG</option>
+                                    <option value="3">3 AWG</option>
+                                    <option value="2">2 AWG</option>
+                                    <option value="1">1 AWG</option>
+                                    <option value="1/0">1/0 AWG</option>
+                                    <option value="2/0">2/0 AWG</option>
+                                    <option value="3/0">3/0 AWG</option>
+                                    <option value="4/0">4/0 AWG</option>
+                                    <option value="250">250 kcmil</option>
+                                    <option value="300">300 kcmil</option>
+                                    <option value="350">350 kcmil</option>
+                                    <option value="400">400 kcmil</option>
+                                    <option value="500">500 kcmil</option>
+                                    <option value="600">600 kcmil</option>
+                                    <option value="750">750 kcmil</option>
+                                    <option value="1000">1000 kcmil</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="conductorMaterial1ph">Conductor Material:</label>
+                                <select id="conductorMaterial1ph" onchange="calculateVoltageDrop1ph()">
+                                    <option value="copper">Copper</option>
+                                    <option value="aluminum">Aluminum</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="conduitType1ph">Conduit Type:</label>
+                                <select id="conduitType1ph" onchange="calculateVoltageDrop1ph()">
+                                    <option value="pvc">PVC</option>
+                                    <option value="steel">Steel/Metallic</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="oneWayLength1ph">One-Way Circuit Length (ft):</label>
+                                <input type="number" id="oneWayLength1ph" placeholder="Enter one-way length in feet" step="1" min="0" oninput="calculateVoltageDrop1ph()">
+                            </div>
+                            <div class="form-group">
+                                <label for="powerFactor1ph">Power Factor:</label>
+                                <input type="number" id="powerFactor1ph" placeholder="0.80 - 1.00" step="0.01" min="0.7" max="1.0" value="0.85" oninput="calculateVoltageDrop1ph()">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="temperature1ph">Operating Temperature (°F):</label>
+                                <input type="number" id="temperature1ph" placeholder="Enter temperature" value="75" oninput="calculateVoltageDrop1ph()">
+                            </div>
+                        </div>
+
+                        <button class="btn-calculate" onclick="calculateVoltageDrop1ph()">Calculate Voltage Drop</button>
+
+                        <div id="results1ph" class="results-section" style="display: none;">
+                            <h3>Results</h3>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop:</span>
+                                    <span class="result-value" id="voltageDrop1ph">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop %:</span>
+                                    <span class="result-value" id="voltageDropPercent1ph">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage at Load:</span>
+                                    <span class="result-value" id="voltageAtLoad1ph">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">NEC Compliance:</span>
+                                    <span class="result-value" id="necCompliance1ph">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Three-Phase AC Calculator -->
+                    <div id="threePhaseAC-inputs" class="calculation-inputs">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Three-Phase AC Circuit Parameters</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="voltage3ph">System Voltage (V):</label>
+                                <select id="voltage3ph" onchange="calculateVoltageDrop3ph()">
+                                    <option value="208">208V</option>
+                                    <option value="240">240V</option>
+                                    <option value="277">277V</option>
+                                    <option value="480">480V</option>
+                                    <option value="600">600V</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="customVoltage3ph">Custom Voltage (V):</label>
+                                <input type="number" id="customVoltage3ph" placeholder="Enter custom voltage" min="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="current3ph">Load Current (A):</label>
+                                <input type="number" id="current3ph" placeholder="Enter current per phase" step="0.1" min="0" oninput="calculateVoltageDrop3ph()">
+                            </div>
+                            <div class="form-group">
+                                <label for="wireSize3ph">Conductor Size:</label>
+                                <select id="wireSize3ph" onchange="calculateVoltageDrop3ph()">
+                                    <option value="">Select wire size</option>
+                                    <option value="14">14 AWG</option>
+                                    <option value="12">12 AWG</option>
+                                    <option value="10">10 AWG</option>
+                                    <option value="8">8 AWG</option>
+                                    <option value="6">6 AWG</option>
+                                    <option value="4">4 AWG</option>
+                                    <option value="3">3 AWG</option>
+                                    <option value="2">2 AWG</option>
+                                    <option value="1">1 AWG</option>
+                                    <option value="1/0">1/0 AWG</option>
+                                    <option value="2/0">2/0 AWG</option>
+                                    <option value="3/0">3/0 AWG</option>
+                                    <option value="4/0">4/0 AWG</option>
+                                    <option value="250">250 kcmil</option>
+                                    <option value="300">300 kcmil</option>
+                                    <option value="350">350 kcmil</option>
+                                    <option value="400">400 kcmil</option>
+                                    <option value="500">500 kcmil</option>
+                                    <option value="600">600 kcmil</option>
+                                    <option value="750">750 kcmil</option>
+                                    <option value="1000">1000 kcmil</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="conductorMaterial3ph">Conductor Material:</label>
+                                <select id="conductorMaterial3ph" onchange="calculateVoltageDrop3ph()">
+                                    <option value="copper">Copper</option>
+                                    <option value="aluminum">Aluminum</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="conduitType3ph">Conduit Type:</label>
+                                <select id="conduitType3ph" onchange="calculateVoltageDrop3ph()">
+                                    <option value="pvc">PVC</option>
+                                    <option value="steel">Steel/Metallic</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="oneWayLength3ph">One-Way Circuit Length (ft):</label>
+                                <input type="number" id="oneWayLength3ph" placeholder="Enter one-way length in feet" step="1" min="0" oninput="calculateVoltageDrop3ph()">
+                            </div>
+                            <div class="form-group">
+                                <label for="powerFactor3ph">Power Factor:</label>
+                                <input type="number" id="powerFactor3ph" placeholder="0.80 - 1.00" step="0.01" min="0.7" max="1.0" value="0.85" oninput="calculateVoltageDrop3ph()">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="temperature3ph">Operating Temperature (°F):</label>
+                                <input type="number" id="temperature3ph" placeholder="Enter temperature" value="75" oninput="calculateVoltageDrop3ph()">
+                            </div>
+                        </div>
+
+                        <button class="btn-calculate" onclick="calculateVoltageDrop3ph()">Calculate Voltage Drop</button>
+
+                        <div id="results3ph" class="results-section" style="display: none;">
+                            <h3>Results</h3>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop (Line-to-Line):</span>
+                                    <span class="result-value" id="voltageDrop3ph">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop %:</span>
+                                    <span class="result-value" id="voltageDropPercent3ph">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage at Load:</span>
+                                    <span class="result-value" id="voltageAtLoad3ph">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">NEC Compliance:</span>
+                                    <span class="result-value" id="necCompliance3ph">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DC Circuit Calculator -->
+                    <div id="dc-inputs" class="calculation-inputs">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">DC Circuit Parameters</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="voltageDC">System Voltage (V):</label>
+                                <select id="voltageDC" onchange="calculateVoltageDropDC()">
+                                    <option value="12">12V</option>
+                                    <option value="24">24V</option>
+                                    <option value="48">48V</option>
+                                    <option value="125">125V</option>
+                                    <option value="250">250V</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="customVoltageDC">Custom Voltage (V):</label>
+                                <input type="number" id="customVoltageDC" placeholder="Enter custom voltage" min="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentDC">Load Current (A):</label>
+                                <input type="number" id="currentDC" placeholder="Enter current in amps" step="0.1" min="0" oninput="calculateVoltageDropDC()">
+                            </div>
+                            <div class="form-group">
+                                <label for="wireSizeDC">Conductor Size:</label>
+                                <select id="wireSizeDC" onchange="calculateVoltageDropDC()">
+                                    <option value="">Select wire size</option>
+                                    <option value="14">14 AWG</option>
+                                    <option value="12">12 AWG</option>
+                                    <option value="10">10 AWG</option>
+                                    <option value="8">8 AWG</option>
+                                    <option value="6">6 AWG</option>
+                                    <option value="4">4 AWG</option>
+                                    <option value="3">3 AWG</option>
+                                    <option value="2">2 AWG</option>
+                                    <option value="1">1 AWG</option>
+                                    <option value="1/0">1/0 AWG</option>
+                                    <option value="2/0">2/0 AWG</option>
+                                    <option value="3/0">3/0 AWG</option>
+                                    <option value="4/0">4/0 AWG</option>
+                                    <option value="250">250 kcmil</option>
+                                    <option value="300">300 kcmil</option>
+                                    <option value="350">350 kcmil</option>
+                                    <option value="400">400 kcmil</option>
+                                    <option value="500">500 kcmil</option>
+                                    <option value="600">600 kcmil</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="conductorMaterialDC">Conductor Material:</label>
+                                <select id="conductorMaterialDC" onchange="calculateVoltageDropDC()">
+                                    <option value="copper">Copper</option>
+                                    <option value="aluminum">Aluminum</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="oneWayLengthDC">One-Way Circuit Length (ft):</label>
+                                <input type="number" id="oneWayLengthDC" placeholder="Enter one-way length in feet" step="1" min="0" oninput="calculateVoltageDropDC()">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="temperatureDC">Operating Temperature (°F):</label>
+                                <input type="number" id="temperatureDC" placeholder="Enter temperature" value="75" oninput="calculateVoltageDropDC()">
+                            </div>
+                        </div>
+
+                        <button class="btn-calculate" onclick="calculateVoltageDropDC()">Calculate Voltage Drop</button>
+
+                        <div id="resultsDC" class="results-section" style="display: none;">
+                            <h3>Results</h3>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop:</span>
+                                    <span class="result-value" id="voltageDropDC">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage Drop %:</span>
+                                    <span class="result-value" id="voltageDropPercentDC">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Voltage at Load:</span>
+                                    <span class="result-value" id="voltageAtLoadDC">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Recommendation:</span>
+                                    <span class="result-value" id="recommendationDC">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <h2 class="section-title">Voltage Drop Information</h2>
+
+                    <div class="article-content">
+                        <h3>What is Voltage Drop?</h3>
+                        <p>Voltage drop is the decrease in electrical potential along the path of a current flowing in an electrical circuit. It occurs due to the resistance of the conductors and is a critical factor in electrical system design. Excessive voltage drop can lead to inefficient equipment operation, overheating, and premature equipment failure.</p>
+
+                        <h3>NEC Requirements</h3>
+                        <p>The National Electrical Code (NEC) provides guidance on acceptable voltage drop in Article 210.19(A) Informational Note No. 4 and Article 215.2(A)(1) Informational Note No. 2:</p>
+
+                        <ul>
+                            <li><strong>Branch Circuits:</strong> Maximum recommended voltage drop of 3% for reasonable efficiency of operation</li>
+                            <li><strong>Feeders:</strong> Maximum recommended voltage drop of 2% for reasonable efficiency of operation</li>
+                            <li><strong>Combined (Feeder + Branch):</strong> Maximum recommended voltage drop of 5% for reasonable efficiency of operation</li>
+                        </ul>
+
+                        <div class="info-callout">
+                            <strong>Important:</strong> While the NEC recommendations are not mandatory requirements, they represent industry best practices for ensuring efficient system operation and equipment longevity.
+                        </div>
+
+                        <h3>Voltage Drop Formulas</h3>
+
+                        <h4>Single-Phase AC Circuits:</h4>
+                        <p><strong>VD = 2 × K × I × L × (R × cos(θ) + X × sin(θ))</strong></p>
+                        <ul>
+                            <li>VD = Voltage Drop (volts)</li>
+                            <li>K = Constant (1 for calculations in consistent units)</li>
+                            <li>I = Current (amperes)</li>
+                            <li>L = One-way length of circuit (feet)</li>
+                            <li>R = Resistance per 1000 feet (ohms)</li>
+                            <li>X = Reactance per 1000 feet (ohms)</li>
+                            <li>cos(θ) = Power factor</li>
+                            <li>sin(θ) = Reactive factor</li>
+                        </ul>
+
+                        <h4>Three-Phase AC Circuits:</h4>
+                        <p><strong>VD = √3 × K × I × L × (R × cos(θ) + X × sin(θ))</strong></p>
+                        <ul>
+                            <li>Same parameters as single-phase, with √3 factor for three-phase systems</li>
+                        </ul>
+
+                        <h4>DC Circuits:</h4>
+                        <p><strong>VD = 2 × K × I × L × R</strong></p>
+                        <ul>
+                            <li>VD = Voltage Drop (volts)</li>
+                            <li>K = Constant (1 for calculations in consistent units)</li>
+                            <li>I = Current (amperes)</li>
+                            <li>L = One-way length of circuit (feet)</li>
+                            <li>R = Resistance per 1000 feet (ohms)</li>
+                        </ul>
+
+                        <h3>Factors Affecting Voltage Drop</h3>
+                        <ul>
+                            <li><strong>Conductor Size:</strong> Larger conductors have lower resistance and therefore less voltage drop</li>
+                            <li><strong>Circuit Length:</strong> Voltage drop increases proportionally with circuit length</li>
+                            <li><strong>Load Current:</strong> Higher current results in greater voltage drop</li>
+                            <li><strong>Conductor Material:</strong> Copper has lower resistance than aluminum for the same size</li>
+                            <li><strong>Temperature:</strong> Conductor resistance increases with temperature</li>
+                            <li><strong>Power Factor:</strong> Lower power factor in AC circuits increases voltage drop</li>
+                            <li><strong>Conduit Type:</strong> Metallic conduits can affect AC impedance</li>
+                        </ul>
+
+                        <h3>Design Considerations</h3>
+                        <p>When designing electrical systems to minimize voltage drop:</p>
+                        <ul>
+                            <li>Size conductors appropriately for the load and distance</li>
+                            <li>Consider oversizing conductors for long circuit runs</li>
+                            <li>Locate electrical equipment as close as possible to the load</li>
+                            <li>Balance loads across phases in three-phase systems</li>
+                            <li>Consider power factor correction for inductive loads</li>
+                            <li>Account for future load growth in initial design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Voltage Drop Troubleshooting</h2>
+
+                    <div class="article-content">
+                        <h3>Common Voltage Drop Problems</h3>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Lights Dimming When Equipment Starts</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Lights flicker or dim when motors or large loads start</li>
+                                <li>More noticeable at end of long circuit runs</li>
+                                <li>Equipment may run but at reduced capacity</li>
+                            </ul>
+                            <p><strong>Causes:</strong></p>
+                            <ul>
+                                <li>Undersized conductors for the load</li>
+                                <li>Excessive circuit length</li>
+                                <li>High inrush current from motor loads</li>
+                                <li>Poor connections creating additional resistance</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Upsize conductors to reduce resistance</li>
+                                <li>Install soft-start devices on motors</li>
+                                <li>Provide dedicated circuits for large loads</li>
+                                <li>Check and tighten all connections</li>
+                                <li>Consider voltage stabilizers or buck-boost transformers</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Equipment Not Operating at Full Capacity</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Motors running slower than rated speed</li>
+                                <li>Heating elements not reaching full temperature</li>
+                                <li>Equipment tripping on overload protection</li>
+                                <li>Reduced lighting levels</li>
+                            </ul>
+                            <p><strong>Causes:</strong></p>
+                            <ul>
+                                <li>Excessive voltage drop in supply circuit</li>
+                                <li>Undersized feeders or branch circuits</li>
+                                <li>Utility voltage issues</li>
+                                <li>Voltage drop exceeding NEC recommendations</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Calculate actual voltage drop and compare to NEC recommendations</li>
+                                <li>Upgrade conductor size in affected circuits</li>
+                                <li>Relocate equipment closer to power source if possible</li>
+                                <li>Install voltage monitoring equipment</li>
+                                <li>Contact utility if supply voltage is consistently low</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Conductors Running Hot</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Warm or hot conductors under normal load</li>
+                                <li>Melted insulation or discolored conductors</li>
+                                <li>Hot electrical panels or junction boxes</li>
+                                <li>Burning smell from electrical equipment</li>
+                            </ul>
+                            <p><strong>Causes:</strong></p>
+                            <ul>
+                                <li>Undersized conductors causing excessive current density</li>
+                                <li>Poor connections creating resistance and heat</li>
+                                <li>Overloaded circuits</li>
+                                <li>High ambient temperature affecting conductor ampacity</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Verify conductor sizing meets ampacity requirements</li>
+                                <li>Check all connections for tightness</li>
+                                <li>Verify actual load does not exceed circuit rating</li>
+                                <li>Apply temperature correction factors if needed</li>
+                                <li>Install additional circuits to reduce load per circuit</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Problem: Low Voltage Affecting Sensitive Equipment</h4>
+                            <p><strong>Symptoms:</strong></p>
+                            <ul>
+                                <li>Computer equipment resetting or malfunctioning</li>
+                                <li>Electronic controls not operating properly</li>
+                                <li>LED lights flickering or dimming</li>
+                                <li>Variable frequency drives (VFDs) faulting</li>
+                            </ul>
+                            <p><strong>Causes:</strong></p>
+                            <ul>
+                                <li>Voltage drop exceeding equipment tolerance</li>
+                                <li>Long circuit runs to sensitive loads</li>
+                                <li>Shared circuits with heavy loads</li>
+                                <li>Inadequate voltage regulation</li>
+                            </ul>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Provide dedicated circuits for sensitive equipment</li>
+                                <li>Install voltage regulators or UPS systems</li>
+                                <li>Upsize conductors to minimize voltage drop</li>
+                                <li>Separate sensitive loads from heavy loads</li>
+                                <li>Consider installing isolation transformers</li>
+                            </ul>
+                        </div>
+
+                        <h3>Systematic Troubleshooting Approach</h3>
+                        <ol>
+                            <li><strong>Measure Voltage:</strong> Use a quality multimeter to measure voltage at the source and at the load under full load conditions</li>
+                            <li><strong>Calculate Expected Drop:</strong> Use circuit parameters to calculate theoretical voltage drop</li>
+                            <li><strong>Compare Values:</strong> Compare measured drop to calculated and NEC recommendations</li>
+                            <li><strong>Inspect Connections:</strong> Check all connections, terminals, and splices for tightness and corrosion</li>
+                            <li><strong>Verify Load:</strong> Confirm actual load current matches design expectations</li>
+                            <li><strong>Check Conductor Size:</strong> Verify installed conductor size matches design drawings</li>
+                            <li><strong>Implement Solution:</strong> Address root cause through upsizing, load reduction, or circuit modification</li>
+                            <li><strong>Re-test:</strong> Verify voltage drop is within acceptable limits after modifications</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Conductor Specifications & Reference Data</h2>
+
+                    <div class="article-content">
+                        <h3>Conductor Resistance Values</h3>
+                        <p>DC Resistance values at 75°C (167°F) in Ohms per 1000 feet:</p>
+
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Size (AWG/kcmil)</th>
+                                        <th>Copper (Ω/1000ft)</th>
+                                        <th>Aluminum (Ω/1000ft)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>14</td><td>3.14</td><td>-</td></tr>
+                                    <tr><td>12</td><td>1.98</td><td>3.25</td></tr>
+                                    <tr><td>10</td><td>1.24</td><td>2.04</td></tr>
+                                    <tr><td>8</td><td>0.778</td><td>1.28</td></tr>
+                                    <tr><td>6</td><td>0.491</td><td>0.808</td></tr>
+                                    <tr><td>4</td><td>0.308</td><td>0.508</td></tr>
+                                    <tr><td>3</td><td>0.245</td><td>0.403</td></tr>
+                                    <tr><td>2</td><td>0.194</td><td>0.319</td></tr>
+                                    <tr><td>1</td><td>0.154</td><td>0.253</td></tr>
+                                    <tr><td>1/0</td><td>0.122</td><td>0.201</td></tr>
+                                    <tr><td>2/0</td><td>0.0967</td><td>0.159</td></tr>
+                                    <tr><td>3/0</td><td>0.0766</td><td>0.126</td></tr>
+                                    <tr><td>4/0</td><td>0.0608</td><td>0.100</td></tr>
+                                    <tr><td>250</td><td>0.0515</td><td>0.0847</td></tr>
+                                    <tr><td>300</td><td>0.0429</td><td>0.0707</td></tr>
+                                    <tr><td>350</td><td>0.0367</td><td>0.0605</td></tr>
+                                    <tr><td>400</td><td>0.0321</td><td>0.0529</td></tr>
+                                    <tr><td>500</td><td>0.0258</td><td>0.0424</td></tr>
+                                    <tr><td>600</td><td>0.0214</td><td>0.0353</td></tr>
+                                    <tr><td>750</td><td>0.0171</td><td>0.0282</td></tr>
+                                    <tr><td>1000</td><td>0.0129</td><td>0.0212</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>AC Effective Impedance</h3>
+                        <p>For AC circuits, the effective impedance (Z) must account for both resistance (R) and reactance (X). The reactance values depend on conduit type and conductor spacing:</p>
+
+                        <div class="info-callout">
+                            <strong>Note:</strong> This calculator uses simplified AC impedance calculations. For precise calculations with conduit effects and conductor configuration, consult NEC Chapter 9, Table 9 and manufacturer data.
+                        </div>
+
+                        <h3>Temperature Correction</h3>
+                        <p>Conductor resistance increases with temperature. The resistance at any temperature can be calculated using:</p>
+                        <p><strong>R₂ = R₁ × [1 + α(T₂ - T₁)]</strong></p>
+                        <ul>
+                            <li>R₁ = Resistance at reference temperature T₁</li>
+                            <li>R₂ = Resistance at temperature T₂</li>
+                            <li>α = Temperature coefficient (0.00323/°F for copper, 0.00353/°F for aluminum)</li>
+                        </ul>
+
+                        <h3>Conductor Ampacity Reference</h3>
+                        <p>Maximum current-carrying capacity (ampacity) at 75°C insulation rating:</p>
+
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Size (AWG/kcmil)</th>
+                                        <th>Copper (A)</th>
+                                        <th>Aluminum (A)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>14</td><td>20</td><td>-</td></tr>
+                                    <tr><td>12</td><td>25</td><td>20</td></tr>
+                                    <tr><td>10</td><td>35</td><td>30</td></tr>
+                                    <tr><td>8</td><td>50</td><td>40</td></tr>
+                                    <tr><td>6</td><td>65</td><td>50</td></tr>
+                                    <tr><td>4</td><td>85</td><td>65</td></tr>
+                                    <tr><td>3</td><td>100</td><td>75</td></tr>
+                                    <tr><td>2</td><td>115</td><td>90</td></tr>
+                                    <tr><td>1</td><td>130</td><td>100</td></tr>
+                                    <tr><td>1/0</td><td>150</td><td>120</td></tr>
+                                    <tr><td>2/0</td><td>175</td><td>135</td></tr>
+                                    <tr><td>3/0</td><td>200</td><td>155</td></tr>
+                                    <tr><td>4/0</td><td>230</td><td>180</td></tr>
+                                    <tr><td>250</td><td>255</td><td>205</td></tr>
+                                    <tr><td>300</td><td>285</td><td>230</td></tr>
+                                    <tr><td>350</td><td>310</td><td>250</td></tr>
+                                    <tr><td>400</td><td>335</td><td>270</td></tr>
+                                    <tr><td>500</td><td>380</td><td>310</td></tr>
+                                    <tr><td>600</td><td>420</td><td>340</td></tr>
+                                    <tr><td>750</td><td>475</td><td>385</td></tr>
+                                    <tr><td>1000</td><td>545</td><td>445</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="info-callout">
+                            <strong>Important:</strong> These ampacity values are from NEC Table 310.16 for not more than three current-carrying conductors in raceway, cable, or earth. Apply appropriate correction and adjustment factors per NEC 310.15.
+                        </div>
+
+                        <h3>NEC Reference Articles</h3>
+                        <ul>
+                            <li><strong>Article 210.19(A):</strong> Branch circuit conductor sizing and voltage drop</li>
+                            <li><strong>Article 215.2(A):</strong> Feeder conductor sizing and voltage drop</li>
+                            <li><strong>Article 310.15:</strong> Ampacities for conductors</li>
+                            <li><strong>Chapter 9, Table 8:</strong> Conductor properties</li>
+                            <li><strong>Chapter 9, Table 9:</strong> AC resistance and reactance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This tool is provided for educational and preliminary design purposes only.
+                        All calculations and designs should be verified by a licensed professional engineer.
+                        Users are responsible for ensuring compliance with local codes and standards.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
