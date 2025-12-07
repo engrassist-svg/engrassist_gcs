@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Professional electrical load calculation tool for commercial and residential buildings. Calculate service and feeder loads per NEC Article 220.">
+    <meta name="keywords" content="load calculation, electrical load, NEC 220, service sizing, feeder sizing, demand factor, commercial loads">
+    <link rel="canonical" content="https://engrassist.com/electrical_load_calc.html">
+
+    <meta property="og:title" content="Electrical Load Calculation - EngrAssist">
+    <meta property="og:description" content="Professional electrical load calculation tool for commercial and residential buildings per NEC Article 220.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://engrassist.com/electrical_load_calc.html">
+    <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Electrical Load Calculation - EngrAssist">
+    <meta name="twitter:description" content="Professional electrical load calculation tool per NEC Article 220.">
+    <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
+
+    <title>Electrical Load Calculation - EngrAssist</title>
+
+    <link rel="preload" href="header.html" as="fetch" crossorigin>
+    <link rel="preload" href="footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="scripts.js" as="script">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="page-loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Electrical Load Calculation</h1>
+                <p class="hero-subtitle">Calculate electrical service and feeder loads for commercial and residential buildings per NEC Article 220. Size services with proper demand factors per code requirements.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                    <button class="tab-button" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('troubleshooting', event)">
+                        Troubleshooting
+                    </button>
+                    <button class="tab-button" onclick="switchTab('specifications', event)">
+                        Specifications
+                    </button>
+                </div>
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content active">
+                    <h2 class="section-title">Electrical Load Calculation</h2>
+
+                    <div class="calculation-mode-selector">
+                        <button class="mode-button active" onclick="switchCalculationMode('commercial', event)">
+                            Commercial Building
+                        </button>
+                        <button class="mode-button" onclick="switchCalculationMode('residential', event)">
+                            Residential
+                        </button>
+                    </div>
+
+                    <!-- Commercial Calculator -->
+                    <div id="commercial-inputs" class="calculation-inputs active">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Commercial Building Loads (NEC 220)</h3>
+
+                        <p class="info-callout">This calculator uses NEC Article 220 standard calculation method with applicable demand factors.</p>
+
+                        <div class="form-section">
+                            <h4>1. General Lighting & Receptacles (NEC 220.12)</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="buildingType">Building Type:</label>
+                                    <select id="buildingType" onchange="updateElecLoadCommercial()">
+                                        <option value="3">Office Buildings (3 VA/sq ft)</option>
+                                        <option value="0.25">Warehouse/Storage (0.25 VA/sq ft)</option>
+                                        <option value="3">Schools (3 VA/sq ft)</option>
+                                        <option value="2">Hotels/Motels (2 VA/sq ft)</option>
+                                        <option value="2">Hospitals (2 VA/sq ft)</option>
+                                        <option value="3.5">Banks (3.5 VA/sq ft)</option>
+                                        <option value="3">Retail Stores (3 VA/sq ft)</option>
+                                        <option value="2">Restaurants (2 VA/sq ft)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="totalArea">Total Floor Area (sq ft):</label>
+                                    <input type="number" id="totalArea" placeholder="Enter total area" min="0" oninput="updateElecLoadCommercial()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>2. HVAC Loads</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="hvacLoadComm">Total HVAC Load (kW):</label>
+                                    <input type="number" id="hvacLoadComm" placeholder="Enter kW" step="0.1" min="0" value="0" oninput="updateElecLoadCommercial()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>3. Other Loads</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="motorLoadComm">Motor Loads (kW):</label>
+                                    <input type="number" id="motorLoadComm" placeholder="Enter kW" step="0.1" min="0" value="0" oninput="updateElecLoadCommercial()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="otherLoadComm">Other Loads (kW):</label>
+                                    <input type="number" id="otherLoadComm" placeholder="Enter kW" step="0.1" min="0" value="0" oninput="updateElecLoadCommercial()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="voltageComm">Service Voltage:</label>
+                                <select id="voltageComm" onchange="updateElecLoadCommercial()">
+                                    <option value="208">120/208V 3Ø 4W</option>
+                                    <option value="240">120/240V 1Ø 3W</option>
+                                    <option value="480">277/480V 3Ø 4W</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn-calculate" onclick="calculateElecLoadCommercial()">Calculate Service Load</button>
+
+                        <div id="commercialElecResults" class="results-section" style="display: none;">
+                            <h3>Load Calculation Results</h3>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">General Lighting Load:</span>
+                                    <span class="result-value" id="lightingLoadComm">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Total Connected Load:</span>
+                                    <span class="result-value" id="totalConnComm">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Demand Load (with factors):</span>
+                                    <span class="result-value" id="demandLoadComm">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Demand Current:</span>
+                                    <span class="result-value" id="demandCurrentComm">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Minimum Service Size:</span>
+                                    <span class="result-value" id="minServiceComm">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Recommended Service:</span>
+                                    <span class="result-value" id="recServiceComm">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Residential Calculator -->
+                    <div id="residential-inputs" class="calculation-inputs">
+                        <h3 style="color: #2c3e50; margin-top: 2rem;">Residential Load Calculation (NEC 220.82)</h3>
+
+                        <p class="info-callout">This calculator uses the NEC 220.82 Optional Calculation Method for dwelling units.</p>
+
+                        <div class="form-section">
+                            <h4>1. General Loads</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dwellingArea">House Square Footage:</label>
+                                    <input type="number" id="dwellingArea" placeholder="Enter sq ft" min="0" oninput="updateElecLoadResidential()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="smallAppl">Small Appliance Circuits:</label>
+                                    <input type="number" id="smallAppl" value="2" min="2" oninput="updateElecLoadResidential()">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="laundry">Laundry Circuits:</label>
+                                    <input type="number" id="laundry" value="1" min="0" oninput="updateElecLoadResidential()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>2. Major Appliances</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="range">Electric Range (kW):</label>
+                                    <input type="number" id="range" placeholder="0 if gas" step="0.1" min="0" value="12" oninput="updateElecLoadResidential()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dryer">Electric Dryer (kW):</label>
+                                    <input type="number" id="dryer" step="0.1" min="0" value="5" oninput="updateElecLoadResidential()">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="waterHeater">Water Heater (kW):</label>
+                                    <input type="number" id="waterHeater" step="0.1" min="0" value="4.5" oninput="updateElecLoadResidential()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dishwasher">Dishwasher (kW):</label>
+                                    <input type="number" id="dishwasher" step="0.1" min="0" value="1.2" oninput="updateElecLoadResidential()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>3. HVAC (larger of heating or cooling)</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="acLoad">Air Conditioning (kW or tons):</label>
+                                    <input type="number" id="acLoad" placeholder="Enter value" step="0.1" min="0" value="3" oninput="updateElecLoadResidential()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="acUnit">AC Unit:</label>
+                                    <select id="acUnit" onchange="updateElecLoadResidential()">
+                                        <option value="tons">Tons</option>
+                                        <option value="kw">kW</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="heatLoad">Electric Heat (kW):</label>
+                                    <input type="number" id="heatLoad" placeholder="0 if gas/HP" step="0.1" min="0" value="0" oninput="updateElecLoadResidential()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-calculate" onclick="calculateElecLoadResidential()">Calculate Service Load</button>
+
+                        <div id="residentialElecResults" class="results-section" style="display: none;">
+                            <h3>Residential Load Calculation Results</h3>
+
+                            <div class="result-subsection">
+                                <h4>General Loads (first 10 kVA @ 100%, remainder @ 40%)</h4>
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="result-label">General Load Demand:</span>
+                                        <span class="result-value" id="generalDemandRes">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="result-subsection">
+                                <h4>Total Service Load</h4>
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="result-label">Total Demand Load:</span>
+                                        <span class="result-value" id="totalDemandRes">-</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Demand Current @ 240V:</span>
+                                        <span class="result-value" id="demandCurrentRes">-</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Minimum Service Size:</span>
+                                        <span class="result-value" id="minServiceRes">-</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Recommended Service:</span>
+                                        <span class="result-value" id="recServiceRes">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content">
+                    <h2 class="section-title">Load Calculation Information</h2>
+
+                    <div class="article-content">
+                        <h3>NEC Article 220 - Load Calculations</h3>
+                        <p>Electrical load calculations determine the size of electrical services and feeders. The NEC provides specific calculation methods with demand factors that account for diversity in electrical usage.</p>
+
+                        <h4>Commercial Load Calculations</h4>
+                        <p>Based on NEC 220.12 and 220.42, commercial loads include:</p>
+                        <ul>
+                            <li><strong>General Lighting:</strong> VA per square foot based on occupancy type</li>
+                            <li><strong>Receptacles:</strong> Often included in general lighting load</li>
+                            <li><strong>HVAC:</strong> At 100% of nameplate rating</li>
+                            <li><strong>Motors:</strong> 125% of largest motor plus 100% of others</li>
+                            <li><strong>Demand Factors:</strong> Applied to lighting per Table 220.42</li>
+                        </ul>
+
+                        <h4>Residential Load Calculations</h4>
+                        <p>NEC 220.82 Optional Method for dwelling units:</p>
+                        <ul>
+                            <li><strong>General Lighting:</strong> 3 VA/sq ft</li>
+                            <li><strong>Small Appliance:</strong> 1500 VA per circuit (minimum 2)</li>
+                            <li><strong>Laundry:</strong> 1500 VA per circuit</li>
+                            <li><strong>Demand Factor:</strong> First 10 kVA @ 100%, remainder @ 40%</li>
+                            <li><strong>HVAC:</strong> Larger of heating or cooling @ 100%</li>
+                            <li><strong>Other Appliances:</strong> @ 100%</li>
+                        </ul>
+
+                        <h3>Standard Service Sizes</h3>
+                        <p><strong>Residential:</strong> 100A, 125A, 150A, 200A, 320A, 400A</p>
+                        <p><strong>Commercial:</strong> 100A, 200A, 400A, 600A, 800A, 1000A, 1200A, 1600A, 2000A</p>
+
+                        <p class="info-callout">Always size services and feeders for the calculated load plus 20-25% for future expansion.</p>
+                    </div>
+                </div>
+
+                <!-- TROUBLESHOOTING TAB -->
+                <div id="troubleshooting-tab" class="tab-content">
+                    <h2 class="section-title">Load Calculation Troubleshooting</h2>
+
+                    <div class="article-content">
+                        <h3>Common Issues</h3>
+
+                        <div class="troubleshooting-item">
+                            <h4>Undersized Service</h4>
+                            <p><strong>Symptoms:</strong> Main breaker trips, cannot add new loads, low voltage</p>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Re-calculate with all current loads</li>
+                                <li>Apply proper demand factors per NEC</li>
+                                <li>Upgrade service size if needed</li>
+                                <li>Consider load management systems</li>
+                            </ul>
+                        </div>
+
+                        <div class="troubleshooting-item">
+                            <h4>Oversized Service</h4>
+                            <p><strong>Symptoms:</strong> Excessive installation cost, high utility demand charges</p>
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Review calculation method</li>
+                                <li>Verify demand factors were applied</li>
+                                <li>Consider optional calculation methods</li>
+                            </ul>
+                        </div>
+
+                        <h3>Calculation Checklist</h3>
+                        <ul>
+                            <li>☐ All loads identified and quantified</li>
+                            <li>☐ Correct VA/sq ft for occupancy type</li>
+                            <li>☐ Demand factors properly applied</li>
+                            <li>☐ Motors at 125% of largest plus others</li>
+                            <li>☐ HVAC at larger of heating or cooling</li>
+                            <li>☐ Future loads considered (20-25%)</li>
+                            <li>☐ Voltage matches service voltage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SPECIFICATIONS TAB -->
+                <div id="specifications-tab" class="tab-content">
+                    <h2 class="section-title">Specifications & Reference Data</h2>
+
+                    <div class="article-content">
+                        <h3>General Lighting Loads (NEC Table 220.12)</h3>
+                        <div class="spec-table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Occupancy Type</th>
+                                        <th>VA/sq ft</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Banks</td><td>3.5</td></tr>
+                                    <tr><td>Office Buildings</td><td>3</td></tr>
+                                    <tr><td>Schools</td><td>3</td></tr>
+                                    <tr><td>Stores</td><td>3</td></tr>
+                                    <tr><td>Hotels/Motels</td><td>2</td></tr>
+                                    <tr><td>Hospitals</td><td>2</td></tr>
+                                    <tr><td>Restaurants</td><td>2</td></tr>
+                                    <tr><td>Dwelling Units</td><td>3</td></tr>
+                                    <tr><td>Warehouses</td><td>0.25</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Lighting Demand Factors (NEC Table 220.42)</h3>
+                        <p>For hospitals, hotels, and motels, apply demand factors to total connected lighting load.</p>
+
+                        <h3>NEC References</h3>
+                        <ul>
+                            <li>Article 220.12 - General lighting</li>
+                            <li>Article 220.42 - Lighting demand factors</li>
+                            <li>Article 220.82 - Dwelling unit optional calculation</li>
+                            <li>Table 220.12 - General lighting loads by occupancy</li>
+                            <li>Table 220.42 - Lighting load demand factors</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="disclaimer">
+                    <div class="disclaimer-title">Professional Disclaimer</div>
+                    <div class="disclaimer-text">
+                        This tool is provided for educational and preliminary design purposes only.
+                        All calculations should be verified by a licensed professional engineer.
+                        Users are responsible for ensuring compliance with local codes and standards.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
