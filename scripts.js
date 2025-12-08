@@ -3544,6 +3544,7 @@ function psychDrawChart() {
 
     psychDrawTemperatureGrid(svg);
     psychDrawHumidityGrid(svg);
+    psychDrawDewPointLines(svg);
     psychDrawSpecificVolumeLines(svg);
     psychDrawEnthalpyLines(svg);
     psychDrawWetBulbLines(svg);
@@ -3684,6 +3685,48 @@ function psychDrawHumidityGrid(svg) {
     }
 }
 
+function psychDrawDewPointLines(svg) {
+    // Dew point temperature lines are horizontal lines (constant humidity ratio)
+    // They are labeled on the right side of the chart
+    const chartRight = psychChartConfig.width - psychChartConfig.marginRight;
+
+    for (let dp = 35; dp <= 85; dp += 10) {
+        // For a given dew point, find the humidity ratio at saturation
+        const Pws_dp = psychSaturationPressure(dp);
+        const W_dp = 0.621945 * Pws_dp / (psychCurrentPressure - Pws_dp);
+
+        if (W_dp >= psychChartConfig.wMin && W_dp <= psychChartConfig.wMax) {
+            const y = psychHumidityToY(W_dp);
+
+            // Note: Dew point lines are the same as humidity ratio grid lines
+            // We just add labels on the right side to indicate dew point temperatures
+            const label = psychCreateSVGElement('text', {
+                x: chartRight + 38,
+                y: y + 3,
+                class: 'chart-line-label',
+                fill: '#e67e22',
+                'font-size': '9px',
+                'font-weight': '600',
+                'text-anchor': 'middle'
+            });
+            label.textContent = `${dp}°F DP`;
+            svg.appendChild(label);
+        }
+    }
+
+    // Add dew point axis label on the right side
+    const dpAxisLabel = psychCreateSVGElement('text', {
+        x: chartRight + 38,
+        y: psychChartConfig.marginTop - 10,
+        'text-anchor': 'middle',
+        'font-size': '9px',
+        'font-weight': '700',
+        fill: '#e67e22'
+    });
+    dpAxisLabel.textContent = 'DEW POINT';
+    svg.appendChild(dpAxisLabel);
+}
+
 function psychDrawSaturationCurve(svg) {
     let pathData = 'M';
     let isFirst = true;
@@ -3719,7 +3762,7 @@ function psychDrawSaturationCurve(svg) {
     });
     svg.appendChild(path);
 
-    // Add "100% RH" label on the saturation line
+    // Add "100% RH (SATURATION LINE)" label on the saturation line
     if (labelX && labelY) {
         const label = psychCreateSVGElement('text', {
             x: labelX - 10,
@@ -3740,6 +3783,9 @@ function psychDrawRelativeHumidityLines(svg) {
         let pathData = 'M';
         let isFirst = true;
         let lastX, lastY;
+        let midX, midY;
+        let pointCount = 0;
+
         for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
             const Pws = psychSaturationPressure(t);
             const Pw = (rh / 100) * Pws;
@@ -3753,15 +3799,21 @@ function psychDrawRelativeHumidityLines(svg) {
                 } else {
                     pathData += ` L${x},${y}`;
                 }
+                // Store middle point for label
+                if (pointCount === 45) {
+                    midX = x;
+                    midY = y;
+                }
                 lastX = x;
                 lastY = y;
+                pointCount++;
             }
         }
         const path = psychCreateSVGElement('path', {
             d: pathData,
             class: 'chart-rh-line',
-            stroke: rh === 50 ? '#2980b9' : '#3498db',
-            'stroke-width': rh === 50 ? 1.5 : 1
+            stroke: rh === 50 ? '#2471a3' : '#3498db',
+            'stroke-width': rh === 50 ? 1.8 : 1.2
         });
         svg.appendChild(path);
 
@@ -3769,14 +3821,29 @@ function psychDrawRelativeHumidityLines(svg) {
         if (lastX && lastY) {
             const label = psychCreateSVGElement('text', {
                 x: lastX + 5,
-                y: lastY,
+                y: lastY + 1,
                 class: 'chart-line-label',
-                fill: '#2980b9',
+                fill: '#2471a3',
                 'font-size': '11px',
-                'font-weight': '600'
+                'font-weight': '700'
             });
-            label.textContent = `${rh}%`;
+            label.textContent = `${rh}% RH`;
             svg.appendChild(label);
+        }
+
+        // Add additional label in the middle for major RH lines
+        if (midX && midY && (rh === 30 || rh === 50 || rh === 70)) {
+            const midLabel = psychCreateSVGElement('text', {
+                x: midX,
+                y: midY - 5,
+                class: 'chart-line-label',
+                fill: '#2471a3',
+                'font-size': '10px',
+                'font-weight': '600',
+                opacity: 0.8
+            });
+            midLabel.textContent = `${rh}%`;
+            svg.appendChild(midLabel);
         }
     });
 }
@@ -3810,20 +3877,21 @@ function psychDrawWetBulbLines(svg) {
         const path = psychCreateSVGElement('path', {
             d: pathData,
             class: 'chart-wb-line',
-            'stroke-width': isMajor ? 1.1 : 0.7,
-            opacity: isMajor ? 0.6 : 0.4
+            stroke: '#8e44ad',
+            'stroke-width': isMajor ? 1.3 : 0.8,
+            opacity: isMajor ? 0.7 : 0.5
         });
         svg.appendChild(path);
 
         // Add label near the saturation curve for major lines only
         if (labelX && labelY && isMajor) {
             const label = psychCreateSVGElement('text', {
-                x: labelX - 15,
+                x: labelX - 18,
                 y: labelY - 5,
                 class: 'chart-line-label',
                 fill: '#8e44ad',
                 'font-size': '10px',
-                'font-weight': '600'
+                'font-weight': '700'
             });
             label.textContent = `${t_wb}°F WB`;
             svg.appendChild(label);
@@ -3836,6 +3904,9 @@ function psychDrawEnthalpyLines(svg) {
         let pathData = 'M';
         let isFirst = true;
         let firstX, firstY;
+        let midX, midY;
+        let pointCount = 0;
+
         for (let t = psychChartConfig.tMin; t <= psychChartConfig.tMax; t += 1) {
             const W = (h - 0.240 * t) / (1061 + 0.444 * t);
             if (W <= psychChartConfig.wMax && W >= psychChartConfig.wMin && W >= 0) {
@@ -3849,27 +3920,54 @@ function psychDrawEnthalpyLines(svg) {
                 } else {
                     pathData += ` L${x},${y}`;
                 }
+                // Store middle point for additional label
+                if (pointCount === 40) {
+                    midX = x;
+                    midY = y;
+                }
+                pointCount++;
             }
         }
+        const isMajor = h % 10 === 0;
         const path = psychCreateSVGElement('path', {
             d: pathData,
-            class: 'chart-enthalpy-line'
+            class: 'chart-enthalpy-line',
+            stroke: '#d35400',
+            'stroke-width': isMajor ? 1.2 : 0.9,
+            'stroke-dasharray': isMajor ? '5,3' : '3,2',
+            opacity: isMajor ? 0.8 : 0.6
         });
         svg.appendChild(path);
 
-        // Add label at the top-left of the line
-        if (firstX && firstY && h % 10 === 0) {
+        // Add label at the top-left of the line for major lines
+        if (firstX && firstY && isMajor) {
             const label = psychCreateSVGElement('text', {
-                x: firstX - 25,
+                x: firstX - 28,
                 y: firstY - 5,
                 class: 'chart-line-label',
                 fill: '#d35400',
                 'font-size': '10px',
-                'font-weight': '500',
-                transform: `rotate(-30, ${firstX - 25}, ${firstY - 5})`
+                'font-weight': '700',
+                transform: `rotate(-30, ${firstX - 28}, ${firstY - 5})`
             });
             label.textContent = `${h} BTU/lb`;
             svg.appendChild(label);
+        }
+
+        // Add label in the middle for major enthalpy lines
+        if (midX && midY && isMajor) {
+            const midLabel = psychCreateSVGElement('text', {
+                x: midX + 5,
+                y: midY - 3,
+                class: 'chart-line-label',
+                fill: '#d35400',
+                'font-size': '9px',
+                'font-weight': '600',
+                opacity: 0.7,
+                transform: `rotate(-30, ${midX + 5}, ${midY - 3})`
+            });
+            midLabel.textContent = `${h}`;
+            svg.appendChild(midLabel);
         }
     }
 }
@@ -3987,10 +4085,10 @@ function psychDrawSpecificVolumeLines(svg) {
             d: pathData,
             class: 'chart-volume-line',
             stroke: '#16a085',
-            'stroke-width': 0.8,
-            'stroke-dasharray': '4,2',
+            'stroke-width': 1.0,
+            'stroke-dasharray': '5,3',
             fill: 'none',
-            opacity: 0.5
+            opacity: 0.6
         });
         svg.appendChild(path);
 
@@ -4002,7 +4100,7 @@ function psychDrawSpecificVolumeLines(svg) {
                 class: 'chart-line-label',
                 fill: '#16a085',
                 'font-size': '9px',
-                'font-weight': '500',
+                'font-weight': '700',
                 transform: `rotate(15, ${labelX + 5}, ${labelY + 3})`
             });
             label.textContent = `${v} ft³/lb`;
@@ -4078,67 +4176,69 @@ function psychDrawAxes(svg) {
     svg.appendChild(yLabel);
 
     // Add chart legend in top-right corner
-    const legendX = psychChartConfig.width - psychChartConfig.marginRight - 150;
+    const legendX = psychChartConfig.width - psychChartConfig.marginRight - 180;
     const legendY = psychChartConfig.marginTop + 10;
 
     const legendItems = [
-        { color: '#c0392b', text: '100% RH (Saturation)', dash: false, width: 2.5 },
-        { color: '#3498db', text: 'Relative Humidity', dash: true, width: 1 },
-        { color: '#8e44ad', text: 'Wet Bulb Temp', dash: false, width: 1 },
-        { color: '#d35400', text: 'Enthalpy', dash: false, width: 1 },
-        { color: '#16a085', text: 'Specific Volume', dash: true, width: 0.8 }
+        { color: '#c0392b', text: 'Saturation (100% RH)', dash: false, width: 2.5 },
+        { color: '#2471a3', text: 'Relative Humidity (%)', dash: false, width: 1.2 },
+        { color: '#8e44ad', text: 'Wet Bulb Temp (°F)', dash: false, width: 1.3 },
+        { color: '#d35400', text: 'Enthalpy (BTU/lb)', dash: true, width: 1.2 },
+        { color: '#16a085', text: 'Specific Volume (ft³/lb)', dash: true, width: 1.0 },
+        { color: '#e67e22', text: 'Dew Point (°F)', dash: false, width: 0.8 }
     ];
 
     // Legend background
     const legendBg = psychCreateSVGElement('rect', {
         x: legendX - 10,
         y: legendY - 5,
-        width: 160,
-        height: legendItems.length * 20 + 10,
+        width: 190,
+        height: legendItems.length * 22 + 15,
         fill: 'white',
         stroke: '#bdc3c7',
-        'stroke-width': 1,
+        'stroke-width': 1.5,
         rx: 5,
-        opacity: 0.95
+        opacity: 0.96
     });
     svg.appendChild(legendBg);
 
     // Legend title
     const legendTitle = psychCreateSVGElement('text', {
-        x: legendX + 70,
+        x: legendX + 85,
         y: legendY + 10,
         class: 'chart-label',
         'text-anchor': 'middle',
         'font-weight': '700',
-        'font-size': '11px',
+        'font-size': '12px',
         fill: '#2c3e50'
     });
-    legendTitle.textContent = 'Chart Legend';
+    legendTitle.textContent = 'CHART LINES';
     svg.appendChild(legendTitle);
 
     // Legend items
     legendItems.forEach((item, i) => {
-        const y = legendY + 25 + i * 20;
+        const y = legendY + 28 + i * 22;
 
         // Line sample
         const line = psychCreateSVGElement('line', {
             x1: legendX,
             y1: y,
-            x2: legendX + 20,
+            x2: legendX + 25,
             y2: y,
             stroke: item.color,
             'stroke-width': item.width,
-            'stroke-dasharray': item.dash ? '3,2' : 'none'
+            'stroke-dasharray': item.dash ? '4,3' : 'none'
         });
         svg.appendChild(line);
 
         // Text label
         const text = psychCreateSVGElement('text', {
-            x: legendX + 25,
+            x: legendX + 30,
             y: y + 4,
             class: 'chart-label',
             'font-size': '10px',
-            fill: '#2c3e50'
+            'font-weight': '600',
+            fill: item.color
         });
         text.textContent = item.text;
         svg.appendChild(text);
