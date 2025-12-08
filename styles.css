@@ -1451,6 +1451,11 @@ nav {
     min-width: 40px;
 }
 
+.tool-info {
+    flex: 1;
+    min-width: 0;
+}
+
 .tool-info h4 {
     margin: 0 0 0.5rem 0;
     color: #2c3e50;
