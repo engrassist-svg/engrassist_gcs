@@ -231,7 +231,19 @@ function generateBreadcrumbs(currentPage, fullPath) {
         'rainfall_intensity.html',
         'retention_detention.html',
         'gas_pipe_sizing.html',
-        'gas_pressure_drop.html'
+        'gas_pressure_drop.html',
+        'plumbing_codes.html',
+        'fixture_schedules.html',
+        'material_specifications.html',
+        'water_quality_standards.html',
+        'plumbing_system_design.html',
+        'water_efficiency_guide.html',
+        'plumbing_troubleshooting.html',
+        'special_plumbing_systems.html',
+        'plumbing_fundamentals.html',
+        'plumbing_calculations.html',
+        'plumbing_case_studies.html',
+        'plumbing_code_requirements.html'
     ];
 
     // Check if in articles directory
