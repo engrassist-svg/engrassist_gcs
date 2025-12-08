@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="google-adsense-account" content="ca-pub-2370605571916318">
+    <meta name="description" content="Common plumbing calculations with worked examples including pipe sizing, pressure loss, flow rates, and drainage calculations.">
+    <meta name="keywords" content="plumbing calculations, pipe sizing formulas, pressure loss calculation, flow rate, fixture units, drainage calculations">
+    <link rel="canonical" href="https://engrassist.com/plumbing_calculations.html">
+
+    <title>Plumbing Calculations - EngrAssist</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9HVPYW6169');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-2370605571916318" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="page-loading"><div class="loading-spinner"></div></div>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Plumbing Calculations</h1>
+                <p class="hero-subtitle">Common calculations with worked examples</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="article-content">
+
+                    <p>This guide provides common plumbing calculations with step-by-step worked examples. For interactive calculators, visit the <a href="plumbing_page.html">Plumbing Tools page</a>.</p>
+
+                    <div class="toc">
+                        <h3>Table of Contents</h3>
+                        <ul>
+                            <li><a href="#fixture-units">Fixture Unit Calculations</a></li>
+                            <li><a href="#flow-velocity">Flow Rate and Velocity</a></li>
+                            <li><a href="#pressure">Pressure Loss Calculations</a></li>
+                            <li><a href="#drainage">Drainage Sizing</a></li>
+                            <li><a href="#gas">Gas Pipe Sizing</a></li>
+                            <li><a href="#water-heater">Water Heater Sizing</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="fixture-units">Fixture Unit Calculations</h2>
+
+                    <div class="mechanical-section">
+                        <h3>Example 1: Residential Water Supply</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <p>Single-family residence with following fixtures:</p>
+                            <ul>
+                                <li>2 Water Closets (tank type)</li>
+                                <li>3 Lavatories</li>
+                                <li>2 Showers</li>
+                                <li>1 Bathtub</li>
+                                <li>1 Kitchen Sink</li>
+                                <li>1 Dishwasher</li>
+                                <li>1 Clothes Washer</li>
+                                <li>2 Hose Bibbs</li>
+                            </ul>
+
+                            <h4>Calculate: Total WSFU for hot and cold water</h4>
+
+                            <h4>Solution:</h4>
+                            <p><strong>Cold Water WSFU:</strong></p>
+                            <ul>
+                                <li>Water Closets: 2 × 2.5 = 5.0 WSFU</li>
+                                <li>Lavatories: 3 × 0.5 = 1.5 WSFU</li>
+                                <li>Showers: 2 × 1.0 = 2.0 WSFU</li>
+                                <li>Bathtub: 1 × 1.0 = 1.0 WSFU</li>
+                                <li>Kitchen Sink: 1 × 0.75 = 0.75 WSFU</li>
+                                <li>Clothes Washer: 1 × 1.0 = 1.0 WSFU</li>
+                                <li>Hose Bibbs: 2 × 2.5 = 5.0 WSFU</li>
+                                <li><strong>Total Cold: 16.25 WSFU</strong></li>
+                            </ul>
+
+                            <p><strong>Hot Water WSFU:</strong></p>
+                            <ul>
+                                <li>Lavatories: 3 × 0.5 = 1.5 WSFU</li>
+                                <li>Showers: 2 × 1.0 = 2.0 WSFU</li>
+                                <li>Bathtub: 1 × 1.0 = 1.0 WSFU</li>
+                                <li>Kitchen Sink: 1 × 0.75 = 0.75 WSFU</li>
+                                <li>Dishwasher: 1 × 1.4 = 1.4 WSFU</li>
+                                <li>Clothes Washer: 1 × 1.0 = 1.0 WSFU</li>
+                                <li><strong>Total Hot: 7.65 WSFU</strong></li>
+                            </ul>
+
+                            <p><strong>Convert to GPM (using Hunter's Curve/Code Tables):</strong></p>
+                            <ul>
+                                <li>16.25 WSFU (cold) ≈ 13 GPM</li>
+                                <li>7.65 WSFU (hot) ≈ 7 GPM</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="flow-velocity">Flow Rate and Velocity</h2>
+
+                    <div class="mechanical-section">
+                        <h3>Example 2: Calculate Velocity in Pipe</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <ul>
+                                <li>Flow Rate: 10 GPM</li>
+                                <li>Pipe: 3/4" Type L Copper (ID = 0.785")</li>
+                            </ul>
+
+                            <h4>Calculate: Flow velocity in ft/s</h4>
+
+                            <h4>Formula:</h4>
+                            <p><code>Velocity (fps) = (0.408 × GPM) / (ID²)</code></p>
+                            <p>Where ID is in inches</p>
+
+                            <h4>Solution:</h4>
+                            <p>Velocity = (0.408 × 10) / (0.785²)</p>
+                            <p>Velocity = 4.08 / 0.616</p>
+                            <p><strong>Velocity = 6.6 fps</strong></p>
+
+                            <p><strong>Evaluation:</strong> This is within acceptable range (5-8 fps for cold water)</p>
+                        </div>
+
+                        <h3>Example 3: Calculate Required Pipe Size</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <ul>
+                                <li>Required Flow: 15 GPM</li>
+                                <li>Maximum Velocity: 8 fps (cold water)</li>
+                                <li>Pipe Material: Type L Copper</li>
+                            </ul>
+
+                            <h4>Calculate: Minimum pipe size</h4>
+
+                            <h4>Formula (rearranged):</h4>
+                            <p><code>ID = √[(0.408 × GPM) / Velocity]</code></p>
+
+                            <h4>Solution:</h4>
+                            <p>ID = √[(0.408 × 15) / 8]</p>
+                            <p>ID = √[6.12 / 8]</p>
+                            <p>ID = √0.765</p>
+                            <p>ID = 0.875"</p>
+
+                            <p><strong>Result:</strong> Type L Copper 3/4" (ID = 0.785") is too small</p>
+                            <p><strong>Select:</strong> 1" Type L Copper (ID = 1.025") ✓</p>
+
+                            <p><strong>Verify:</strong> V = (0.408 × 15) / (1.025²) = 5.8 fps ✓</p>
+                        </div>
+                    </div>
+
+                    <h2 id="pressure">Pressure Loss Calculations</h2>
+
+                    <div class="mechanical-section">
+                        <h3>Example 4: Elevation Pressure Loss</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <ul>
+                                <li>Supply Pressure at ground floor: 60 psi</li>
+                                <li>Fixture location: 3rd floor, 30 feet above supply</li>
+                            </ul>
+
+                            <h4>Calculate: Available pressure at 3rd floor fixture</h4>
+
+                            <h4>Formula:</h4>
+                            <p><code>Pressure Loss = 0.433 psi/ft × Height (ft)</code></p>
+
+                            <h4>Solution:</h4>
+                            <p>Pressure Loss = 0.433 × 30 = 13.0 psi</p>
+                            <p>Available Pressure = 60 - 13 = <strong>47 psi</strong></p>
+
+                            <p><strong>Evaluation:</strong> 47 psi is adequate for typical fixtures (need 15-20 psi minimum)</p>
+                        </div>
+
+                        <h3>Example 5: Total Pressure Drop</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <ul>
+                                <li>Supply pressure: 60 psi</li>
+                                <li>Elevation rise: 25 ft</li>
+                                <li>Friction loss in piping: 8 psi</li>
+                                <li>Water meter loss: 5 psi</li>
+                                <li>PRV set point: 50 psi (reduces from 60 to 50)</li>
+                            </ul>
+
+                            <h4>Calculate: Available pressure at fixture</h4>
+
+                            <h4>Solution:</h4>
+                            <p>Starting Pressure: 60 psi</p>
+                            <p>After PRV: 50 psi</p>
+                            <p>Less meter loss: 50 - 5 = 45 psi</p>
+                            <p>Less elevation: 45 - (0.433 × 25) = 45 - 10.8 = 34.2 psi</p>
+                            <p>Less friction: 34.2 - 8 = <strong>26.2 psi</strong></p>
+
+                            <p><strong>Evaluation:</strong> 26.2 psi is adequate for most fixtures</p>
+                        </div>
+                    </div>
+
+                    <h2 id="drainage">Drainage Sizing</h2>
+
+                    <div class="mechanical-section">
+                        <h3>Example 6: Size Branch Drain</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <p>Branch serves following fixtures:</p>
+                            <ul>
+                                <li>1 Water Closet (tank): 4 DFU</li>
+                                <li>1 Lavatory: 1 DFU</li>
+                                <li>1 Bathtub: 2 DFU</li>
+                            </ul>
+                            <p>Slope: 1/4" per foot</p>
+
+                            <h4>Calculate: Minimum branch drain size</h4>
+
+                            <h4>Solution:</h4>
+                            <p>Total DFU = 4 + 1 + 2 = 7 DFU</p>
+
+                            <p><strong>From IPC Table 710.1(2):</strong></p>
+                            <p>At 1/4" per foot slope:</p>
+                            <ul>
+                                <li>1-1/2" pipe: Max 3 DFU ✗</li>
+                                <li>2" pipe: Max 6 DFU ✗</li>
+                                <li>3" pipe: Max 20 DFU ✓</li>
+                            </ul>
+
+                            <p><strong>Result: 3" minimum branch drain size</strong></p>
+
+                            <p><strong>Note:</strong> Water closet requires minimum 3" drain regardless of DFU count</p>
+                        </div>
+                    </div>
+
+                    <h2 id="gas">Gas Pipe Sizing</h2>
+
+                    <div class="mechanical-section">
+                        <h3>Example 7: Natural Gas Pipe Sizing</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <p>Appliances on gas line:</p>
+                            <ul>
+                                <li>Furnace: 100,000 BTU/hr</li>
+                                <li>Water Heater: 40,000 BTU/hr</li>
+                                <li>Range: 65,000 BTU/hr</li>
+                            </ul>
+                            <p>Longest run: 60 feet</p>
+                            <p>Gas: Natural gas, 0.60 specific gravity</p>
+                            <p>Pressure drop: 0.5" water column maximum</p>
+
+                            <h4>Calculate: Minimum pipe size</h4>
+
+                            <h4>Solution:</h4>
+                            <p>Total Load = 100,000 + 40,000 + 65,000 = 205,000 BTU/hr</p>
+
+                            <p><strong>From IPC Table 402.4(2) - Schedule 40 Steel Pipe:</strong></p>
+                            <p>For 60 feet length, 0.5" w.c. drop:</p>
+                            <ul>
+                                <li>3/4" pipe: 115,000 BTU/hr capacity ✗</li>
+                                <li>1" pipe: 219,000 BTU/hr capacity ✓</li>
+                            </ul>
+
+                            <p><strong>Result: 1" black steel pipe minimum</strong></p>
+                        </div>
+                    </div>
+
+                    <h2 id="water-heater">Water Heater Sizing</h2>
+
+                    <div class="mechanical-section">
+                        <h3>Example 8: Residential Tank Water Heater</h3>
+
+                        <div class="info-box">
+                            <h4>Given:</h4>
+                            <p>4-bedroom house, 4 occupants</p>
+                            <p>Peak hour demand from fixtures:</p>
+                            <ul>
+                                <li>2 Showers: 20 gallons each = 40 gal</li>
+                                <li>1 Clothes washer load: 15 gallons</li>
+                                <li>Dishwasher: 6 gallons</li>
+                                <li>Handwashing: 4 gallons</li>
+                            </ul>
+
+                            <h4>Calculate: Required first-hour rating</h4>
+
+                            <h4>Solution:</h4>
+                            <p>Total Peak Hour Demand = 40 + 15 + 6 + 4 = 65 gallons/hour</p>
+
+                            <p><strong>Select water heater with First-Hour Rating (FHR) ≥ 65 gallons</strong></p>
+
+                            <p><strong>Example:</strong> 50-gallon gas water heater with recovery rate of 40 GPH</p>
+                            <p>FHR = 0.7 × Tank Size + Recovery Rate</p>
+                            <p>FHR = 0.7 × 50 + 40 = 35 + 40 = 75 gallons ✓</p>
+
+                            <p><strong>Result: 50-gallon gas water heater adequate</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 3rem;">
+                        <h4>Additional Calculation Tools</h4>
+                        <p>For interactive calculators that perform these calculations automatically:</p>
+                        <ul>
+                            <li><a href="plumbing_pipe_sizing.html">Pipe Sizing Calculator</a></li>
+                            <li><a href="fixture_units.html">Fixture Unit Calculator</a></li>
+                            <li><a href="water_heater_sizing.html">Water Heater Sizing Calculator</a></li>
+                            <li><a href="gas_pipe_sizing.html">Gas Pipe Sizing Calculator</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>Professional Disclaimer</h4>
+                        <p>These calculation examples are for educational purposes and demonstrate typical methods. Actual design calculations must account for project-specific conditions, comply with adopted codes, and be performed by licensed professionals. Code tables and methods vary by jurisdiction. This information does not constitute professional engineering advice. Always engage qualified professionals for plumbing system design and calculations.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
