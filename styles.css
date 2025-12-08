@@ -6242,3 +6242,92 @@ textarea.form-control {
     }
 }
 
+/* ====================================
+   HVAC FUNDAMENTALS PAGE FIXES
+   ==================================== */
+
+/* Fix nested list overflow in concept boxes and similar containers */
+.fundamentals-section ul,
+.concept-box ul,
+.key-point ul,
+.example-box ul,
+.intro-box ul {
+    margin-left: 1.5rem;
+    padding-left: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Nested lists - add proper indentation */
+.fundamentals-section ul ul,
+.concept-box ul ul,
+.key-point ul ul,
+.example-box ul ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+/* List items - ensure text wraps properly */
+.fundamentals-section li,
+.concept-box li,
+.key-point li,
+.example-box li,
+.intro-box li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    margin-bottom: 0.5rem;
+}
+
+/* Nested list items - slightly reduced spacing */
+.fundamentals-section ul ul li,
+.concept-box ul ul li,
+.key-point ul ul li,
+.example-box ul ul li {
+    margin-bottom: 0.25rem;
+}
+
+/* Ensure containers properly contain their content */
+.concept-box,
+.key-point,
+.example-box,
+.intro-box,
+.fundamentals-section {
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+/* Mobile responsiveness for HVAC fundamentals */
+@media (max-width: 768px) {
+    .fundamentals-section ul,
+    .concept-box ul,
+    .key-point ul,
+    .example-box ul {
+        margin-left: 1rem;
+    }
+
+    .fundamentals-section ul ul,
+    .concept-box ul ul,
+    .key-point ul ul,
+    .example-box ul ul {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .fundamentals-section ul,
+    .concept-box ul,
+    .key-point ul,
+    .example-box ul {
+        margin-left: 0.75rem;
+    }
+
+    .fundamentals-section ul ul,
+    .concept-box ul ul,
+    .key-point ul ul,
+    .example-box ul ul {
+        margin-left: 0.75rem;
+    }
+}
+
