@@ -222,34 +222,42 @@
                         <input type="number" id="ceilingHeight" placeholder="Enter height" step="0.1" min="0" value="8">
                     </div>
                     <div class="form-group">
-                        <label for="roomLength">Room Length (ft):</label>
-                        <input type="number" id="roomLength" placeholder="Enter length" step="0.1" min="0">
-                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                            Enter length/width OR area below, not both
-                        </small>
+                        <label for="areaInputMethod">Area Input Method:</label>
+                        <select id="areaInputMethod" onchange="toggleAreaInputMethod()">
+                            <option value="lengthWidth" selected>Enter Length & Width</option>
+                            <option value="squareFootage">Enter Square Footage</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row" id="lengthWidthInputs">
+                    <div class="form-group">
+                        <label for="roomLength">Room Length (ft):</label>
+                        <input type="number" id="roomLength" placeholder="Enter length" step="0.1" min="0">
+                    </div>
                     <div class="form-group">
                         <label for="roomWidth">Room Width (ft):</label>
                         <input type="number" id="roomWidth" placeholder="Enter width" step="0.1" min="0">
                     </div>
+                </div>
+
+                <div class="form-row" id="squareFootageInput" style="display: none;">
                     <div class="form-group">
                         <label for="roomArea">Room Area (ft²):</label>
-                        <input type="number" id="roomArea" placeholder="Auto-calculated or enter directly" step="0.1" min="0" style="background-color: #f0f0f0;">
-                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                            Auto-calculated from length × width, or enter directly
-                        </small>
+                        <input type="number" id="roomArea" placeholder="Enter square footage" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="roomVolume">Room Volume (ft³):</label>
-                        <input type="number" id="roomVolume" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
+                        <label for="calculatedRoomArea">Calculated Room Area (ft²):</label>
+                        <input type="number" id="calculatedRoomArea" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
                     </div>
                     <div class="form-group">
+                        <label for="roomVolume">Room Volume (ft³):</label>
+                        <input type="number" id="roomVolume" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
                     </div>
                 </div>
 
