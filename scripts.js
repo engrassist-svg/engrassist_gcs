@@ -4164,11 +4164,11 @@ function psychDrawAxes(svg) {
     // X-axis label
     const xLabel = psychCreateSVGElement('text', {
         x: psychChartConfig.width / 2,
-        y: psychChartConfig.height - 10,
+        y: psychChartConfig.height - 25,
         class: 'chart-axis-label',
         'text-anchor': 'middle',
-        'font-size': '14px',
-        'font-weight': '600',
+        'font-size': '15px',
+        'font-weight': '700',
         fill: '#2c3e50'
     });
     xLabel.textContent = 'DRY BULB TEMPERATURE (°F)';
@@ -4176,13 +4176,13 @@ function psychDrawAxes(svg) {
 
     // Y-axis label - CORRECTED to show actual units
     const yLabel = psychCreateSVGElement('text', {
-        x: 20,
+        x: 30,
         y: psychChartConfig.height / 2,
         'text-anchor': 'middle',
-        'font-size': '13px',
-        'font-weight': '600',
+        'font-size': '14px',
+        'font-weight': '700',
         fill: '#2c3e50',
-        transform: `rotate(-90, 20, ${psychChartConfig.height / 2})`
+        transform: `rotate(-90, 30, ${psychChartConfig.height / 2})`
     });
     yLabel.textContent = 'HUMIDITY RATIO (lb water / lb dry air × 1000)';
     svg.appendChild(yLabel);
