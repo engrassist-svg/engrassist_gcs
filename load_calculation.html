@@ -184,14 +184,14 @@
                     </div>
                     <div class="form-group">
                         <label for="outdoorSummerWB">Outdoor Summer Wet Bulb (°F):</label>
-                        <input type="number" id="outdoorSummerWB" placeholder="e.g., 75" step="0.1" value="75">
+                        <input type="number" id="outdoorSummerWB" placeholder="e.g., 78" step="0.1" value="78">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="indoorSummerDB">Indoor Summer Design Dry Bulb (°F):</label>
-                        <input type="number" id="indoorSummerDB" placeholder="e.g., 75" step="0.1" value="75">
+                        <input type="number" id="indoorSummerDB" placeholder="e.g., 74" step="0.1" value="74">
                     </div>
                     <div class="form-group">
                         <label for="indoorSummerRH">Indoor Summer Relative Humidity (%):</label>
@@ -202,7 +202,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="outdoorWinterDB">Outdoor Winter Design Dry Bulb (°F):</label>
-                        <input type="number" id="outdoorWinterDB" placeholder="e.g., 10" step="0.1" value="10">
+                        <input type="number" id="outdoorWinterDB" placeholder="e.g., -10" step="0.1" value="-10">
                         <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
                             Use 99% design temperature for your location
                         </small>
@@ -218,71 +218,38 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="roomLength">Room Length (ft):</label>
-                        <input type="number" id="roomLength" placeholder="Enter length" step="0.1" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="roomWidth">Room Width (ft):</label>
-                        <input type="number" id="roomWidth" placeholder="Enter width" step="0.1" min="0">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
                         <label for="ceilingHeight">Ceiling Height (ft):</label>
                         <input type="number" id="ceilingHeight" placeholder="Enter height" step="0.1" min="0" value="8">
                     </div>
                     <div class="form-group">
+                        <label for="roomLength">Room Length (ft):</label>
+                        <input type="number" id="roomLength" placeholder="Enter length" step="0.1" min="0">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Enter length/width OR area below, not both
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="roomWidth">Room Width (ft):</label>
+                        <input type="number" id="roomWidth" placeholder="Enter width" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="roomArea">Room Area (ft²):</label>
+                        <input type="number" id="roomArea" placeholder="Auto-calculated or enter directly" step="0.1" min="0" style="background-color: #f0f0f0;">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Auto-calculated from length × width, or enter directly
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
                         <label for="roomVolume">Room Volume (ft³):</label>
                         <input type="number" id="roomVolume" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
                     </div>
-                </div>
-
-                <!-- Windows -->
-                <h2 class="section-title" style="margin-top: 2rem;">Windows & Glass</h2>
-
-                <div class="form-row">
                     <div class="form-group">
-                        <label for="windowAreaNorth">North-Facing Window Area (ft²):</label>
-                        <input type="number" id="windowAreaNorth" placeholder="Enter area" step="0.1" min="0" value="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="windowAreaSouth">South-Facing Window Area (ft²):</label>
-                        <input type="number" id="windowAreaSouth" placeholder="Enter area" step="0.1" min="0" value="0">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="windowAreaEast">East-Facing Window Area (ft²):</label>
-                        <input type="number" id="windowAreaEast" placeholder="Enter area" step="0.1" min="0" value="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="windowAreaWest">West-Facing Window Area (ft²):</label>
-                        <input type="number" id="windowAreaWest" placeholder="Enter area" step="0.1" min="0" value="0">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="glassType">Glass Type: <span style="cursor: help; color: #3498db;" title="Window U-values: Single=1.10, Double=0.50, Double Low-E=0.30, Triple=0.20 BTU/hr·ft²·°F. Lower is better for energy efficiency.">ⓘ</span></label>
-                        <select id="glassType">
-                            <option value="single">Single Pane, Clear (U=1.10)</option>
-                            <option value="double" selected>Double Pane, Clear (U=0.50)</option>
-                            <option value="doubleLowE">Double Pane, Low-E (U=0.30)</option>
-                            <option value="triple">Triple Pane, Low-E (U=0.20)</option>
-                        </select>
-                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                            Low-E windows reduce solar heat gain by 30-50%
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="shading">External Shading: <span style="cursor: help; color: #3498db;" title="Shading reduces solar heat gain: None=100%, Partial=65%, Full=25% of direct sun. Trees, overhangs, and awnings provide partial shading.">ⓘ</span></label>
-                        <select id="shading">
-                            <option value="none">No Shading (100% sun exposure)</option>
-                            <option value="partial" selected>Partial Shading (Trees, Overhangs, 65%)</option>
-                            <option value="full">Full Shading (25% exposure)</option>
-                        </select>
                     </div>
                 </div>
 
@@ -334,36 +301,80 @@
                     </div>
                 </div>
 
-                <!-- Roof/Ceiling -->
-                <h2 class="section-title" style="margin-top: 2rem;">Roof/Ceiling</h2>
+                <!-- Windows -->
+                <h2 class="section-title" style="margin-top: 2rem;">Windows & Glass</h2>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="ceilingArea">Ceiling Area (ft²):</label>
-                        <input type="number" id="ceilingArea" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
+                        <label for="windowAreaNorth">North-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaNorth" placeholder="Enter area" step="0.1" min="0" value="0">
                     </div>
                     <div class="form-group">
-                        <label for="roofType">Roof/Ceiling Type:</label>
-                        <select id="roofType">
-                            <option value="ceiling_unconditioned">Ceiling Below Unconditioned Attic</option>
-                            <option value="ceiling_conditioned" selected>Ceiling Below Conditioned Space</option>
-                            <option value="roof_direct">Roof Directly Above Room</option>
-                        </select>
+                        <label for="windowAreaSouth">South-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaSouth" placeholder="Enter area" step="0.1" min="0" value="0">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="windowAreaEast">East-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaEast" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="windowAreaWest">West-Facing Window Area (ft²):</label>
+                        <input type="number" id="windowAreaWest" placeholder="Enter area" step="0.1" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="glassType">Glass Type: <span style="cursor: help; color: #3498db;" title="Window U-values: Single=1.10, Double=0.50, Double Low-E=0.30, Triple=0.20 BTU/hr·ft²·°F. Lower is better for energy efficiency.">ⓘ</span></label>
+                        <select id="glassType">
+                            <option value="single">Single Pane, Clear (U=1.10)</option>
+                            <option value="double" selected>Double Pane, Clear (U=0.50)</option>
+                            <option value="doubleLowE">Double Pane, Low-E (U=0.30)</option>
+                            <option value="triple">Triple Pane, Low-E (U=0.20)</option>
+                        </select>
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Low-E windows reduce solar heat gain by 30-50%
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="shading">External Shading: <span style="cursor: help; color: #3498db;" title="Shading reduces solar heat gain: None=100%, Partial=65%, Full=25% of direct sun. Trees, overhangs, and awnings provide partial shading.">ⓘ</span></label>
+                        <select id="shading">
+                            <option value="none">No Shading (100% sun exposure)</option>
+                            <option value="partial" selected>Partial Shading (Trees, Overhangs, 65%)</option>
+                            <option value="full">Full Shading (25% exposure)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Roof/Ceiling -->
+                <h2 class="section-title" style="margin-top: 2rem;">Roof/Ceiling</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="roofType">Roof/Ceiling Type:</label>
+                        <select id="roofType">
+                            <option value="ceiling_unconditioned" selected>Ceiling Below Unconditioned Attic</option>
+                            <option value="ceiling_conditioned">Ceiling Below Conditioned Space</option>
+                            <option value="roof_direct">Roof Directly Above Room</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="ceilingInsulation">Ceiling/Roof Insulation:</label>
                         <select id="ceilingInsulation">
                             <option value="none">No Insulation</option>
                             <option value="r11">R-11</option>
-                            <option value="r19">R-19</option>
-                            <option value="r30" selected>R-30</option>
+                            <option value="r19" selected>R-19</option>
+                            <option value="r30">R-30</option>
                             <option value="r38">R-38</option>
                             <option value="r49">R-49</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
                         <label for="roofColor">Roof Color:</label>
                         <select id="roofColor">
@@ -372,6 +383,8 @@
                             <option value="dark">Dark Color</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                    </div>
                 </div>
 
                 <!-- Floor -->
@@ -379,31 +392,22 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="floorArea">Floor Area (ft²):</label>
-                        <input type="number" id="floorArea" placeholder="Auto-calculated" step="0.1" readonly style="background-color: #f0f0f0;">
-                    </div>
-                    <div class="form-group">
                         <label for="floorType">Floor Type:</label>
                         <select id="floorType">
-                            <option value="slab">Slab on Grade</option>
+                            <option value="slab" selected>Slab on Grade</option>
                             <option value="basement">Over Basement</option>
                             <option value="crawlspace">Over Crawlspace</option>
-                            <option value="conditioned" selected>Over Conditioned Space</option>
+                            <option value="conditioned">Over Conditioned Space</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="form-row">
                     <div class="form-group">
                         <label for="floorInsulation">Floor Insulation:</label>
                         <select id="floorInsulation">
-                            <option value="none">No Insulation</option>
+                            <option value="none" selected>No Insulation</option>
                             <option value="r11">R-11</option>
-                            <option value="r19" selected>R-19</option>
+                            <option value="r19">R-19</option>
                             <option value="r30">R-30</option>
                         </select>
-                    </div>
-                    <div class="form-group">
                     </div>
                 </div>
 
@@ -431,14 +435,14 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="lightingLoad">Lighting Load (Watts):</label>
-                        <input type="number" id="lightingLoad" placeholder="Enter wattage" step="1" min="0" value="0">
+                        <label for="lightingLoad">Lighting Load (Total Watts):</label>
+                        <input type="number" id="lightingLoad" placeholder="Enter total wattage" step="1" min="0" value="0">
                         <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
                             Rule of thumb: 1.5-2.0 W/ft² for LED, 3-4 W/ft² for fluorescent
                         </small>
                     </div>
                     <div class="form-group">
-                        <label for="equipmentLoad">Equipment Load (Watts):</label>
+                        <label for="equipmentLoad">Equipment Load (Total Watts):</label>
                         <input type="number" id="equipmentLoad" placeholder="Computers, appliances, etc." step="1" min="0" value="0">
                         <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
                             Include computers, TVs, kitchen equipment, etc.
@@ -458,10 +462,47 @@
                         </small>
                     </div>
                     <div class="form-group">
+                        <label for="ventilationMethod">Ventilation Method: <span style="cursor: help; color: #3498db;" title="Choose how to specify ventilation air: enter custom CFM directly, or use ASHRAE 62.1 rates based on room type, area, and occupants.">ⓘ</span></label>
+                        <select id="ventilationMethod" onchange="toggleVentilationInputs()">
+                            <option value="custom">Custom CFM</option>
+                            <option value="ashrae621" selected>ASHRAE 62.1 by Room Type</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" id="customVentilationRow" style="display: none;">
+                    <div class="form-group">
                         <label for="ventilationCFM">Ventilation Air (CFM): <span style="cursor: help; color: #3498db;" title="Ventilation is CONTROLLED outdoor air introduced for indoor air quality per ASHRAE 62.1/62.2. Residential: typically included in infiltration. Commercial: ASHRAE 62.1 requires 15-20 CFM per person for offices, more for other spaces.">ⓘ</span></label>
                         <input type="number" id="ventilationCFM" placeholder="Outside air CFM" step="1" min="0" value="0">
                         <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-                            ASHRAE 62.1: ~15-20 CFM per person for offices
+                            Enter required outdoor air CFM
+                        </small>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </div>
+
+                <div class="form-row" id="ashraeVentilationRow">
+                    <div class="form-group">
+                        <label for="roomType">Room Type (ASHRAE 62.1): <span style="cursor: help; color: #3498db;" title="ASHRAE 62.1 specifies minimum ventilation rates for different space types based on area and occupancy. Rates shown as CFM/person + CFM/ft².">ⓘ</span></label>
+                        <select id="roomType" onchange="updateVentilationCFM()">
+                            <option value="office" selected>Office Space (5 CFM/person + 0.06 CFM/ft²)</option>
+                            <option value="conference">Conference Room (5 CFM/person + 0.06 CFM/ft²)</option>
+                            <option value="classroom">Classroom (10 CFM/person + 0.12 CFM/ft²)</option>
+                            <option value="corridor">Corridor (0 CFM/person + 0.06 CFM/ft²)</option>
+                            <option value="lobby">Lobby (7.5 CFM/person + 0.06 CFM/ft²)</option>
+                            <option value="retail">Retail (7.5 CFM/person + 0.12 CFM/ft²)</option>
+                            <option value="gym">Gym/Exercise (20 CFM/person + 0.06 CFM/ft²)</option>
+                            <option value="kitchen">Commercial Kitchen (15 CFM/person + 0.18 CFM/ft²)</option>
+                            <option value="restaurant">Restaurant Dining (7.5 CFM/person + 0.18 CFM/ft²)</option>
+                            <option value="warehouse">Warehouse (10 CFM/person + 0.06 CFM/ft²)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="calculatedVentilationCFM">Calculated Ventilation CFM:</label>
+                        <input type="number" id="calculatedVentilationCFM" placeholder="Auto-calculated" step="1" readonly style="background-color: #f0f0f0;" value="0">
+                        <small style="color: #7f8c8d; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
+                            Based on room area and occupants
                         </small>
                     </div>
                 </div>
