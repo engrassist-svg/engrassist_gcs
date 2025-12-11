@@ -334,8 +334,8 @@ const EMAILJS_TEMPLATE_ID = 'template_EngrAssist';
 // Cloudflare Worker API URL
 // UPDATE THIS after deploying your worker
 // For local testing: 'http://localhost:8787'
-// For production: 'https://engrassist-api.your-subdomain.workers.dev'
-const CLOUDFLARE_API_URL = 'http://localhost:8787';
+// For production: 'https://engrassist-api.engrassist.workers.dev'
+const CLOUDFLARE_API_URL = 'https://engrassist-api.engrassist.workers.dev';
 
 // Google OAuth Client ID (optional - for Google Sign-In)
 // Get this from: https://console.cloud.google.com/
