@@ -388,6 +388,7 @@ function updateUIForAuthState(user) {
     const mobileSignOutLink = document.getElementById('mobileSignOutLink');
     const mobileWorkflowLink = document.getElementById('mobileWorkflowLink');
     const mobileProjectsLink = document.getElementById('mobileProjectsLink');
+    const mobileSettingsLink = document.getElementById('mobileSettingsLink');
     const mobileDivider = document.getElementById('mobileDivider');
 
     if (user) {
@@ -409,6 +410,7 @@ function updateUIForAuthState(user) {
         if (mobileSignOutLink) mobileSignOutLink.style.display = 'block';
         if (mobileWorkflowLink) mobileWorkflowLink.style.display = 'block';
         if (mobileProjectsLink) mobileProjectsLink.style.display = 'block';
+        if (mobileSettingsLink) mobileSettingsLink.style.display = 'block';
         if (mobileDivider) mobileDivider.style.display = 'block';
     } else {
         // User is signed out - Desktop
@@ -421,6 +423,7 @@ function updateUIForAuthState(user) {
         if (mobileSignOutLink) mobileSignOutLink.style.display = 'none';
         if (mobileWorkflowLink) mobileWorkflowLink.style.display = 'none';
         if (mobileProjectsLink) mobileProjectsLink.style.display = 'none';
+        if (mobileSettingsLink) mobileSettingsLink.style.display = 'none';
         if (mobileDivider) mobileDivider.style.display = 'none';
     }
 }
@@ -622,6 +625,9 @@ function showEmailSignInModal() {
                         <input type="password" id="signInPassword" class="form-control" placeholder="Password">
                     </div>
                     <p style="text-align: center; margin: 10px 0;">
+                        <a href="#" onclick="showForgotPasswordModal(); return false;">Forgot password?</a>
+                    </p>
+                    <p style="text-align: center; margin: 10px 0;">
                         Don't have an account? <a href="#" onclick="showSignUpModal(); return false;">Sign up</a>
                     </p>
                 </div>
@@ -682,7 +688,7 @@ function showSignUpModal() {
                     </div>
                     <div class="form-group">
                         <label for="signUpPassword">Password:</label>
-                        <input type="password" id="signUpPassword" class="form-control" placeholder="Password (6+ characters)">
+                        <input type="password" id="signUpPassword" class="form-control" placeholder="Password (8+ characters)" minlength="8">
                     </div>
                     <p style="text-align: center; margin: 10px 0;">
                         Already have an account? <a href="#" onclick="showEmailSignInModal(); return false;">Sign in</a>
@@ -714,14 +720,96 @@ async function submitSignUp() {
         return;
     }
 
-    if (password.length < 6) {
-        showNotification('Password must be at least 6 characters', 'warning');
+    if (password.length < 8) {
+        showNotification('Password must be at least 8 characters', 'warning');
         return;
     }
 
     const success = await signUpWithEmail(email, password, name);
     if (success) {
         closeSignUpModal();
+    }
+}
+
+// Show forgot password modal
+function showForgotPasswordModal() {
+    closeEmailSignInModal();
+
+    let modal = document.getElementById('forgotPasswordModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'forgotPasswordModal';
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h2>Reset Password</h2>
+                    <button class="modal-close" onclick="closeForgotPasswordModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #666; margin-bottom: 20px;">
+                        Enter your email address and we'll send you a link to reset your password.
+                    </p>
+                    <div class="form-group">
+                        <label for="forgotPasswordEmail">Email:</label>
+                        <input type="email" id="forgotPasswordEmail" class="form-control" placeholder="your@email.com">
+                    </div>
+                    <div id="forgotPasswordMessage" style="margin-top: 10px;"></div>
+                    <p style="text-align: center; margin: 10px 0;">
+                        <a href="#" onclick="showEmailSignInModal(); return false;">Back to sign in</a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeForgotPasswordModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="submitForgotPassword()">Send Reset Link</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    modal.style.display = 'flex';
+}
+
+function closeForgotPasswordModal() {
+    const modal = document.getElementById('forgotPasswordModal');
+    if (modal) modal.style.display = 'none';
+}
+
+async function submitForgotPassword() {
+    const email = document.getElementById('forgotPasswordEmail').value;
+    const messageDiv = document.getElementById('forgotPasswordMessage');
+
+    if (!email) {
+        messageDiv.innerHTML = '<p style="color: #e53e3e;">Please enter your email address</p>';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${CLOUDFLARE_API_URL}/api/auth/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            messageDiv.innerHTML = '<p style="color: #38a169;">Check your email for password reset instructions!</p>';
+
+            // Show dev info if available
+            if (data.resetLink) {
+                console.log('Password Reset Link:', data.resetLink);
+                messageDiv.innerHTML += '<p style="color: #666; font-size: 0.9em; margin-top: 10px;">DEV MODE: Check console for reset link</p>';
+            }
+
+            // Clear form
+            document.getElementById('forgotPasswordEmail').value = '';
+        } else {
+            throw new Error(data.error || 'Failed to send reset email');
+        }
+    } catch (error) {
+        console.error('Error requesting password reset:', error);
+        messageDiv.innerHTML = `<p style="color: #e53e3e;">${error.message}</p>`;
     }
 }
 
