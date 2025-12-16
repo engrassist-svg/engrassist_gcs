@@ -987,9 +987,6 @@ nav {
     background-repeat: no-repeat;
 }
 
-.service-box:hover .mechanical-placeholder {
-    opacity: 0.3;
-}
 
 .service-box:hover .under-construction {
     opacity: 0.3;
@@ -1039,18 +1036,6 @@ nav {
     opacity: 0.3;
 }
 
-.mechanical-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('images/Mechanical_Room_1001.png');
-    background-size: contain; 
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.3;
-}
 
 /* Forms */
 .contact-form {
