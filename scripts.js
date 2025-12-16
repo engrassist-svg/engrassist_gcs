@@ -2519,13 +2519,13 @@ function calculateSizeFriction() {
         const perimeter = 2 * (w_inches + h_inches) / 12; // ft
         const hydraulicDiameter_ft = 4 * area / perimeter; // ft
         const velocity_fps = velocity / 60; // fps
-        
+
         const dynamicViscosity = 1.22e-5; // lb/(ft·s) for air at 70°F
         const reynoldsNumber = (density * velocity_fps * hydraulicDiameter_ft) / dynamicViscosity;
-        
+
         const relativeRoughness = roughness / hydraulicDiameter_ft;
         let frictionFactor;
-        
+
         if (reynoldsNumber > 2300) {
             const term1 = relativeRoughness / 3.7;
             const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
@@ -2533,7 +2533,37 @@ function calculateSizeFriction() {
         } else {
             frictionFactor = 64 / reynoldsNumber;
         }
-        
+
+        const velocityPressure = Math.pow(velocity / 4005, 2);
+        const frictionLoss_inwg = frictionFactor * (100 / hydraulicDiameter_ft) * velocityPressure;
+
+        return frictionLoss_inwg;
+    }
+
+    // Helper function for oval ducts
+    function getFrictionForOval(major_inches, minor_inches) {
+        // Calculate area using ellipse formula: A = π * a * b (where a and b are semi-axes)
+        const area = Math.PI * (major_inches / 2 / 12) * (minor_inches / 2 / 12); // ft²
+        const velocity = airflow / area; // fpm
+        // Calculate perimeter approximation for ellipse: P ≈ π * (a + b)
+        const perimeter = Math.PI * (major_inches + minor_inches) / 12; // ft
+        const hydraulicDiameter_ft = 4 * area / perimeter; // ft
+        const velocity_fps = velocity / 60; // fps
+
+        const dynamicViscosity = 1.22e-5; // lb/(ft·s) for air at 70°F
+        const reynoldsNumber = (density * velocity_fps * hydraulicDiameter_ft) / dynamicViscosity;
+
+        const relativeRoughness = roughness / hydraulicDiameter_ft;
+        let frictionFactor;
+
+        if (reynoldsNumber > 2300) {
+            const term1 = relativeRoughness / 3.7;
+            const term2 = 5.74 / Math.pow(reynoldsNumber, 0.9);
+            frictionFactor = 0.25 / Math.pow(Math.log10(term1 + term2), 2);
+        } else {
+            frictionFactor = 64 / reynoldsNumber;
+        }
+
         const velocityPressure = Math.pow(velocity / 4005, 2);
         const frictionLoss_inwg = frictionFactor * (100 / hydraulicDiameter_ft) * velocityPressure;
 
@@ -2638,6 +2668,48 @@ function calculateSizeFriction() {
             frictionRate: frictionRate.toFixed(3),
             ...roundOvalEquivs
         };
+    } else if (shape === 'oval') {
+        // Oval duct - use 2:1 aspect ratio as default
+        const aspectRatio = 2.0; // Major axis is 2x minor axis
+        let minMinor = 3;
+        let maxMinor = 120;
+        let minorAxis, majorAxis;
+
+        for (let i = 0; i < 100; i++) {
+            minorAxis = (minMinor + maxMinor) / 2;
+            majorAxis = aspectRatio * minorAxis;
+            const calculatedFriction = getFrictionForOval(majorAxis, minorAxis);
+
+            if (Math.abs(calculatedFriction - frictionRateInWG) < 0.00001) {
+                break;
+            }
+
+            if (calculatedFriction > frictionRateInWG) {
+                // Friction too high, need larger duct
+                minMinor = minorAxis;
+            } else {
+                // Friction too low, need smaller duct
+                maxMinor = minorAxis;
+            }
+        }
+
+        // Calculate final properties
+        const area = Math.PI * (majorAxis / 2 / 12) * (minorAxis / 2 / 12);
+        const velocity = airflow / area;
+
+        // Calculate equivalent round and rectangular sizes for oval duct
+        const rectRoundEquivs = calculateRectRoundFromOval(majorAxis, minorAxis, airflow);
+
+        return {
+            majorAxis: majorAxis.toFixed(1),
+            minorAxis: minorAxis.toFixed(1),
+            area: area.toFixed(3),
+            velocity: velocity.toFixed(0),
+            aspectRatio: aspectRatio.toFixed(2),
+            shape: 'Oval',
+            frictionRate: frictionRate.toFixed(3),
+            ...rectRoundEquivs
+        };
     }
 }
 
@@ -2673,6 +2745,53 @@ function calculateRoundOvalFromRect(width, height, airflow) {
         oval_3_1_major: oval_3_1_major.toFixed(1),
         oval_3_1_minor: oval_3_1_minor.toFixed(1),
         oval_3_1_velocity: oval_3_1_velocity
+    };
+}
+
+// Helper function to calculate rectangular and round equivalents from oval duct
+function calculateRectRoundFromOval(majorAxis, minorAxis, airflow) {
+    // First, calculate the equivalent round diameter using ASHRAE/SMACNA formula
+    // De = 1.55 × [(a × b)^0.625] / [(a + b)^0.25]
+    const roundDiameter = 1.55 * Math.pow(majorAxis * minorAxis, 0.625) / Math.pow(majorAxis + minorAxis, 0.25);
+    const roundArea = Math.PI * Math.pow(roundDiameter / 12, 2) / 4;
+    const roundVelocity = (airflow / roundArea).toFixed(0);
+
+    // Now calculate equivalent rectangular sizes using the round diameter
+    // Using ASHRAE formula: De = 1.3 × [(a × b)^0.625] / [(a + b)^0.25]
+
+    // 1:1 ratio (square)
+    const ratio_1_1 = 1;
+    const rect_1_1_height = roundDiameter * Math.pow(ratio_1_1 + 1, 0.25) / (1.3 * Math.pow(ratio_1_1, 0.625));
+    const rect_1_1_width = ratio_1_1 * rect_1_1_height;
+    const rect_1_1_area = (rect_1_1_width * rect_1_1_height) / 144;
+    const rect_1_1_velocity = (airflow / rect_1_1_area).toFixed(0);
+
+    // 2:1 ratio
+    const ratio_2_1 = 2;
+    const rect_2_1_height = roundDiameter * Math.pow(ratio_2_1 + 1, 0.25) / (1.3 * Math.pow(ratio_2_1, 0.625));
+    const rect_2_1_width = ratio_2_1 * rect_2_1_height;
+    const rect_2_1_area = (rect_2_1_width * rect_2_1_height) / 144;
+    const rect_2_1_velocity = (airflow / rect_2_1_area).toFixed(0);
+
+    // 3:1 ratio
+    const ratio_3_1 = 3;
+    const rect_3_1_height = roundDiameter * Math.pow(ratio_3_1 + 1, 0.25) / (1.3 * Math.pow(ratio_3_1, 0.625));
+    const rect_3_1_width = ratio_3_1 * rect_3_1_height;
+    const rect_3_1_area = (rect_3_1_width * rect_3_1_height) / 144;
+    const rect_3_1_velocity = (airflow / rect_3_1_area).toFixed(0);
+
+    return {
+        roundDiameter: roundDiameter.toFixed(1),
+        roundVelocity: roundVelocity,
+        rect_1_1_width: rect_1_1_width.toFixed(1),
+        rect_1_1_height: rect_1_1_height.toFixed(1),
+        rect_1_1_velocity: rect_1_1_velocity,
+        rect_2_1_width: rect_2_1_width.toFixed(1),
+        rect_2_1_height: rect_2_1_height.toFixed(1),
+        rect_2_1_velocity: rect_2_1_velocity,
+        rect_3_1_width: rect_3_1_width.toFixed(1),
+        rect_3_1_height: rect_3_1_height.toFixed(1),
+        rect_3_1_velocity: rect_3_1_velocity
     };
 }
 
@@ -2824,6 +2943,17 @@ function displayResults(results) {
                 <span class="result-value">${results.diameter}"</span>
             </div>
         `;
+    } else if (results.shape === 'Oval' && results.majorAxis && results.minorAxis) {
+        html += `
+            <div class="result-item">
+                <span class="result-label">Major Axis</span>
+                <span class="result-value">${results.majorAxis}"</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Minor Axis</span>
+                <span class="result-value">${results.minorAxis}"</span>
+            </div>
+        `;
     } else if (results.width && results.height) {
         html += `
             <div class="result-item">
@@ -2928,6 +3058,44 @@ function displayResults(results) {
         `;
     }
 
+    // If oval duct, show equivalent round and rectangular sizes
+    if (results.shape === 'Oval' && results.roundDiameter) {
+        html += '<h4 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Equivalent Round Duct</h4>';
+
+        html += `
+            <div class="result-item" style="background: #e8f5e9; border-left: 4px solid #27ae60;">
+                <span class="result-label">Round Duct</span>
+                <span class="result-value">${results.roundDiameter}" @ ${results.roundVelocity} fpm</span>
+            </div>
+        `;
+
+        html += '<h4 style="color: #2c3e50; margin-top: 2rem; margin-bottom: 1rem;">Equivalent Rectangular Ducts</h4>';
+
+        // 1:1 Ratio (Square)
+        html += `
+            <div class="result-item" style="background: #e8f5e9; border-left: 4px solid #27ae60;">
+                <span class="result-label">1:1 Ratio (Square)</span>
+                <span class="result-value">${results.rect_1_1_width}" × ${results.rect_1_1_height}" @ ${results.rect_1_1_velocity} fpm</span>
+            </div>
+        `;
+
+        // 2:1 Ratio
+        html += `
+            <div class="result-item" style="background: #fff3cd; border-left: 4px solid #f39c12;">
+                <span class="result-label">2:1 Ratio</span>
+                <span class="result-value">${results.rect_2_1_width}" × ${results.rect_2_1_height}" @ ${results.rect_2_1_velocity} fpm</span>
+            </div>
+        `;
+
+        // 3:1 Ratio
+        html += `
+            <div class="result-item" style="background: #fadbd8; border-left: 4px solid #e74c3c;">
+                <span class="result-label">3:1 Ratio</span>
+                <span class="result-value">${results.rect_3_1_width}" × ${results.rect_3_1_height}" @ ${results.rect_3_1_velocity} fpm</span>
+            </div>
+        `;
+    }
+
     html += '</div>';
     resultsContainer.innerHTML = html;
 }
@@ -2947,6 +3115,8 @@ function formatLabel(key) {
         diameter: isMetric ? 'Diameter (mm)' : 'Diameter (in)',
         width: isMetric ? 'Width (mm)' : 'Width (in)',
         height: isMetric ? 'Height (mm)' : 'Height (in)',
+        majorAxis: isMetric ? 'Major Axis (mm)' : 'Major Axis (in)',
+        minorAxis: isMetric ? 'Minor Axis (mm)' : 'Minor Axis (in)',
         aspectRatio: 'Aspect Ratio',
         shape: 'Duct Shape',
         iterations: 'Iterations',
@@ -2971,22 +3141,25 @@ function clearInputs() {
             input.value = '';
         }
     });
-    
+
     const calcTypeSelect = document.getElementById('calculation-type');
     const stdYesRadio = document.getElementById('std-yes');
     const imperialRadio = document.getElementById('imperial');
     const ductMaterialSelect = document.getElementById('duct-material');
     const originalShapeSelect = document.getElementById('original-shape');
     const feetRadio = document.getElementById('feet');
-    
-    if (calcTypeSelect) calcTypeSelect.value = 'friction-loss';
+    const ductRoughnessInput = document.getElementById('duct-roughness');
+
+    // Don't reset calculation type - keep the user's selection
+    // if (calcTypeSelect) calcTypeSelect.value = 'friction-loss';
     if (stdYesRadio) stdYesRadio.checked = true;
     if (imperialRadio) imperialRadio.checked = true;
     currentUnitSystem = 'imperial';
     if (ductMaterialSelect) ductMaterialSelect.selectedIndex = 5;
-    if (originalShapeSelect) originalShapeSelect.value = 'rectangular';
+    if (originalShapeSelect) originalShapeSelect.value = 'round';
     if (feetRadio) feetRadio.checked = true;
-    
+    if (ductRoughnessInput) ductRoughnessInput.value = '0.0005';
+
     updateInputFields();
     toggleAdvancedConditions();
     
