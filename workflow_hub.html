@@ -294,13 +294,30 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="projectDiscipline">Engineering Discipline:</label>
-                                        <select id="projectDiscipline" class="form-control">
-                                            <option value="">Select discipline...</option>
-                                            <option value="mechanical">Mechanical</option>
-                                            <option value="electrical">Electrical</option>
-                                            <option value="plumbing">Plumbing</option>
-                                        </select>
+                                        <label>Engineering Disciplines: <span class="label-hint">(Select all that apply)</span></label>
+                                        <div class="discipline-selector">
+                                            <label class="discipline-checkbox">
+                                                <input type="checkbox" id="disciplineMechanical" value="mechanical">
+                                                <span class="discipline-badge discipline-mechanical">
+                                                    <span class="discipline-icon">🔧</span>
+                                                    <span class="discipline-name">Mechanical</span>
+                                                </span>
+                                            </label>
+                                            <label class="discipline-checkbox">
+                                                <input type="checkbox" id="disciplineElectrical" value="electrical">
+                                                <span class="discipline-badge discipline-electrical">
+                                                    <span class="discipline-icon">⚡</span>
+                                                    <span class="discipline-name">Electrical</span>
+                                                </span>
+                                            </label>
+                                            <label class="discipline-checkbox">
+                                                <input type="checkbox" id="disciplinePlumbing" value="plumbing">
+                                                <span class="discipline-badge discipline-plumbing">
+                                                    <span class="discipline-icon">🚰</span>
+                                                    <span class="discipline-name">Plumbing</span>
+                                                </span>
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="projectNotes">Notes:</label>
@@ -347,59 +364,148 @@
                         <h3 class="phase-title">📝 Phase 1: Programming</h3>
                         <p class="phase-description">Establish project requirements, goals, and constraints. Gather owner requirements and site information.</p>
 
-                        <div class="phase-tasks">
-                            <h4>Key Tasks:</h4>
-                            <div class="task-checklist">
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="prog-1">
-                                    <span>Define project scope and objectives</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="prog-2">
-                                    <span>Review applicable codes and standards</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="prog-3">
-                                    <span>Determine space requirements and occupancy</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="prog-4">
-                                    <span>Establish design criteria and performance goals</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="prog-5">
-                                    <span>Budget and schedule constraints</span>
-                                </label>
-                            </div>
+                        <!-- Discipline Tabs -->
+                        <div class="discipline-tabs">
+                            <button class="discipline-tab discipline-tab-mechanical" data-discipline="mechanical">
+                                <span class="discipline-icon">🔧</span>
+                                <span>Mechanical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-electrical" data-discipline="electrical">
+                                <span class="discipline-icon">⚡</span>
+                                <span>Electrical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-plumbing" data-discipline="plumbing">
+                                <span class="discipline-icon">🚰</span>
+                                <span>Plumbing</span>
+                            </button>
                         </div>
 
-                        <div class="phase-tools">
-                            <h4>Helpful Tools & Resources:</h4>
-                            <div class="tools-grid">
-                                <a href="code_requirements.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📖</span>
-                                        <span class="tool-name">Code Requirements</span>
+                        <!-- Discipline Content Panels -->
+                        <div class="discipline-content">
+                            <!-- Mechanical Tasks -->
+                            <div class="discipline-panel" data-discipline="mechanical">
+                                <div class="phase-tasks">
+                                    <h4>Mechanical Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-mech-1" data-discipline="mechanical">
+                                            <span>Define HVAC system requirements and goals</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-mech-2" data-discipline="mechanical">
+                                            <span>Review mechanical codes (IMC, ASHRAE, energy codes)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-mech-3" data-discipline="mechanical">
+                                            <span>Determine space conditioning requirements</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-mech-4" data-discipline="mechanical">
+                                            <span>Establish indoor air quality criteria</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-mech-5" data-discipline="mechanical">
+                                            <span>Define equipment room and shaft requirements</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="conversions.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🔄</span>
-                                        <span class="tool-name">Unit Conversions</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Helpful Tools & Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="hvac_fundamentals.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📚</span>
+                                                <span class="tool-name">HVAC Fundamentals</span>
+                                            </div>
+                                        </a>
+                                        <a href="ashrae_standards.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">❄️</span>
+                                                <span class="tool-name">ASHRAE Standards</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="hvac_fundamentals.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📚</span>
-                                        <span class="tool-name">HVAC Fundamentals</span>
+                                </div>
+                            </div>
+
+                            <!-- Electrical Tasks -->
+                            <div class="discipline-panel" data-discipline="electrical">
+                                <div class="phase-tasks">
+                                    <h4>Electrical Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-elec-1" data-discipline="electrical">
+                                            <span>Define electrical system requirements</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-elec-2" data-discipline="electrical">
+                                            <span>Review NEC and local electrical codes</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-elec-3" data-discipline="electrical">
+                                            <span>Determine power distribution requirements</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-elec-4" data-discipline="electrical">
+                                            <span>Establish lighting and controls criteria</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-elec-5" data-discipline="electrical">
+                                            <span>Define electrical room requirements</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="ashrae_standards.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">❄️</span>
-                                        <span class="tool-name">ASHRAE Standards</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Helpful Tools & Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
+                            </div>
+
+                            <!-- Plumbing Tasks -->
+                            <div class="discipline-panel" data-discipline="plumbing">
+                                <div class="phase-tasks">
+                                    <h4>Plumbing Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-plumb-1" data-discipline="plumbing">
+                                            <span>Define plumbing system requirements</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-plumb-2" data-discipline="plumbing">
+                                            <span>Review IPC and local plumbing codes</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-plumb-3" data-discipline="plumbing">
+                                            <span>Determine fixture count and water demand</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-plumb-4" data-discipline="plumbing">
+                                            <span>Establish water heater and gas requirements</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="prog-plumb-5" data-discipline="plumbing">
+                                            <span>Define plumbing shaft and chase requirements</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Helpful Tools & Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="fixture_units.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚰</span>
+                                                <span class="tool-name">Fixture Units</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
