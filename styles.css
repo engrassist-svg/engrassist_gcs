@@ -5280,13 +5280,11 @@ textarea.form-control {
     color: #e67e22;
 }
 
-/* Applicable Codes Section - Sticky */
+/* Applicable Codes Section */
 .applicable-codes-section {
-    position: sticky;
-    top: 70px;
-    z-index: 100;
+    position: relative;
     background: white;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin: 2rem 0;
 }
 
