@@ -7208,14 +7208,21 @@ let workflowState = {
     projectNumber: '',
     projectCity: '',
     projectState: '',
-    projectDiscipline: '',
+    projectDiscipline: '', // Legacy support - kept for backward compatibility
+    projectDisciplines: [], // New: array of selected disciplines
+    activeDiscipline: 'mechanical', // Currently active discipline tab
     deliveryMethod: '',
     startDate: '',
     dueDate: '',
     notes: '',
     currentPhase: 0,
     completedPhases: [],
-    tasks: {}
+    tasks: {},
+    disciplineTasks: {
+        mechanical: {},
+        electrical: {},
+        plumbing: {}
+    }
 };
 
 function initializeWorkflowHub() {
@@ -7283,6 +7290,7 @@ function initializeWorkflowHub() {
         });
     }
 
+    // Legacy discipline selector (kept for backward compatibility)
     if (projectDiscipline) {
         projectDiscipline.addEventListener('change', function() {
             workflowState.projectDiscipline = this.value;
@@ -7291,6 +7299,30 @@ function initializeWorkflowHub() {
             filterTasksByDiscipline();
         });
     }
+
+    // New multi-discipline selector
+    const disciplineCheckboxes = document.querySelectorAll('.discipline-checkbox input[type="checkbox"]');
+    disciplineCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const discipline = this.value;
+            if (this.checked) {
+                if (!workflowState.projectDisciplines.includes(discipline)) {
+                    workflowState.projectDisciplines.push(discipline);
+                }
+            } else {
+                workflowState.projectDisciplines = workflowState.projectDisciplines.filter(d => d !== discipline);
+            }
+
+            // Update active discipline if needed
+            if (workflowState.projectDisciplines.length > 0 && !workflowState.projectDisciplines.includes(workflowState.activeDiscipline)) {
+                workflowState.activeDiscipline = workflowState.projectDisciplines[0];
+            }
+
+            saveProjectToStorage();
+            updateProjectDisplay();
+            updateDisciplineTabs();
+        });
+    });
 
     if (deliveryMethod) {
         deliveryMethod.addEventListener('change', function() {
@@ -7364,12 +7396,25 @@ function initializeWorkflowHub() {
     taskCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             const taskId = this.dataset.task;
+            const discipline = this.dataset.discipline;
+
+            // Store in legacy tasks object for backward compatibility
             workflowState.tasks[taskId] = this.checked;
+
+            // Also store in discipline-specific tasks if discipline is specified
+            if (discipline && workflowState.disciplineTasks[discipline]) {
+                workflowState.disciplineTasks[discipline][taskId] = this.checked;
+            }
+
             saveProjectToStorage();
             updatePhaseCompletion();
             updateStatusBar();
+            updateDisciplineProgress();
         });
     });
+
+    // Discipline Tab Clicks
+    initializeDisciplineTabs();
 
     // Project Action Buttons
     const loadProjectActionBtn = document.getElementById('loadProjectActionBtn');
@@ -7449,6 +7494,8 @@ function initializeWorkflowHub() {
     // Initialize workflow display (workflow is visible by default)
     updateProjectDisplay();
     updateWorkflowDisplay();
+    updateDisciplineTabs();
+    updateDisciplineProgress();
 }
 
 function updateProjectDisplay() {
@@ -7526,6 +7573,108 @@ function updateWorkflowDisplay() {
 
     // Load task states
     loadTaskStates();
+
+    // Update discipline tabs visibility and active state
+    updateDisciplineTabs();
+}
+
+// Initialize discipline tab functionality
+function initializeDisciplineTabs() {
+    const disciplineTabs = document.querySelectorAll('.discipline-tab');
+
+    disciplineTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const discipline = this.dataset.discipline;
+
+            // Only allow clicking on tabs for selected disciplines
+            if (!workflowState.projectDisciplines.includes(discipline)) {
+                return;
+            }
+
+            workflowState.activeDiscipline = discipline;
+            saveProjectToStorage();
+            updateDisciplineTabs();
+            updateDisciplineProgress();
+        });
+    });
+}
+
+// Update discipline tabs visibility and active state
+function updateDisciplineTabs() {
+    const phasePanels = document.querySelectorAll('.phase-panel');
+
+    phasePanels.forEach(phasePanel => {
+        const tabs = phasePanel.querySelectorAll('.discipline-tab');
+        const panels = phasePanel.querySelectorAll('.discipline-panel');
+
+        // Update tab visibility and active state
+        tabs.forEach(tab => {
+            const discipline = tab.dataset.discipline;
+
+            if (workflowState.projectDisciplines.includes(discipline)) {
+                tab.classList.remove('hidden');
+
+                if (discipline === workflowState.activeDiscipline) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            } else {
+                tab.classList.add('hidden');
+                tab.classList.remove('active');
+            }
+        });
+
+        // Update panel visibility
+        panels.forEach(panel => {
+            const discipline = panel.dataset.discipline;
+
+            if (discipline === workflowState.activeDiscipline && workflowState.projectDisciplines.includes(discipline)) {
+                panel.classList.add('active');
+            } else {
+                panel.classList.remove('active');
+            }
+        });
+    });
+}
+
+// Update progress bar based on active discipline
+function updateDisciplineProgress() {
+    const activeDiscipline = workflowState.activeDiscipline;
+
+    if (!activeDiscipline || !workflowState.projectDisciplines.includes(activeDiscipline)) {
+        return;
+    }
+
+    // Get all tasks for the active discipline
+    const disciplineTasks = workflowState.disciplineTasks[activeDiscipline] || {};
+
+    // Count completed tasks for this discipline
+    let totalTasks = 0;
+    let completedTasks = 0;
+
+    const taskCheckboxes = document.querySelectorAll(`.task-checkbox[data-discipline="${activeDiscipline}"]`);
+    taskCheckboxes.forEach(checkbox => {
+        totalTasks++;
+        if (checkbox.checked) {
+            completedTasks++;
+        }
+    });
+
+    // Update the progress display (you can customize this)
+    const actualProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    // Update the actual progress bar
+    const actualProgressBar = document.getElementById('actualProgressBar');
+    const actualProgressText = document.getElementById('actualProgress');
+
+    if (actualProgressBar) {
+        actualProgressBar.style.width = actualProgress + '%';
+    }
+
+    if (actualProgressText) {
+        actualProgressText.textContent = actualProgress + '%';
+    }
 }
 
 function loadTaskStates() {
