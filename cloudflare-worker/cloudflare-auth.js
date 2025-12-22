@@ -13,7 +13,7 @@
 const CLOUDFLARE_API_URL = 'http://localhost:8787';
 
 // Google OAuth Client ID (optional - for Google Sign-In)
-const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = '800753226213-16o47j37nt6k037io9c5a1ktq5e4dqo2.apps.googleusercontent.com';
 
 // Global variables
 let currentUser = null;

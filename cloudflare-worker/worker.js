@@ -149,8 +149,29 @@ async function handleSignin(request, env) {
 async function handleGoogleAuth(request, env) {
   const { idToken, email, name, photoURL } = await request.json();
 
-  // In production, verify the Google ID token
-  // For now, we'll trust the client-side verification
+  // Verify the Google ID token (optional but recommended for production)
+  if (env.GOOGLE_CLIENT_ID && idToken) {
+    try {
+      // Verify token with Google's tokeninfo endpoint
+      const tokenInfoResponse = await fetch(
+        `https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`
+      );
+      const tokenInfo = await tokenInfoResponse.json();
+
+      // Verify the token is valid and for our app
+      if (tokenInfo.error || tokenInfo.aud !== env.GOOGLE_CLIENT_ID) {
+        return jsonResponse({ error: 'Invalid Google token' }, 401);
+      }
+
+      // Token is valid, verify email matches
+      if (tokenInfo.email !== email) {
+        return jsonResponse({ error: 'Email mismatch' }, 401);
+      }
+    } catch (error) {
+      console.error('Google token verification failed:', error);
+      return jsonResponse({ error: 'Token verification failed' }, 401);
+    }
+  }
 
   // Check if user exists
   let user = await env.DB.prepare(

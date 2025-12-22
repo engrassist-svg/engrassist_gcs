@@ -11,6 +11,7 @@ database_id = "4cb6aa12-832f-42a0-ada5-d169c41fda1d"
 # Environment variables
 [vars]
 # Add any non-secret variables here
+GOOGLE_CLIENT_ID = "800753226213-16o47j37nt6k037io9c5a1ktq5e4dqo2.apps.googleusercontent.com"
 
 # Secrets (set via: wrangler secret put JWT_SECRET)
 # JWT_SECRET = "your-secret-key" (do not put actual secret here!)
