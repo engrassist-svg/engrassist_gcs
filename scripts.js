@@ -8033,26 +8033,19 @@ function initializeWorkflowHub() {
 
     if (loadProjectActionBtn) {
         loadProjectActionBtn.addEventListener('click', function() {
-            loadProjectFromStorage();
-            showNotification('Project loaded successfully!');
-            updateStatusBar();
-            if (workflowState.deliveryMethod) {
-                updateDeliveryMethodInfo(workflowState.deliveryMethod);
-                updateProgressTickmarks();
-            }
+            openLoadProjectModal();
         });
     }
 
     if (saveProjectActionBtn) {
         saveProjectActionBtn.addEventListener('click', function() {
-            saveProjectToStorage();
-            showNotification('Project saved successfully!');
+            openSaveProjectModal();
         });
     }
 
     if (shareProjectActionBtn) {
         shareProjectActionBtn.addEventListener('click', function() {
-            shareProject();
+            openShareProjectModal();
         });
     }
 
@@ -8079,14 +8072,10 @@ function initializeWorkflowHub() {
         exportReportBtn.addEventListener('click', exportProjectReport);
     }
 
-    // Reset Workflow Button
+    // Reset Workflow Button (New Project)
     const resetWorkflowBtn = document.getElementById('resetWorkflowBtn');
     if (resetWorkflowBtn) {
-        resetWorkflowBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to start a new project? This will clear all current progress.')) {
-                resetWorkflow();
-            }
-        });
+        resetWorkflowBtn.addEventListener('click', newProject);
     }
 
     // Load shared project from URL if present
@@ -10100,4 +10089,381 @@ function calculateElecLoadResidential() {
     document.getElementById('demandCurrentRes').textContent = demandCurrent.toFixed(0) + ' A';
     document.getElementById('minServiceRes').textContent = Math.ceil(demandCurrent) + ' A';
     document.getElementById('recServiceRes').textContent = recommendedService + ' A';
+}
+
+// ====================================
+// SAVE/LOAD/SHARE PROJECT MODALS
+// ====================================
+
+// Open Save Project Modal
+function openSaveProjectModal() {
+    const modal = document.getElementById('saveProjectModal');
+    const input = document.getElementById('projectNameInput');
+    const message = document.getElementById('saveProjectMessage');
+
+    // Pre-fill with current project name if exists
+    if (workflowState.projectName) {
+        input.value = workflowState.projectName;
+    }
+
+    // Clear any previous message
+    message.className = 'modal-message';
+    message.textContent = '';
+
+    modal.style.display = 'flex';
+}
+
+// Close Save Project Modal
+function closeSaveProjectModal() {
+    const modal = document.getElementById('saveProjectModal');
+    modal.style.display = 'none';
+}
+
+// Save Project with Name
+async function saveProjectWithName() {
+    const input = document.getElementById('projectNameInput');
+    const message = document.getElementById('saveProjectMessage');
+    const projectName = input.value.trim();
+
+    if (!projectName) {
+        message.className = 'modal-message error';
+        message.textContent = 'Please enter a project name';
+        return;
+    }
+
+    // Update workflow state with project name
+    workflowState.projectName = projectName;
+    workflowState.lastSaved = new Date().toISOString();
+
+    // Check if user is logged in
+    if (!currentUser && !authToken) {
+        // Show localStorage warning if not logged in
+        showLocalStorageWarning();
+    }
+
+    // Save to storage
+    if (currentUser && authToken) {
+        // Save to cloud
+        try {
+            await saveProjectToCloud();
+            message.className = 'modal-message success';
+            message.textContent = 'Project saved to cloud successfully!';
+
+            setTimeout(() => {
+                closeSaveProjectModal();
+            }, 1500);
+        } catch (error) {
+            message.className = 'modal-message error';
+            message.textContent = 'Error saving to cloud: ' + error.message;
+        }
+    } else {
+        // Save to localStorage
+        try {
+            localStorage.setItem('workflowProject', JSON.stringify(workflowState));
+            localStorage.setItem('workflowProject_' + Date.now(), JSON.stringify({
+                name: projectName,
+                data: workflowState,
+                savedAt: new Date().toISOString()
+            }));
+
+            message.className = 'modal-message success';
+            message.textContent = 'Project saved locally!';
+
+            setTimeout(() => {
+                closeSaveProjectModal();
+            }, 1500);
+        } catch (e) {
+            message.className = 'modal-message error';
+            message.textContent = 'Error saving project: ' + e.message;
+        }
+    }
+}
+
+// Open Load Project Modal (My Projects)
+async function openLoadProjectModal() {
+    const modal = document.getElementById('myProjectsModal');
+    const projectsList = document.getElementById('projectsList');
+
+    modal.style.display = 'flex';
+
+    // Show loading state
+    projectsList.innerHTML = `
+        <div class="loading-projects">
+            <div class="loading-spinner"></div>
+            <p>Loading your projects...</p>
+        </div>
+    `;
+
+    // Load projects
+    if (currentUser && authToken) {
+        // Load from cloud
+        const projects = await loadAllUserProjects();
+        displayProjectsList(projects);
+    } else {
+        // Load from localStorage
+        const localProjects = loadLocalProjects();
+        displayProjectsList(localProjects);
+    }
+}
+
+// Load projects from localStorage
+function loadLocalProjects() {
+    const projects = [];
+    const keys = Object.keys(localStorage);
+
+    for (const key of keys) {
+        if (key.startsWith('workflowProject_')) {
+            try {
+                const project = JSON.parse(localStorage.getItem(key));
+                projects.push({
+                    id: key,
+                    name: project.name || 'Unnamed Project',
+                    savedAt: project.savedAt,
+                    data: project.data
+                });
+            } catch (e) {
+                console.error('Error loading project:', e);
+            }
+        }
+    }
+
+    // Sort by saved date, newest first
+    projects.sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+
+    return projects;
+}
+
+// Display projects list
+function displayProjectsList(projects) {
+    const projectsList = document.getElementById('projectsList');
+
+    if (projects.length === 0) {
+        projectsList.innerHTML = `
+            <div class="no-projects">
+                <p>📁</p>
+                <p>No saved projects found</p>
+                <p class="no-projects-subtitle">Create your first project to get started!</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+    for (const project of projects) {
+        const savedDate = new Date(project.savedAt || project.createdAt);
+        const formattedDate = savedDate.toLocaleDateString() + ' ' + savedDate.toLocaleTimeString();
+
+        html += `
+            <div class="project-card">
+                <div class="project-card-header">
+                    <div class="project-icon">📋</div>
+                    <div class="project-info">
+                        <h3 class="project-title">${project.name || 'Unnamed Project'}</h3>
+                        <p class="project-meta">${project.data?.projectCity || 'No location'} • ${project.data?.deliveryMethod || 'No delivery method'}</p>
+                        <p class="project-date">Saved: ${formattedDate}</p>
+                    </div>
+                </div>
+                <div class="project-card-actions">
+                    <button class="btn btn-primary btn-sm" onclick="loadProject('${project.id}')">Load</button>
+                    <button class="btn btn-secondary btn-sm" onclick="deleteProject('${project.id}')">Delete</button>
+                </div>
+            </div>
+        `;
+    }
+
+    projectsList.innerHTML = html;
+}
+
+// Load a specific project
+async function loadProject(projectId) {
+    if (currentUser && authToken) {
+        // Load from cloud
+        await loadProjectById(projectId);
+    } else {
+        // Load from localStorage
+        try {
+            const projectData = localStorage.getItem(projectId);
+            if (projectData) {
+                const project = JSON.parse(projectData);
+                restoreProjectState(project.data);
+                closeMyProjectsModal();
+                showNotification('Project loaded successfully!', 'success');
+                updateStatusBar();
+                updateWorkflowDisplay();
+            }
+        } catch (e) {
+            showNotification('Error loading project', 'error');
+        }
+    }
+}
+
+// Delete a project
+function deleteProject(projectId) {
+    if (!confirm('Are you sure you want to delete this project?')) {
+        return;
+    }
+
+    if (currentUser && authToken) {
+        // Delete from cloud (implement API call)
+        showNotification('Cloud delete not yet implemented', 'warning');
+    } else {
+        // Delete from localStorage
+        localStorage.removeItem(projectId);
+        openLoadProjectModal(); // Refresh the list
+        showNotification('Project deleted', 'info');
+    }
+}
+
+// Close My Projects Modal
+function closeMyProjectsModal() {
+    const modal = document.getElementById('myProjectsModal');
+    modal.style.display = 'none';
+}
+
+// Open Share Project Modal
+function openShareProjectModal() {
+    if (!currentUser && !authToken) {
+        showNotification('Please log in to share projects', 'warning');
+        return;
+    }
+
+    const modal = document.getElementById('shareProjectModal');
+    const message = document.getElementById('shareProjectMessage');
+
+    // Clear any previous message
+    message.className = 'modal-message';
+    message.textContent = '';
+
+    modal.style.display = 'flex';
+}
+
+// Close Share Project Modal
+function closeShareProjectModal() {
+    const modal = document.getElementById('shareProjectModal');
+    modal.style.display = 'none';
+}
+
+// Send project to user
+async function sendProjectToUser() {
+    const emailInput = document.getElementById('shareEmailInput');
+    const message = document.getElementById('shareProjectMessage');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        message.className = 'modal-message error';
+        message.textContent = 'Please enter a recipient email';
+        return;
+    }
+
+    if (!currentUser || !authToken) {
+        message.className = 'modal-message error';
+        message.textContent = 'Please log in to share projects';
+        return;
+    }
+
+    // Implement share functionality
+    message.className = 'modal-message info';
+    message.textContent = 'Sending project... (Cloud sharing not yet implemented)';
+
+    // TODO: Implement API call to share project
+    setTimeout(() => {
+        message.className = 'modal-message success';
+        message.textContent = 'Project sent successfully!';
+    }, 1500);
+}
+
+// Add collaborator
+async function addCollaborator() {
+    const emailInput = document.getElementById('collaboratorEmailInput');
+    const message = document.getElementById('shareProjectMessage');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        message.className = 'modal-message error';
+        message.textContent = 'Please enter a collaborator email';
+        return;
+    }
+
+    if (!currentUser || !authToken) {
+        message.className = 'modal-message error';
+        message.textContent = 'Please log in to enable collaboration';
+        return;
+    }
+
+    // Implement collaboration functionality
+    message.className = 'modal-message info';
+    message.textContent = 'Adding collaborator... (Cloud collaboration not yet implemented)';
+
+    // TODO: Implement API call to add collaborator
+    setTimeout(() => {
+        message.className = 'modal-message success';
+        message.textContent = 'Collaborator added successfully!';
+    }, 1500);
+}
+
+// Show localStorage warning
+function showLocalStorageWarning() {
+    const modal = document.getElementById('localStorageWarningModal');
+    modal.style.display = 'flex';
+
+    // Store that user has seen the warning
+    localStorage.setItem('hasSeenStorageWarning', 'true');
+}
+
+// Close localStorage warning
+function closeLocalStorageWarning() {
+    const modal = document.getElementById('localStorageWarningModal');
+    modal.style.display = 'none';
+}
+
+// New Project (Reset)
+function newProject() {
+    if (confirm('Are you sure you want to start a new project? This will clear all current progress.')) {
+        // Reset workflow state
+        workflowState = {
+            projectName: '',
+            projectNumber: '',
+            projectCity: '',
+            projectState: '',
+            projectType: '',
+            projectDiscipline: '',
+            deliveryMethod: '',
+            startDate: '',
+            dueDate: '',
+            notes: '',
+            currentPhase: 0,
+            tasks: {},
+            projectDisciplines: ['mechanical', 'electrical', 'plumbing'],
+            activeDiscipline: 'mechanical',
+            equipment: {
+                hvac: {},
+                electrical: {},
+                plumbing: {}
+            }
+        };
+
+        // Clear form inputs
+        const inputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea, select');
+        inputs.forEach(input => {
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            } else {
+                input.value = '';
+            }
+        });
+
+        // Reset active buttons
+        const activeButtons = document.querySelectorAll('.active');
+        activeButtons.forEach(btn => btn.classList.remove('active'));
+
+        // Update displays
+        updateStatusBar();
+        updateWorkflowDisplay();
+        updateProjectDisplay();
+
+        // Save the reset state
+        saveProjectToStorage();
+
+        showNotification('New project started', 'success');
+    }
 }

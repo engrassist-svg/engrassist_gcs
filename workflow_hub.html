@@ -1589,6 +1589,90 @@
         </div>
     </div>
 
+    <!-- Save Project Modal -->
+    <div id="saveProjectModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💾 Save Project</h2>
+                <button class="modal-close" onclick="closeSaveProjectModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="projectNameInput">Project Name:</label>
+                    <input type="text" id="projectNameInput" class="form-input" placeholder="Enter project name..." maxlength="100">
+                </div>
+                <div id="saveProjectMessage" class="modal-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSaveProjectModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProjectWithName()">Save Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Project Modal -->
+    <div id="shareProjectModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔗 Share Project</h2>
+                <button class="modal-close" onclick="closeShareProjectModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <div class="share-option-card">
+                        <h3>📧 Send to User</h3>
+                        <p>Send a copy of this project to another user's account</p>
+                        <div class="form-group">
+                            <label for="shareEmailInput">Recipient Email:</label>
+                            <input type="email" id="shareEmailInput" class="form-input" placeholder="user@example.com">
+                        </div>
+                        <button class="btn btn-primary" onclick="sendProjectToUser()">Send Copy</button>
+                    </div>
+                    <div class="share-option-card">
+                        <h3>👥 Collaborate</h3>
+                        <p>Enable collaborative editing (asynchronous updates)</p>
+                        <div class="form-group">
+                            <label for="collaboratorEmailInput">Collaborator Email:</label>
+                            <input type="email" id="collaboratorEmailInput" class="form-input" placeholder="collaborator@example.com">
+                        </div>
+                        <button class="btn btn-primary" onclick="addCollaborator()">Add Collaborator</button>
+                    </div>
+                </div>
+                <div id="shareProjectMessage" class="modal-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeShareProjectModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- localStorage Warning Modal -->
+    <div id="localStorageWarningModal" class="modal" style="display: none;">
+        <div class="modal-content modal-warning">
+            <div class="modal-header">
+                <h2>⚠️ Data Storage Warning</h2>
+                <button class="modal-close" onclick="closeLocalStorageWarning()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="warning-content">
+                    <p><strong>You are not logged in.</strong></p>
+                    <p>Your project data is being saved to your browser's local storage. This means:</p>
+                    <ul>
+                        <li>Data may be lost if you clear your browser cache</li>
+                        <li>Data is only available on this device and browser</li>
+                        <li>You cannot share or collaborate on projects</li>
+                        <li>Your data is not backed up to the cloud</li>
+                    </ul>
+                    <p><strong>To enable cloud storage and collaboration features, please log in or create an account.</strong></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeLocalStorageWarning()">Continue Without Login</button>
+                <button class="btn btn-primary" onclick="window.location.href='login.html'">Log In / Sign Up</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Google Sign-In SDK (optional - for Google OAuth) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
