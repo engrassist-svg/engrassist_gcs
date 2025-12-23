@@ -7232,6 +7232,365 @@ const deliveryMethodData = {
     }
 };
 
+// Equipment & Systems Configuration
+const equipmentConfig = {
+    hvac: {
+        title: 'HVAC Equipment',
+        systems: {
+            boilers: {
+                label: 'Boilers',
+                submenu: {
+                    fuelType: {
+                        label: 'Fuel Type',
+                        type: 'checkbox',
+                        options: ['Gas', 'Electric', 'Oil']
+                    },
+                    condensingType: {
+                        label: 'Condensing Type',
+                        type: 'checkbox',
+                        options: ['Condensing', 'Non-Condensing']
+                    }
+                }
+            },
+            chillers: {
+                label: 'Chillers',
+                submenu: {
+                    chillerType: {
+                        label: 'Chiller Type',
+                        type: 'checkbox',
+                        options: ['Water-Cooled', 'Air-Cooled', 'Evaporative']
+                    },
+                    refrigerant: {
+                        label: 'Refrigerant Type',
+                        type: 'checkbox',
+                        options: ['Centrifugal', 'Screw', 'Scroll']
+                    }
+                }
+            },
+            centralizedAHU: {
+                label: 'Centralized Air Handling Units',
+                submenu: {
+                    ahuType: {
+                        label: 'AHU Type',
+                        type: 'checkbox',
+                        options: ['Standard AHU', 'Make-Up Air Unit', 'Dedicated Outdoor Air System']
+                    },
+                    airflow: {
+                        label: 'Airflow Control',
+                        type: 'checkbox',
+                        options: ['Constant Volume', 'Variable Air Volume']
+                    },
+                    coolingCoil: {
+                        label: 'Cooling Coil Type',
+                        type: 'checkbox',
+                        options: ['Chilled Water Cooling Coil', 'DX Cooling Coil']
+                    },
+                    heatingCoil: {
+                        label: 'Heating Coil Type',
+                        type: 'checkbox',
+                        options: ['Hot Water Heating Coil', 'Electric Resistance Heating Coil', 'Gas Fired Heat Exchanger']
+                    }
+                }
+            },
+            terminalZone: {
+                label: 'Terminal & Zone Equipment',
+                submenu: {
+                    unitType: {
+                        label: 'Unit Type',
+                        type: 'checkbox',
+                        options: ['Fan Coil Unit', 'Blower Coil Unit', 'Unit Ventilator', 'VAV Box', 'Induction Unit']
+                    },
+                    airflow: {
+                        label: 'Airflow Control',
+                        type: 'checkbox',
+                        options: ['Constant Volume', 'Variable Air Volume']
+                    },
+                    coolingCoil: {
+                        label: 'Cooling Coil Type',
+                        type: 'checkbox',
+                        options: ['Chilled Water Cooling Coil', 'DX Cooling Coil']
+                    },
+                    heatingCoil: {
+                        label: 'Heating Coil Type',
+                        type: 'checkbox',
+                        options: ['Hot Water Heating Coil', 'Electric Resistance Heating Coil', 'Gas Fired Heat Exchanger']
+                    }
+                }
+            },
+            unitaryPackaged: {
+                label: 'Unitary & Packaged Systems',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Packaged Rooftop Unit', 'Split System', 'Packaged Terminal Air Conditioner', 'Vertical Stacked Units']
+                    },
+                    airflow: {
+                        label: 'Airflow Control',
+                        type: 'checkbox',
+                        options: ['Constant Volume', 'Variable Air Volume']
+                    },
+                    coolingCoil: {
+                        label: 'Cooling Coil Type',
+                        type: 'checkbox',
+                        options: ['Chilled Water Cooling Coil', 'DX Cooling Coil']
+                    },
+                    heatingCoil: {
+                        label: 'Heating Coil Type',
+                        type: 'checkbox',
+                        options: ['Hot Water Heating Coil', 'Electric Resistance Heating Coil', 'Gas Fired Heat Exchanger']
+                    }
+                }
+            },
+            specializedIndustrial: {
+                label: 'Specialized & Industrial Equipment',
+                submenu: {
+                    equipmentType: {
+                        label: 'Equipment Type',
+                        type: 'checkbox',
+                        options: ['Computer Room Air Conditioner', 'Computer Room Air Handler', 'Air Turnover Unit', 'Energy Recovery Ventilator', 'Heat Recovery Ventilator']
+                    },
+                    airflow: {
+                        label: 'Airflow Control',
+                        type: 'checkbox',
+                        options: ['Constant Volume', 'Variable Air Volume']
+                    },
+                    coolingCoil: {
+                        label: 'Cooling Coil Type',
+                        type: 'checkbox',
+                        options: ['Chilled Water Cooling Coil', 'DX Cooling Coil']
+                    },
+                    heatingCoil: {
+                        label: 'Heating Coil Type',
+                        type: 'checkbox',
+                        options: ['Hot Water Heating Coil', 'Electric Resistance Heating Coil', 'Gas Fired Heat Exchanger']
+                    }
+                }
+            },
+            specializedAirMovement: {
+                label: 'Specialized Air Movement',
+                submenu: {
+                    equipmentType: {
+                        label: 'Equipment Type',
+                        type: 'checkbox',
+                        options: ['Air Curtain', 'Fan Filter Unit']
+                    }
+                }
+            },
+            fans: {
+                label: 'Fans',
+                submenu: {
+                    fanType: {
+                        label: 'Fan Type',
+                        type: 'checkbox',
+                        options: ['Exhaust Fan', 'Supply Fan', 'Return Fan', 'Relief Fan', 'Smoke Exhaust Fan']
+                    },
+                    fanConfiguration: {
+                        label: 'Fan Configuration',
+                        type: 'checkbox',
+                        options: ['Centrifugal', 'Axial', 'Inline', 'Roof-Mounted']
+                    }
+                }
+            },
+            hydronicPumps: {
+                label: 'Hydronic Pumps',
+                submenu: {
+                    pumpType: {
+                        label: 'Pump Type',
+                        type: 'checkbox',
+                        options: ['Chilled Water Pump', 'Hot Water Pump', 'Condenser Water Pump', 'Domestic Water Pump']
+                    },
+                    pumpConfiguration: {
+                        label: 'Pump Configuration',
+                        type: 'checkbox',
+                        options: ['End Suction', 'Inline', 'Split Case', 'Variable Speed']
+                    }
+                }
+            },
+            hydronicTanks: {
+                label: 'Hydronic Tanks',
+                submenu: {
+                    tankType: {
+                        label: 'Tank Type',
+                        type: 'checkbox',
+                        options: ['Expansion Tank', 'Buffer Tank', 'Thermal Storage Tank']
+                    }
+                }
+            },
+            hydronicFilters: {
+                label: 'Hydronic Filters & Accessories',
+                submenu: {
+                    componentType: {
+                        label: 'Component Type',
+                        type: 'checkbox',
+                        options: ['Strainers', 'Air Separators', 'Dirt Separators', 'Pressure Reducing Valves', 'Balancing Valves', 'Control Valves']
+                    }
+                }
+            },
+            coolingTowers: {
+                label: 'Cooling Towers',
+                submenu: {
+                    towerType: {
+                        label: 'Tower Type',
+                        type: 'checkbox',
+                        options: ['Open Circuit', 'Closed Circuit', 'Evaporative Condenser']
+                    }
+                }
+            }
+        }
+    },
+    electrical: {
+        title: 'Electrical Equipment',
+        systems: {
+            powerDistribution: {
+                label: 'Power Distribution',
+                submenu: {
+                    equipmentType: {
+                        label: 'Equipment Type',
+                        type: 'checkbox',
+                        options: ['Main Service Switchboard', 'Distribution Panels', 'Branch Panels', 'Transformers']
+                    },
+                    voltage: {
+                        label: 'Voltage Levels',
+                        type: 'checkbox',
+                        options: ['120/208V', '277/480V', 'Medium Voltage']
+                    }
+                }
+            },
+            emergencyPower: {
+                label: 'Emergency Power',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Generator', 'UPS System', 'Battery Backup', 'Automatic Transfer Switch']
+                    }
+                }
+            },
+            lighting: {
+                label: 'Lighting Systems',
+                submenu: {
+                    lightingType: {
+                        label: 'Lighting Type',
+                        type: 'checkbox',
+                        options: ['LED', 'Fluorescent', 'HID', 'Emergency Lighting', 'Exit Lighting']
+                    },
+                    controls: {
+                        label: 'Lighting Controls',
+                        type: 'checkbox',
+                        options: ['Occupancy Sensors', 'Daylight Harvesting', 'Dimming Controls', 'Centralized Control System']
+                    }
+                }
+            },
+            fireAlarm: {
+                label: 'Fire Alarm System',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Addressable', 'Conventional', 'Voice Evacuation']
+                    }
+                }
+            },
+            telecommunications: {
+                label: 'Telecommunications',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Structured Cabling', 'Data Center', 'Wireless Access Points', 'Security System', 'Audio/Visual']
+                    }
+                }
+            },
+            renewableEnergy: {
+                label: 'Renewable Energy',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Solar PV', 'Wind', 'Energy Storage']
+                    }
+                }
+            }
+        }
+    },
+    plumbing: {
+        title: 'Plumbing Equipment',
+        systems: {
+            waterHeaters: {
+                label: 'Water Heaters',
+                submenu: {
+                    heaterType: {
+                        label: 'Heater Type',
+                        type: 'checkbox',
+                        options: ['Tank Type', 'Tankless', 'Heat Pump Water Heater', 'Solar Water Heater']
+                    },
+                    fuelType: {
+                        label: 'Fuel Type',
+                        type: 'checkbox',
+                        options: ['Gas', 'Electric', 'Steam']
+                    }
+                }
+            },
+            plumbingFixtures: {
+                label: 'Plumbing Fixtures',
+                submenu: {
+                    fixtureType: {
+                        label: 'Fixture Type',
+                        type: 'checkbox',
+                        options: ['Water Closets', 'Urinals', 'Lavatories', 'Sinks', 'Drinking Fountains', 'Showers', 'Service Sinks', 'Emergency Fixtures']
+                    },
+                    efficiency: {
+                        label: 'Efficiency Features',
+                        type: 'checkbox',
+                        options: ['Low-Flow', 'Dual-Flush', 'Sensor-Operated', 'Touchless']
+                    }
+                }
+            },
+            drainageSystem: {
+                label: 'Drainage & Waste Systems',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Gravity Drainage', 'Sewage Ejector Pumps', 'Grease Interceptor', 'Oil/Water Separator']
+                    }
+                }
+            },
+            specialtyPlumbing: {
+                label: 'Specialty Plumbing',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Medical Gas', 'Laboratory Gas', 'Compressed Air', 'Vacuum System', 'Pure Water System', 'Acid Waste']
+                    }
+                }
+            },
+            waterTreatment: {
+                label: 'Water Treatment',
+                submenu: {
+                    treatmentType: {
+                        label: 'Treatment Type',
+                        type: 'checkbox',
+                        options: ['Water Softener', 'Filtration System', 'Backflow Preventer', 'Pressure Booster', 'Tempering Valves']
+                    }
+                }
+            },
+            stormwater: {
+                label: 'Stormwater Management',
+                submenu: {
+                    systemType: {
+                        label: 'System Type',
+                        type: 'checkbox',
+                        options: ['Roof Drains', 'Sump Pumps', 'Storm Drainage', 'Rainwater Harvesting']
+                    }
+                }
+            }
+        }
+    }
+};
+
 let workflowState = {
     projectType: null,
     projectName: '',
@@ -7239,7 +7598,7 @@ let workflowState = {
     projectCity: '',
     projectState: '',
     projectDiscipline: '', // Legacy support - kept for backward compatibility
-    projectDisciplines: [], // New: array of selected disciplines
+    projectDisciplines: ['mechanical', 'electrical', 'plumbing'], // Always show all three disciplines
     activeDiscipline: 'mechanical', // Currently active discipline tab
     deliveryMethod: '',
     startDate: '',
@@ -7252,14 +7611,182 @@ let workflowState = {
         mechanical: {},
         electrical: {},
         plumbing: {}
+    },
+    equipment: {
+        hvac: {},
+        electrical: {},
+        plumbing: {}
     }
 };
+
+// Initialize Equipment Selection Panels
+function initializeEquipmentSelection() {
+    const equipmentPanelsContainer = document.getElementById('equipmentPanels');
+    if (!equipmentPanelsContainer) return;
+
+    // Create panels for each discipline
+    Object.keys(equipmentConfig).forEach(category => {
+        const config = equipmentConfig[category];
+        const panel = document.createElement('div');
+        panel.className = 'equipment-panel';
+        panel.dataset.equipmentCategory = category;
+
+        if (category === 'hvac') {
+            panel.classList.add('active');
+        }
+
+        // Create systems within this panel
+        Object.keys(config.systems).forEach(systemKey => {
+            const system = config.systems[systemKey];
+            const systemDiv = document.createElement('div');
+            systemDiv.className = 'equipment-system';
+
+            // System header with toggle
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'equipment-system-header';
+
+            const toggleLabel = document.createElement('label');
+            toggleLabel.className = 'equipment-system-toggle';
+
+            const toggleInput = document.createElement('input');
+            toggleInput.type = 'checkbox';
+            toggleInput.dataset.category = category;
+            toggleInput.dataset.system = systemKey;
+            toggleInput.addEventListener('change', function() {
+                const submenu = systemDiv.querySelector('.equipment-submenu');
+                if (this.checked) {
+                    submenu.classList.add('active');
+                    if (!workflowState.equipment[category]) {
+                        workflowState.equipment[category] = {};
+                    }
+                    workflowState.equipment[category][systemKey] = { enabled: true, options: {} };
+                } else {
+                    submenu.classList.remove('active');
+                    if (workflowState.equipment[category]) {
+                        delete workflowState.equipment[category][systemKey];
+                    }
+                }
+                saveProjectToStorage();
+            });
+
+            const toggleSpan = document.createElement('span');
+            toggleSpan.className = 'equipment-system-slider';
+
+            toggleLabel.appendChild(toggleInput);
+            toggleLabel.appendChild(toggleSpan);
+
+            const labelSpan = document.createElement('span');
+            labelSpan.className = 'equipment-system-label';
+            labelSpan.textContent = system.label;
+
+            headerDiv.appendChild(toggleLabel);
+            headerDiv.appendChild(labelSpan);
+            systemDiv.appendChild(headerDiv);
+
+            // Create submenu
+            const submenuDiv = document.createElement('div');
+            submenuDiv.className = 'equipment-submenu';
+
+            if (system.submenu) {
+                Object.keys(system.submenu).forEach(submenuKey => {
+                    const submenuItem = system.submenu[submenuKey];
+                    const submenuGroupDiv = document.createElement('div');
+                    submenuGroupDiv.className = 'equipment-submenu-group';
+
+                    const submenuTitle = document.createElement('div');
+                    submenuTitle.className = 'equipment-submenu-title';
+                    submenuTitle.textContent = submenuItem.label;
+                    submenuGroupDiv.appendChild(submenuTitle);
+
+                    const checkboxGroupDiv = document.createElement('div');
+                    checkboxGroupDiv.className = 'equipment-checkbox-group';
+
+                    submenuItem.options.forEach(option => {
+                        const checkboxLabel = document.createElement('label');
+                        checkboxLabel.className = 'equipment-checkbox-label';
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.dataset.category = category;
+                        checkbox.dataset.system = systemKey;
+                        checkbox.dataset.submenuKey = submenuKey;
+                        checkbox.dataset.option = option;
+
+                        checkbox.addEventListener('change', function() {
+                            if (!workflowState.equipment[category]) {
+                                workflowState.equipment[category] = {};
+                            }
+                            if (!workflowState.equipment[category][systemKey]) {
+                                workflowState.equipment[category][systemKey] = { enabled: true, options: {} };
+                            }
+                            if (!workflowState.equipment[category][systemKey].options[submenuKey]) {
+                                workflowState.equipment[category][systemKey].options[submenuKey] = [];
+                            }
+
+                            if (this.checked) {
+                                if (!workflowState.equipment[category][systemKey].options[submenuKey].includes(option)) {
+                                    workflowState.equipment[category][systemKey].options[submenuKey].push(option);
+                                }
+                            } else {
+                                const index = workflowState.equipment[category][systemKey].options[submenuKey].indexOf(option);
+                                if (index > -1) {
+                                    workflowState.equipment[category][systemKey].options[submenuKey].splice(index, 1);
+                                }
+                            }
+
+                            saveProjectToStorage();
+                        });
+
+                        const checkboxText = document.createElement('span');
+                        checkboxText.className = 'equipment-checkbox-text';
+                        checkboxText.textContent = option;
+
+                        checkboxLabel.appendChild(checkbox);
+                        checkboxLabel.appendChild(checkboxText);
+                        checkboxGroupDiv.appendChild(checkboxLabel);
+                    });
+
+                    submenuGroupDiv.appendChild(checkboxGroupDiv);
+                    submenuDiv.appendChild(submenuGroupDiv);
+                });
+            }
+
+            systemDiv.appendChild(submenuDiv);
+            panel.appendChild(systemDiv);
+        });
+
+        equipmentPanelsContainer.appendChild(panel);
+    });
+
+    // Equipment tab switching
+    const equipmentTabs = document.querySelectorAll('.equipment-tab');
+    equipmentTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const category = this.dataset.equipmentCategory;
+
+            // Update active tab
+            equipmentTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update active panel
+            const panels = document.querySelectorAll('.equipment-panel');
+            panels.forEach(p => p.classList.remove('active'));
+            const targetPanel = document.querySelector(`.equipment-panel[data-equipment-category="${category}"]`);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        });
+    });
+}
 
 function initializeWorkflowHub() {
     // Only initialize if we're on the workflow hub page
     if (!document.querySelector('.workflow-setup')) {
         return;
     }
+
+    // Initialize equipment selection
+    initializeEquipmentSelection();
 
     // Load saved project if exists
     loadProjectFromStorage();
