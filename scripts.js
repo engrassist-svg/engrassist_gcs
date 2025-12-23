@@ -7810,6 +7810,7 @@ function initializeDisciplineTabs() {
 
             // Update progress bar to show active discipline
             updateProgressBarDiscipline(discipline);
+            updateStatusBar(); // Recalculate progress for new discipline
         });
     });
 }
@@ -8105,6 +8106,25 @@ function initializeWorkflowHub() {
     updateWorkflowDisplay();
     updateDisciplineTabs();
     updateDisciplineProgress();
+
+    // Add event delegation for task checkboxes
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('task-checkbox')) {
+            // Save task state
+            const taskId = e.target.dataset.task;
+            const discipline = e.target.dataset.discipline || '';
+
+            if (!workflowState.disciplineTasks[discipline]) {
+                workflowState.disciplineTasks[discipline] = {};
+            }
+
+            workflowState.disciplineTasks[discipline][taskId] = e.target.checked;
+
+            // Update progress bar
+            updateStatusBar();
+            saveProjectToStorage();
+        }
+    });
 }
 
 function updateProjectDisplay() {
@@ -9276,18 +9296,65 @@ function filterTasksByDiscipline() {
 
 // Update status bar with actual and expected progress
 function updateStatusBar() {
-    // Calculate actual progress based on completed tasks
-    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
-    let totalTasks = taskCheckboxes.length;
-    let completedTasks = 0;
+    // Calculate actual progress based on completed tasks weighted by phase percentages
+    const activeDiscipline = workflowState.activeDiscipline || 'mechanical';
 
-    taskCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            completedTasks++;
-        }
-    });
+    // Phase data mapping to HTML data-phase attributes
+    const phaseMapping = {
+        'programming': 'programming',
+        'schematic-design': 'schematic',
+        'design-development': 'design-dev',
+        'construction-documents': 'construction-docs',
+        'construction-administration': 'construction-admin'
+    };
 
-    const actualProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+    let weightedProgress = 0;
+
+    // If delivery method is selected, calculate weighted progress
+    if (workflowState.deliveryMethod && deliveryMethodData[workflowState.deliveryMethod]) {
+        const methodData = deliveryMethodData[workflowState.deliveryMethod];
+
+        Object.entries(methodData.phases).forEach(([phaseName, phasePercentage]) => {
+            const phaseAttr = phaseMapping[phaseName];
+            if (!phaseAttr) return;
+
+            // Get tasks for this phase and discipline
+            const phasePanel = document.querySelector(`.phase-panel[data-phase="${phaseAttr}"]`);
+            if (!phasePanel) return;
+
+            const disciplinePanel = phasePanel.querySelector(`.discipline-panel[data-discipline="${activeDiscipline}"]`);
+            if (!disciplinePanel) return;
+
+            const taskCheckboxes = disciplinePanel.querySelectorAll('.task-checkbox');
+            const totalPhaseTasks = taskCheckboxes.length;
+            let completedPhaseTasks = 0;
+
+            taskCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    completedPhaseTasks++;
+                }
+            });
+
+            // Calculate this phase's contribution to overall progress
+            const phaseCompletionRatio = totalPhaseTasks > 0 ? completedPhaseTasks / totalPhaseTasks : 0;
+            weightedProgress += phaseCompletionRatio * phasePercentage;
+        });
+    } else {
+        // Fallback: simple calculation if no delivery method selected
+        const taskCheckboxes = document.querySelectorAll(`.discipline-panel[data-discipline="${activeDiscipline}"] .task-checkbox`);
+        let totalTasks = taskCheckboxes.length;
+        let completedTasks = 0;
+
+        taskCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                completedTasks++;
+            }
+        });
+
+        weightedProgress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+    }
+
+    const actualProgress = Math.round(weightedProgress);
 
     // Calculate expected progress based on dates
     let expectedProgress = 0;
