@@ -1024,67 +1024,217 @@
                         <h3 class="phase-title">📋 Phase 4: Construction Documents</h3>
                         <p class="phase-description">Prepare detailed drawings and specifications for construction. Ensure code compliance and coordination.</p>
 
-                        <div class="phase-tasks">
-                            <h4>Key Tasks:</h4>
-                            <div class="task-checklist">
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-1">
-                                    <span>Complete mechanical, electrical, and plumbing drawings</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-2">
-                                    <span>Finalize equipment schedules and details</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-3">
-                                    <span>Write technical specifications</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-4">
-                                    <span>Code compliance review and calculations</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-5">
-                                    <span>Coordination with all disciplines</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-6">
-                                    <span>Quality control and drawing review</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="cd-7">
-                                    <span>Submit for permit review</span>
-                                </label>
-                            </div>
+                        <!-- Discipline Tabs -->
+                        <div class="discipline-tabs">
+                            <button class="discipline-tab discipline-tab-mechanical active" data-discipline="mechanical">
+                                <span class="discipline-icon">🔧</span>
+                                <span>Mechanical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-electrical" data-discipline="electrical">
+                                <span class="discipline-icon">⚡</span>
+                                <span>Electrical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-plumbing" data-discipline="plumbing">
+                                <span class="discipline-icon">🚰</span>
+                                <span>Plumbing</span>
+                            </button>
                         </div>
 
-                        <div class="phase-tools">
-                            <h4>Helpful Tools & Resources:</h4>
-                            <div class="tools-grid">
-                                <a href="equipment_specifications.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📝</span>
-                                        <span class="tool-name">Equipment Specs</span>
+                        <!-- Discipline Content Panels -->
+                        <div class="discipline-content">
+                            <!-- Mechanical Tasks -->
+                            <div class="discipline-panel active" data-discipline="mechanical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-1" data-discipline="mechanical">
+                                            <span>Complete mechanical drawings (plans, sections, details)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-2" data-discipline="mechanical">
+                                            <span>Finalize equipment schedules with specifications</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-3" data-discipline="mechanical">
+                                            <span>Write mechanical technical specifications</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-4" data-discipline="mechanical">
+                                            <span>Complete ductwork and piping details</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-5" data-discipline="mechanical">
+                                            <span>Prepare control diagrams and sequences</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-6" data-discipline="mechanical">
+                                            <span>Code compliance review (IMC, energy codes)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-mech-7" data-discipline="mechanical">
+                                            <span>Quality control review and drawing coordination</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="code_requirements.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">⚖️</span>
-                                        <span class="tool-name">Code Requirements</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="air_balance.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚖️</span>
+                                                <span class="tool-name">Air Balance</span>
+                                            </div>
+                                        </a>
+                                        <a href="equipment_specifications.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📝</span>
+                                                <span class="tool-name">Equipment Specs</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="hvac_design_guide.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📖</span>
-                                        <span class="tool-name">Design Guide</span>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="hvac_design_guide.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Design Guide</span>
+                                            </div>
+                                        </a>
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚖️</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="air_balance.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">⚖️</span>
-                                        <span class="tool-name">Air Balance</span>
+                                </div>
+                            </div>
+
+                            <!-- Electrical Tasks -->
+                            <div class="discipline-panel" data-discipline="electrical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-1" data-discipline="electrical">
+                                            <span>Complete electrical drawings (plans, one-lines, details)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-2" data-discipline="electrical">
+                                            <span>Finalize panel schedules and load calculations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-3" data-discipline="electrical">
+                                            <span>Write electrical technical specifications</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-4" data-discipline="electrical">
+                                            <span>Complete lighting fixture schedules and photometrics</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-5" data-discipline="electrical">
+                                            <span>Prepare riser diagrams and details</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-6" data-discipline="electrical">
+                                            <span>Code compliance review (NEC, NFPA, local codes)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-elec-7" data-discipline="electrical">
+                                            <span>Quality control review and coordination</span>
+                                        </label>
                                     </div>
-                                </a>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="load_calculation.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🧮</span>
+                                                <span class="tool-name">Load Calculation</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚖️</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Plumbing Tasks -->
+                            <div class="discipline-panel" data-discipline="plumbing">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-1" data-discipline="plumbing">
+                                            <span>Complete plumbing drawings (plans, risers, details)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-2" data-discipline="plumbing">
+                                            <span>Finalize fixture and equipment schedules</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-3" data-discipline="plumbing">
+                                            <span>Write plumbing technical specifications</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-4" data-discipline="plumbing">
+                                            <span>Complete piping details and isometrics</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-5" data-discipline="plumbing">
+                                            <span>Prepare riser diagrams and schematics</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-6" data-discipline="plumbing">
+                                            <span>Code compliance review (IPC, local codes)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="cd-plumb-7" data-discipline="plumbing">
+                                            <span>Quality control review and coordination</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="fixture_units.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚰</span>
+                                                <span class="tool-name">Fixture Units</span>
+                                            </div>
+                                        </a>
+                                        <a href="drain_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚿</span>
+                                                <span class="tool-name">Drain Sizing</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚖️</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1094,71 +1244,235 @@
                         <h3 class="phase-title">🏗️ Phase 5: Construction Administration</h3>
                         <p class="phase-description">Support construction through RFIs, submittals, site observations, and commissioning.</p>
 
-                        <div class="phase-tasks">
-                            <h4>Key Tasks:</h4>
-                            <div class="task-checklist">
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-1">
-                                    <span>Review shop drawings and submittals</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-2">
-                                    <span>Respond to RFIs (Requests for Information)</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-3">
-                                    <span>Site visits and construction observations</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-4">
-                                    <span>Review and approve change orders</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-5">
-                                    <span>Commissioning and startup support</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-6">
-                                    <span>Test and balance verification</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-7">
-                                    <span>Prepare as-built documentation</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="ca-8">
-                                    <span>Final inspections and project closeout</span>
-                                </label>
-                            </div>
+                        <!-- Discipline Tabs -->
+                        <div class="discipline-tabs">
+                            <button class="discipline-tab discipline-tab-mechanical active" data-discipline="mechanical">
+                                <span class="discipline-icon">🔧</span>
+                                <span>Mechanical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-electrical" data-discipline="electrical">
+                                <span class="discipline-icon">⚡</span>
+                                <span>Electrical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-plumbing" data-discipline="plumbing">
+                                <span class="discipline-icon">🚰</span>
+                                <span>Plumbing</span>
+                            </button>
                         </div>
 
-                        <div class="phase-tools">
-                            <h4>Helpful Tools & Resources:</h4>
-                            <div class="tools-grid">
-                                <a href="air_balance.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">⚖️</span>
-                                        <span class="tool-name">Air Balance</span>
+                        <!-- Discipline Content Panels -->
+                        <div class="discipline-content">
+                            <!-- Mechanical Tasks -->
+                            <div class="discipline-panel active" data-discipline="mechanical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-1" data-discipline="mechanical">
+                                            <span>Review mechanical shop drawings and submittals</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-2" data-discipline="mechanical">
+                                            <span>Respond to mechanical RFIs</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-3" data-discipline="mechanical">
+                                            <span>Site visits and mechanical system observations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-4" data-discipline="mechanical">
+                                            <span>Review and approve mechanical change orders</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-5" data-discipline="mechanical">
+                                            <span>HVAC system commissioning and startup</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-6" data-discipline="mechanical">
+                                            <span>Test and balance (TAB) verification and review</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-7" data-discipline="mechanical">
+                                            <span>Prepare mechanical as-built documentation</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-mech-8" data-discipline="mechanical">
+                                            <span>Final mechanical inspections and closeout</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="troubleshooting_guide.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🔧</span>
-                                        <span class="tool-name">Troubleshooting</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="air_balance.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚖️</span>
+                                                <span class="tool-name">Air Balance</span>
+                                            </div>
+                                        </a>
+                                        <a href="conversions.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔄</span>
+                                                <span class="tool-name">Conversions</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="conversions.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🔄</span>
-                                        <span class="tool-name">Conversions</span>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="troubleshooting_guide.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔧</span>
+                                                <span class="tool-name">Troubleshooting</span>
+                                            </div>
+                                        </a>
+                                        <a href="articles.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📰</span>
+                                                <span class="tool-name">Equipment Articles</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="articles.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📰</span>
-                                        <span class="tool-name">Equipment Articles</span>
+                                </div>
+                            </div>
+
+                            <!-- Electrical Tasks -->
+                            <div class="discipline-panel" data-discipline="electrical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-1" data-discipline="electrical">
+                                            <span>Review electrical shop drawings and submittals</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-2" data-discipline="electrical">
+                                            <span>Respond to electrical RFIs</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-3" data-discipline="electrical">
+                                            <span>Site visits and electrical system observations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-4" data-discipline="electrical">
+                                            <span>Review and approve electrical change orders</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-5" data-discipline="electrical">
+                                            <span>Electrical system testing and commissioning</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-6" data-discipline="electrical">
+                                            <span>Lighting and controls system verification</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-7" data-discipline="electrical">
+                                            <span>Prepare electrical as-built documentation</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-elec-8" data-discipline="electrical">
+                                            <span>Final electrical inspections and closeout</span>
+                                        </label>
                                     </div>
-                                </a>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="conversions.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔄</span>
+                                                <span class="tool-name">Conversions</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="troubleshooting_guide.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔧</span>
+                                                <span class="tool-name">Troubleshooting</span>
+                                            </div>
+                                        </a>
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Plumbing Tasks -->
+                            <div class="discipline-panel" data-discipline="plumbing">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-1" data-discipline="plumbing">
+                                            <span>Review plumbing shop drawings and submittals</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-2" data-discipline="plumbing">
+                                            <span>Respond to plumbing RFIs</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-3" data-discipline="plumbing">
+                                            <span>Site visits and plumbing system observations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-4" data-discipline="plumbing">
+                                            <span>Review and approve plumbing change orders</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-5" data-discipline="plumbing">
+                                            <span>Plumbing system testing and commissioning</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-6" data-discipline="plumbing">
+                                            <span>Fixture and equipment verification</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-7" data-discipline="plumbing">
+                                            <span>Prepare plumbing as-built documentation</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="ca-plumb-8" data-discipline="plumbing">
+                                            <span>Final plumbing inspections and closeout</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="conversions.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔄</span>
+                                                <span class="tool-name">Conversions</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="troubleshooting_guide.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔧</span>
+                                                <span class="tool-name">Troubleshooting</span>
+                                            </div>
+                                        </a>
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
