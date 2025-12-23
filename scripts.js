@@ -7779,6 +7779,55 @@ function initializeEquipmentSelection() {
     });
 }
 
+// Initialize Discipline Tabs
+function initializeDisciplineTabs() {
+    // Get all discipline tabs across all phases
+    const disciplineTabs = document.querySelectorAll('.discipline-tab');
+
+    disciplineTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const discipline = this.dataset.discipline;
+            const phasePanel = this.closest('.phase-panel');
+
+            if (!phasePanel) return;
+
+            // Update active tab within this phase
+            const phaseTabs = phasePanel.querySelectorAll('.discipline-tab');
+            phaseTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update active discipline panel within this phase
+            const disciplinePanels = phasePanel.querySelectorAll('.discipline-panel');
+            disciplinePanels.forEach(p => p.classList.remove('active'));
+            const targetPanel = phasePanel.querySelector(`.discipline-panel[data-discipline="${discipline}"]`);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+
+            // Update global active discipline
+            workflowState.activeDiscipline = discipline;
+            saveProjectToStorage();
+
+            // Update progress bar to show active discipline
+            updateProgressBarDiscipline(discipline);
+        });
+    });
+}
+
+// Update progress bar to show active discipline name
+function updateProgressBarDiscipline(discipline) {
+    const statusTitle = document.querySelector('.status-bar-title span:last-child');
+    if (statusTitle) {
+        const disciplineNames = {
+            mechanical: 'Mechanical',
+            electrical: 'Electrical',
+            plumbing: 'Plumbing'
+        };
+        const disciplineName = disciplineNames[discipline] || 'Project';
+        statusTitle.textContent = `${disciplineName} Project Progress`;
+    }
+}
+
 function initializeWorkflowHub() {
     // Only initialize if we're on the workflow hub page
     if (!document.querySelector('.workflow-setup')) {
@@ -7787,6 +7836,9 @@ function initializeWorkflowHub() {
 
     // Initialize equipment selection
     initializeEquipmentSelection();
+
+    // Initialize discipline tabs
+    initializeDisciplineTabs();
 
     // Load saved project if exists
     loadProjectFromStorage();
