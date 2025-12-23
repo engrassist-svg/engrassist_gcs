@@ -6510,6 +6510,175 @@ textarea.form-control {
 }
 
 /* ====================================
+   SAVE/SHARE PROJECT MODAL STYLES
+   ==================================== */
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input::placeholder {
+    color: #999;
+}
+
+/* Modal Message */
+.modal-message {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.modal-message.success {
+    display: block;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.modal-message.error {
+    display: block;
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.modal-message.info {
+    display: block;
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Share Options */
+.share-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.share-option-card {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.share-option-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.share-option-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.share-option-card p {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Warning Modal */
+.modal-warning {
+    max-width: 600px;
+}
+
+.warning-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.warning-content p {
+    margin: 0 0 1rem 0;
+}
+
+.warning-content strong {
+    color: #d9534f;
+}
+
+.warning-content ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.warning-content li {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+/* Responsive Modal Styles */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-width: none;
+        margin: 1rem;
+    }
+
+    .modal-header {
+        padding: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .modal-footer {
+        padding: 0.75rem 1rem;
+        flex-direction: column-reverse;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+    .share-options {
+        grid-template-columns: 1fr;
+    }
+
+    .share-option-card {
+        padding: 1rem;
+    }
+
+    .form-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* ====================================
    GOOGLE SIGN-IN BUTTON STYLES
    ==================================== */
 
