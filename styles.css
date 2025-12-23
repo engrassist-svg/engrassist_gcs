@@ -5291,22 +5291,25 @@ textarea.form-control {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    background: transparent;
-    border-bottom: 3px solid transparent;
+    padding: 1rem 2rem;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 8px 8px 0 0;
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 600;
     color: #7f8c8d;
     transition: all 0.3s ease;
-    margin-bottom: -2px;
+    margin-right: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .discipline-tab:hover {
     color: #2c3e50;
-    background: rgba(0, 0, 0, 0.02);
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .discipline-tab .discipline-icon {
@@ -5316,22 +5319,31 @@ textarea.form-control {
 /* Mechanical Tab */
 .discipline-tab-mechanical.active {
     color: #3498db;
-    border-bottom-color: #3498db;
-    background: linear-gradient(to bottom, rgba(52, 152, 219, 0.05), transparent);
+    border-color: #3498db;
+    border-bottom: none;
+    background: white;
+    box-shadow: 0 -2px 8px rgba(52, 152, 219, 0.2), 0 4px 0 white;
+    transform: translateY(-2px);
 }
 
 /* Electrical Tab */
 .discipline-tab-electrical.active {
     color: #f39c12;
-    border-bottom-color: #f39c12;
-    background: linear-gradient(to bottom, rgba(243, 156, 18, 0.05), transparent);
+    border-color: #f39c12;
+    border-bottom: none;
+    background: white;
+    box-shadow: 0 -2px 8px rgba(243, 156, 18, 0.2), 0 4px 0 white;
+    transform: translateY(-2px);
 }
 
 /* Plumbing Tab */
 .discipline-tab-plumbing.active {
     color: #27ae60;
-    border-bottom-color: #27ae60;
-    background: linear-gradient(to bottom, rgba(39, 174, 96, 0.05), transparent);
+    border-color: #27ae60;
+    border-bottom: none;
+    background: white;
+    box-shadow: 0 -2px 8px rgba(39, 174, 96, 0.2), 0 4px 0 white;
+    transform: translateY(-2px);
 }
 
 /* Hide tabs when discipline not selected */
@@ -5655,6 +5667,8 @@ textarea.form-control {
     content: "✓";
     position: absolute;
     font-size: 1.8rem;
+    color: #f39c12;
+    font-weight: bold;
 }
 
 .progress-step-label {
