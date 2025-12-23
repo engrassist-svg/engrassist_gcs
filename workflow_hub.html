@@ -542,75 +542,229 @@
                         <h3 class="phase-title">✏️ Phase 2: Schematic Design</h3>
                         <p class="phase-description">Develop initial design concepts, perform preliminary load calculations, and establish system types.</p>
 
-                        <div class="phase-tasks">
-                            <h4>Key Tasks:</h4>
-                            <div class="task-checklist">
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="schem-1">
-                                    <span>Preliminary HVAC load calculations</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="schem-2">
-                                    <span>Select major system types (HVAC, electrical, plumbing)</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="schem-3">
-                                    <span>Preliminary equipment sizing</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="schem-4">
-                                    <span>Space allocation for mechanical/electrical rooms</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="schem-5">
-                                    <span>Energy analysis and sustainability considerations</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="schem-6">
-                                    <span>Preliminary plumbing fixture counts and risers</span>
-                                </label>
-                            </div>
+                        <!-- Discipline Tabs -->
+                        <div class="discipline-tabs">
+                            <button class="discipline-tab discipline-tab-mechanical active" data-discipline="mechanical">
+                                <span class="discipline-icon">🔧</span>
+                                <span>Mechanical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-electrical" data-discipline="electrical">
+                                <span class="discipline-icon">⚡</span>
+                                <span>Electrical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-plumbing" data-discipline="plumbing">
+                                <span class="discipline-icon">🚰</span>
+                                <span>Plumbing</span>
+                            </button>
                         </div>
 
-                        <div class="phase-tools">
-                            <h4>Helpful Tools & Resources:</h4>
-                            <div class="tools-grid">
-                                <a href="load_calculation.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🧮</span>
-                                        <span class="tool-name">Load Calculation</span>
+                        <!-- Discipline Content Panels -->
+                        <div class="discipline-content">
+                            <!-- Mechanical Tasks -->
+                            <div class="discipline-panel active" data-discipline="mechanical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-mech-1" data-discipline="mechanical">
+                                            <span>Preliminary HVAC load calculations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-mech-2" data-discipline="mechanical">
+                                            <span>Select HVAC system types and configurations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-mech-3" data-discipline="mechanical">
+                                            <span>Preliminary equipment sizing (boilers, chillers, AHUs)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-mech-4" data-discipline="mechanical">
+                                            <span>Space allocation for mechanical rooms and shafts</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-mech-5" data-discipline="mechanical">
+                                            <span>Energy analysis and sustainability considerations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-mech-6" data-discipline="mechanical">
+                                            <span>Preliminary duct and pipe routing concepts</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="psychrometric.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📊</span>
-                                        <span class="tool-name">Psychrometric Chart</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="load_calculation.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🧮</span>
+                                                <span class="tool-name">Load Calculation</span>
+                                            </div>
+                                        </a>
+                                        <a href="psychrometric.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📊</span>
+                                                <span class="tool-name">Psychrometric Chart</span>
+                                            </div>
+                                        </a>
+                                        <a href="boiler_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔥</span>
+                                                <span class="tool-name">Boiler Sizing</span>
+                                            </div>
+                                        </a>
+                                        <a href="chiller_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">❄️</span>
+                                                <span class="tool-name">Chiller Sizing</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="boiler_sizing.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🔥</span>
-                                        <span class="tool-name">Boiler Sizing</span>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="hvac_fundamentals.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📚</span>
+                                                <span class="tool-name">HVAC Fundamentals</span>
+                                            </div>
+                                        </a>
+                                        <a href="ashrae_standards.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">❄️</span>
+                                                <span class="tool-name">ASHRAE Standards</span>
+                                            </div>
+                                        </a>
+                                        <a href="energy_efficiency.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚡</span>
+                                                <span class="tool-name">Energy Efficiency</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="chiller_sizing.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">❄️</span>
-                                        <span class="tool-name">Chiller Sizing</span>
+                                </div>
+                            </div>
+
+                            <!-- Electrical Tasks -->
+                            <div class="discipline-panel" data-discipline="electrical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-elec-1" data-discipline="electrical">
+                                            <span>Preliminary electrical load calculations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-elec-2" data-discipline="electrical">
+                                            <span>Select electrical distribution system configuration</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-elec-3" data-discipline="electrical">
+                                            <span>Determine service size and voltage levels</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-elec-4" data-discipline="electrical">
+                                            <span>Space allocation for electrical rooms and closets</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-elec-5" data-discipline="electrical">
+                                            <span>Preliminary lighting design concept</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-elec-6" data-discipline="electrical">
+                                            <span>Emergency power and life safety systems concept</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="plumbing_pipe_sizing.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🚰</span>
-                                        <span class="tool-name">Plumbing Pipe Sizing</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="load_calculation.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🧮</span>
+                                                <span class="tool-name">Load Calculation</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="energy_efficiency.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">⚡</span>
-                                        <span class="tool-name">Energy Efficiency</span>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                        <a href="energy_efficiency.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">⚡</span>
+                                                <span class="tool-name">Energy Efficiency</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
+                            </div>
+
+                            <!-- Plumbing Tasks -->
+                            <div class="discipline-panel" data-discipline="plumbing">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-plumb-1" data-discipline="plumbing">
+                                            <span>Preliminary plumbing fixture counts and layout</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-plumb-2" data-discipline="plumbing">
+                                            <span>Water demand calculations</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-plumb-3" data-discipline="plumbing">
+                                            <span>Preliminary water heater sizing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-plumb-4" data-discipline="plumbing">
+                                            <span>Plumbing riser diagram concepts</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-plumb-5" data-discipline="plumbing">
+                                            <span>Drainage and vent system concepts</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="schem-plumb-6" data-discipline="plumbing">
+                                            <span>Space allocation for plumbing shafts and chases</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="fixture_units.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚰</span>
+                                                <span class="tool-name">Fixture Units</span>
+                                            </div>
+                                        </a>
+                                        <a href="plumbing_pipe_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚰</span>
+                                                <span class="tool-name">Pipe Sizing</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -620,91 +774,247 @@
                         <h3 class="phase-title">📐 Phase 3: Design Development</h3>
                         <p class="phase-description">Refine design, perform detailed calculations, select specific equipment, and coordinate with other disciplines.</p>
 
-                        <div class="phase-tasks">
-                            <h4>Key Tasks:</h4>
-                            <div class="task-checklist">
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-1">
-                                    <span>Final load calculations and diversity factors</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-2">
-                                    <span>Detailed duct and pipe sizing</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-3">
-                                    <span>Equipment selection and schedules</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-4">
-                                    <span>Pump and fan selection</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-5">
-                                    <span>Electrical load calculations and panel schedules</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-6">
-                                    <span>Coordinate with architectural and structural</span>
-                                </label>
-                                <label class="task-item">
-                                    <input type="checkbox" class="task-checkbox" data-task="dd-7">
-                                    <span>Control system design and sequences</span>
-                                </label>
-                            </div>
+                        <!-- Discipline Tabs -->
+                        <div class="discipline-tabs">
+                            <button class="discipline-tab discipline-tab-mechanical active" data-discipline="mechanical">
+                                <span class="discipline-icon">🔧</span>
+                                <span>Mechanical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-electrical" data-discipline="electrical">
+                                <span class="discipline-icon">⚡</span>
+                                <span>Electrical</span>
+                            </button>
+                            <button class="discipline-tab discipline-tab-plumbing" data-discipline="plumbing">
+                                <span class="discipline-icon">🚰</span>
+                                <span>Plumbing</span>
+                            </button>
                         </div>
 
-                        <div class="phase-tools">
-                            <h4>Helpful Tools & Resources:</h4>
-                            <div class="tools-grid">
-                                <a href="ductulator.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🌬️</span>
-                                        <span class="tool-name">Ductulator</span>
+                        <!-- Discipline Content Panels -->
+                        <div class="discipline-content">
+                            <!-- Mechanical Tasks -->
+                            <div class="discipline-panel active" data-discipline="mechanical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-1" data-discipline="mechanical">
+                                            <span>Final HVAC load calculations and diversity factors</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-2" data-discipline="mechanical">
+                                            <span>Detailed duct sizing and routing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-3" data-discipline="mechanical">
+                                            <span>Hydronic pipe sizing and routing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-4" data-discipline="mechanical">
+                                            <span>Equipment selection and preliminary schedules</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-5" data-discipline="mechanical">
+                                            <span>Pump and fan selection with performance curves</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-6" data-discipline="mechanical">
+                                            <span>Control system design and sequences of operation</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-mech-7" data-discipline="mechanical">
+                                            <span>Coordinate with architectural and structural disciplines</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="pipe_sizing.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🔧</span>
-                                        <span class="tool-name">HVAC Pipe Sizing</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="ductulator.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🌬️</span>
+                                                <span class="tool-name">Ductulator</span>
+                                            </div>
+                                        </a>
+                                        <a href="pipe_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🔧</span>
+                                                <span class="tool-name">HVAC Pipe Sizing</span>
+                                            </div>
+                                        </a>
+                                        <a href="pump_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">💧</span>
+                                                <span class="tool-name">Pump Sizing</span>
+                                            </div>
+                                        </a>
+                                        <a href="fan_selection.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🌀</span>
+                                                <span class="tool-name">Fan Selection</span>
+                                            </div>
+                                        </a>
+                                        <a href="coil_selection.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📦</span>
+                                                <span class="tool-name">Coil Selection</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="pump_sizing.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">💧</span>
-                                        <span class="tool-name">Pump Sizing</span>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="hvac_design_guide.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Design Guide</span>
+                                            </div>
+                                        </a>
+                                        <a href="engineering_calculations.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🧮</span>
+                                                <span class="tool-name">Engineering Calcs</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="fan_selection.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🌀</span>
-                                        <span class="tool-name">Fan Selection</span>
+                                </div>
+                            </div>
+
+                            <!-- Electrical Tasks -->
+                            <div class="discipline-panel" data-discipline="electrical">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-1" data-discipline="electrical">
+                                            <span>Final electrical load calculations and demand factors</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-2" data-discipline="electrical">
+                                            <span>Panel schedules and circuit assignments</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-3" data-discipline="electrical">
+                                            <span>Lighting fixture selection and layout refinement</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-4" data-discipline="electrical">
+                                            <span>Power distribution routing and risers</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-5" data-discipline="electrical">
+                                            <span>Emergency power system design</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-6" data-discipline="electrical">
+                                            <span>Fire alarm and life safety system design</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-elec-7" data-discipline="electrical">
+                                            <span>Coordinate with other disciplines</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="coil_selection.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📦</span>
-                                        <span class="tool-name">Coil Selection</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="load_calculation.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🧮</span>
+                                                <span class="tool-name">Load Calculation</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="drain_sizing.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🚿</span>
-                                        <span class="tool-name">Drain Sizing</span>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                                <a href="interpolator.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">📈</span>
-                                        <span class="tool-name">Interpolator</span>
+                                </div>
+                            </div>
+
+                            <!-- Plumbing Tasks -->
+                            <div class="discipline-panel" data-discipline="plumbing">
+                                <div class="phase-tasks">
+                                    <h4>Tasks:</h4>
+                                    <div class="task-checklist">
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-1" data-discipline="plumbing">
+                                            <span>Detailed domestic water pipe sizing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-2" data-discipline="plumbing">
+                                            <span>Sanitary and storm drain sizing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-3" data-discipline="plumbing">
+                                            <span>Vent system sizing and routing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-4" data-discipline="plumbing">
+                                            <span>Final water heater selection and sizing</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-5" data-discipline="plumbing">
+                                            <span>Plumbing fixture schedules</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-6" data-discipline="plumbing">
+                                            <span>Gas piping design and sizing (if applicable)</span>
+                                        </label>
+                                        <label class="task-item">
+                                            <input type="checkbox" class="task-checkbox" data-task="dd-plumb-7" data-discipline="plumbing">
+                                            <span>Coordinate with other disciplines</span>
+                                        </label>
                                     </div>
-                                </a>
-                                <a href="engineering_calculations.html" class="tool-card-link">
-                                    <div class="tool-card-mini">
-                                        <span class="tool-icon">🧮</span>
-                                        <span class="tool-name">Engineering Calcs</span>
+                                </div>
+                                <div class="phase-tools">
+                                    <h4>Tools:</h4>
+                                    <div class="tools-grid">
+                                        <a href="plumbing_pipe_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚰</span>
+                                                <span class="tool-name">Pipe Sizing</span>
+                                            </div>
+                                        </a>
+                                        <a href="drain_sizing.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚿</span>
+                                                <span class="tool-name">Drain Sizing</span>
+                                            </div>
+                                        </a>
+                                        <a href="fixture_units.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">🚰</span>
+                                                <span class="tool-name">Fixture Units</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
+                                <div class="phase-resources">
+                                    <h4>Resources:</h4>
+                                    <div class="tools-grid">
+                                        <a href="code_requirements.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📖</span>
+                                                <span class="tool-name">Code Requirements</span>
+                                            </div>
+                                        </a>
+                                        <a href="interpolator.html" class="tool-card-link">
+                                            <div class="tool-card-mini">
+                                                <span class="tool-icon">📈</span>
+                                                <span class="tool-name">Interpolator</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
