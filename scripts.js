@@ -10298,19 +10298,39 @@ async function loadProject(projectId) {
 }
 
 // Delete a project
-function deleteProject(projectId) {
+async function deleteProject(projectId) {
     if (!confirm('Are you sure you want to delete this project?')) {
         return;
     }
 
     if (currentUser && authToken) {
-        // Delete from cloud (implement API call)
-        showNotification('Cloud delete not yet implemented', 'warning');
+        // Delete from cloud
+        try {
+            const response = await fetch(`${CLOUDFLARE_API_URL}/api/projects/${projectId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Project deleted:', projectId);
+                showNotification('Project deleted ✓', 'success');
+                openLoadProjectModal(); // Refresh the list
+            } else {
+                throw new Error(data.error || 'Failed to delete project');
+            }
+        } catch (error) {
+            console.error('Error deleting project:', error);
+            showNotification('Error deleting project: ' + error.message, 'error');
+        }
     } else {
         // Delete from localStorage
         localStorage.removeItem(projectId);
         openLoadProjectModal(); // Refresh the list
-        showNotification('Project deleted', 'info');
+        showNotification('Project deleted ✓', 'info');
     }
 }
 
