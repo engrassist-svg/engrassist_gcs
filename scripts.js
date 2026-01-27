@@ -308,6 +308,7 @@ function initializeAllFeatures() {
     initializeDesktopMode();
     initializeAuth();
     initializeBreadcrumbs();
+    initializeSearch();
 
     // Add psychrometric initialization here
     setTimeout(initializePsychrometricChart, 500);
@@ -994,34 +995,689 @@ function initializeMobileMenuClose() {
 }
 
 // ====================================
-// HEADER SEARH FUNCTIONALITY
+// HEADER SEARCH FUNCTIONALITY - IMPROVED
 // ====================================
-function handleSearch(event) {
-    if (event.key === 'Enter') {
-        const query = event.target.value.toLowerCase();
-        const searchMap = {
-            'duct': 'ductulator.html',
-            'psychrometric': 'psychrometric.html',
-            'psychro': 'psychrometric.html',
-            'chart': 'psychrometric.html',
-            'boiler': 'boiler_sizing.html',
-            'chiller': 'chiller_sizing.html',
-            'coil': 'coil_selection.html',
-            'fan': 'fan_selection.html',
-            'air balance': 'air_balance.html',
-            'conversion': 'conversions.html',
-            'unit': 'conversions.html'
-        };
 
-        for (let key in searchMap) {
-            if (query.includes(key)) {
-                window.location.href = searchMap[key];
-                return;
-            }
-        }
-
-        alert('No results found. Try "duct", "psychrometric", "boiler", "chiller", "coil", "fan", or "conversion"');
+// Comprehensive search index with page metadata
+const searchIndex = [
+    // Mechanical Tools
+    {
+        url: 'ductulator.html',
+        title: 'Ductulator - HVAC Duct Sizing Calculator',
+        description: 'Professional HVAC duct sizing calculator with friction loss calculations. Supports round, rectangular, and oval ducts. Based on ASHRAE standards.',
+        keywords: 'ductulator duct sizing hvac calculator friction loss duct design ashrae equal friction method air velocity cfm round rectangular oval',
+        category: 'Mechanical'
+    },
+    {
+        url: 'psychrometric.html',
+        title: 'Psychrometric Chart - Air Properties Analysis',
+        description: 'Interactive psychrometric chart for HVAC air property analysis. Calculate humidity ratio, enthalpy, wet bulb, dew point, and specific volume.',
+        keywords: 'psychrometric chart hvac air properties humidity enthalpy wet bulb dew point ashrae psychrometrics temperature relative humidity',
+        category: 'Mechanical'
+    },
+    {
+        url: 'boiler_sizing.html',
+        title: 'Boiler Sizing Calculator',
+        description: 'Comprehensive commercial boiler sizing calculator. Heating load calculation, BTU requirements, and system design guidance.',
+        keywords: 'boiler sizing calculator heating load commercial boiler hvac btu calculation heating system design hot water steam',
+        category: 'Mechanical'
+    },
+    {
+        url: 'chiller_sizing.html',
+        title: 'Chiller Sizing Calculator',
+        description: 'Commercial chiller sizing tool. Calculate cooling load, tonnage requirements, and chiller selection parameters.',
+        keywords: 'chiller sizing calculator cooling load tonnage commercial chiller hvac refrigeration air cooled water cooled centrifugal screw',
+        category: 'Mechanical'
+    },
+    {
+        url: 'coil_selection.html',
+        title: 'Coil Selection Tool',
+        description: 'HVAC coil selection and sizing tool. Calculate heating and cooling coil performance, rows, fins, and capacity.',
+        keywords: 'coil selection hvac heating coil cooling coil air handler ahu capacity fins rows heat exchanger',
+        category: 'Mechanical'
+    },
+    {
+        url: 'fan_selection.html',
+        title: 'Fan Selection Calculator',
+        description: 'Fan selection and sizing tool. Calculate CFM, static pressure, fan curves, and motor requirements.',
+        keywords: 'fan selection calculator cfm static pressure fan curves motor horsepower centrifugal axial exhaust supply ventilation',
+        category: 'Mechanical'
+    },
+    {
+        url: 'air_balance.html',
+        title: 'Air Balance Calculator',
+        description: 'HVAC air balance calculation tool. Calculate supply, return, exhaust air quantities and room pressurization.',
+        keywords: 'air balance hvac supply air return air exhaust pressurization cfm ventilation outdoor air',
+        category: 'Mechanical'
+    },
+    {
+        url: 'vav_sizing.html',
+        title: 'VAV Box Sizing',
+        description: 'Variable Air Volume (VAV) box sizing calculator. Calculate minimum and maximum airflow, heating requirements.',
+        keywords: 'vav sizing variable air volume box terminal unit airflow heating reheat pressure independent',
+        category: 'Mechanical'
+    },
+    {
+        url: 'pump_sizing.html',
+        title: 'Pump Sizing Calculator',
+        description: 'HVAC pump sizing and selection tool. Calculate flow rate, head pressure, and pump curves.',
+        keywords: 'pump sizing calculator gpm head pressure flow rate centrifugal pump hvac hydronic chilled water hot water',
+        category: 'Mechanical'
+    },
+    {
+        url: 'load_calculation.html',
+        title: 'Load Calculation',
+        description: 'HVAC heating and cooling load calculation. Building heat gain and heat loss analysis.',
+        keywords: 'load calculation hvac heating cooling heat gain heat loss building envelope thermal',
+        category: 'Mechanical'
+    },
+    {
+        url: 'pressure_loss.html',
+        title: 'Pressure Loss Calculator',
+        description: 'Duct and pipe pressure loss calculations. Friction loss, fitting losses, and system pressure drop.',
+        keywords: 'pressure loss calculator friction duct pipe fittings static pressure drop hvac',
+        category: 'Mechanical'
+    },
+    {
+        url: 'interpolator.html',
+        title: 'Interpolator Tool',
+        description: 'Linear and multi-point interpolation calculator for engineering data tables.',
+        keywords: 'interpolator calculator linear interpolation engineering data tables hvac',
+        category: 'Mechanical'
+    },
+    {
+        url: 'conversions.html',
+        title: 'Unit Conversions',
+        description: 'Engineering unit conversion calculator. Convert between metric and imperial units for HVAC, plumbing, and electrical.',
+        keywords: 'unit conversions calculator metric imperial hvac temperature pressure flow cfm gpm btu watts',
+        category: 'Tools'
+    },
+    // Electrical Tools
+    {
+        url: 'electrical_page.html',
+        title: 'Electrical Engineering Tools',
+        description: 'Electrical engineering calculators and resources. Circuit sizing, voltage drop, load calculations.',
+        keywords: 'electrical engineering tools calculators circuit voltage load power',
+        category: 'Electrical'
+    },
+    {
+        url: 'circuit_sizing.html',
+        title: 'Circuit Sizing Calculator',
+        description: 'Electrical circuit sizing tool. Calculate wire size, breaker size, and conduit requirements.',
+        keywords: 'circuit sizing calculator wire size breaker ampacity conduit nec electrical',
+        category: 'Electrical'
+    },
+    {
+        url: 'voltage_drop.html',
+        title: 'Voltage Drop Calculator',
+        description: 'Electrical voltage drop calculation tool. Calculate voltage drop for wire runs and verify NEC compliance.',
+        keywords: 'voltage drop calculator electrical wire nec compliance conductor size distance',
+        category: 'Electrical'
+    },
+    {
+        url: 'electrical_load_calc.html',
+        title: 'Electrical Load Calculator',
+        description: 'Building electrical load calculation. Calculate connected loads, demand factors, and service requirements.',
+        keywords: 'electrical load calculator demand factor service panel building nec',
+        category: 'Electrical'
+    },
+    // Plumbing Tools
+    {
+        url: 'plumbing_page.html',
+        title: 'Plumbing Engineering Tools',
+        description: 'Plumbing engineering calculators and resources. Pipe sizing, fixture units, drainage calculations.',
+        keywords: 'plumbing engineering tools calculators pipe sizing fixture units drainage',
+        category: 'Plumbing'
+    },
+    {
+        url: 'pipe_sizing.html',
+        title: 'Pipe Sizing Calculator',
+        description: 'Water supply pipe sizing tool. Calculate pipe diameter based on flow rate and pressure.',
+        keywords: 'pipe sizing calculator water supply flow rate pressure velocity gpm plumbing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_pipe_sizing.html',
+        title: 'Plumbing Pipe Sizing',
+        description: 'Comprehensive plumbing pipe sizing guide. Water supply and drainage pipe selection.',
+        keywords: 'plumbing pipe sizing water supply drainage copper pex pvc',
+        category: 'Plumbing'
+    },
+    {
+        url: 'fixture_units.html',
+        title: 'Fixture Units Calculator',
+        description: 'Plumbing fixture unit calculator. Calculate water supply and drainage fixture units.',
+        keywords: 'fixture units calculator plumbing wsfu dfu water supply drainage',
+        category: 'Plumbing'
+    },
+    {
+        url: 'drainage_fixture_units.html',
+        title: 'Drainage Fixture Units',
+        description: 'Drainage fixture unit (DFU) calculator and reference tables.',
+        keywords: 'drainage fixture units dfu plumbing sanitary waste sizing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'drain_sizing.html',
+        title: 'Drain Sizing Calculator',
+        description: 'Sanitary drain pipe sizing calculator. Size drain pipes based on fixture units.',
+        keywords: 'drain sizing calculator sanitary pipe plumbing dfu waste',
+        category: 'Plumbing'
+    },
+    {
+        url: 'building_drain.html',
+        title: 'Building Drain Sizing',
+        description: 'Building drain and sewer sizing calculator. Calculate main drain size requirements.',
+        keywords: 'building drain sewer sizing plumbing main sanitary',
+        category: 'Plumbing'
+    },
+    {
+        url: 'vent_sizing.html',
+        title: 'Vent Sizing Calculator',
+        description: 'Plumbing vent pipe sizing tool. Calculate vent sizes for drainage systems.',
+        keywords: 'vent sizing calculator plumbing pipe drainage stack vent branch vent',
+        category: 'Plumbing'
+    },
+    {
+        url: 'trap_sizing.html',
+        title: 'Trap Sizing Guide',
+        description: 'Plumbing trap sizing and selection guide. P-trap and fixture trap requirements.',
+        keywords: 'trap sizing plumbing p-trap fixture trap drainage',
+        category: 'Plumbing'
+    },
+    {
+        url: 'water_heater_sizing.html',
+        title: 'Water Heater Sizing',
+        description: 'Water heater sizing calculator. Calculate storage tank and recovery requirements.',
+        keywords: 'water heater sizing calculator storage tank recovery gph btu plumbing domestic hot water',
+        category: 'Plumbing'
+    },
+    {
+        url: 'gas_pipe_sizing.html',
+        title: 'Gas Pipe Sizing',
+        description: 'Natural gas and propane pipe sizing calculator. Calculate pipe size based on BTU load.',
+        keywords: 'gas pipe sizing calculator natural gas propane btu load pressure drop',
+        category: 'Plumbing'
+    },
+    {
+        url: 'gas_pressure_drop.html',
+        title: 'Gas Pressure Drop Calculator',
+        description: 'Gas piping pressure drop calculation tool.',
+        keywords: 'gas pressure drop calculator piping natural gas propane',
+        category: 'Plumbing'
+    },
+    {
+        url: 'backflow_prevention.html',
+        title: 'Backflow Prevention Guide',
+        description: 'Backflow prevention device selection and requirements guide.',
+        keywords: 'backflow prevention plumbing rpz dcva pvb cross connection',
+        category: 'Plumbing'
+    },
+    {
+        url: 'storm_pipe_sizing.html',
+        title: 'Storm Pipe Sizing',
+        description: 'Storm drainage pipe sizing calculator. Size storm drains based on rainfall intensity.',
+        keywords: 'storm pipe sizing drainage rainfall intensity roof drain plumbing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'roof_drain_sizing.html',
+        title: 'Roof Drain Sizing',
+        description: 'Roof drain sizing calculator. Calculate drain size based on roof area and rainfall.',
+        keywords: 'roof drain sizing calculator rainfall area storm drainage plumbing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'rainfall_intensity.html',
+        title: 'Rainfall Intensity Data',
+        description: 'Rainfall intensity data and maps for storm drainage design.',
+        keywords: 'rainfall intensity data maps storm drainage design plumbing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'retention_detention.html',
+        title: 'Retention & Detention',
+        description: 'Stormwater retention and detention design guidance.',
+        keywords: 'retention detention stormwater drainage design plumbing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'fixture_schedules.html',
+        title: 'Fixture Schedules',
+        description: 'Plumbing fixture schedule templates and examples.',
+        keywords: 'fixture schedules plumbing templates specifications',
+        category: 'Plumbing'
+    },
+    // Reference Pages
+    {
+        url: 'mechanical_page.html',
+        title: 'Mechanical Engineering Tools',
+        description: 'HVAC and mechanical engineering calculators, tools, and resources.',
+        keywords: 'mechanical engineering hvac tools calculators heating cooling ventilation',
+        category: 'Mechanical'
+    },
+    {
+        url: 'hvac_fundamentals.html',
+        title: 'HVAC Fundamentals',
+        description: 'HVAC fundamentals guide. Learn heating, ventilation, and air conditioning basics.',
+        keywords: 'hvac fundamentals basics heating ventilation air conditioning guide',
+        category: 'Mechanical'
+    },
+    {
+        url: 'hvac_design_guide.html',
+        title: 'HVAC Design Guide',
+        description: 'Comprehensive HVAC system design guide and best practices.',
+        keywords: 'hvac design guide system best practices mechanical',
+        category: 'Mechanical'
+    },
+    {
+        url: 'ashrae_standards.html',
+        title: 'ASHRAE Standards Reference',
+        description: 'ASHRAE standards quick reference guide for HVAC design.',
+        keywords: 'ashrae standards hvac design 62.1 90.1 ventilation energy',
+        category: 'Mechanical'
+    },
+    {
+        url: 'plumbing_fundamentals.html',
+        title: 'Plumbing Fundamentals',
+        description: 'Plumbing system fundamentals and basic concepts guide.',
+        keywords: 'plumbing fundamentals basics water supply drainage sanitary',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_codes.html',
+        title: 'Plumbing Codes Reference',
+        description: 'Plumbing code reference guide. IPC, UPC, and local code requirements.',
+        keywords: 'plumbing codes ipc upc requirements reference guide',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_code_requirements.html',
+        title: 'Plumbing Code Requirements',
+        description: 'Detailed plumbing code requirements and compliance guide.',
+        keywords: 'plumbing code requirements compliance ipc upc',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_system_design.html',
+        title: 'Plumbing System Design',
+        description: 'Plumbing system design guide and best practices.',
+        keywords: 'plumbing system design guide best practices water supply drainage',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_calculations.html',
+        title: 'Plumbing Calculations',
+        description: 'Common plumbing calculation methods and formulas.',
+        keywords: 'plumbing calculations formulas methods sizing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'special_plumbing_systems.html',
+        title: 'Special Plumbing Systems',
+        description: 'Special plumbing systems guide. Medical gas, lab waste, and specialty systems.',
+        keywords: 'special plumbing systems medical gas lab waste specialty',
+        category: 'Plumbing'
+    },
+    {
+        url: 'water_quality_standards.html',
+        title: 'Water Quality Standards',
+        description: 'Water quality standards and testing requirements guide.',
+        keywords: 'water quality standards testing requirements potable',
+        category: 'Plumbing'
+    },
+    {
+        url: 'water_efficiency_guide.html',
+        title: 'Water Efficiency Guide',
+        description: 'Water efficiency and conservation design guide.',
+        keywords: 'water efficiency conservation guide leed green plumbing',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_troubleshooting.html',
+        title: 'Plumbing Troubleshooting',
+        description: 'Plumbing troubleshooting guide and common problem solutions.',
+        keywords: 'plumbing troubleshooting problems solutions repair',
+        category: 'Plumbing'
+    },
+    {
+        url: 'plumbing_case_studies.html',
+        title: 'Plumbing Case Studies',
+        description: 'Real-world plumbing design case studies and examples.',
+        keywords: 'plumbing case studies examples design projects',
+        category: 'Plumbing'
+    },
+    // Other Pages
+    {
+        url: 'articles.html',
+        title: 'Engineering Articles',
+        description: 'Technical articles on HVAC equipment, systems, and engineering topics.',
+        keywords: 'engineering articles hvac technical equipment systems',
+        category: 'Resources'
+    },
+    {
+        url: 'workflow_hub.html',
+        title: 'Engineering Workflow Hub',
+        description: 'Project workflow management for engineering projects. Track tasks and milestones.',
+        keywords: 'workflow hub project management engineering tasks milestones',
+        category: 'Tools'
+    },
+    {
+        url: 'engineering_calculations.html',
+        title: 'Engineering Calculations',
+        description: 'Common engineering calculations and formulas reference.',
+        keywords: 'engineering calculations formulas reference hvac electrical plumbing',
+        category: 'Resources'
+    },
+    {
+        url: 'equipment_specifications.html',
+        title: 'Equipment Specifications',
+        description: 'Engineering equipment specification templates and guides.',
+        keywords: 'equipment specifications templates guides hvac mechanical',
+        category: 'Resources'
+    },
+    {
+        url: 'material_specifications.html',
+        title: 'Material Specifications',
+        description: 'Construction material specification guides and standards.',
+        keywords: 'material specifications standards construction guides',
+        category: 'Resources'
+    },
+    {
+        url: 'code_requirements.html',
+        title: 'Code Requirements',
+        description: 'Building code requirements reference for MEP systems.',
+        keywords: 'code requirements building mechanical electrical plumbing mep',
+        category: 'Resources'
+    },
+    {
+        url: 'energy_efficiency.html',
+        title: 'Energy Efficiency Guide',
+        description: 'Energy efficiency design guide for building systems.',
+        keywords: 'energy efficiency guide building systems leed green',
+        category: 'Resources'
+    },
+    {
+        url: 'troubleshooting_guide.html',
+        title: 'Troubleshooting Guide',
+        description: 'General troubleshooting guide for building systems.',
+        keywords: 'troubleshooting guide building systems hvac problems',
+        category: 'Resources'
+    },
+    // Articles
+    {
+        url: 'articles/air-handling-units.html',
+        title: 'Air Handling Units Guide',
+        description: 'Comprehensive guide to air handling units (AHUs). Components, types, and selection.',
+        keywords: 'air handling units ahu hvac components selection guide',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/cooling-towers.html',
+        title: 'Cooling Towers Guide',
+        description: 'Guide to cooling tower types, operation, and maintenance.',
+        keywords: 'cooling towers hvac operation maintenance types selection',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/commercial-boilers.html',
+        title: 'Commercial Boilers Guide',
+        description: 'Guide to commercial boiler types, sizing, and operation.',
+        keywords: 'commercial boilers guide sizing operation heating hot water steam',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/variable-frequency-drives.html',
+        title: 'Variable Frequency Drives',
+        description: 'Guide to VFDs for HVAC motors. Energy savings and applications.',
+        keywords: 'variable frequency drives vfd hvac motors energy savings',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/hvac-pumps.html',
+        title: 'HVAC Pumps Guide',
+        description: 'Guide to HVAC pumps. Types, sizing, and selection.',
+        keywords: 'hvac pumps guide types sizing selection centrifugal',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/rooftop-units.html',
+        title: 'Rooftop Units Guide',
+        description: 'Guide to rooftop units (RTUs). Types, components, and applications.',
+        keywords: 'rooftop units rtu hvac packaged units guide',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/vrf-systems.html',
+        title: 'VRF Systems Guide',
+        description: 'Guide to Variable Refrigerant Flow (VRF) systems.',
+        keywords: 'vrf systems variable refrigerant flow hvac heat pump',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/vav-boxes.html',
+        title: 'VAV Boxes Guide',
+        description: 'Guide to Variable Air Volume (VAV) boxes and terminals.',
+        keywords: 'vav boxes variable air volume terminals hvac',
+        category: 'Articles'
+    },
+    {
+        url: 'articles/water-cooled-chillers.html',
+        title: 'Water Cooled Chillers Guide',
+        description: 'Guide to water cooled chillers. Types, operation, and selection.',
+        keywords: 'water cooled chillers guide types operation selection hvac',
+        category: 'Articles'
+    },
+    // Main Pages
+    {
+        url: 'index.html',
+        title: 'EngrAssist - Engineering Tools',
+        description: 'Free engineering calculators and tools for HVAC, plumbing, and electrical professionals.',
+        keywords: 'engrassist engineering tools calculators hvac plumbing electrical free',
+        category: 'Main'
+    },
+    {
+        url: 'about.html',
+        title: 'About EngrAssist',
+        description: 'About EngrAssist engineering tools and our mission.',
+        keywords: 'about engrassist engineering tools mission',
+        category: 'Main'
+    },
+    {
+        url: 'contact.html',
+        title: 'Contact Us',
+        description: 'Contact EngrAssist for questions, feedback, or support.',
+        keywords: 'contact engrassist support feedback questions',
+        category: 'Main'
     }
+];
+
+// Search function that counts term frequency and ranks results
+function performSearch(query) {
+    if (!query || query.length < 2) return [];
+
+    const searchTerms = query.toLowerCase().split(/\s+/).filter(term => term.length > 1);
+    const results = [];
+
+    searchIndex.forEach(page => {
+        const searchableText = `${page.title} ${page.description} ${page.keywords}`.toLowerCase();
+        let totalScore = 0;
+        let matchedTerms = 0;
+
+        searchTerms.forEach(term => {
+            // Count occurrences of the term
+            const regex = new RegExp(term, 'gi');
+            const titleMatches = (page.title.toLowerCase().match(regex) || []).length;
+            const descMatches = (page.description.toLowerCase().match(regex) || []).length;
+            const keywordMatches = (page.keywords.toLowerCase().match(regex) || []).length;
+
+            // Weight: title matches are worth more than description, which are worth more than keywords
+            const termScore = (titleMatches * 10) + (descMatches * 5) + (keywordMatches * 2);
+
+            if (termScore > 0) {
+                totalScore += termScore;
+                matchedTerms++;
+            }
+        });
+
+        // Only include if at least one term matched
+        if (matchedTerms > 0) {
+            // Bonus for matching all search terms
+            if (matchedTerms === searchTerms.length) {
+                totalScore *= 1.5;
+            }
+
+            results.push({
+                ...page,
+                score: totalScore,
+                matchedTerms: matchedTerms
+            });
+        }
+    });
+
+    // Sort by score (highest first)
+    results.sort((a, b) => b.score - a.score);
+
+    return results;
+}
+
+// Create and show search results dropdown
+function showSearchResults(results, inputElement) {
+    // Remove existing dropdown
+    hideSearchResults();
+
+    if (results.length === 0) return;
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'search-results-dropdown';
+    dropdown.id = 'searchResultsDropdown';
+
+    // Limit to top 10 results
+    const topResults = results.slice(0, 10);
+
+    topResults.forEach((result, index) => {
+        const item = document.createElement('a');
+        item.href = result.url;
+        item.className = 'search-result-item';
+        if (index === 0) item.classList.add('selected');
+
+        item.innerHTML = `
+            <div class="search-result-title">${result.title}</div>
+            <div class="search-result-description">${result.description}</div>
+            <div class="search-result-meta">
+                <span class="search-result-category">${result.category}</span>
+                <span class="search-result-score">${result.matchedTerms} term${result.matchedTerms > 1 ? 's' : ''} matched</span>
+            </div>
+        `;
+
+        dropdown.appendChild(item);
+    });
+
+    // Show result count
+    if (results.length > 10) {
+        const moreInfo = document.createElement('div');
+        moreInfo.className = 'search-results-more';
+        moreInfo.textContent = `Showing top 10 of ${results.length} results`;
+        dropdown.appendChild(moreInfo);
+    }
+
+    // Position dropdown relative to input
+    const container = inputElement.closest('.search-container, .mobile-search-container');
+    if (container) {
+        container.style.position = 'relative';
+        container.appendChild(dropdown);
+    }
+}
+
+// Hide search results dropdown
+function hideSearchResults() {
+    const existing = document.getElementById('searchResultsDropdown');
+    if (existing) {
+        existing.remove();
+    }
+}
+
+// Handle keyboard navigation in search results
+function handleSearchKeydown(event) {
+    const dropdown = document.getElementById('searchResultsDropdown');
+    if (!dropdown) return;
+
+    const items = dropdown.querySelectorAll('.search-result-item');
+    const selected = dropdown.querySelector('.search-result-item.selected');
+    let selectedIndex = Array.from(items).indexOf(selected);
+
+    if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (selectedIndex < items.length - 1) {
+            items[selectedIndex]?.classList.remove('selected');
+            items[selectedIndex + 1]?.classList.add('selected');
+            items[selectedIndex + 1]?.scrollIntoView({ block: 'nearest' });
+        }
+    } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (selectedIndex > 0) {
+            items[selectedIndex]?.classList.remove('selected');
+            items[selectedIndex - 1]?.classList.add('selected');
+            items[selectedIndex - 1]?.scrollIntoView({ block: 'nearest' });
+        }
+    } else if (event.key === 'Enter') {
+        event.preventDefault();
+        if (selected) {
+            window.location.href = selected.href;
+        }
+    } else if (event.key === 'Escape') {
+        hideSearchResults();
+        event.target.blur();
+    }
+}
+
+// Main search handler - improved version
+function handleSearch(event) {
+    const query = event.target.value.trim();
+
+    // Handle keyboard navigation
+    if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(event.key)) {
+        handleSearchKeydown(event);
+        return;
+    }
+
+    // Perform search on input
+    if (query.length >= 2) {
+        const results = performSearch(query);
+        showSearchResults(results, event.target);
+    } else {
+        hideSearchResults();
+    }
+}
+
+// Initialize search functionality
+function initializeSearch() {
+    const searchInputs = document.querySelectorAll('#siteSearch, #mobileSearch');
+
+    searchInputs.forEach(input => {
+        // Show results as user types
+        input.addEventListener('input', handleSearch);
+        input.addEventListener('keydown', handleSearch);
+
+        // Hide results when clicking outside
+        input.addEventListener('blur', (e) => {
+            // Delay to allow clicking on results
+            setTimeout(() => {
+                if (!document.activeElement?.closest('.search-results-dropdown')) {
+                    hideSearchResults();
+                }
+            }, 200);
+        });
+
+        // Show results on focus if there's a query
+        input.addEventListener('focus', (e) => {
+            const query = e.target.value.trim();
+            if (query.length >= 2) {
+                const results = performSearch(query);
+                showSearchResults(results, e.target);
+            }
+        });
+    });
 }
 
 // ====================================
