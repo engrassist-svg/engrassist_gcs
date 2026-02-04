@@ -42,6 +42,19 @@ EngrAssist is a static HTML website providing engineering design tools (calculat
 - **Scope page-specific JS** by checking the page context before executing (e.g., check for a specific element's existence with `document.getElementById()` or `document.querySelector()` before attaching behavior).
 - **Test across pages** — at minimum verify the homepage, one mechanical page, one electrical page, and one plumbing page still render correctly after changes.
 
+### Code Reuse — Reduce Redundancy
+
+Before adding new CSS or JavaScript, **always review existing code first** to minimize redundancy and reduce file size:
+
+- **Review existing styles** — Search `styles.css` for similar patterns before creating new CSS classes. Reuse existing utility classes, layout patterns, button styles, form styles, and color variables.
+- **Review existing functions** — Search `scripts.js` for similar functionality before writing new JavaScript. Reuse existing helper functions, event handlers, validation logic, and API patterns.
+- **Extend, don't duplicate** — If existing code is 80% of what you need, consider extending it with additional classes or parameters rather than copying and modifying.
+- **Use existing class combinations** — Combine existing CSS classes in HTML rather than creating new single-purpose classes (e.g., `class="button primary-button"` instead of creating `.new-special-button`).
+- **Check calculator patterns** — Many calculators share common patterns (input validation, unit conversion, result display). Reuse these patterns.
+- **Maintain consistency** — Using existing styles and functions ensures visual and behavioral consistency across the entire site.
+
+**Important:** When reusing existing code, verify it works correctly in your new context AND still works on existing pages. Test thoroughly to ensure your changes don't break other pages that depend on the shared code.
+
 ### Source Code Protection
 
 - **Never edit** `/load_calculation.js` directly — it is auto-generated.
@@ -96,7 +109,12 @@ Every HTML page follows this pattern:
 
 ### Adding Page-Specific Styles
 
-Append new styles to the **end** of `styles.css`. Scope them:
+**Before adding new styles:**
+1. **Search `styles.css`** for existing classes that do what you need (buttons, forms, layouts, cards, etc.).
+2. **Reuse existing classes** in your HTML markup whenever possible.
+3. **Only add new CSS** when existing styles cannot be reused or combined.
+
+When you must add new styles, append them to the **end** of `styles.css` and scope them:
 
 ```css
 /* ===== My New Page ===== */
@@ -114,13 +132,19 @@ Append new styles to the **end** of `styles.css`. Scope them:
 
 ### Adding Page-Specific JavaScript
 
-Append new functions to the **end** of `scripts.js`. Guard execution:
+**Before adding new JavaScript:**
+1. **Search `scripts.js`** for existing functions that do what you need (validation, formatting, calculations, event handlers, etc.).
+2. **Reuse existing functions** by calling them from your page-specific code.
+3. **Only add new functions** when existing functionality cannot be adapted or reused.
+
+When you must add new JavaScript, append functions to the **end** of `scripts.js` and guard execution:
 
 ```javascript
 // Only runs on pages that have the specific element
 const myWidget = document.getElementById('my-widget');
 if (myWidget) {
     // page-specific logic here
+    // Reuse existing functions where possible
 }
 ```
 
@@ -160,10 +184,13 @@ Automated via GitHub Actions on push to `main`:
 ### Adding a New Calculator Page
 
 1. Create a new `my_calculator.html` in the project root following the page structure convention above.
-2. Add page-specific styles to `styles.css` scoped under a page class.
-3. Add page-specific JS to `scripts.js` guarded by an element existence check.
-4. Add the calculator to the appropriate category hub page (`mechanical_page.html`, `electrical_page.html`, or `plumbing_page.html`).
-5. Add the tool to the search index in `scripts.js` (`performSearch` data).
+2. **Review existing code:** Search `styles.css` and `scripts.js` for reusable classes and functions.
+3. **Reuse existing styles:** Use existing CSS classes in your HTML (forms, buttons, inputs, result displays, etc.).
+4. **Add page-specific styles** only when necessary to `styles.css` scoped under a page class.
+5. **Reuse existing JavaScript:** Call existing validation, formatting, and calculation functions where applicable.
+6. **Add page-specific JS** only when necessary to `scripts.js` guarded by an element existence check.
+7. Add the calculator to the appropriate category hub page (`mechanical_page.html`, `electrical_page.html`, or `plumbing_page.html`).
+8. Add the tool to the search index in `scripts.js` (`performSearch` data).
 
 ### Adding an Article
 
