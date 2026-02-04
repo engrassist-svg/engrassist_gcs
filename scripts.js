@@ -301,7 +301,6 @@ function initializeAllFeatures() {
     initializeMobileMenuClose();
     initializeContactForm();
     initializeFormValidation();
-    initializeConsoleMessages();
     initializeCalculator();
     initializePageCounter();
     initializeDuctulator();
@@ -432,7 +431,6 @@ function updateUIForAuthState(user) {
 // Sign in with Google
 async function signInWithGoogle() {
     if (typeof google === 'undefined') {
-        console.log('Google Sign-In not available, showing email sign-in');
         showEmailSignInModal();
         return;
     }
@@ -827,11 +825,6 @@ async function submitForgotPassword() {
         if (response.ok) {
             messageDiv.innerHTML = '<p style="color: #38a169;">Check your email for password reset instructions!</p>';
 
-            // Show dev info if available
-            if (data.resetLink) {
-                console.log('Password Reset Link:', data.resetLink);
-                messageDiv.innerHTML += '<p style="color: #666; font-size: 0.9em; margin-top: 10px;">DEV MODE: Check console for reset link</p>';
-            }
 
             // Clear form
             document.getElementById('forgotPasswordEmail').value = '';
@@ -1704,8 +1697,6 @@ function initializeContactForm() {
 
         emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this)
             .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                
                 if (successMessage) {
                     successMessage.style.display = 'block';
                     successMessage.scrollIntoView({
@@ -1790,19 +1781,6 @@ function initializeFormValidation() {
     }
 }
 
-function initializeConsoleMessages() {
-    const currentPage = window.location.pathname;
-    
-    if (currentPage.includes('about')) {
-        console.log("%c🔧 EngrAssist About Page - Built with Professional Standards", "color: #f39c12; font-size: 16px; font-weight: bold;");
-        console.log("%cFun fact: Commercial HVAC systems can move over 100,000 CFM of air!", "color: #3498db; font-size: 12px;");
-    } else if (currentPage.includes('privacy')) {
-        console.log("%c🔒 EngrAssist Privacy Policy - Your Privacy is Protected", "color: #27ae60; font-size: 16px; font-weight: bold;");
-    } else if (currentPage.includes('terms')) {
-        console.log("%c⚖️ EngrAssist Terms of Service - Legal Protection Active", "color: #dc3545; font-size: 16px; font-weight: bold;");
-        console.log("%cAll tools for educational purposes only. Professional verification required.", "color: #856404; font-size: 12px;");
-    }
-}
 
 function initializePageCounter() {
     const counterElement = document.getElementById('pageCounter');
@@ -9466,7 +9444,6 @@ async function saveProjectToStorage() {
         // Fall back to localStorage
         try {
             localStorage.setItem('workflowProject', JSON.stringify(workflowState));
-            console.log('Project saved to localStorage');
             showNotification('Project saved locally', 'info');
         } catch (e) {
             console.error('Error saving project to localStorage:', e);
@@ -9487,7 +9464,6 @@ async function loadProjectFromStorage() {
             if (saved) {
                 const loadedState = JSON.parse(saved);
                 restoreProjectState(loadedState);
-                console.log('Project loaded from localStorage');
             }
         } catch (e) {
             console.error('Error loading project from localStorage:', e);
@@ -9559,7 +9535,6 @@ async function saveProjectToCloud() {
 
         if (data.success) {
             workflowState.projectId = data.projectId;
-            console.log('Project saved to cloud:', data.projectId);
             showNotification('Project saved to cloud ✓', 'success');
         } else {
             throw new Error(data.error || 'Failed to save project');
@@ -9587,7 +9562,6 @@ async function loadCurrentProjectFromCloud() {
             // Load the most recent project
             const projectData = JSON.parse(data.projects[0].data);
             restoreProjectState(projectData);
-            console.log('Project loaded from cloud');
         }
     } catch (error) {
         console.error('Error loading from cloud:', error);
@@ -9640,7 +9614,6 @@ async function loadProjectById(projectId) {
 
         if (data.project) {
             restoreProjectState(data.project);
-            console.log('Project loaded:', projectId);
             showNotification('Project loaded ✓', 'success');
         } else {
             showNotification('Project not found', 'error');
@@ -9670,7 +9643,6 @@ async function deleteProjectById(projectId) {
         const data = await response.json();
 
         if (data.success) {
-            console.log('Project deleted:', projectId);
             showNotification('Project deleted', 'success');
             return true;
         } else {
@@ -11439,7 +11411,6 @@ async function deleteProject(projectId) {
             const data = await response.json();
 
             if (data.success) {
-                console.log('Project deleted:', projectId);
                 showNotification('Project deleted ✓', 'success');
                 openLoadProjectModal(); // Refresh the list
             } else {
