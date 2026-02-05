@@ -1058,6 +1058,13 @@ const searchIndex = [
         category: 'Mechanical'
     },
     {
+        url: 'equipment/mechanical/vav-terminals.html',
+        title: 'VAV Terminal Units - Equipment Hub',
+        description: 'Complete VAV terminal unit equipment hub with specifications, types, selection guide, sizing calculator, downloadable schedules and templates. Includes cooling-only, hot water reheat, electric reheat, and fan-powered boxes.',
+        keywords: 'vav terminal units vav box variable air volume equipment hub specifications selection guide sizing calculator schedule template fan powered reheat pressure independent pressure dependent cooling heating types manufacturers titus price nailor',
+        category: 'Mechanical'
+    },
+    {
         url: 'pump_sizing.html',
         title: 'Pump Sizing Calculator',
         description: 'HVAC pump sizing and selection tool. Calculate flow rate, head pressure, and pump curves.',

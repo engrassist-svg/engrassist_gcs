@@ -7053,3 +7053,666 @@ textarea.form-control {
     }
 }
 
+/* ===== Equipment Hub Pages ===== */
+
+/* Equipment Hub Page Container */
+.equipment-hub-page {
+    background: #f8f9fa;
+}
+
+/* Equipment Hero Section */
+.equipment-hero {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 3rem 0 2rem 0;
+}
+
+.equipment-hero-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.equipment-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.equipment-subtitle {
+    font-size: 1.2rem;
+    color: #f39c12;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.equipment-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.equipment-quick-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.quick-spec-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #f39c12;
+}
+
+.spec-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+}
+
+.spec-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* Quick Navigation Tabs */
+.equipment-nav-tabs {
+    background: white;
+    border-bottom: 2px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.equipment-nav-tabs .container {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+}
+
+.equipment-nav-tabs a {
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.equipment-nav-tabs a:hover {
+    background: #f0f7ff;
+    color: #1e3c72;
+    border-color: #1e3c72;
+}
+
+.equipment-nav-tabs a.active {
+    background: #1e3c72;
+    color: white;
+}
+
+/* Equipment Content Sections */
+.equipment-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.equipment-section {
+    background: white;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.equipment-section h2 {
+    color: #1e3c72;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #f39c12;
+}
+
+.equipment-section h3 {
+    color: #2a5298;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.equipment-section h4 {
+    color: #444;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Equipment Comparison Grid */
+.equipment-comparison {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.equipment-type-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.5rem;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.equipment-type-card:hover {
+    border-color: #2a5298;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.equipment-type-card h3 {
+    color: #1e3c72;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+}
+
+.type-description {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.type-specs {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.spec-item .spec-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.spec-item .spec-value {
+    font-weight: 600;
+    color: #1e3c72;
+    font-size: 0.9rem;
+}
+
+.type-details {
+    margin: 1rem 0;
+}
+
+.type-details p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Pros and Cons Mini */
+.pros-cons-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.pros-mini,
+.cons-mini {
+    padding: 0.75rem;
+    border-radius: 6px;
+}
+
+.pros-mini {
+    background: #e8f5e9;
+    border-left: 3px solid #4caf50;
+}
+
+.cons-mini {
+    background: #ffebee;
+    border-left: 3px solid #f44336;
+}
+
+.pros-mini strong,
+.cons-mini strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.pros-mini ul,
+.cons-mini ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.pros-mini li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.pros-mini li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.cons-mini li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.cons-mini li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: #f44336;
+    font-weight: bold;
+}
+
+/* Comparison Table */
+.comparison-table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 700px;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.comparison-table th {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.comparison-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Calculator Container */
+.calculator-container {
+    margin: 2rem 0;
+}
+
+.calculator-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.calculator-link-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: white;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.calculator-link-card:hover {
+    border-color: #2a5298;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.calc-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.calc-info h4 {
+    color: #1e3c72;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.calc-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Downloads Grid */
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.download-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border: 2px dashed #2a5298;
+    border-radius: 10px;
+    background: white;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.download-card:hover {
+    background: #f0f7ff;
+    border-style: solid;
+    border-color: #1e3c72;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.download-card-placeholder {
+    opacity: 0.6;
+    border-style: dashed;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.download-card-placeholder:hover {
+    background: white;
+    border-color: #ccc;
+    transform: none;
+    box-shadow: none;
+}
+
+.download-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.download-card h4 {
+    color: #1e3c72;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.download-format {
+    font-size: 0.85rem;
+    color: #f39c12;
+    font-weight: 600;
+    margin: 0.25rem 0;
+}
+
+.download-description {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+    margin: 0.5rem 0 0 0;
+}
+
+/* Related Equipment */
+.related-equipment {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.related-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background: white;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.related-item:hover {
+    border-color: #2a5298;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.related-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.related-item h4 {
+    color: #1e3c72;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.related-item p {
+    margin: 0;
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* Troubleshooting Grid */
+.troubleshooting-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.troubleshooting-card {
+    padding: 1.5rem;
+    border-left: 4px solid #f39c12;
+    background: #fffbf0;
+    border-radius: 8px;
+}
+
+.troubleshooting-card h3 {
+    color: #d68910;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.troubleshooting-card p {
+    margin: 0.75rem 0 0.5rem 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.troubleshooting-card ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.troubleshooting-card li {
+    margin: 0.3rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Manufacturer Grid */
+.manufacturer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.manufacturer-card {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #f39c12;
+}
+
+.manufacturer-card h4 {
+    color: #d68910;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.manufacturer-card p {
+    margin: 0.5rem 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.manufacturer-card ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.manufacturer-card li {
+    margin: 0.3rem 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.manufacturer-card a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.manufacturer-card a:hover {
+    color: #f39c12;
+}
+
+/* Responsive Design for Equipment Hub Pages */
+@media (max-width: 1024px) {
+    .equipment-comparison {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .equipment-hero h1 {
+        font-size: 2rem;
+    }
+
+    .equipment-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .equipment-description {
+        font-size: 1rem;
+    }
+
+    .equipment-quick-specs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .equipment-section {
+        padding: 1.5rem;
+    }
+
+    .equipment-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .equipment-comparison {
+        grid-template-columns: 1fr;
+    }
+
+    .pros-cons-mini {
+        grid-template-columns: 1fr;
+    }
+
+    .downloads-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .related-equipment {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .troubleshooting-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .manufacturer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .equipment-hero {
+        padding: 2rem 0 1.5rem 0;
+    }
+
+    .equipment-hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .equipment-quick-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .equipment-nav-tabs .container {
+        gap: 0.25rem;
+        padding: 0.5rem;
+    }
+
+    .equipment-nav-tabs a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .equipment-section {
+        padding: 1rem;
+    }
+
+    .related-equipment {
+        grid-template-columns: 1fr;
+    }
+}
+
