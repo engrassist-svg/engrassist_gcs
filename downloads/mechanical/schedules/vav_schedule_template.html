@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAV Schedule Template - EngrAssist</title>
+    <link rel="stylesheet" href="../../../styles.css">
+    <style>
+        .template-page {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .template-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .column-list {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .column-list li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="template-page">
+            <div class="template-header">
+                <h1>VAV Terminal Unit Schedule Template</h1>
+                <p>Coming Soon - Excel Template</p>
+            </div>
+
+            <div class="info-box">
+                <h3>📊 VAV Schedule Template Structure</h3>
+                <p>This Excel template will include the following columns for comprehensive VAV terminal unit documentation:</p>
+
+                <div class="column-list">
+                    <h4>Basic Information</h4>
+                    <ul>
+                        <li><strong>Mark Number:</strong> Equipment tag (e.g., VAV-1, VAV-2)</li>
+                        <li><strong>Zone Name:</strong> Space served</li>
+                        <li><strong>Zone Type:</strong> Interior, Perimeter, Conference, etc.</li>
+                        <li><strong>Floor Level:</strong> Floor location</li>
+                    </ul>
+                </div>
+
+                <div class="column-list">
+                    <h4>Airflow Requirements</h4>
+                    <ul>
+                        <li><strong>Maximum CFM:</strong> Peak cooling airflow</li>
+                        <li><strong>Minimum CFM:</strong> Minimum ventilation airflow</li>
+                        <li><strong>Turndown Ratio:</strong> Max/Min ratio</li>
+                        <li><strong>Supply Air Temperature:</strong> Typically 55°F</li>
+                    </ul>
+                </div>
+
+                <div class="column-list">
+                    <h4>Equipment Specifications</h4>
+                    <ul>
+                        <li><strong>Type:</strong> Cooling-only, HW Reheat, Electric Reheat, Fan-Powered, etc.</li>
+                        <li><strong>Control Type:</strong> Pressure Independent (DDC) or Pressure Dependent</li>
+                        <li><strong>Inlet Size:</strong> Round or rectangular duct size</li>
+                        <li><strong>Sound Rating:</strong> NC rating requirement</li>
+                        <li><strong>Acoustic Liner:</strong> Yes/No</li>
+                    </ul>
+                </div>
+
+                <div class="column-list">
+                    <h4>Reheat Information (if applicable)</h4>
+                    <ul>
+                        <li><strong>Reheat Type:</strong> Hot Water, Electric, None</li>
+                        <li><strong>Heating Capacity:</strong> BTU/hr or kW</li>
+                        <li><strong>Coil Rows:</strong> 1-row, 2-row (for HW)</li>
+                        <li><strong>Hot Water Temperature:</strong> 180°F typical</li>
+                        <li><strong>Electric Voltage:</strong> 120V, 208V, 240V (for electric reheat)</li>
+                    </ul>
+                </div>
+
+                <div class="column-list">
+                    <h4>Controls & Integration</h4>
+                    <ul>
+                        <li><strong>Controller Model:</strong> Manufacturer's controller part number</li>
+                        <li><strong>Communication Protocol:</strong> BACnet, Modbus, LonWorks</li>
+                        <li><strong>Thermostat Type:</strong> Room sensor model</li>
+                        <li><strong>Actuator Voltage:</strong> 24VAC typical</li>
+                    </ul>
+                </div>
+
+                <div class="column-list">
+                    <h4>Additional Options</h4>
+                    <ul>
+                        <li><strong>Airflow Sensor Type:</strong> Hot wire, Differential pressure</li>
+                        <li><strong>Damper Type:</strong> Single blade, Opposed blade</li>
+                        <li><strong>Fan Size (FP boxes):</strong> HP rating for fan-powered units</li>
+                        <li><strong>Filter (FP boxes):</strong> MERV rating</li>
+                    </ul>
+                </div>
+
+                <div class="column-list">
+                    <h4>Installation Notes</h4>
+                    <ul>
+                        <li><strong>Location:</strong> Ceiling location/grid reference</li>
+                        <li><strong>Access Panel:</strong> Required ceiling access panel size</li>
+                        <li><strong>Manufacturer:</strong> Approved manufacturers (Titus, Price, Nailor, etc.)</li>
+                        <li><strong>Notes:</strong> Special requirements or considerations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 2rem;">
+                <h4>📥 Template Coming Soon</h4>
+                <p>We're currently developing a comprehensive Excel template with all these columns pre-formatted. The template will include:</p>
+                <ul>
+                    <li>Formatted headers with filters</li>
+                    <li>Data validation dropdowns for common values</li>
+                    <li>Automatic calculations (turndown ratios, heating capacity checks)</li>
+                    <li>Conditional formatting for quick visual review</li>
+                    <li>Print-ready layout for construction documents</li>
+                </ul>
+                <p><strong>In the meantime,</strong> you can create your own schedule using the column structure above in Excel or your preferred spreadsheet program.</p>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="../../../equipment/mechanical/vav-terminals.html" class="btn">← Back to VAV Terminal Units</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

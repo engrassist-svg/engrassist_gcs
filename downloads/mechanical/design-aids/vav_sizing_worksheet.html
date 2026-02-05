@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAV Sizing Worksheet - EngrAssist</title>
+    <link rel="stylesheet" href="../../../styles.css">
+    <style>
+        .template-page {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .template-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .formula-box {
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #2196f3;
+        }
+        .example-calc {
+            background: #f1f8e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #8bc34a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="template-page">
+            <div class="template-header">
+                <h1>VAV Terminal Unit Sizing Worksheet</h1>
+                <p>Coming Soon - Excel Calculator</p>
+            </div>
+
+            <div class="info-box">
+                <h3>🧮 VAV Sizing Worksheet Structure</h3>
+                <p>This Excel worksheet will provide automated calculations for properly sizing VAV terminal units. The worksheet will include:</p>
+            </div>
+
+            <div class="formula-box">
+                <h4>Maximum Airflow Calculation</h4>
+                <p><strong>Formula:</strong> CFM = Cooling Load (BTU/hr) ÷ (1.08 × ΔT)</p>
+                <p><strong>Where:</strong></p>
+                <ul>
+                    <li>CFM = Airflow in cubic feet per minute</li>
+                    <li>Cooling Load = Zone sensible cooling load in BTU/hr</li>
+                    <li>1.08 = Constant (0.24 × 60 × 0.075, for standard air)</li>
+                    <li>ΔT = Temperature difference (Room temp - Supply air temp)</li>
+                    <li>Typical ΔT = 20°F (75°F room - 55°F supply)</li>
+                </ul>
+
+                <div class="example-calc">
+                    <p><strong>Example:</strong></p>
+                    <p>Zone cooling load: 5,000 BTU/hr</p>
+                    <p>CFM = 5,000 ÷ (1.08 × 20) = 5,000 ÷ 21.6 = <strong>231 CFM</strong></p>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <h4>Minimum Airflow Calculation</h4>
+                <p><strong>Minimum airflow is the GREATER of:</strong></p>
+                <ol>
+                    <li><strong>Ventilation Requirement (ASHRAE 62.1):</strong>
+                        <ul>
+                            <li>CFM = (People × CFM/person) + (Area × CFM/SF)</li>
+                            <li>Office: 5 CFM/person + 0.06 CFM/SF</li>
+                            <li>Conference room: 5 CFM/person + 0.06 CFM/SF</li>
+                            <li>Classroom: 10 CFM/person + 0.12 CFM/SF</li>
+                        </ul>
+                    </li>
+                    <li><strong>Minimum for Air Circulation:</strong>
+                        <ul>
+                            <li>Typically 30% of maximum CFM</li>
+                            <li>Prevents stratification and maintains air movement</li>
+                        </ul>
+                    </li>
+                    <li><strong>Minimum for Duct Velocity:</strong>
+                        <ul>
+                            <li>Maintain minimum 500-700 FPM in duct</li>
+                            <li>Prevents settling of dust and contaminants</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="example-calc">
+                    <p><strong>Example:</strong></p>
+                    <p>Private office, 150 SF, 1 person, Max CFM = 231</p>
+                    <ul>
+                        <li>Ventilation: (1 × 5) + (150 × 0.06) = 5 + 9 = <strong>14 CFM</strong></li>
+                        <li>30% of max: 231 × 0.30 = <strong>69 CFM</strong> ← Controls</li>
+                        <li>Duct velocity: (depends on duct size)</li>
+                    </ul>
+                    <p><strong>Use: 69 CFM minimum</strong> (30% rule governs)</p>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <h4>Reheat Sizing Calculation</h4>
+                <p><strong>Formula:</strong> Heating Capacity (BTU/hr) = CFM × 1.08 × ΔT</p>
+                <p><strong>Where:</strong></p>
+                <ul>
+                    <li>CFM = Minimum airflow (not maximum!)</li>
+                    <li>ΔT = Desired heating rise (typically 20-30°F)</li>
+                </ul>
+
+                <div class="example-calc">
+                    <p><strong>Example:</strong></p>
+                    <p>Min CFM: 69, Desired ΔT: 25°F</p>
+                    <p>Heating = 69 × 1.08 × 25 = <strong>1,863 BTU/hr</strong></p>
+                    <p>For hot water reheat: Select 1-row coil, typically 2,000-3,000 BTU/hr capacity</p>
+                    <p>For electric reheat: Select 1 kW heater (3,412 BTU/hr)</p>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <h4>Turndown Ratio</h4>
+                <p><strong>Formula:</strong> Turndown Ratio = Maximum CFM ÷ Minimum CFM</p>
+                <p><strong>Typical ratios:</strong></p>
+                <ul>
+                    <li>3:1 to 5:1 is typical for most applications</li>
+                    <li>Higher ratios (up to 10:1) possible with pressure-independent controls</li>
+                    <li>Lower ratios (2:1) may be required for high ventilation spaces</li>
+                </ul>
+
+                <div class="example-calc">
+                    <p><strong>Example:</strong></p>
+                    <p>Max: 231 CFM, Min: 69 CFM</p>
+                    <p>Turndown = 231 ÷ 69 = <strong>3.3:1</strong> ✓ (Acceptable)</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>📊 Worksheet Features (Coming Soon)</h3>
+                <p>The Excel worksheet will include:</p>
+                <ul>
+                    <li><strong>Input Section:</strong> Enter zone data (area, occupancy, loads, temperatures)</li>
+                    <li><strong>Automatic Calculations:</strong> All formulas pre-programmed</li>
+                    <li><strong>Ventilation Lookup:</strong> ASHRAE 62.1 requirements by space type</li>
+                    <li><strong>Validation Checks:</strong> Highlights issues (turndown too high, min too low, etc.)</li>
+                    <li><strong>Summary Table:</strong> Results table for quick reference</li>
+                    <li><strong>Export to Schedule:</strong> Copy results directly to equipment schedule</li>
+                    <li><strong>Multiple Zones:</strong> Calculate many zones on one worksheet</li>
+                </ul>
+            </div>
+
+            <div class="warning-box" style="margin-top: 2rem;">
+                <h4>Quick Reference Table</h4>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Space Type</th>
+                            <th>Typical CFM/SF</th>
+                            <th>Min % of Max</th>
+                            <th>Ventilation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Private Office</td>
+                            <td>0.8 - 1.2</td>
+                            <td>30%</td>
+                            <td>5 CFM/person + 0.06 CFM/SF</td>
+                        </tr>
+                        <tr>
+                            <td>Open Office</td>
+                            <td>1.0 - 1.5</td>
+                            <td>30%</td>
+                            <td>5 CFM/person + 0.06 CFM/SF</td>
+                        </tr>
+                        <tr>
+                            <td>Conference Room</td>
+                            <td>1.5 - 2.5</td>
+                            <td>30-40%</td>
+                            <td>5 CFM/person + 0.06 CFM/SF</td>
+                        </tr>
+                        <tr>
+                            <td>Classroom</td>
+                            <td>1.2 - 2.0</td>
+                            <td>40%</td>
+                            <td>10 CFM/person + 0.12 CFM/SF</td>
+                        </tr>
+                        <tr>
+                            <td>Corridor</td>
+                            <td>0.5 - 0.8</td>
+                            <td>100%</td>
+                            <td>0.06 CFM/SF</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="../../../equipment/mechanical/vav-terminals.html" class="btn">← Back to VAV Terminal Units</a>
+                <a href="../../../load_calculation.html" class="btn" style="margin-left: 1rem;">Go to Load Calculator →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
