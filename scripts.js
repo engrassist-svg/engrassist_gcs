@@ -20,7 +20,23 @@ function loadTemplate(elementId, templateFile) {
         })
         .catch(error => {
             console.error('Template loading error:', error);
-            // Fallback: show page anyway to prevent blank screen
+            // Fallback: try root-relative path if the original path was relative
+            const fileName = templateFile.split('/').pop();
+            if (templateFile !== '/' + fileName) {
+                return fetch('/' + fileName)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Fallback failed');
+                        return response.text();
+                    })
+                    .then(html => {
+                        const element = document.getElementById(elementId);
+                        if (element) {
+                            element.innerHTML = html;
+                        }
+                        return true;
+                    })
+                    .catch(() => false);
+            }
             return false;
         });
 }
@@ -33,9 +49,12 @@ function initializeTemplates() {
     const pathPrefix = '../'.repeat(depth);
 
     // Load both templates in parallel for speed
+    // Use root-relative paths for subdirectory pages to avoid path resolution issues
+    const headerPath = depth > 0 ? '/header.html' : 'header.html';
+    const footerPath = depth > 0 ? '/footer.html' : 'footer.html';
     Promise.all([
-        loadTemplate('header-placeholder', pathPrefix + 'header.html'),
-        loadTemplate('footer-placeholder', pathPrefix + 'footer.html')
+        loadTemplate('header-placeholder', headerPath),
+        loadTemplate('footer-placeholder', footerPath)
     ]).then(() => {
         // Fix relative links in header/footer for subdirectory pages
         if (pathPrefix) {
