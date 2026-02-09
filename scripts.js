@@ -29,13 +29,31 @@ function loadTemplate(elementId, templateFile) {
 function initializeTemplates() {
     // Determine the correct path prefix based on current page location
     const path = window.location.pathname;
-    const pathPrefix = path.includes('/articles/') ? '../' : '';
+    const depth = Math.max(0, path.split('/').filter(Boolean).length - 1);
+    const pathPrefix = '../'.repeat(depth);
 
     // Load both templates in parallel for speed
     Promise.all([
         loadTemplate('header-placeholder', pathPrefix + 'header.html'),
         loadTemplate('footer-placeholder', pathPrefix + 'footer.html')
     ]).then(() => {
+        // Fix relative links in header/footer for subdirectory pages
+        if (pathPrefix) {
+            document.querySelectorAll('#header-placeholder a, #footer-placeholder a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('/') && !href.startsWith('../')) {
+                    link.setAttribute('href', pathPrefix + href);
+                }
+            });
+            // Fix image sources in header/footer
+            document.querySelectorAll('#header-placeholder img, #footer-placeholder img').forEach(img => {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('http') && !src.startsWith('/') && !src.startsWith('../')) {
+                    img.setAttribute('src', pathPrefix + src);
+                }
+            });
+        }
+
         // Templates loaded - show page with fade-in
         document.body.classList.add('templates-loaded');
 
@@ -90,7 +108,8 @@ function initializeBreadcrumbs() {
     }
 
     // Determine path prefix for nested pages
-    const pathPrefix = path.includes('/articles/') ? '../' : '';
+    const depth = Math.max(0, path.split('/').filter(Boolean).length - 1);
+    const pathPrefix = '../'.repeat(depth);
 
     // Build breadcrumb trail
     const breadcrumbs = generateBreadcrumbs(currentPage, path);
@@ -120,7 +139,8 @@ function initializeBreadcrumbs() {
 
 function generateBreadcrumbs(currentPage, fullPath) {
     const breadcrumbs = [];
-    const pathPrefix = fullPath.includes('/articles/') ? '../' : '';
+    const depth = Math.max(0, fullPath.split('/').filter(Boolean).length - 1);
+    const pathPrefix = '../'.repeat(depth);
 
     // Always start with Home
     breadcrumbs.push({
@@ -193,7 +213,10 @@ function generateBreadcrumbs(currentPage, fullPath) {
         'refrigeration-cycle.html': 'Refrigeration Cycle',
         'chilled-water-systems.html': 'Chilled Water Systems',
         'vrf-systems.html': 'VRF Systems',
-        'heat-pumps.html': 'Heat Pumps'
+        'heat-pumps.html': 'Heat Pumps',
+
+        // Equipment pages
+        'vav-terminals.html': 'VAV Terminal Units'
     };
 
     // Determine parent category for tools
@@ -251,6 +274,20 @@ function generateBreadcrumbs(currentPage, fullPath) {
         breadcrumbs.push({
             label: 'Articles',
             url: pathPrefix + 'index.html#articles'
+        });
+    }
+    // Check if in equipment/mechanical directory
+    else if (fullPath.includes('/equipment/mechanical/')) {
+        breadcrumbs.push({
+            label: 'Mechanical',
+            url: pathPrefix + 'mechanical_page.html'
+        });
+    }
+    // Check if in downloads/mechanical directory
+    else if (fullPath.includes('/downloads/mechanical/')) {
+        breadcrumbs.push({
+            label: 'Mechanical',
+            url: pathPrefix + 'mechanical_page.html'
         });
     }
     // Add category breadcrumb for tools
@@ -1555,9 +1592,13 @@ function showSearchResults(results, inputElement) {
     // Limit to top 10 results
     const topResults = results.slice(0, 10);
 
+    const searchPath = window.location.pathname;
+    const searchDepth = Math.max(0, searchPath.split('/').filter(Boolean).length - 1);
+    const searchPrefix = '../'.repeat(searchDepth);
+
     topResults.forEach((result, index) => {
         const item = document.createElement('a');
-        item.href = result.url;
+        item.href = searchPrefix + result.url;
         item.className = 'search-result-item';
         if (index === 0) item.classList.add('selected');
 
