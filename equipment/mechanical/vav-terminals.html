@@ -69,10 +69,6 @@
                                 <div class="spec-label">Applications</div>
                                 <div class="spec-value">Offices, Schools, Commercial</div>
                             </div>
-                            <div class="quick-spec-item">
-                                <div class="spec-label">Typical Cost</div>
-                                <div class="spec-value">$400 - $2,000</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -90,6 +86,8 @@
                 <a href="#downloads">Downloads</a>
                 <a href="#standards">Codes & Standards</a>
                 <a href="#related">Related Equipment</a>
+                <a href="#troubleshooting">Troubleshooting</a>
+                <a href="#manufacturers">Manufacturers</a>
             </div>
         </nav>
 
@@ -168,10 +166,6 @@
                                         <span class="spec-label">Typical Min/Max:</span>
                                         <span class="spec-value">30% / 100%</span>
                                     </div>
-                                    <div class="spec-item">
-                                        <span class="spec-label">Cost:</span>
-                                        <span class="spec-value">$400 - $800</span>
-                                    </div>
                                 </div>
 
                                 <div class="type-details">
@@ -207,10 +201,6 @@
                                     <div class="spec-item">
                                         <span class="spec-label">Typical Coil:</span>
                                         <span class="spec-value">1-2 rows, 180°F HW</span>
-                                    </div>
-                                    <div class="spec-item">
-                                        <span class="spec-label">Cost:</span>
-                                        <span class="spec-value">$600 - $1,200</span>
                                     </div>
                                 </div>
 
@@ -248,10 +238,6 @@
                                     <div class="spec-item">
                                         <span class="spec-label">Typical Capacity:</span>
                                         <span class="spec-value">1 - 20 kW</span>
-                                    </div>
-                                    <div class="spec-item">
-                                        <span class="spec-label">Cost:</span>
-                                        <span class="spec-value">$700 - $1,400</span>
                                     </div>
                                 </div>
 
@@ -291,10 +277,6 @@
                                         <span class="spec-label">Fan Operation:</span>
                                         <span class="spec-value">Continuous</span>
                                     </div>
-                                    <div class="spec-item">
-                                        <span class="spec-label">Cost:</span>
-                                        <span class="spec-value">$1,200 - $2,000</span>
-                                    </div>
                                 </div>
 
                                 <div class="type-details">
@@ -332,10 +314,6 @@
                                         <span class="spec-label">Fan Operation:</span>
                                         <span class="spec-value">Intermittent</span>
                                     </div>
-                                    <div class="spec-item">
-                                        <span class="spec-label">Cost:</span>
-                                        <span class="spec-value">$1,100 - $1,800</span>
-                                    </div>
                                 </div>
 
                                 <div class="type-details">
@@ -371,10 +349,6 @@
                                     <div class="spec-item">
                                         <span class="spec-label">Air Streams:</span>
                                         <span class="spec-value">Hot & Cold</span>
-                                    </div>
-                                    <div class="spec-item">
-                                        <span class="spec-label">Cost:</span>
-                                        <span class="spec-value">$900 - $1,600</span>
                                     </div>
                                 </div>
 
@@ -785,7 +759,7 @@
                     </div>
 
                     <!-- Troubleshooting Section -->
-                    <div class="equipment-section">
+                    <div id="troubleshooting" class="equipment-section">
                         <h2>Troubleshooting Common Issues</h2>
 
                         <div class="troubleshooting-grid">
@@ -861,7 +835,7 @@
                     </div>
 
                     <!-- Manufacturers Section -->
-                    <div class="equipment-section">
+                    <div id="manufacturers" class="equipment-section">
                         <h2>Popular Manufacturers</h2>
 
                         <div class="manufacturer-grid">
@@ -893,7 +867,7 @@
                                 <ul>
                                     <li>Revolution VAV series</li>
                                     <li>Reliable performers</li>
-                                    <li>Competitive pricing</li>
+                                    <li>Wide availability</li>
                                 </ul>
                                 <a href="https://www.nailor.com" target="_blank" rel="noopener">Visit Website →</a>
                             </div>
@@ -957,43 +931,115 @@
             }
         }
 
-        // Smooth scrolling for navigation tabs
-        document.querySelectorAll('.equipment-nav-tabs a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        function isMobileView() {
+            return window.innerWidth <= 768;
+        }
+
+        // Show a single section on mobile, hide all others
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.equipment-section');
+            var navLinks = document.querySelectorAll('.equipment-nav-tabs a');
+
+            sections.forEach(function(section) {
+                if (section.getAttribute('id') === sectionId) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + sectionId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll to top of content area
+            var navTabs = document.querySelector('.equipment-nav-tabs');
+            if (navTabs) {
+                navTabs.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Show all sections (desktop mode)
+        function showAllSections() {
+            var sections = document.querySelectorAll('.equipment-section');
+            sections.forEach(function(section) {
+                section.style.display = '';
+            });
+        }
+
+        // Set up tab click handlers
+        document.querySelectorAll('.equipment-nav-tabs a').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 80; // Account for sticky nav height
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                var sectionId = this.getAttribute('href').substring(1);
+
+                if (isMobileView()) {
+                    showSection(sectionId);
+                } else {
+                    // Desktop: smooth scroll to section
+                    var target = document.getElementById(sectionId);
+                    if (target) {
+                        var offset = 80;
+                        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
                 }
             });
         });
 
-        // Highlight active section in nav
+        // Desktop: highlight active section on scroll
         window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.equipment-section');
-            const navLinks = document.querySelectorAll('.equipment-nav-tabs a');
+            if (isMobileView()) return;
 
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
+            var sections = document.querySelectorAll('.equipment-section');
+            var navLinks = document.querySelectorAll('.equipment-nav-tabs a');
+            var current = '';
+
+            sections.forEach(function(section) {
+                var sectionTop = section.offsetTop;
                 if (pageYOffset >= (sectionTop - 100)) {
                     current = section.getAttribute('id');
                 }
             });
 
-            navLinks.forEach(link => {
+            navLinks.forEach(function(link) {
                 link.classList.remove('active');
                 if (link.getAttribute('href').substring(1) === current) {
                     link.classList.add('active');
                 }
             });
         });
+
+        // On load: if mobile, show only Overview
+        function initMobileTabs() {
+            if (isMobileView()) {
+                showSection('overview');
+            } else {
+                showAllSections();
+            }
+        }
+
+        // Handle resize: switch between mobile tab mode and desktop scroll mode
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                if (isMobileView()) {
+                    // Find currently active tab or default to overview
+                    var activeLink = document.querySelector('.equipment-nav-tabs a.active');
+                    var activeId = activeLink ? activeLink.getAttribute('href').substring(1) : 'overview';
+                    showSection(activeId);
+                } else {
+                    showAllSections();
+                }
+            }, 150);
+        });
+
+        // Initialize on page load
+        initMobileTabs();
     </script>
 </body>
 </html>

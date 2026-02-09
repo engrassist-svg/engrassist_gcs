@@ -7684,6 +7684,29 @@ textarea.form-control {
     .calculator-links {
         grid-template-columns: 1fr;
     }
+
+    /* Mobile tab navigation for equipment hub pages */
+    .equipment-nav-tabs .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        justify-content: center;
+        padding: 0.6rem;
+    }
+
+    .equipment-nav-tabs a {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        background: #f8f9fa;
+    }
+
+    .equipment-nav-tabs a.active {
+        background: #1e3c72;
+        color: white;
+        border-color: #1e3c72;
+    }
 }
 
 @media (max-width: 480px) {
