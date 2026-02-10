@@ -237,7 +237,8 @@ function generateBreadcrumbs(currentPage, fullPath) {
         'heat-pumps.html': 'Heat Pumps',
 
         // Equipment pages
-        'vav-terminals.html': 'VAV Terminal Units'
+        'vav-terminals.html': 'VAV Terminal Units',
+        'vav_boxes.html': 'VAV Boxes'
     };
 
     // Determine parent category for tools
@@ -1102,17 +1103,10 @@ const searchIndex = [
         category: 'Mechanical'
     },
     {
-        url: 'vav_sizing.html',
-        title: 'VAV Box Sizing',
-        description: 'Variable Air Volume (VAV) box sizing calculator. Calculate minimum and maximum airflow, heating requirements.',
-        keywords: 'vav sizing variable air volume box terminal unit airflow heating reheat pressure independent',
-        category: 'Mechanical'
-    },
-    {
-        url: 'equipment/mechanical/vav-terminals.html',
-        title: 'VAV Terminal Units - Equipment Hub',
-        description: 'Complete VAV terminal unit equipment hub with specifications, types, selection guide, sizing calculator, downloadable schedules and templates. Includes cooling-only, hot water reheat, electric reheat, and fan-powered boxes.',
-        keywords: 'vav terminal units vav box variable air volume equipment hub specifications selection guide sizing calculator schedule template fan powered reheat pressure independent pressure dependent cooling heating types manufacturers titus price nailor',
+        url: 'vav_boxes.html',
+        title: 'VAV Boxes: Complete Guide & Calculator',
+        description: 'Everything about VAV terminal units: interactive sizing calculator, types, controls, troubleshooting, specifications, best practices, and downloadable templates.',
+        keywords: 'vav box variable air volume terminal unit sizing calculator reheat fan powered pressure independent pressure dependent troubleshooting specifications types controls best practices manufacturers titus price nailor krueger',
         category: 'Mechanical'
     },
     {
@@ -1513,10 +1507,10 @@ const searchIndex = [
         category: 'Articles'
     },
     {
-        url: 'articles/vav-boxes.html',
-        title: 'VAV Boxes Guide',
-        description: 'Guide to Variable Air Volume (VAV) boxes and terminals.',
-        keywords: 'vav boxes variable air volume terminals hvac',
+        url: 'vav_boxes.html',
+        title: 'VAV Boxes: Complete Guide',
+        description: 'Complete guide to Variable Air Volume (VAV) boxes: types, controls, sizing, troubleshooting, and specifications.',
+        keywords: 'vav boxes variable air volume terminals hvac guide types controls sizing',
         category: 'Articles'
     },
     {
@@ -7619,6 +7613,116 @@ initializeAllFeatures = function() {
     initializeGoogleAnalytics();
     initializeWorkflowHub();
 };
+
+// ========================================
+// ACCORDION & SECTION NAV (Consolidated Pages)
+// ========================================
+
+function initializeAccordions() {
+    var headers = document.querySelectorAll('.accordion-header');
+    if (!headers.length) return;
+
+    headers.forEach(function(header) {
+        header.addEventListener('click', function() {
+            var content = this.nextElementSibling;
+            var isOpen = this.classList.contains('active');
+
+            if (isOpen) {
+                this.classList.remove('active');
+                content.style.maxHeight = null;
+            } else {
+                this.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Expand/Collapse all buttons
+    var expandAll = document.getElementById('expand-all');
+    var collapseAll = document.getElementById('collapse-all');
+    if (expandAll) {
+        expandAll.addEventListener('click', function() {
+            headers.forEach(function(h) {
+                h.classList.add('active');
+                h.nextElementSibling.style.maxHeight = h.nextElementSibling.scrollHeight + 'px';
+            });
+        });
+    }
+    if (collapseAll) {
+        collapseAll.addEventListener('click', function() {
+            headers.forEach(function(h) {
+                h.classList.remove('active');
+                h.nextElementSibling.style.maxHeight = null;
+            });
+        });
+    }
+
+    // Hash-based deep linking: open accordion from URL hash
+    if (window.location.hash) {
+        var target = document.querySelector(window.location.hash);
+        if (target) {
+            var parentAccordion = target.closest('.accordion-content');
+            if (parentAccordion) {
+                var parentHeader = parentAccordion.previousElementSibling;
+                if (parentHeader && parentHeader.classList.contains('accordion-header')) {
+                    parentHeader.classList.add('active');
+                    parentAccordion.style.maxHeight = parentAccordion.scrollHeight + 'px';
+                }
+            }
+            setTimeout(function() {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+    }
+}
+
+function initializeSectionNav() {
+    var nav = document.querySelector('.section-nav');
+    if (!nav) return;
+
+    var navLinks = nav.querySelectorAll('a');
+    var sections = [];
+
+    navLinks.forEach(function(link) {
+        var sectionId = link.getAttribute('href');
+        if (sectionId && sectionId.startsWith('#')) {
+            var section = document.getElementById(sectionId.substring(1));
+            if (section) sections.push({ id: sectionId.substring(1), el: section, link: link });
+        }
+
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var id = this.getAttribute('href').substring(1);
+            var targetSection = document.getElementById(id);
+            if (targetSection) {
+                var offset = nav.offsetHeight + 16;
+                var targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: targetPos, behavior: 'smooth' });
+            }
+            navLinks.forEach(function(l) { l.classList.remove('active'); });
+            this.classList.add('active');
+        });
+    });
+
+    // Highlight active section on scroll
+    if (sections.length) {
+        window.addEventListener('scroll', function() {
+            var scrollPos = window.pageYOffset + nav.offsetHeight + 40;
+            var current = '';
+            sections.forEach(function(s) {
+                if (scrollPos >= s.el.offsetTop) {
+                    current = s.id;
+                }
+            });
+            navLinks.forEach(function(l) {
+                l.classList.remove('active');
+                if (l.getAttribute('href') === '#' + current) {
+                    l.classList.add('active');
+                }
+            });
+        });
+    }
+}
 
 // ========================================
 // VAV BOX SIZING CALCULATOR FUNCTIONS
