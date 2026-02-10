@@ -2,7 +2,9 @@
 // TEMPLATE LOADING SYSTEM - OPTIMIZED
 // ====================================
 
+
 // Load templates efficiently with Promise-based approach
+document.addEventListener('DOMContentLoaded', initializeTemplates);
 function loadTemplate(elementId, templateFile) {
     return fetch(templateFile)
         .then(response => {
