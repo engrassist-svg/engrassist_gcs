@@ -76,11 +76,11 @@
         <section class="content-section">
             <div class="container">
                 <div class="tab-navigation">
-                    <button class="tab-button active" onclick="switchTab('calculator', event)">
-                        Calculator
-                    </button>
-                    <button class="tab-button" onclick="switchTab('information', event)">
+                    <button class="tab-button active" onclick="switchTab('information', event)">
                         Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('calculator', event)">
+                        Calculator
                     </button>
                     <button class="tab-button" onclick="switchTab('troubleshooting', event)">
                         Troubleshooting
@@ -91,7 +91,7 @@
                 </div>
 
                 <!-- CALCULATOR TAB -->
-                <div id="calculator-tab" class="tab-content active">
+                <div id="calculator-tab" class="tab-content">
                     <h2 class="section-title">Circuit Sizing Calculator</h2>
 
                     <h3 style="color: #2c3e50; margin-top: 2rem;">Circuit Parameters</h3>
@@ -320,7 +320,7 @@
                 </div>
 
                 <!-- INFORMATION TAB -->
-                <div id="information-tab" class="tab-content">
+                <div id="information-tab" class="tab-content active">
                     <h2 class="section-title">Circuit Sizing Information</h2>
 
                     <div class="article-content">
