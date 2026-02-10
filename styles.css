@@ -7741,3 +7741,241 @@ textarea.form-control {
     }
 }
 
+/* ====================================
+   CONSOLIDATED PAGE - SECTION NAV + ACCORDIONS
+   Reusable component for consolidated equipment pages
+   ==================================== */
+
+/* Section Navigation Bar */
+.section-nav {
+    background: white;
+    border-bottom: 2px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-nav .container {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.section-nav a {
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+}
+
+.section-nav a:hover {
+    background: #f0f7ff;
+    color: #1e3c72;
+    border-color: #1e3c72;
+}
+
+.section-nav a.active {
+    background: #1e3c72;
+    color: white;
+}
+
+/* Consolidated Page Sections */
+.consolidated-section {
+    background: white;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.consolidated-section h2 {
+    color: #1e3c72;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #f39c12;
+    margin-top: 0;
+}
+
+/* Accordion Component */
+.accordion-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.accordion-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: #f8f9fa;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #2c3e50;
+    border: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.3s ease;
+    min-height: 52px;
+    gap: 1rem;
+}
+
+.accordion-header:hover {
+    background: #eef2f7;
+}
+
+.accordion-header.active {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+}
+
+.accordion-header .accordion-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.accordion-header.active .accordion-icon {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.accordion-content .accordion-inner {
+    padding: 1.25rem;
+    line-height: 1.7;
+}
+
+.accordion-content .accordion-inner p {
+    margin-bottom: 1rem;
+}
+
+.accordion-content .accordion-inner ul,
+.accordion-content .accordion-inner ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.accordion-content .accordion-inner li {
+    margin-bottom: 0.4rem;
+}
+
+/* Expand/Collapse All controls */
+.accordion-controls {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    justify-content: flex-end;
+}
+
+.accordion-controls button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 0.4rem 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+.accordion-controls button:hover {
+    border-color: #1e3c72;
+    color: #1e3c72;
+}
+
+/* Responsive: Section Nav */
+@media (max-width: 768px) {
+    .section-nav .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        justify-content: center;
+        padding: 0.6rem;
+    }
+
+    .section-nav a {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        background: #f8f9fa;
+    }
+
+    .section-nav a.active {
+        background: #1e3c72;
+        color: white;
+        border-color: #1e3c72;
+    }
+
+    .consolidated-section {
+        padding: 1.5rem;
+        margin-bottom: 1.25rem;
+        border-radius: 8px;
+    }
+
+    .consolidated-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .accordion-header {
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-nav .container {
+        gap: 0.25rem;
+        padding: 0.5rem;
+    }
+
+    .section-nav a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .consolidated-section {
+        padding: 1rem;
+    }
+
+    .consolidated-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .accordion-header {
+        padding: 0.75rem 0.85rem;
+        font-size: 0.9rem;
+        min-height: 48px;
+    }
+
+    .accordion-content .accordion-inner {
+        padding: 1rem;
+    }
+}
+
