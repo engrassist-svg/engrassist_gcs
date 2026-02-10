@@ -16,8 +16,8 @@
 
     <title>VAV Terminal Units - Equipment Hub - EngrAssist</title>
 
-    <link rel="preload" href="/header.html" as="fetch" crossorigin>
-    <link rel="preload" href="/footer.html" as="fetch" crossorigin>
+    <link rel="preload" href="../../header.html" as="fetch" crossorigin>
+    <link rel="preload" href="../../footer.html" as="fetch" crossorigin>
     <link rel="preload" href="../../styles.css" as="style">
     <link rel="preload" href="../../scripts.js" as="script">
 
@@ -37,6 +37,85 @@
       gtag('js', new Date());
       gtag('config', 'G-9HVPYW6169');
     </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
+     crossorigin="anonymous"></script>
+
+    <style>
+        /* Tab Navigation Styles */
+        .tab-navigation {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            max-width: 100%;
+        }
+
+        .tab-button {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border-color: #e67e22;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .tab-navigation {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .tab-button {
+                padding: 1.25rem 0.75rem;
+                font-size: 0.95rem;
+                min-height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+                min-height: 65px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -46,55 +125,47 @@
 
     <div id="header-placeholder"></div>
 
-    <main class="equipment-hub-page">
+    <main>
         <!-- Hero Section -->
-        <section class="equipment-hero">
+        <section class="hero-section">
             <div class="container">
-                <div class="equipment-hero-content">
-                    <div class="equipment-hero-text">
-                        <h1>VAV Terminal Units</h1>
-                        <p class="equipment-subtitle">Variable Air Volume Boxes</p>
-                        <p class="equipment-description">Zone-level air distribution devices that regulate airflow to maintain comfortable conditions in individual spaces. The workhorses of modern commercial HVAC systems.</p>
-
-                        <div class="equipment-quick-specs">
-                            <div class="quick-spec-item">
-                                <div class="spec-label">Typical Size Range</div>
-                                <div class="spec-value">50 - 5,000 CFM</div>
-                            </div>
-                            <div class="quick-spec-item">
-                                <div class="spec-label">Control Type</div>
-                                <div class="spec-value">Pressure Independent (DDC)</div>
-                            </div>
-                            <div class="quick-spec-item">
-                                <div class="spec-label">Applications</div>
-                                <div class="spec-value">Offices, Schools, Commercial</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="hero-title">VAV Terminal Units</h1>
+                <p class="hero-subtitle">Complete resource for Variable Air Volume terminal units: equipment information, specifications, selection guides, and sizing calculator</p>
             </div>
         </section>
 
-        <!-- Quick Navigation Tabs -->
-        <nav class="equipment-nav-tabs">
-            <div class="container">
-                <a href="#overview">Overview</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#types">Types</a>
-                <a href="#selection">Selection Guide</a>
-                <a href="#calculator">Sizing Calculator</a>
-                <a href="#downloads">Downloads</a>
-                <a href="#standards">Codes & Standards</a>
-                <a href="#related">Related Equipment</a>
-                <a href="#troubleshooting">Troubleshooting</a>
-                <a href="#manufacturers">Manufacturers</a>
-            </div>
-        </nav>
-
-        <!-- Content Sections -->
+        <!-- Tab Navigation -->
         <section class="content-section">
             <div class="container">
-                <div class="equipment-content">
+                <div class="tab-navigation">
+                    <button class="tab-button active" onclick="switchTab('information', event)">
+                        Information
+                    </button>
+                    <button class="tab-button" onclick="switchTab('calculator', event)">
+                        Calculator
+                    </button>
+                </div>
+
+                <!-- INFORMATION TAB -->
+                <div id="information-tab" class="tab-content active">
+
+                    <!-- Quick Navigation Tabs -->
+                    <nav class="equipment-nav-tabs">
+                        <div class="container">
+                            <a href="#overview">Overview</a>
+                            <a href="#how-it-works">How It Works</a>
+                            <a href="#types">Types</a>
+                            <a href="#selection">Selection Guide</a>
+                            <a href="#quick-sizing">Quick Sizing</a>
+                            <a href="#downloads">Downloads</a>
+                            <a href="#standards">Codes & Standards</a>
+                            <a href="#related">Related Equipment</a>
+                            <a href="#troubleshooting">Troubleshooting</a>
+                            <a href="#manufacturers">Manufacturers</a>
+                        </div>
+                    </nav>
+
+                    <div class="equipment-content">
 
                     <!-- Overview Section -->
                     <div id="overview" class="equipment-section">
@@ -533,43 +604,12 @@
                         </ul>
                     </div>
 
-                    <!-- Calculator Section -->
-                    <div id="calculator" class="equipment-section">
-                        <h2>Sizing Calculator</h2>
+                    <!-- Quick Sizing Reference Section -->
+                    <div id="quick-sizing" class="equipment-section">
+                        <h2>Quick Sizing Reference</h2>
 
                         <div class="calculator-container">
-                            <div class="info-box">
-                                <h3>VAV Terminal Unit Sizing Calculator</h3>
-                                <p>Use the calculators below to properly size VAV terminal units for your project:</p>
-
-                                <div class="calculator-links">
-                                    <a href="../../load_calculation.html" class="calculator-link-card">
-                                        <div class="calc-icon">🌡️</div>
-                                        <div class="calc-info">
-                                            <h4>HVAC Load Calculator</h4>
-                                            <p>Calculate cooling and heating loads to determine maximum and minimum airflow requirements</p>
-                                        </div>
-                                    </a>
-
-                                    <a href="../../fan_selection.html" class="calculator-link-card">
-                                        <div class="calc-icon">💨</div>
-                                        <div class="calc-info">
-                                            <h4>Fan Selection Tool</h4>
-                                            <p>For fan-powered VAV boxes, use this tool to verify fan sizing</p>
-                                        </div>
-                                    </a>
-
-                                    <a href="../../ductulator.html" class="calculator-link-card">
-                                        <div class="calc-icon">🔧</div>
-                                        <div class="calc-info">
-                                            <h4>Duct Sizing Calculator</h4>
-                                            <p>Size ductwork from VAV box to diffusers</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="warning-box" style="margin-top: 2rem;">
+                            <div class="warning-box">
                                 <h4>Quick Sizing Reference</h4>
                                 <p><strong>Typical office space:</strong> 1 CFM per square foot for cooling, 30% minimum for ventilation</p>
                                 <p><strong>Formula:</strong> CFM = BTU/hr ÷ (1.08 × ΔT)</p>
@@ -913,6 +953,30 @@
                     </div>
 
                 </div>
+                </div><!-- end information-tab -->
+
+                <!-- CALCULATOR TAB -->
+                <div id="calculator-tab" class="tab-content">
+                    <h2 class="section-title">VAV Terminal Unit Sizing Calculator</h2>
+
+                    <div class="info-box" style="text-align: center; padding: 3rem 2rem;">
+                        <h3>Calculator Coming Soon</h3>
+                        <p style="font-size: 1.1rem; color: #555; margin: 1.5rem 0;">A dedicated VAV terminal unit sizing calculator is currently under development. It will help you quickly determine box sizes, airflow setpoints, and reheat requirements.</p>
+                        <p style="color: #7f8c8d;">In the meantime, use the resources below:</p>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                            <a href="../../vav_sizing.html" class="btn" style="display: inline-block;">VAV Box Sizing Tool</a>
+                            <a href="../../load_calculation.html" class="btn" style="display: inline-block;">HVAC Load Calculator</a>
+                            <a href="../../ductulator.html" class="btn" style="display: inline-block;">Duct Sizing Calculator</a>
+                        </div>
+                    </div>
+
+                    <!-- Back Navigation -->
+                    <div style="text-align: center; margin: 3rem 0;">
+                        <a href="../../mechanical_page.html" class="btn">← Back to Mechanical Engineering</a>
+                    </div>
+                </div><!-- end calculator-tab -->
+
             </div>
         </section>
     </main>
@@ -920,6 +984,36 @@
     <div id="footer-placeholder"></div>
 
     <script>
+        // Tab switching function
+        function switchTab(tabName, event) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            const tabNav = document.querySelector('.tab-navigation');
+            if (tabNav) {
+                window.scrollTo({
+                    top: tabNav.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
         // Download tracking function
         function trackDownload(fileName, category) {
             if (typeof gtag !== 'undefined') {
@@ -931,69 +1025,28 @@
             }
         }
 
-        function isMobileView() {
-            return window.innerWidth <= 768;
-        }
-
-        // Show a single section on mobile, hide all others
-        function showSection(sectionId) {
-            var sections = document.querySelectorAll('.equipment-section');
-            var navLinks = document.querySelectorAll('.equipment-nav-tabs a');
-
-            sections.forEach(function(section) {
-                if (section.getAttribute('id') === sectionId) {
-                    section.style.display = '';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-
-            navLinks.forEach(function(link) {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + sectionId) {
-                    link.classList.add('active');
-                }
-            });
-
-            // Scroll to top of content area
-            var navTabs = document.querySelector('.equipment-nav-tabs');
-            if (navTabs) {
-                navTabs.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Show all sections (desktop mode)
-        function showAllSections() {
-            var sections = document.querySelectorAll('.equipment-section');
-            sections.forEach(function(section) {
-                section.style.display = '';
-            });
-        }
-
-        // Set up tab click handlers
+        // Equipment nav tabs - smooth scroll to sections within Information tab
         document.querySelectorAll('.equipment-nav-tabs a').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 var sectionId = this.getAttribute('href').substring(1);
-
-                if (isMobileView()) {
-                    showSection(sectionId);
-                } else {
-                    // Desktop: smooth scroll to section
-                    var target = document.getElementById(sectionId);
-                    if (target) {
-                        var offset = 80;
-                        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                    }
+                var target = document.getElementById(sectionId);
+                if (target) {
+                    var offset = 80;
+                    var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
+
+                // Update active nav link
+                document.querySelectorAll('.equipment-nav-tabs a').forEach(function(link) {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
             });
         });
 
-        // Desktop: highlight active section on scroll
+        // Highlight active section on scroll
         window.addEventListener('scroll', function() {
-            if (isMobileView()) return;
-
             var sections = document.querySelectorAll('.equipment-section');
             var navLinks = document.querySelectorAll('.equipment-nav-tabs a');
             var current = '';
@@ -1012,34 +1065,6 @@
                 }
             });
         });
-
-        // On load: if mobile, show only Overview
-        function initMobileTabs() {
-            if (isMobileView()) {
-                showSection('overview');
-            } else {
-                showAllSections();
-            }
-        }
-
-        // Handle resize: switch between mobile tab mode and desktop scroll mode
-        var resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                if (isMobileView()) {
-                    // Find currently active tab or default to overview
-                    var activeLink = document.querySelector('.equipment-nav-tabs a.active');
-                    var activeId = activeLink ? activeLink.getAttribute('href').substring(1) : 'overview';
-                    showSection(activeId);
-                } else {
-                    showAllSections();
-                }
-            }, 150);
-        });
-
-        // Initialize on page load
-        initMobileTabs();
     </script>
 </body>
 </html>

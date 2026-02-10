@@ -51,9 +51,9 @@ function initializeTemplates() {
     const pathPrefix = '../'.repeat(depth);
 
     // Load both templates in parallel for speed
-    // Use root-relative paths for subdirectory pages to avoid path resolution issues
-    const headerPath = depth > 0 ? '/header.html' : 'header.html';
-    const footerPath = depth > 0 ? '/footer.html' : 'footer.html';
+    // Use relative paths computed from depth for maximum compatibility with static hosts
+    const headerPath = pathPrefix + 'header.html';
+    const footerPath = pathPrefix + 'footer.html';
     Promise.all([
         loadTemplate('header-placeholder', headerPath),
         loadTemplate('footer-placeholder', footerPath)
