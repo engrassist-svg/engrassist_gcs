@@ -1,0 +1,2263 @@
+/* =============================================
+   CALCULATORS - Shared Calculator Styles
+   EngrAssist Calculator Module Stylesheet
+   ============================================= */
+
+
+/* =============================================
+   1. SHARED CALCULATOR STYLES
+   ============================================= */
+
+/* Calculator Boxes */
+.calculator-box {
+    background: #f8f9fa;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.calculator-box h4 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.calc-input-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.calc-input-group label {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.calc-input-group input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.calc-input-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.calc-button {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.calc-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.calc-button:active {
+    transform: translateY(0);
+}
+
+.calc-results {
+    margin-top: 1.5rem;
+}
+
+.results-section h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.result-row:last-child {
+    border-bottom: none;
+}
+
+.result-row.highlight {
+    background: #e3f2fd;
+    font-weight: 600;
+    border-left: 4px solid #3498db;
+}
+
+.result-label {
+    color: #555;
+}
+
+.result-value {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.result-details {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #e0e0e0;
+}
+
+.result-details p {
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+/* Calculator Container */
+.calculator-container {
+    margin: 2rem 0;
+}
+
+.calculator-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.calculator-link-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: white;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.calculator-link-card:hover {
+    border-color: #2a5298;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.calc-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.calc-info h4 {
+    color: #1e3c72;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.calc-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+
+/* =============================================
+   2. CONVERSION CALCULATOR STYLES
+   ============================================= */
+
+/* Conversion Calculator Specific Styles */
+.conversion-calculator {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.calculator-interface {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calculator-controls {
+    margin-bottom: 2rem;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.control-group label {
+    font-weight: 600;
+    color: #2c3e50;
+    min-width: 80px;
+}
+
+.control-group select {
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    min-width: 200px;
+    cursor: pointer;
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Conversion Interface Grid */
+.conversion-interface-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.input-section, .output-section {
+    text-align: center;
+}
+
+.input-section h3, .output-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.unit-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.unit-group select {
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+}
+
+.unit-group input {
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.unit-group input:focus, .unit-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.conversion-arrow {
+    font-size: 2rem;
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* Converter Buttons Container */
+.converter-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Reference Tables */
+.reference-tables {
+    margin: 4rem 0;
+}
+
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.reference-table {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.reference-table h3 {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    padding: 1rem;
+    margin: 0;
+    text-align: center;
+}
+
+.reference-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.reference-table th,
+.reference-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.reference-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.reference-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+/* Constants Section */
+.constants-section {
+    margin: 4rem 0;
+}
+
+.constants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.constant-card {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8ff);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    border-left: 4px solid #27ae60;
+}
+
+.constant-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.constant-card p {
+    color: #27ae60;
+    font-weight: 600;
+    margin: 0;
+}
+
+
+/* =============================================
+   3. BOILER CALCULATOR STYLES
+   ============================================= */
+
+/* Boiler Calculator Specific Styles */
+.boiler-results-section {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    border-radius: 15px;
+}
+
+.boiler-results-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.boiler-result-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boiler-result-item .result-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.boiler-result-item .result-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.boiler-result-blue {
+    border-left: 4px solid #3498db;
+}
+
+.boiler-result-blue .result-value {
+    color: #f39c12;
+}
+
+.boiler-result-green {
+    border-left: 4px solid #27ae60;
+}
+
+.boiler-result-green .result-value {
+    color: #27ae60;
+}
+
+.boiler-result-orange {
+    border-left: 4px solid #f39c12;
+}
+
+.boiler-result-orange .result-value {
+    color: #f39c12;
+}
+
+.boiler-result-purple {
+    border-left: 4px solid #9b59b6;
+}
+
+.boiler-result-purple .result-value {
+    color: #9b59b6;
+}
+
+.selected-system-section {
+    margin-top: 3rem;
+}
+
+
+/* =============================================
+   4. DUCTULATOR STYLES
+   ============================================= */
+
+/* Ductulator Specific Styles */
+.ductulator-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.input-panel, .results-panel {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.subsection-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin: 1.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+}
+
+.form-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.unit-display {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-weight: normal;
+}
+
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.radio-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    margin: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #0066cc;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.radio-item input[type="radio"]:checked {
+    background-color: #0066cc;
+    border-color: #0066cc;
+}
+
+.radio-item input[type="radio"]:checked::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.radio-item input[type="radio"]:hover {
+    border-color: #004a99;
+}
+
+.radio-item input[type="radio"]:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+}
+
+.radio-item label {
+    margin: 0;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Mobile adjustments for larger touch targets */
+@media (max-width: 768px) {
+    .radio-item input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+
+    .radio-item input[type="radio"]:checked::after {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.result-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.result-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f39c12;
+    background: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 2px solid #f39c12;
+}
+
+.error-box {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-left: 4px solid #dc3545;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    color: #721c24;
+}
+
+.results-container {
+    margin-top: 1rem;
+}
+
+
+/* =============================================
+   5. PSYCHROMETRIC CHART STYLES
+   ============================================= */
+
+/* Controls Bar */
+.psych-controls-bar {
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.psych-controls-bar .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.psych-controls-bar label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.psych-controls-bar select {
+    padding: 0.5rem 1rem;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.psych-controls-bar select:focus {
+    outline: none;
+    border-color: #f39c12;
+}
+
+/* Psychrometric Buttons */
+.btn-psych, .btn-psych-secondary, .btn-psych-export {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.btn-psych {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+}
+
+.btn-psych:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.btn-psych-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-psych-secondary:hover {
+    background: #7f8c8d;
+    transform: translateY(-2px);
+}
+
+.btn-psych-export {
+    background: linear-gradient(45deg, #27ae60, #229954);
+    color: white;
+}
+
+.btn-psych-export:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+}
+
+/* Manual Input Panel */
+.manual-input-panel {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.manual-input-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.manual-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.input-selector label {
+    font-weight: 600;
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.variable-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.variable-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: normal;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.variable-checkboxes label:hover {
+    background: #f8f9fa;
+}
+
+.variable-checkboxes input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.input-values {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-values .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-values label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.input-values input {
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.input-values input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.input-values input:disabled {
+    background: #f8f9fa;
+    cursor: not-allowed;
+}
+
+/* Chart Container */
+.psych-chart-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+#psychChart {
+    width: 100%;
+    height: auto;
+    cursor: crosshair;
+}
+
+#psychChart.connect-mode {
+    cursor: pointer;
+}
+
+/* Chart Elements */
+.chart-grid-line {
+    stroke: #bdc3c7;
+    stroke-width: 0.6;
+    opacity: 0.5;
+}
+
+.chart-grid-line-major {
+    stroke: #7f8c8d;
+    stroke-width: 1.2;
+    opacity: 0.6;
+}
+
+.chart-saturation-line {
+    stroke: #c0392b;
+    stroke-width: 3;
+    fill: none;
+    filter: drop-shadow(0 0 2px rgba(192, 57, 43, 0.5));
+}
+
+.chart-rh-line {
+    stroke: #2980b9;
+    stroke-width: 1.2;
+    fill: none;
+    stroke-dasharray: 5, 3;
+    opacity: 0.75;
+}
+
+.chart-wb-line {
+    stroke: #8e44ad;
+    stroke-width: 1.1;
+    fill: none;
+    opacity: 0.6;
+}
+
+.chart-enthalpy-line {
+    stroke: #d35400;
+    stroke-width: 1.1;
+    fill: none;
+    opacity: 0.6;
+}
+
+.chart-volume-line {
+    stroke: #16a085;
+    stroke-width: 0.9;
+    stroke-dasharray: 4, 2;
+    fill: none;
+    opacity: 0.55;
+}
+
+.chart-dewpoint-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    fill: #e67e22;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.chart-label {
+    font-size: 11px;
+    fill: #2c3e50;
+    font-weight: 600;
+}
+
+.chart-axis-label {
+    font-size: 13px;
+    fill: #2c3e50;
+    font-weight: 700;
+}
+
+.chart-line-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Chart Points */
+.chart-point {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.chart-point:hover {
+    transform: scale(1.3);
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+.chart-point-circle {
+    stroke: white;
+    stroke-width: 2.5;
+}
+
+.chart-point-label {
+    font-size: 14px;
+    font-weight: 700;
+    fill: white;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.chart-connection-line {
+    stroke-width: 3;
+    fill: none;
+    opacity: 0.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Results Panel */
+.psych-results-panel {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.psych-results-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.results-table {
+    overflow-x: auto;
+}
+
+.results-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.results-table th,
+.results-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.results-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    position: sticky;
+    top: 0;
+}
+
+.results-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.results-table .point-color-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid white;
+}
+
+/* Scrollbar styling for tables */
+.reference-table::-webkit-scrollbar,
+.results-table::-webkit-scrollbar {
+    height: 12px;
+}
+
+.reference-table::-webkit-scrollbar-track,
+.results-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.reference-table::-webkit-scrollbar-thumb,
+.results-table::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.reference-table::-webkit-scrollbar-thumb:hover,
+.results-table::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Points List */
+.psych-points-list {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.psych-points-list h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.point-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.point-card:hover {
+    transform: translateY(-3px);
+}
+
+.point-card-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.point-card-color {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.point-card-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.point-card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.point-action-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+.point-action-btn:hover {
+    transform: scale(1.2);
+}
+
+.point-edit-btn {
+    color: #3498db;
+}
+
+.point-delete-btn {
+    color: #e74c3c;
+}
+
+/* Info Text */
+.info-text {
+    color: #7f8c8d;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Responsive Design for Psychrometric Chart */
+@media (max-width: 1024px) {
+    .psych-controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .manual-input-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .psych-chart-container {
+        padding: 1rem;
+    }
+
+    .chart-wrapper {
+        border-radius: 5px;
+    }
+
+    .psych-results-panel,
+    .psych-points-list {
+        padding: 1.5rem;
+    }
+
+    .points-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =============================================
+   6. FAN SELECTION CALCULATOR STYLES
+   ============================================= */
+
+/* Fan Selection Calculator */
+.fan-selection-calculator {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.fan-input-panel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.fan-input-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+/* Fan Results Panel */
+.fan-results-panel {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
+    border-radius: 15px;
+    border-left: 4px solid #3498db;
+}
+
+.fan-results-panel h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+/* Fan Recommendation Cards */
+.fan-recommendation-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-left: 4px solid;
+}
+
+.fan-recommendation-card.recommended {
+    border-left-color: #27ae60;
+}
+
+.fan-recommendation-card.alternative {
+    border-left-color: #3498db;
+}
+
+.fan-recommendation-card.not-recommended {
+    border-left-color: #e74c3c;
+    opacity: 0.7;
+}
+
+.fan-recommendation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.fan-recommendation-header h4 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.fan-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+}
+
+.fan-badge.recommended {
+    background: #27ae60;
+}
+
+.fan-badge.alternative {
+    background: #3498db;
+}
+
+.fan-badge.not-recommended {
+    background: #e74c3c;
+}
+
+.fan-recommendation-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.fan-detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.fan-detail-item strong {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.fan-detail-item span {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Fan Types Section */
+.fan-types-section {
+    margin: 4rem 0;
+}
+
+.fan-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.fan-type-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #3498db;
+    transition: transform 0.3s ease;
+}
+
+.fan-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.fan-type-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.fan-type-card p {
+    color: #34495e;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.fan-type-card ul {
+    margin-left: 1.5rem;
+    color: #7f8c8d;
+}
+
+.fan-type-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Selection Factors Section */
+.selection-factors-section {
+    margin: 4rem 0;
+}
+
+.factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.factor-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.factor-card:hover {
+    transform: translateY(-5px);
+}
+
+.factor-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.factor-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.factor-card p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Manufacturer Section */
+.manufacturer-section {
+    margin: 4rem 0;
+}
+
+.manufacturer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.manufacturer-card {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #f39c12;
+    transition: transform 0.3s ease;
+}
+
+.manufacturer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.manufacturer-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.manufacturer-card p {
+    color: #856404;
+    margin-bottom: 0.75rem;
+}
+
+.manufacturer-card ul {
+    margin-left: 1.5rem;
+    color: #856404;
+}
+
+.manufacturer-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+.manufacturer-card a {
+    color: #2c3e50;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.manufacturer-card a:hover {
+    color: #f39c12;
+}
+
+/* Quick Reference Section */
+.quick-reference-section {
+    margin: 4rem 0;
+}
+
+.reference-calculations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.calc-card {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8ff);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #27ae60;
+}
+
+.calc-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.calc-card p {
+    color: #34495e;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.calc-card .formula {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 1rem 0;
+}
+
+.calc-card ul {
+    margin-left: 1.5rem;
+    color: #7f8c8d;
+}
+
+.calc-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Design for Fan Selection */
+@media (max-width: 768px) {
+    .fan-selection-calculator {
+        padding: 2rem;
+    }
+
+    .fan-input-panel {
+        padding: 1.5rem;
+    }
+
+    .fan-types-grid,
+    .factors-grid,
+    .manufacturer-grid,
+    .reference-calculations {
+        grid-template-columns: 1fr;
+    }
+
+    .fan-recommendation-details {
+        grid-template-columns: 1fr;
+    }
+
+    .fan-recommendation-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+
+/* =============================================
+   7. ENERGY EFFICIENCY PAGE STYLES
+   ============================================= */
+
+.energy-section {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.energy-content {
+    color: #2c3e50;
+    line-height: 1.8;
+}
+
+.energy-content h3 {
+    color: #34495e;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.energy-content h4 {
+    color: #2c3e50;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+}
+
+.energy-content p {
+    margin-bottom: 1rem;
+}
+
+.energy-content ul {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.energy-content ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Requirements Grid */
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.requirement-card {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+.requirement-card h4 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.requirement-card ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.requirement-card li {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+/* Efficiency Table */
+.efficiency-table-container {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.efficiency-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.efficiency-table thead {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.efficiency-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.efficiency-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.efficiency-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.efficiency-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.efficiency-note {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    color: #856404;
+}
+
+/* Strategy Items */
+.strategy-item {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.strategy-item:last-child {
+    border-bottom: none;
+}
+
+.strategy-item h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.strategy-item ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+
+/* =============================================
+   8. ENGINEERING CALCULATIONS PAGE STYLES
+   ============================================= */
+
+/* Hero Section for Engineering Calculations */
+.engineering-calc-hero {
+    background: linear-gradient(135deg, #2c5282, #3182ce);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.engineering-calc-hero h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.engineering-calc-hero p {
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+/* Table of Contents for Calculations */
+.calc-toc {
+    background: linear-gradient(135deg, #f7fafc, #edf2f7);
+    padding: 2rem;
+    border-radius: 10px;
+    border-left: 5px solid #3182ce;
+    margin-bottom: 2rem;
+}
+
+.calc-toc h2 {
+    color: #2c5282;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.calc-toc ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+}
+
+.calc-toc li {
+    margin: 0;
+}
+
+.calc-toc a {
+    color: #3182ce;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.calc-toc a:hover {
+    background: #3182ce;
+    color: white;
+    transform: translateX(5px);
+}
+
+/* Calculation Section */
+.calc-section {
+    padding: 2rem 0;
+}
+
+.calc-section h2 {
+    color: #2c5282;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #3182ce;
+}
+
+/* Calculation Cards */
+.calc-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-left: 5px solid #3182ce;
+    transition: all 0.3s ease;
+}
+
+.calc-card:hover {
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.calc-card h3 {
+    color: #2c5282;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.calc-card h4 {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Formula Box */
+.formula-box {
+    background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+    border: 2px solid #3182ce;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.formula-box .formula {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #1a365d;
+    text-align: center;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: white;
+    border-radius: 5px;
+}
+
+.formula-where {
+    margin-top: 1rem;
+}
+
+.formula-where p {
+    color: #2d3748;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.formula-where ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.formula-where li {
+    color: #4a5568;
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+}
+
+.formula-where li:before {
+    content: "\25B8 ";
+    color: #3182ce;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Example Box */
+.example-box {
+    background: linear-gradient(135deg, #fffaf0, #fef5e7);
+    border: 2px solid #f39c12;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.example-box h4 {
+    color: #c87209;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.example-box p {
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.example-box ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.example-box li {
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.example-box li:before {
+    content: "\2192 ";
+    color: #f39c12;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Info Box */
+.info-box {
+    background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+    border: 2px solid #48bb78;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.info-box p {
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.info-box strong {
+    color: #22543d;
+}
+
+.info-box ul {
+    list-style: none;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.info-box li {
+    color: #4a5568;
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+}
+
+.info-box li:before {
+    content: "\2713 ";
+    color: #48bb78;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Conversion Grid */
+.conversion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.conversion-list {
+    list-style: none;
+    padding: 0;
+}
+
+.conversion-list li {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #f7fafc, #edf2f7);
+    border-radius: 5px;
+    color: #2d3748;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.conversion-list li:hover {
+    background: linear-gradient(135deg, #bee3f8, #90cdf4);
+    transform: translateX(5px);
+}
+
+/* Interactive Calculators */
+.interactive-calc {
+    background: linear-gradient(135deg, #fefefe, #f7fafc);
+    border-left: 5px solid #3182ce;
+}
+
+.section-intro {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.calc-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    color: #2d3748;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.input-group input,
+.input-group select {
+    padding: 0.75rem;
+    border: 2px solid #cbd5e0;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.calc-button {
+    background: linear-gradient(135deg, #3182ce, #2c5282);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.calc-button:hover {
+    background: linear-gradient(135deg, #2c5282, #1a365d);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.calc-button:active {
+    transform: translateY(0);
+}
+
+.calc-result {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+    border-radius: 8px;
+    border-left: 5px solid #48bb78;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #22543d;
+    display: none;
+}
+
+.calc-result.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tools CTA Section */
+.tools-cta {
+    background: linear-gradient(135deg, #f7fafc, #edf2f7);
+    padding: 3rem 0;
+}
+
+.tools-cta h2 {
+    text-align: center;
+    color: #2c5282;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.tool-cta-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-left: 5px solid #3182ce;
+    transition: all 0.3s ease;
+}
+
+.tool-cta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-left-color: #2c5282;
+}
+
+.tool-cta-card h3 {
+    color: #2c5282;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+}
+
+.tool-cta-card p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Disclaimer Section */
+.disclaimer-section {
+    background: #fefefe;
+    padding: 2rem 0;
+}
+
+.disclaimer-box {
+    background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    border: 2px solid #fc8181;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.disclaimer-box h3 {
+    color: #c53030;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.disclaimer-box p {
+    color: #2d3748;
+    line-height: 1.8;
+    margin: 0;
+}
+
+
+/* =============================================
+   9. PLUMBING CALCULATION MODE SELECTOR
+   ============================================= */
+
+/* Blue button selector for switching between calculation modes (used in plumbing calculators) */
+.calculation-mode-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    justify-content: center;
+}
+
+.mode-button {
+    background: white;
+    border: 2px solid #ddd;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.mode-button:hover {
+    background: #f8f9fa;
+    border-color: #3498db;
+}
+
+.mode-button.active {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border-color: #2980b9;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.calculation-inputs {
+    display: none;
+}
+
+.calculation-inputs.active {
+    display: block;
+}
+
+
+/* =============================================
+   10. RESPONSIVE RULES
+   ============================================= */
+
+/* Ductulator responsive - 1024px */
+@media (max-width: 1024px) {
+    .ductulator-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Conversion, Boiler, Ductulator responsive - 768px */
+@media (max-width: 768px) {
+    .conversion-interface-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .conversion-arrow {
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+    }
+
+    .control-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .control-group label {
+        min-width: auto;
+        margin-bottom: 0.5rem;
+    }
+
+    .control-group select {
+        min-width: auto;
+    }
+
+    .converter-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .converter-buttons .btn,
+    .converter-buttons .btn-secondary {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .tables-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .constants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conversion-calculator {
+        padding: 2rem;
+    }
+
+    .boiler-result-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .boiler-result-item .result-value {
+        margin-top: 0.5rem;
+    }
+
+    .input-panel,
+    .results-panel {
+        padding: 1.5rem;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}
+
+/* Conversion responsive - 480px */
+@media (max-width: 480px) {
+    .reference-table th,
+    .reference-table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .constant-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Energy Efficiency responsive - 768px */
+@media (max-width: 768px) {
+    .energy-section {
+        padding: 1.25rem;
+    }
+
+    .requirements-grid,
+    .certification-grid,
+    .resources-grid,
+    .checklist-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .efficiency-table {
+        font-size: 0.9rem;
+    }
+
+    .efficiency-table th,
+    .efficiency-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .calc-input-group {
+        margin-bottom: 1rem;
+    }
+
+    .result-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .result-value {
+        text-align: left;
+    }
+
+    .calculator-box {
+        padding: 1rem;
+    }
+}
+
+/* Engineering Calculations responsive - 768px */
+@media (max-width: 768px) {
+    .engineering-calc-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .engineering-calc-hero p {
+        font-size: 1rem;
+    }
+
+    .calc-toc ul {
+        grid-template-columns: 1fr;
+    }
+
+    .calc-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .calc-card {
+        padding: 1.5rem;
+    }
+
+    .formula-box .formula {
+        font-size: 1rem;
+    }
+
+    .conversion-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Plumbing Calculation Mode Selector responsive - 768px */
+@media (max-width: 768px) {
+    .calculation-mode-selector {
+        flex-direction: column;
+    }
+
+    .mode-button {
+        width: 100%;
+    }
+}
