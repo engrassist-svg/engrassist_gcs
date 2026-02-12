@@ -5568,3 +5568,93 @@ function newProject() {
         showNotification('New project started', 'success');
     }
 }
+
+// ====================================
+// ENHANCED DESIGN DROPDOWN FUNCTIONALITY
+// ====================================
+
+/**
+ * Initialize the Design dropdown active states
+ * Checks if the current page is a design page (Mechanical, Electrical, or Plumbing)
+ * and applies the active class to the dropdown and the appropriate link
+ */
+function initializeDesignDropdown() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const designPages = ['mechanical_page.html', 'electrical_page.html', 'plumbing_page.html'];
+
+    // Check if we're on a design page
+    const isDesignPage = designPages.some(page => currentPage === page);
+
+    if (isDesignPage) {
+        // Desktop: Add active class to dropdown container
+        const designDropdown = document.getElementById('designDropdown');
+        if (designDropdown) {
+            designDropdown.classList.add('active');
+        }
+
+        // Desktop: Add active class to the current page link in dropdown
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+        dropdownLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+
+        // Mobile: Add active class to the submenu toggle
+        const mobileToggle = document.querySelector('.mobile-submenu-toggle');
+        if (mobileToggle) {
+            mobileToggle.classList.add('active');
+            // Auto-expand the submenu on mobile if we're on a design page
+            const submenu = mobileToggle.nextElementSibling;
+            if (submenu && submenu.classList.contains('mobile-submenu')) {
+                submenu.classList.add('show');
+            }
+        }
+
+        // Mobile: Add active class to the current page link in mobile submenu
+        const mobileSubmenuLinks = document.querySelectorAll('.mobile-submenu a');
+        mobileSubmenuLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    }
+}
+
+/**
+ * Enhanced dropdown behavior with delay to prevent premature closing
+ * Makes the dropdown easier to navigate by adding a small delay before closing
+ */
+function enhanceDropdownBehavior() {
+    const dropdown = document.getElementById('designDropdown');
+    if (!dropdown) return;
+
+    let closeTimer = null;
+
+    // When mouse leaves the dropdown, wait a bit before closing
+    dropdown.addEventListener('mouseleave', function() {
+        closeTimer = setTimeout(function() {
+            dropdown.classList.remove('keep-open');
+        }, 200); // 200ms delay before closing
+    });
+
+    // If mouse re-enters before the delay, cancel the close
+    dropdown.addEventListener('mouseenter', function() {
+        if (closeTimer) {
+            clearTimeout(closeTimer);
+            closeTimer = null;
+        }
+        dropdown.classList.add('keep-open');
+    });
+}
+
+// Initialize design dropdown when the page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeDesignDropdown();
+        enhanceDropdownBehavior();
+    });
+} else {
+    initializeDesignDropdown();
+    enhanceDropdownBehavior();
+}
