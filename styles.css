@@ -5932,3 +5932,117 @@ textarea.form-control {
     color: #f39c12;
 }
 
+/* ===== Codes and Drafting Pages ===== */
+
+/* External link cards - variations of service-box for external resources */
+.external-link-card .service-description {
+    color: white;
+    font-size: 0.9rem;
+    padding: 0 1rem;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+/* Info box enhancements */
+.info-box h3 {
+    color: #27ae60;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.info-box ul {
+    margin: 1rem 0 0 0;
+    padding-left: 1.5rem;
+}
+
+.info-box li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.info-box strong {
+    color: #2c3e50;
+}
+
+/* CTA Section Styles */
+.cta-section {
+    background: linear-gradient(135deg, rgba(46, 134, 193, 0.1), rgba(155, 89, 182, 0.1));
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.cta-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+}
+
+/* Content section spacing */
+.content-section {
+    margin-bottom: 3rem;
+}
+
+.content-section h2 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #3498db;
+}
+
+.content-section p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments for codes/drafting pages */
+@media (max-width: 768px) {
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .content-section h2 {
+        font-size: 1.6rem;
+    }
+}
+
