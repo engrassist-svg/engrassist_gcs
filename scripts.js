@@ -1140,6 +1140,21 @@ const searchIndex = [
         keywords: 'unit conversions calculator metric imperial hvac temperature pressure flow cfm gpm btu watts',
         category: 'Tools'
     },
+    // Resources
+    {
+        url: 'codes.html',
+        title: 'Building Codes & Standards',
+        description: 'Building codes and standards resources. ICC codes, ASHRAE standards, NEC, IPC, NFPA, and essential design codes.',
+        keywords: 'building codes construction codes icc ashrae nec ipc ifc nfpa plumbing electrical mechanical fire codes standards upcodes asme smacna ul iapmo upc',
+        category: 'Resources'
+    },
+    {
+        url: 'drafting.html',
+        title: 'BIM & CAD Drafting Standards',
+        description: 'BIM and CAD drafting standards, BIM object libraries, and industry resources. National CAD Standard, USACE, BIM families.',
+        keywords: 'bim cad drafting standards revit autocad national cad standard ncs usace bim objects families bimobject bimsmith mepcontent revitcity construction drawings mep',
+        category: 'Resources'
+    },
     // Electrical Tools
     {
         url: 'electrical_page.html',
