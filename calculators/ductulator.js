@@ -551,7 +551,7 @@ function calculateAirflowRate() {
 
     // Binary search to find airflow that produces target friction rate
     let minCFM = 20;
-    let maxCFM = 100000;
+    let maxCFM;
     let airflow;
 
     for (let i = 0; i < 100; i++) {
