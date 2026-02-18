@@ -32,6 +32,16 @@ EngrAssist is a static HTML website providing engineering design tools (calculat
 
 ## Critical Rules
 
+### CSS Must Live in styles.css
+
+All CSS for every HTML page **must** be placed in `styles.css`. Inline `<style>` blocks inside HTML files are **not allowed** unless explicitly directed otherwise.
+
+- **No `<style>` blocks in HTML** — never add CSS inside `<style>` tags within an HTML file. All styles go in `styles.css`.
+- **No separate CSS files** — do not create additional `.css` files unless explicitly instructed. `styles.css` is the single source of truth for all styles.
+- **When updating any page** — scan the HTML file for any existing `<style>` blocks. Move their contents to `styles.css` (scoped appropriately), then remove the `<style>` block from the HTML.
+- **Before writing new CSS** — search `styles.css` for existing rules that can be reused or extended to avoid duplication.
+- **Exception** — only deviate from this rule if explicitly directed to use a separate file.
+
 ### Shared Files — Do Not Break Other Pages
 
 `styles.css` and `scripts.js` are loaded by **every page** on the site. When modifying them:
@@ -122,6 +132,17 @@ When you must add new styles, append them to the **end** of `styles.css` and sco
     /* styles only apply inside an element with class "my-new-page" */
 }
 ```
+
+### Updating an Existing Page — CSS Audit Checklist
+
+Whenever you modify an existing HTML page, perform this CSS audit as part of the update:
+
+1. **Scan for `<style>` blocks** — search the HTML file for any `<style>` tags.
+2. **Move to `styles.css`** — for each `<style>` block found:
+   - Check `styles.css` for existing rules that already cover the same styling; if found, reuse them (update the HTML class names if needed) rather than adding duplicate rules.
+   - If no equivalent exists, append the styles to the end of `styles.css`, scoped under a page-level class or ID.
+3. **Remove the `<style>` block** from the HTML file after its contents have been migrated.
+4. **Verify** the page still renders correctly after the migration.
 
 ## JavaScript Architecture
 
