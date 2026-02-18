@@ -121,6 +121,11 @@ nav {
     width: 24px;
     height: 24px;
     margin-right: 10px;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 50%;
+    padding: 3px;
+    box-sizing: content-box;
 }
 
 .logo-container {
