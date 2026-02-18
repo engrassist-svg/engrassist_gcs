@@ -394,10 +394,9 @@ function validateInputs(calcType) {
     if (airflowInput && airflowInput.value) {
         const airflow = parseFloat(airflowInput.value);
         const minAirflow = isMetric ? 10 : 20;
-        const maxAirflow = isMetric ? 5000 : 10000;
-        
-        if (airflow < minAirflow || airflow > maxAirflow) {
-            throw new Error(`Airflow should be between ${minAirflow} and ${maxAirflow} ${isMetric ? 'L/s' : 'CFM'}`);
+
+        if (airflow < minAirflow) {
+            throw new Error(`Airflow must be at least ${minAirflow} ${isMetric ? 'L/s' : 'CFM'}`);
         }
     }
     
