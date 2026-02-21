@@ -1059,8 +1059,8 @@ const searchIndex = [
     {
         url: 'psychrometric.html',
         title: 'Psychrometric Chart - Air Properties Analysis',
-        description: 'Interactive psychrometric chart for HVAC air property analysis. Calculate humidity ratio, enthalpy, wet bulb, dew point, and specific volume.',
-        keywords: 'psychrometric chart hvac air properties humidity enthalpy wet bulb dew point ashrae psychrometrics temperature relative humidity',
+        description: 'Interactive psychrometric chart for HVAC air property analysis. Calculate humidity ratio, enthalpy, wet bulb, dew point, and specific volume. Includes ASHRAE comfort zone overlay, process analysis with SHR and tonnage, and multi-elevation support.',
+        keywords: 'psychrometric chart hvac air properties humidity enthalpy wet bulb dew point ashrae psychrometrics temperature relative humidity comfort zone process analysis SHR',
         category: 'Mechanical'
     },
     {

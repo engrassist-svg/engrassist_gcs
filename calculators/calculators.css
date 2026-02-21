@@ -612,15 +612,24 @@
 /* Controls Bar */
 .psych-controls-bar {
     background: linear-gradient(135deg, #e8f4f8, #f0f8ff);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     justify-content: space-between;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid rgba(52, 152, 219, 0.15);
+}
+
+.psych-controls-left,
+.psych-controls-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
 }
 
 .psych-controls-bar .control-group {
@@ -632,13 +641,15 @@
 .psych-controls-bar label {
     font-weight: 600;
     color: #2c3e50;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .psych-controls-bar select {
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.75rem;
     border: 2px solid #3498db;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     background: white;
     cursor: pointer;
     transition: border-color 0.3s ease;
@@ -649,15 +660,36 @@
     border-color: #f39c12;
 }
 
+.psych-custom-pressure {
+    background: rgba(255,255,255,0.7);
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px dashed #3498db;
+}
+
+.psych-pressure-input {
+    width: 90px;
+    padding: 0.4rem 0.5rem;
+    border: 2px solid #3498db;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.psych-pressure-input:focus {
+    outline: none;
+    border-color: #f39c12;
+}
+
 /* Psychrometric Buttons */
-.btn-psych, .btn-psych-secondary, .btn-psych-export {
-    padding: 0.6rem 1.2rem;
+.btn-psych, .btn-psych-secondary, .btn-psych-export, .btn-psych-sm {
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
 }
 
 .btn-psych {
@@ -668,6 +700,11 @@
 .btn-psych:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.btn-psych-active {
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+    box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
 }
 
 .btn-psych-secondary {
@@ -690,17 +727,35 @@
     box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
 }
 
+.btn-psych-sm {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+}
+
+.btn-psych-sm:hover {
+    transform: translateY(-1px);
+}
+
 /* Manual Input Panel */
 .manual-input-panel {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border: 1px solid rgba(52, 152, 219, 0.1);
 }
 
 .manual-input-panel h3 {
     color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.manual-input-hint {
+    color: #7f8c8d;
+    font-size: 0.9rem;
     margin-bottom: 1.5rem;
 }
 
@@ -720,7 +775,7 @@
 .variable-checkboxes {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.6rem;
 }
 
 .variable-checkboxes label {
@@ -728,20 +783,23 @@
     align-items: center;
     gap: 0.5rem;
     font-weight: normal;
-    padding: 0.5rem;
-    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
     transition: background 0.3s ease;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .variable-checkboxes label:hover {
-    background: #f8f9fa;
+    background: #eaf2f8;
+    border-color: #d4e6f1;
 }
 
 .variable-checkboxes input[type="checkbox"] {
     width: 18px;
     height: 18px;
     cursor: pointer;
+    accent-color: #3498db;
 }
 
 .input-values {
@@ -753,19 +811,27 @@
 .input-values .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 .input-values label {
     font-weight: 600;
     color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.input-unit-label {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-style: italic;
 }
 
 .input-values input {
-    padding: 0.75rem;
+    padding: 0.65rem 0.75rem;
     border: 2px solid #e9ecef;
     border-radius: 8px;
     font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
 .input-values input:focus {
@@ -781,9 +847,9 @@
 /* Chart Container */
 .psych-chart-container {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 15px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
@@ -803,6 +869,7 @@
     width: 100%;
     height: auto;
     cursor: crosshair;
+    display: block;
 }
 
 #psychChart.connect-mode {
@@ -918,21 +985,60 @@
     stroke-linejoin: round;
 }
 
+/* Hover Tooltip */
+.psych-hover-tooltip {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: rgba(44, 62, 80, 0.95);
+    color: white;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    line-height: 1.6;
+    backdrop-filter: blur(4px);
+}
+
+.hover-tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.hover-tooltip-label {
+    font-weight: 700;
+    color: #85c1e9;
+    min-width: 28px;
+}
+
 /* Results Panel */
 .psych-results-panel {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     border-radius: 15px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
 .psych-results-panel h3 {
     color: #2c3e50;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.psych-process-panel h3 {
+    color: #d35400;
 }
 
 .results-table {
+    overflow-x: auto;
+}
+
+.results-table-scroll {
     overflow-x: auto;
 }
 
@@ -944,9 +1050,10 @@
 
 .results-table th,
 .results-table td {
-    padding: 0.75rem;
+    padding: 0.6rem 0.75rem;
     text-align: left;
     border-bottom: 1px solid #e9ecef;
+    font-size: 0.9rem;
 }
 
 .results-table th {
@@ -955,75 +1062,112 @@
     color: #2c3e50;
     position: sticky;
     top: 0;
+    font-size: 0.85rem;
 }
 
 .results-table tbody tr:hover {
-    background: #f8f9fa;
+    background: #f0f7ff;
 }
 
 .results-table .point-color-indicator {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     display: inline-block;
     border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.point-delete-btn-inline {
+    background: none;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.2rem 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.point-delete-btn-inline:hover {
+    background: #fde8e8;
+    border-color: #e74c3c;
+}
+
+.process-type-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: #eaf2f8;
+    color: #2c3e50;
+    white-space: nowrap;
 }
 
 /* Scrollbar styling for tables */
 .reference-table::-webkit-scrollbar,
-.results-table::-webkit-scrollbar {
-    height: 12px;
+.results-table::-webkit-scrollbar,
+.results-table-scroll::-webkit-scrollbar {
+    height: 10px;
 }
 
 .reference-table::-webkit-scrollbar-track,
-.results-table::-webkit-scrollbar-track {
+.results-table::-webkit-scrollbar-track,
+.results-table-scroll::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
 }
 
 .reference-table::-webkit-scrollbar-thumb,
-.results-table::-webkit-scrollbar-thumb {
-    background: #888;
+.results-table::-webkit-scrollbar-thumb,
+.results-table-scroll::-webkit-scrollbar-thumb {
+    background: #aaa;
     border-radius: 10px;
 }
 
 .reference-table::-webkit-scrollbar-thumb:hover,
-.results-table::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.results-table::-webkit-scrollbar-thumb:hover,
+.results-table-scroll::-webkit-scrollbar-thumb:hover {
+    background: #777;
 }
 
 /* Points List */
 .psych-points-list {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
 .psych-points-list h3 {
     color: #2c3e50;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
 }
 
 .points-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
 }
 
 .point-card {
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     border-radius: 10px;
     border-left: 4px solid;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .point-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .point-card-info {
@@ -1033,17 +1177,29 @@
 }
 
 .point-card-color {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: 2px solid white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+.point-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
 }
 
 .point-card-label {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #2c3e50;
+}
+
+.point-card-summary {
+    font-size: 0.78rem;
+    color: #7f8c8d;
 }
 
 .point-card-actions {
@@ -1054,9 +1210,9 @@
 .point-action-btn {
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    padding: 0.25rem;
+    padding: 0.2rem;
     transition: transform 0.2s ease;
 }
 
@@ -1087,27 +1243,61 @@
         align-items: stretch;
     }
 
+    .psych-controls-left,
+    .psych-controls-right {
+        justify-content: center;
+    }
+
     .manual-input-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
-    .psych-chart-container {
+    .psych-controls-bar {
         padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .psych-controls-left,
+    .psych-controls-right {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .psych-controls-bar .control-group {
+        width: 100%;
+    }
+
+    .psych-controls-bar select {
+        flex: 1;
+    }
+
+    .psych-chart-container {
+        padding: 0.75rem;
     }
 
     .chart-wrapper {
         border-radius: 5px;
+        border-width: 2px;
     }
 
     .psych-results-panel,
     .psych-points-list {
-        padding: 1.5rem;
+        padding: 1rem 1.25rem;
     }
 
     .points-grid {
         grid-template-columns: 1fr;
+    }
+
+    .psych-hover-tooltip {
+        display: none !important;
+    }
+
+    .btn-psych, .btn-psych-secondary, .btn-psych-export {
+        width: 100%;
+        text-align: center;
     }
 }
 
