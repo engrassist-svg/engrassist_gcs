@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
     <meta name="google-adsense-account" content="ca-pub-2370605571916318">
-    <meta name="description" content="Free interactive psychrometric chart for HVAC air property analysis. Calculate humidity ratio, enthalpy, wet bulb, dew point, and specific volume with elevation support.">
-    <meta name="keywords" content="psychrometric chart, HVAC, air properties, humidity, enthalpy, wet bulb, dew point, ASHRAE, psychrometrics">
+    <meta name="description" content="Free interactive psychrometric chart for HVAC air property analysis. Calculate humidity ratio, enthalpy, wet bulb, dew point, and specific volume with elevation support and process analysis.">
+    <meta name="keywords" content="psychrometric chart, HVAC, air properties, humidity, enthalpy, wet bulb, dew point, ASHRAE, psychrometrics, comfort zone, process analysis">
     <link rel="canonical" href="https://engrassist.com/psychrometric.html">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Interactive Psychrometric Chart - HVAC Air Analysis">
-    <meta property="og:description" content="Free interactive psychrometric chart for HVAC air property analysis with elevation support.">
+    <meta property="og:description" content="Free interactive psychrometric chart for HVAC air property analysis with elevation support and ASHRAE comfort zone overlay.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://engrassist.com/psychrometric.html">
     <meta property="og:image" content="https://engrassist.com/images/logo_coffee.png">
@@ -22,27 +22,27 @@
     <meta name="twitter:image" content="https://engrassist.com/images/logo_coffee.png">
 
     <title>Interactive Psychrometric Chart - EngrAssist</title>
-    
+
     <!-- Preload critical resources -->
     <link rel="preload" href="header.html" as="fetch" crossorigin>
     <link rel="preload" href="footer.html" as="fetch" crossorigin>
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="scripts.js" as="script">
-    
+
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- JavaScript -->
     <script src="scripts.js" defer></script>
     <link rel="stylesheet" href="calculators/calculators.css">
     <script src="calculators/psychrometric.js" defer></script>
-    <!-- Google AdSense -->
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HVPYW6169"></script>
     <script>
@@ -52,10 +52,9 @@
       gtag('config', 'G-9HVPYW6169');
     </script>
 
-    
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370605571916318"
      crossorigin="anonymous"></script>
-
 </head>
 <body>
     <!-- Loading Spinner -->
@@ -66,71 +65,100 @@
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
+    <!-- Hover Tooltip (positioned absolutely over the page) -->
+    <div id="psychHoverTooltip" class="psych-hover-tooltip">
+        <div class="hover-tooltip-row"><span class="hover-tooltip-label">DB:</span> <span id="hoverDB">--</span></div>
+        <div class="hover-tooltip-row"><span class="hover-tooltip-label">WB:</span> <span id="hoverWB">--</span></div>
+        <div class="hover-tooltip-row"><span class="hover-tooltip-label">DP:</span> <span id="hoverDP">--</span></div>
+        <div class="hover-tooltip-row"><span class="hover-tooltip-label">RH:</span> <span id="hoverRH">--</span></div>
+        <div class="hover-tooltip-row"><span class="hover-tooltip-label">W:</span> <span id="hoverW">--</span></div>
+        <div class="hover-tooltip-row"><span class="hover-tooltip-label">h:</span> <span id="hoverH">--</span></div>
+    </div>
+
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="container">
                 <h1 class="hero-title">Interactive Psychrometric Chart</h1>
-                <p class="hero-subtitle">Professional HVAC psychrometric analysis tool with interactive charting, precise calculations, and data export capabilities</p>
+                <p class="hero-subtitle">Professional HVAC psychrometric analysis tool with interactive charting, ASHRAE comfort zones, process analysis, and data export</p>
             </div>
         </section>
 
         <!-- Chart Controls -->
         <section class="content-section">
             <div class="container">
+                <!-- Top Controls Bar -->
                 <div class="psych-controls-bar">
-                    <div class="control-group">
-                        <label for="elevationSelect">Elevation:</label>
-                        <select id="elevationSelect" onchange="switchElevation()">
-                            <option value="sealevel">Sea Level (29.921 inHg)</option>
-                            <option value="5000ft">5,000 ft (24.896 inHg)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label for="inputMode">Input Mode:</label>
-                        <select id="inputMode" onchange="switchInputMode()">
-                            <option value="click">Click on Chart</option>
-                            <option value="manual">Manual Entry</option>
-                        </select>
+                    <div class="psych-controls-left">
+                        <div class="control-group">
+                            <label for="elevationSelect">Elevation:</label>
+                            <select id="elevationSelect" onchange="switchElevation()">
+                                <option value="sealevel">Sea Level (29.921 inHg)</option>
+                                <option value="1000ft">1,000 ft (28.856 inHg)</option>
+                                <option value="2500ft">2,500 ft (27.315 inHg)</option>
+                                <option value="5000ft">5,000 ft (24.896 inHg)</option>
+                                <option value="7500ft">7,500 ft (22.653 inHg)</option>
+                                <option value="custom">Custom Pressure...</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Pressure (hidden by default) -->
+                        <div id="customPressurePanel" class="control-group psych-custom-pressure" style="display: none;">
+                            <label for="customPressureInput">Pressure (psia):</label>
+                            <input type="number" id="customPressureInput" step="0.001" min="8" max="16" value="14.696" class="psych-pressure-input">
+                            <button class="btn-psych-sm" onclick="applyCustomPressure()">Apply</button>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="inputMode">Input Mode:</label>
+                            <select id="inputMode" onchange="switchInputMode()">
+                                <option value="click">Click on Chart</option>
+                                <option value="manual">Manual Entry</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="button-group">
-                        <button class="btn-psych" onclick="toggleConnectMode()">
-                            <span id="connectModeText">Connect Mode: OFF</span>
+                    <div class="psych-controls-right">
+                        <button id="connectModeBtn" class="btn-psych" onclick="toggleConnectMode()">
+                            <span id="connectModeText">Process Lines: OFF</span>
                         </button>
-                        <button class="btn-psych-secondary" onclick="clearAllPoints()">Clear All Points</button>
-                        <button class="btn-psych-export" onclick="exportData()">Export Data</button>
+                        <button id="comfortZoneBtn" class="btn-psych" onclick="toggleComfortZone()">
+                            <span id="comfortZoneText">Comfort Zone: OFF</span>
+                        </button>
+                        <button class="btn-psych-secondary" onclick="clearAllPoints()">Clear All</button>
+                        <button class="btn-psych-export" onclick="exportData()">Export CSV</button>
+                        <button class="btn-psych-export" onclick="saveChartAsPNG()">Save PNG</button>
                     </div>
                 </div>
 
                 <!-- Manual Input Panel (Hidden by default) -->
                 <div id="manualInputPanel" class="manual-input-panel" style="display: none;">
                     <h3>Manual Point Entry</h3>
+                    <p class="manual-input-hint">Select any two known properties, enter their values, and click Add Point.</p>
                     <div class="manual-input-grid">
                         <div class="input-selector">
                             <label>Select Two Variables:</label>
                             <div class="variable-checkboxes">
-                                <label><input type="checkbox" name="var1" value="db" onchange="selectVariable(this)"> Dry Bulb (°F)</label>
-                                <label><input type="checkbox" name="var1" value="wb" onchange="selectVariable(this)"> Wet Bulb (°F)</label>
+                                <label><input type="checkbox" name="var1" value="db" onchange="selectVariable(this)"> Dry Bulb (&deg;F)</label>
+                                <label><input type="checkbox" name="var1" value="wb" onchange="selectVariable(this)"> Wet Bulb (&deg;F)</label>
                                 <label><input type="checkbox" name="var1" value="rh" onchange="selectVariable(this)"> Relative Humidity (%)</label>
-                                <label><input type="checkbox" name="var1" value="dp" onchange="selectVariable(this)"> Dew Point (°F)</label>
-                                <label><input type="checkbox" name="var1" value="w" onchange="selectVariable(this)"> Humidity Ratio</label>
+                                <label><input type="checkbox" name="var1" value="dp" onchange="selectVariable(this)"> Dew Point (&deg;F)</label>
+                                <label><input type="checkbox" name="var1" value="w" onchange="selectVariable(this)"> Humidity Ratio (lb/lb)</label>
                                 <label><input type="checkbox" name="var1" value="h" onchange="selectVariable(this)"> Enthalpy (BTU/lb)</label>
                             </div>
                         </div>
-                        
+
                         <div class="input-values">
                             <div class="form-group">
                                 <label for="manualVar1">Variable 1:</label>
                                 <input type="number" id="manualVar1" step="0.01" disabled>
-                                <span id="var1Label">-</span>
+                                <span id="var1Label" class="input-unit-label">-</span>
                             </div>
                             <div class="form-group">
                                 <label for="manualVar2">Variable 2:</label>
                                 <input type="number" id="manualVar2" step="0.01" disabled>
-                                <span id="var2Label">-</span>
+                                <span id="var2Label" class="input-unit-label">-</span>
                             </div>
                             <div class="form-group">
                                 <label for="pointLabel">Point Label:</label>
@@ -158,6 +186,14 @@
                     </div>
                 </div>
 
+                <!-- Process Analysis Panel -->
+                <div class="psych-results-panel psych-process-panel">
+                    <h3>Process Analysis</h3>
+                    <div id="processAnalysis" class="results-table">
+                        <p class="info-text">Enable Process Lines and add at least 2 points to see process analysis.</p>
+                    </div>
+                </div>
+
                 <!-- Points List -->
                 <div class="psych-points-list">
                     <h3>Active Points (<span id="pointCount">0</span>/12)</h3>
@@ -172,44 +208,51 @@
         <section class="content-section" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title">How to Use This Tool</h2>
-                
+
                 <div class="info-grid">
                     <div class="info-card">
-                        <div class="info-icon">🖱️</div>
+                        <div class="info-icon">&#128433;</div>
                         <h4>Click Mode</h4>
-                        <p>Click anywhere on the chart to place a point. The tool will calculate all psychrometric properties automatically.</p>
+                        <p>Click anywhere on the chart to place a point. The tool automatically calculates all psychrometric properties using ASHRAE formulas.</p>
                     </div>
-                    
+
                     <div class="info-card">
-                        <div class="info-icon">⌨️</div>
+                        <div class="info-icon">&#9000;</div>
                         <h4>Manual Entry</h4>
-                        <p>Select any two variables and enter their values. The tool will calculate the remaining properties and plot the point.</p>
+                        <p>Select any two known variables and enter their values. The tool solves for all remaining properties and plots the point on the chart.</p>
                     </div>
-                    
+
                     <div class="info-card">
-                        <div class="info-icon">🔗</div>
-                        <h4>Connect Points</h4>
-                        <p>Enable connect mode to draw lines between points. Useful for visualizing HVAC processes.</p>
+                        <div class="info-icon">&#128279;</div>
+                        <h4>Process Lines</h4>
+                        <p>Enable process lines to connect points and visualize HVAC processes. View sensible heat ratio, capacity per CFM, and tonnage calculations.</p>
                     </div>
-                    
+
                     <div class="info-card">
-                        <div class="info-icon">✏️</div>
-                        <h4>Edit Points</h4>
-                        <p>Click on any point in the points list to edit its label or delete it. Reorder points by connecting them in sequence.</p>
+                        <div class="info-icon">&#127777;</div>
+                        <h4>Comfort Zone</h4>
+                        <p>Toggle the ASHRAE Standard 55 comfort zone overlay to visualize summer and winter thermal comfort boundaries on the chart.</p>
                     </div>
                 </div>
 
                 <h3 style="margin-top: 2rem; color: #2c3e50;">Calculated Properties</h3>
                 <ul style="margin-left: 2rem; line-height: 2; color: #34495e;">
-                    <li><strong>Dry Bulb Temperature</strong> - Actual air temperature measured by standard thermometer</li>
-                    <li><strong>Wet Bulb Temperature</strong> - Temperature measured with wetted thermometer, indicates evaporative cooling potential</li>
-                    <li><strong>Dew Point Temperature</strong> - Temperature at which moisture begins to condense</li>
-                    <li><strong>Relative Humidity</strong> - Percentage of moisture in air relative to saturation</li>
-                    <li><strong>Humidity Ratio</strong> - Pounds of water vapor per pound of dry air</li>
-                    <li><strong>Enthalpy</strong> - Total heat content of air in BTU per pound of dry air</li>
-                    <li><strong>Specific Volume</strong> - Cubic feet per pound of dry air</li>
-                    <li><strong>Vapor Pressure</strong> - Partial pressure of water vapor in the air</li>
-                    <li><strong>Sensible Heat Ratio</strong> - Ratio of sensible to total heat (calculated between two points)</li>
+                    <li><strong>Dry Bulb Temperature</strong> &mdash; Actual air temperature measured by standard thermometer</li>
+                    <li><strong>Wet Bulb Temperature</strong> &mdash; Temperature measured with wetted thermometer, indicates evaporative cooling potential</li>
+                    <li><strong>Dew Point Temperature</strong> &mdash; Temperature at which moisture begins to condense</li>
+                    <li><strong>Relative Humidity</strong> &mdash; Percentage of moisture in air relative to saturation</li>
+                    <li><strong>Humidity Ratio</strong> &mdash; Grains of water vapor per pound of dry air</li>
+                    <li><strong>Enthalpy</strong> &mdash; Total heat content of air in BTU per pound of dry air</li>
+                    <li><strong>Specific Volume</strong> &mdash; Cubic feet per pound of dry air</li>
+                    <li><strong>Vapor Pressure</strong> &mdash; Partial pressure of water vapor in the air</li>
+                </ul>
+
+                <h3 style="margin-top: 2rem; color: #2c3e50;">Process Analysis (with Process Lines enabled)</h3>
+                <ul style="margin-left: 2rem; line-height: 2; color: #34495e;">
+                    <li><strong>Process Type</strong> &mdash; Automatic classification (sensible heating/cooling, humidification, etc.)</li>
+                    <li><strong>Sensible Heat Ratio (SHR)</strong> &mdash; Ratio of sensible to total heat change</li>
+                    <li><strong>Capacity per CFM</strong> &mdash; Sensible, latent, and total BTU/hr per CFM of airflow</li>
+                    <li><strong>Tons per 1000 CFM</strong> &mdash; Cooling tonnage required per 1000 CFM</li>
                 </ul>
 
                 <!-- Disclaimer -->
